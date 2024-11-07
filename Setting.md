@@ -14,6 +14,9 @@ kyg_appは、XAMPPを使用してLaravelで開発し、Node.jsとLaravel Breeze�
 - **Node.js**: [公式サイト](https://nodejs.org/en/)からダウンロード
 - **PHP**: Laravelに推奨されるPHPバージョンをインストール（通常は8.x）
 
+**※すでにインストールされている場合はインストール不要
+追記がメインで進めてください**
+
 ## インストール手順
 
 1. **XAMPPのインストール**
