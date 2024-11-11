@@ -16,7 +16,7 @@ class UserSeeder extends Seeder
         User::factory()->create(
             array_merge($this->otherData(true), [
                 'name' => 'admin',
-                'furigana_name' => 'admin',
+                'furigana' => 'admin',
                 'role' => User::ADMIN,
                 'email' => 'admin@admin.admin',
                 'password' => 'adminp@ssword1234',
@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
         User::factory()->create(
             array_merge($this->otherData(false), [
                 'name' => 'user',
-                'furigana_name' => 'user',
+                'furigana' => 'user',
                 'role' => User::USER,
                 'email' => 'user@user.user',
                 'password' => 'p@ssword1234',
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
             User::factory()->create(
                 array_merge($this->otherData(false), [
                     'name' => fake()->name(),
-                    'furigana_name' => fake()->name(),
+                    'furigana' => fake()->name(),
                     'role' => User::USER,
                     'email' => fake()->email(),
                     'password' => 'p@ssword1234',

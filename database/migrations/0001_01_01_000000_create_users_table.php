@@ -16,15 +16,16 @@ return new class extends Migration
             $table->id();
             $table->string('role', 10)->default(User::USER);
             $table->string('name');
-            $table->string('furigana_name');
+            $table->string('furigana');
             $table->string('email')->unique();
             $table->string('password');
             $table->timestamp('email_verified_at')->nullable();
-            $table->string('phone_number');
+            $table->string('phone_number', 15);
             $table->integer('post_code', 10)->autoIncrement(false);
             $table->string('address');
             $table->string('building')->nullable();
             $table->time('preferred_contact_time')->nullable();
+            $table->json('how_did_you_hear')->nullable();
             $table->boolean('is_newsletter_subscription')->default(FALSE);
             $table->rememberToken();
             $table->timestamps();

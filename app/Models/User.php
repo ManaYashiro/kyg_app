@@ -22,8 +22,16 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'furigana',
         'email',
         'password',
+        'phone_number',
+        'post_code',
+        'address',
+        'building',
+        'preferred_contact_time',
+        'how_did_you_hear',
+        'is_newsletter_subscription',
     ];
 
     /**
@@ -46,6 +54,17 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'how_did_you_hear' => 'array',
         ];
+    }
+
+    public function jsonToString($data)
+    {
+        return json_decode($data, true);
+    }
+
+    public function stringToJson($data)
+    {
+        return json_encode($data);
     }
 }
