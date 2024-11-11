@@ -13,21 +13,21 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
-            $table->tinyInteger('sort_number');
-            $table->dateTime('reservation_datetime');
-            $table->string('vehicle_name');
-            $table->string('registration_number');
-            $table->enum('vehicle_type', ['セダン', 'SUV', 'ワゴン', 'トラック','その他']);
-            $table->string('license_plate');
-            $table->date('inspection_due_date');
-            $table->string('additional_services');
-            $table->string('past_service_history');
-            $table->text('message');
+            $table->unsignedBigInteger('user_id')->nullable()->comment('ユーザーID');
+            $table->tinyInteger('sort_number')->nullable()->comment('ソート番号');
+            $table->dateTime('reservation_datetime')->nullable()->comment('予約日時');
+            $table->string('vehicle_name')->nullable()->comment('車両名');
+            $table->string('registration_number')->nullable()->comment('車両登録番号');
+            $table->enum('vehicle_type', ['セダン', 'SUV', 'ワゴン', 'トラック','その他'])->nullable()->comment('車両タイプ');
+            $table->string('license_plate')->nullable()->comment('ナンバープレート ');
+            $table->date('inspection_due_date')->nullable()->comment('車検満了日');
+            $table->string('additional_services')->nullable()->comment('追加整備');
+            $table->string('past_service_history')->nullable()->comment('過去利用履歴の有無');
+            $table->text('message')->nullable()->comment('メッセージ');
             $table->timestamps();
 
             //外部キー
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
 
         });
     }

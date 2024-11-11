@@ -8,7 +8,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/appointments', [AppointmentsController::class, 'index']);
+Route::get('/appointments', [AppointmentsController::class, 'index'])->name('appointments.index');
+Route::post('/appointments', [AppointmentsController::class, 'store'])->name('appointments.store');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
