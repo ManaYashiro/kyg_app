@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChangeAccountController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\AdminMiddleware;
 use Illuminate\Support\Facades\Route;
@@ -7,23 +8,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('top');
 });
-
-Route::get('/reservation-history', function () {
-    return view('reservationHistory');
-})->name('reservation.history');
-
-Route::get('/reservation-confirmation', function () {
-    return view('reservationConfirmation');
-})->name('reservation.confirmation');
-
-Route::get('/change-account-information', function () {
-    return view('changeAccountInformation');
-})->name('account.information');
-
-Route::get('/account-termination-request', function () {
-    return view('accountTerminationRequest');
-})->name('account.termination');
-
 
 Route::middleware('auth', 'verified')->group(function () {
 
@@ -42,9 +26,26 @@ Route::middleware('auth', 'verified')->group(function () {
         return view('mypage');
     })->name('mypage');
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/reservation-history', function () {
+        return view('reservationHistory');
+    })->name('reservation.history');
+
+    Route::get('/reservation-confirmation', function () {
+        return view('reservationConfirmation');
+    })->name('reservation.confirmation');
+
+    // Route::get('/change-account-information', function () {
+    //     return view('changeAccountInformation');
+    // })->name('account.information');
+
+    Route::get('/account-termination-request', function () {
+        return view('accountTerminationRequest');
+    })->name('account.termination');
+
+
+    Route::get('/change-account-information', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/change-account-information', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/change-account-information', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 require __DIR__ . '/auth.php';

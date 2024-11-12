@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
             'post_code' => 5320011,
             'address' => '西中島南方',
             'building' => 'NLC Building',
-            'preferred_contact_time' => $isAdmin ? null : fake()->time('H:i'),
+            'preferred_contact_time' => $isAdmin ? null : '9-12',
             'is_newsletter_subscription' => $isAdmin ? FALSE : rand(0, 1),
         ];
     }

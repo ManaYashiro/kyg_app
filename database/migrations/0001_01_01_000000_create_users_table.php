@@ -24,7 +24,7 @@ return new class extends Migration
             $table->integer('post_code', 10)->autoIncrement(false);
             $table->string('address');
             $table->string('building')->nullable();
-            $table->time('preferred_contact_time')->nullable();
+            $table->string('preferred_contact_time', 15)->nullable();
             $table->json('how_did_you_hear')->nullable();
             $table->boolean('is_newsletter_subscription')->default(FALSE);
             $table->rememberToken();
