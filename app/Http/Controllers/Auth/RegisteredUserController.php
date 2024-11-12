@@ -24,15 +24,47 @@ class RegisteredUserController extends Controller
         $how_did_you_hear = [
             (object) [
                 'id' => 1,
-                'name' => 'Google',
+                'name' => 'Google、Yahoo!等のインターネット広告',
             ],
             (object) [
                 'id' => 2,
-                'name' => 'Youtube',
+                'name' => 'Youtube、Twitter、Facebook等のSNS',
             ],
             (object) [
                 'id' => 3,
-                'name' => 'Home Page',
+                'name' => '弊社のホームページ',
+            ],
+            (object) [
+                'id' => 4,
+                'name' => '弊社からのご案内ハガキや郵便物',
+            ],
+            (object) [
+                'id' => 5,
+                'name' => '弊社のホームページ',
+            ],
+            (object) [
+                'id' => 6,
+                'name' => '店頭のポップ看板・のぼり',
+            ],
+            (object) [
+                'id' => 7,
+                'name' => '道路脇の看板やその他の屋外広告',
+            ],
+            (object) [
+                'id' => 8,
+                'name' => '新聞の折込チラシ',
+            ],
+            (object) [
+                'id' => 9,
+                'name' => '地域情報誌・フリーペーパー',
+            ],
+            (object) [
+                'id' => 10,
+                'name' => '家族・知人からの紹介',
+            ],
+            (object) [
+                'id' => 11,
+                'name' => '職場や取引先からの紹介',
             ],
         ];
         return view('auth.register', compact('how_did_you_hear'));

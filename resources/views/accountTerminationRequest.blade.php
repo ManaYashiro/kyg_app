@@ -15,23 +15,27 @@
                         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                             <div class="bg-white overflow-hidden sm:rounded-lg">
 
-                                <form method="POST" action="{{ route('login') }}">
+                                <form method="POST" action="{{ route('profile.destroy') }}">
                                     @csrf
+                                    @method('DELETE') <!-- DELETEメソッドを指定 -->
 
-                                    <!-- password -->
+                                    <!-- 現在のパスワード -->
                                     <div class="mt-4">
                                         <x-input-label for="password" :value="__('現在のパスワード')" />
-                                        <x-text-input id="password" class="block mt-1 w-full" type="text"
-                                            name="password" :value="old('password')" required autocomplete="username" />
+                                        <x-text-input id="password" class="block mt-1 w-full" type="password"
+                                            name="password" :value="old('password')" required />
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
 
-                                    <!-- newsletter_subscription-->
+                                    <!-- 退会同意 -->
                                     <div class="mt-4">
-                                        <x-input-label for="preferred_contact_time" :value="__('会員登録を解除します')" />
-                                        <x-checkbox name="terms" value="1" label="同意します" :checked="old('terms', false)"
-                                        :disabled="false" />
-                                        <x-input-error :messages="$errors->get('newsletter_subscription')" class="mt-2" />
+                                        <x-input-label for="withdrawal" :value="__('会員登録を解除します')" />
+                                        <div class="ml-1 mt-2 flex flex-row gap-3 items-center">
+                                            <x-text-input id="withdrawal" type="checkbox" name="withdrawal"
+                                                :checked="old('withdrawal') ? true : false" />
+                                            <x-input-label for="withdrawal" :value="__('同意します')" />
+                                        </div>
+                                        <x-input-error :messages="$errors->get('withdrawal')" class="mt-2" />
                                     </div>
 
                                     <div class="flex items-center justify-end mt-4">

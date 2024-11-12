@@ -21,7 +21,7 @@
         <div>
             会員情報
             <div>
-                <a href="{{ route('account.information') }}" class="btn btn-primary">登録情報の変更</a>
+                <a href="{{ route('profile.edit') }}" class="btn btn-primary">登録情報の変更</a>
             </div>
             <div>
                 <a href="{{ route('account.termination') }}" class="btn btn-primary">退会申請</a>
