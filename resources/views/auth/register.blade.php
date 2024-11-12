@@ -53,12 +53,12 @@
         <div class="mt-4">
             <x-input-label for="post_code" :value="__('郵便番号')" />
             <div class="flex items-center space-x-2">
-                <x-text-input id="post_code" class="block mt-1 w-full" type="text" name="post_code"
+                <x-text-input id="post_code" class="block mt-1 w-full flex-1" type="text" name="post_code"
                     :value="old('post_code')" required />
 
                 <!-- 検索ボタン -->
                 <button type="button" id="search-postcode"
-                    class="px-4 py-2 bg-blue-500 text-white rounded-md font-semibold text-xs hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
+                    class="px-4 py-3 bg-blue-500 text-white rounded-md font-semibold text-xs hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300">
                     検索
                 </button>
             </div>

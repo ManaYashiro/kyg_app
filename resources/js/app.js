@@ -1,12 +1,9 @@
-import './bootstrap';
+import "./bootstrap";
 
-import Alpine from 'alpinejs';
+import Alpine from "alpinejs";
 
 window.Alpine = Alpine;
 
 Alpine.start();
 
-import $ from 'jquery';
-window.$ = $;
-
-import './postalCodeSearch.js';
+import "./postalCodeSearch.js";
