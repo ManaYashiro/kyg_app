@@ -13,7 +13,6 @@
                     <form method="POST" action="{{ route('appointments.store') }}">
                         @csrf <!-- CSRFトークンの追加 -->
                         <div class="mt-4">
-                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             <x-input-label for="vehicle_name" value="車検予約" />
                             <x-input-label for="reservation_datetime" value="予約日時" />
                             <x-text-input id="reservation_datetime" class="block mt-1 w-full" name='reservation_datetime'/>
@@ -34,7 +33,7 @@
                         <div class="mt-4">
                             <x-input-label for="vehicle_type_{{ $i }}" value="車両タイプ" />
                             <x-select id="vehicle_type_{{ $i }}" class="block mt-1 w-full" name="vehicle_type[]">
-                                <option value="" disabled {{ old('vehicle_type.'.$i) == '' ? 'selected' : '' }}>選択してください</option>
+                                <option value="" {{ old('vehicle_type.'.$i) == '' ? 'selected' : '' }}>選択してください</option>
                                 <option value="sedan" {{ old('vehicle_type.'.$i) == 'sedan' ? 'selected' : '' }}>セダン</option>
                                 <option value="suv" {{ old('vehicle_type.'.$i) == 'suv' ? 'selected' : '' }}>SUV</option>
                                 <option value="wagon" {{ old('vehicle_type.'.$i) == 'wagon' ? 'selected' : '' }}>ワゴン</option>
