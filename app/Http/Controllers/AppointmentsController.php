@@ -17,41 +17,13 @@ class  AppointmentsController extends Controller
         //車両名を判定のために受け取る
         $vehicle_names = $request->input('vehicle_name',[]);
 
-        //1台目が入力されて、2台目が未入力の場合
-        // if (isset($vehicle_names[0]) && (empty($vehicle_names[1]))) {
-        //     // 1台目だけのバリデーション
-        //     $validatedData = $request->validate([
-        //         'reservation_datetime' => 'nullable|date',
-        //         'vehicle_name.0' => 'required|string|max:255',
-        //         'registration_number.0' => 'required|string|max:255',
-        //         'vehicle_type.0' => 'required|string|max:255',
-        //         'license_plate.0' => 'required|string|max:255',
-        //         'inspection_due_date.0' => 'required|date',
-        //         'additional_services.0' => 'array|nullable',
-        //         'past_service_history' => 'required|string',
-        //         'message' => 'nullable|string|max:255',
-        //     ]);
-        // } else {
-        //     // 両方に対するバリデーション
-        //     $validatedData = $request->validate([
-        //         'reservation_datetime' => 'nullable|date',
-        //         'vehicle_name.*' => 'required|string|max:255',
-        //         'registration_number.*' => 'required|string|max:255',
-        //         'vehicle_type.*' => 'required|string|max:255',
-        //         'license_plate.*' => 'required|string|max:255',
-        //         'inspection_due_date.*' => 'required|date',
-        //         'additional_services.*' => 'array|nullable',
-        //         'past_service_history' => 'required|string',
-        //         'message' => 'nullable|string|max:255',
-        //     ]);
-        // }
         // バリデーションルール初期化
         $validationRules = [
             'reservation_datetime' => 'nullable|date',
             'past_service_history' => 'required|string',
             'message' => 'nullable|string|max:255',
         ];
-
+        // 車両数に応じてバリデーションルールを追加
         foreach ($vehicle_names as $index => $vehicle_name) {
             if (!empty($vehicle_name)) {
                 // 車両名が入力されている場合にバリデーションルールを追加
@@ -63,15 +35,30 @@ class  AppointmentsController extends Controller
                 $validationRules["additional_services.$index"] = 'array|nullable';
             }
         }
+        //バリデーションエラーメッセージ
+        $validatedData = $request->validate(
+            $validationRules,
+            [
+                'past_service_history.required' => '過去のサービス履歴は必須項目です。',
+                'vehicle_name.*.required' => '車両名は必須項目です。',
+                'registration_number.*.required' => '登録番号は必須項目です。',
+                'vehicle_type.*.required' => '車両タイプは必須項目です。',
+                'license_plate.*.required' => 'ナンバープレートは必須項目です。',
+                'inspection_due_date.*.required' => '車検期限を選択してください。',
+            ]
+        );
 
+        // バリデーションを実行
         $validatedData = $request->validate($validationRules);
 
         $userId = 1; // 仮のユーザーID
-        $sortNumber = 1; // 仮のソート番号
+        $sortNumber = 1; // ソート番号
 
         // 各車両のデータをループして保存
         foreach ($validatedData['vehicle_name'] as $index => $vehicleName) {
             $data = [
+                'user_id' => $userId,
+                'sort_number' => $sortNumber,
                 'reservation_datetime' => $validatedData['reservation_datetime'],
                 'vehicle_name' => $vehicleName,
                 'registration_number' => $validatedData['registration_number'][$index],
@@ -83,11 +70,10 @@ class  AppointmentsController extends Controller
                 : null,
                 'past_service_history' => $validatedData['past_service_history'],
                 'message' => $validatedData['message'],
-                'user_id' => $userId,
-                'sort_number' => $sortNumber,
             ];
             // 新しいレコードを作成
             Appointments::create($data);
+            $sortNumber++;
         }
         return redirect()->route('appointments.index')->with('success', '車検予約が保存されました。');
     }
