@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,12 +14,22 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('role', 10)->default(User::USER);
             $table->string('name');
+            $table->string('furigana');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('phone_number', 15);
+            $table->integer('post_code', 10)->autoIncrement(false);
+            $table->string('address');
+            $table->string('building')->nullable();
+            $table->string('preferred_contact_time', 15)->nullable();
+            $table->json('how_did_you_hear')->nullable();
+            $table->boolean('is_newsletter_subscription')->default(FALSE);
             $table->rememberToken();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

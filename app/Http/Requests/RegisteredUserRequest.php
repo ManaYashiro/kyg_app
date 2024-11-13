@@ -2,35 +2,36 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
-class ProfileUpdateRequest extends FormRequest
+class RegisteredUserRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\Rule|array|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
     public function rules(): array
     {
         return [
             'name' => 'required|string',
             'furigana' => 'required|string',
-            'email' => [
-                'required',
-                'string',
-                'lowercase',
-                'email',
-                'max:255',
-                Rule::unique(User::class)->ignore($this->user()->id),
-            ],
-            'password' => 'nullable|string|min:8|confirmed',
-            'password_confirmation' => 'nullable|string|min:8|same:password',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'password_confirmation' => 'required|string|min:8',
             'phone_number' => 'required|string|min:10',
             'post_code' => 'required|integer',
             'address' => 'required|string',
+            'preferred_contact_time' => 'nullable|in:9-12,12-13,13-15,15-17,17-19,no_preference',            'is_newsletter_subscription' => 'nullable|boolean',
+            'how_did_you_hear' => 'array',
         ];
     }
 
@@ -50,7 +51,6 @@ class ProfileUpdateRequest extends FormRequest
 
             'password_confirmation.string' => 'パスワード確認は文字列でなければなりません',
             'password_confirmation.min' => 'パスワード確認は最低8文字以上でなければなりません',
-            'password_confirmation.same' => '確認用パスワードはパスワードと一致していなければなりません',
 
             'phone_number.string' => '電話番号は文字列でなければなりません',
             'phone_number.min' => '電話番号は10桁以上でなければなりません',
@@ -62,5 +62,4 @@ class ProfileUpdateRequest extends FormRequest
             'building.string' => '建物名は文字列でなければなりません',
         ];
     }
-
 }
