@@ -21,10 +21,7 @@ Route::middleware('auth', 'verified')->group(function () {
             return view('admin.dashboard');
         })->name('dashboard');
 
-        Route::get('/userList', [UserController::class, 'index'])->name('userList');
-        Route::get('/userList/{id}/edit', [UserController::class, 'edit'])->name('users.edit');
-        Route::put('/userList/{id}', [UserController::class, 'update'])->name('users.update');
-        Route::delete('/userList/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+        Route::resource('userList', UserController::class);
     });
 
     Route::get('/mypage', function () {
