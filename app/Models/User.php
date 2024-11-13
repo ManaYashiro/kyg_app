@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     public const ADMIN = 'admin';
     public const USER = 'user';
@@ -56,15 +57,5 @@ class User extends Authenticatable
             'password' => 'hashed',
             'how_did_you_hear' => 'array',
         ];
-    }
-
-    public function jsonToString($data)
-    {
-        return json_decode($data, true);
-    }
-
-    public function stringToJson($data)
-    {
-        return json_encode($data);
     }
 }

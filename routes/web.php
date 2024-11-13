@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AppointmentsController;
@@ -23,6 +24,7 @@ Route::middleware('auth', 'verified')->group(function () {
             return view('admin.dashboard');
         })->name('dashboard');
 
+        Route::resource('stores', StoreController::class);
         Route::resource('userList', UserController::class);
         Route::resource('notificationSetting', NotificationController::class);
     });
