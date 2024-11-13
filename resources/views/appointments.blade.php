@@ -13,6 +13,7 @@
                     <form method="POST" action="{{ route('appointments.store') }}">
                         @csrf <!-- CSRFトークンの追加 -->
                         <div class="mt-4">
+                            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
                             <x-input-label for="vehicle_name" value="車検予約" />
                             <x-input-label for="reservation_datetime" value="予約日時" />
                             <x-text-input id="reservation_datetime" class="block mt-1 w-full" name='reservation_datetime'/>
@@ -21,38 +22,31 @@
                         <div class="mt-4">
                             <x-input-label for="vehicle_name_{{ $i }}" value="車両名" />
                             <x-text-input id="vehicle_name_{{ $i }}" class="block mt-1 w-full" name="vehicle_name[]"
-                                        :value="old('vehicle_name.' . $i)" />
+                                :value="old('vehicle_name.' . $i)" />
                             <x-input-error :messages="$errors->get('vehicle_name.'.$i)" class="mt-2" />
                         </div>
                         <div class="mt-4">
                             <x-input-label for="registration_number_{{ $i }}" value="車両番号登録" />
                             <x-text-input id="registration_number_{{ $i }}" class="block mt-1 w-full" name="registration_number[]"
-                                        :value="old('registration_number.' . $i)" />
+                                :value="old('registration_number.' . $i)" />
                             <x-input-error :messages="$errors->get('registration_number.'.$i)" class="mt-2" />
                         </div>
                         <div class="mt-4">
                             <x-input-label for="vehicle_type_{{ $i }}" value="車両タイプ" />
-                            <x-select id="vehicle_type_{{ $i }}" class="block mt-1 w-full" name="vehicle_type[]"
-                                    :options="[
-                                        '' => '選択して下さい',
-                                        '1' => 'セダン',
-                                        '2' => 'SUV',
-                                        '3' => 'ワゴン',
-                                        '4' => 'トラック',
-                                        '5' => 'その他',
-                                    ]" />
+                            <x-select id="vehicle_type_{{ $i }}" class="block mt-1 w-full" name="vehicle_type[]">
+                                <option value="" disabled {{ old('vehicle_type.'.$i) == '' ? 'selected' : '' }}>選択してください</option>
+                                <option value="sedan" {{ old('vehicle_type.'.$i) == 'sedan' ? 'selected' : '' }}>セダン</option>
+                                <option value="suv" {{ old('vehicle_type.'.$i) == 'suv' ? 'selected' : '' }}>SUV</option>
+                                <option value="wagon" {{ old('vehicle_type.'.$i) == 'wagon' ? 'selected' : '' }}>ワゴン</option>
+                                <option value="track" {{ old('vehicle_type.'.$i) == 'track' ? 'selected' : '' }}>トラック</option>
+                                <option value="other" {{ old('vehicle_type.'.$i) == 'other' ? 'selected' : '' }}>その他</option>                                </option>
+                            </x-select>
                             <x-input-error :messages="$errors->get('vehicle_type.'.$i)" class="mt-2" />
-                        </div>
-                        <div class="mt-4">
-                            <x-input-label for="license_plate_{{ $i }}" value="ナンバープレート" />
-                            <x-text-input id="license_plate_{{ $i }}" class="block mt-1 w-full" name="license_plate[]"
-                                        :value="old('license_plate.' . $i)" />
-                            <x-input-error :messages="$errors->get('license_plate.'.$i)" class="mt-2" />
                         </div>
                         <div class="mt-4">
                             <x-input-label for="inspection_due_date_{{ $i }}" value="車両満了日" />
                             <x-text-input id="inspection_due_date_{{ $i }}" class="block mt-1 w-full" type="date" name="inspection_due_date[]"
-                                        :value="old('inspection_due_date.' . $i)" />
+                                :value="old('inspection_due_date.' . $i)" />
                             <x-input-error :messages="$errors->get('inspection_due_date.'.$i)" class="mt-2" />
                         </div>
                         <div class="mt-4">
@@ -76,6 +70,7 @@
                                 :disabled="false"
                                 class="mt-2" />
                         </div>
+
                         @endfor
                         <!-- 過去利用履歴 -->
                         <div class="mt-4">
@@ -113,7 +108,7 @@
                         <!-- 登録ボタン -->
                         <div class="mt-6">
                             <x-primary-button class="ml-4">
-                                予約
+                                {{ __('予約') }}
                             </x-primary-button>
                         </div>
                     </form>

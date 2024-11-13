@@ -16,13 +16,17 @@ class  AppointmentsController extends Controller
     {
         //車両名を判定のために受け取る
         $vehicle_names = $request->input('vehicle_name',[]);
+        $userId = $request->input('user_id');
 
+        \Log::info($userId);
+        \Log::info( 'aaaaa');
         // バリデーションルール初期化
         $validationRules = [
             'reservation_datetime' => 'nullable|date',
             'past_service_history' => 'required|string',
             'message' => 'nullable|string|max:255',
         ];
+        \Log::info( 'bbbb');
         // 車両数に応じてバリデーションルールを追加
         foreach ($vehicle_names as $index => $vehicle_name) {
             if (!empty($vehicle_name)) {
@@ -35,6 +39,7 @@ class  AppointmentsController extends Controller
                 $validationRules["additional_services.$index"] = 'array|nullable';
             }
         }
+        \Log::info( 'cccc');
         //バリデーションエラーメッセージ
         $validatedData = $request->validate(
             $validationRules,
@@ -43,14 +48,13 @@ class  AppointmentsController extends Controller
                 'vehicle_name.*.required' => '車両名は必須項目です。',
                 'registration_number.*.required' => '登録番号は必須項目です。',
                 'vehicle_type.*.required' => '車両タイプは必須項目です。',
-                'license_plate.*.required' => 'ナンバープレートは必須項目です。',
                 'inspection_due_date.*.required' => '車検期限を選択してください。',
             ]
         );
-
+        \Log::info( 'ddddd');
         // バリデーションを実行
         $validatedData = $request->validate($validationRules);
-
+        \Log::info($validatedData);
         $userId = 1; // 仮のユーザーID
         $sortNumber = 1; // ソート番号
 

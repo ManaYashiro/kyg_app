@@ -18,8 +18,7 @@ return new class extends Migration
             $table->dateTime('reservation_datetime')->nullable()->comment('予約日時');
             $table->string('vehicle_name')->nullable()->comment('車両名');
             $table->string('registration_number')->nullable()->comment('車両登録番号');
-            $table->enum('vehicle_type', ['セダン', 'SUV', 'ワゴン', 'トラック','その他'])->nullable()->comment('車両タイプ');
-            $table->string('license_plate')->nullable()->comment('ナンバープレート ');
+            $table->string('vehicle_type')->nullable()->comment('車両タイプ');
             $table->date('inspection_due_date')->nullable()->comment('車検満了日');
             $table->string('additional_services')->nullable()->comment('追加整備');
             $table->string('past_service_history')->nullable()->comment('過去利用履歴の有無');
