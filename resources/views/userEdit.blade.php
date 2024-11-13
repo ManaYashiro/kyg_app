@@ -19,7 +19,7 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.users.update', $user->id) }}" method="POST">
+                            <form action="{{ route('admin.userList.update', $user->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
 
@@ -47,18 +47,6 @@
                                     <x-input-error :messages="$errors->get('email')" class="mt-2" />
                                 </div>
 
-                                <!-- 役割 (Role) -->
-                                <div class="mb-4">
-                                    <x-input-label for="role" :value="__('役割')" />
-                                    <x-select id="role" class="block mt-1 w-full" name="role" required>
-                                        <option value="admin"
-                                            {{ old('role', $user->role) == 'admin' ? 'selected' : '' }}>Admin</option>
-                                        <option value="user"
-                                            {{ old('role', $user->role) == 'user' ? 'selected' : '' }}>User</option>
-                                    </x-select>
-                                    <x-input-error :messages="$errors->get('role')" class="mt-2" />
-                                </div>
-
                                 <!-- 電話番号 -->
                                 <div class="mb-4">
                                     <x-input-label for="phone_number" :value="__('電話番号')" />
@@ -67,10 +55,10 @@
                                     <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
                                 </div>
 
-                                <!--  -->
+                                <!-- 郵便番号 -->
                                 <div class="mb-4">
                                     <x-input-label for="post_code" :value="__('郵便番号')" />
-                                    <x-text-input id="post_code" class="block mt-1 w-full" type="text" name="address"
+                                    <x-text-input id="post_code" class="block mt-1 w-full" type="text" name="post_code"
                                         :value="old('post_code', $user->post_code ?? '')" required />
                                     <x-input-error :messages="$errors->get('post_code')" class="mt-2" />
                                 </div>
@@ -94,7 +82,7 @@
                                 <!-- 電話時間 -->
                                 <div class="mb-4">
                                     <x-input-label for="preferred_contact_time" :value="__('電話希望時間')" />
-                                    <x-select id="preferred_contact_time" class="block mt-1 w-full" name="preferred_contact_time" required>
+                                    <x-select id="preferred_contact_time" class="block mt-1 w-full" name="preferred_contact_time">
                                         <option value="" disabled {{ is_null($user->preferred_contact_time) ? 'selected' : '' }}>
                                             選択してください
                                         </option>
@@ -115,7 +103,7 @@
                                 </div>
                             </form>
                             <!-- 削除ボタン -->
-                            <form action="{{ route('admin.users.destroy', $user->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                            <form action="{{ route('admin.userList.destroy', $user->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
                                 @csrf
                                 @method('DELETE')
                                 <div class="mb-4 flex justify-end">

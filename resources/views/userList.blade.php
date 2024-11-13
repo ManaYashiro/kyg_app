@@ -6,11 +6,11 @@
     </x-slot>
 
     <div class="py-12">
-        <div class="mx-auto" style="max-width: 90rem;">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="overflow-x-auto mt-4">
-                        <form method="GET" action="{{ route('admin.userList') }}" class="mb-4">
+                        <form method="GET" action="{{ route('admin.userList.index') }}" class="mb-4">
                             <div class="flex items-center gap-4">
                                 <!-- Role フィルター -->
                                 <div>
@@ -57,7 +57,7 @@
                             <!-- ボディ部分 -->
                             <tbody>
                                 @foreach ($users as $user)
-                                <tr onclick="window.location='{{ route('admin.users.edit', $user->id) }}'" class="clickable-row" style="cursor: pointer;">
+                                <tr onclick="window.location='{{ route('admin.userList.edit', $user->id) }}'" class="clickable-row" style="cursor: pointer;">
                                     <td class="border px-4 py-2" style="font-size: 0.75rem;">{{ $user->id }}</td>
                                     <td class="border px-4 py-2" style="font-size: 0.75rem;">{{ $user->role }}</td>
                                     <td class="border px-4 py-2" style="font-size: 0.75rem;">{{ $user->furigana }}</td>

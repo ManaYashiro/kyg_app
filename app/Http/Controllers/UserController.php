@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
@@ -41,7 +44,7 @@ class UserController extends Controller
     }
 
     /**
-     * ユーザーを編集
+     * ユーザー編集
      */
     public function edit($id)
     {
@@ -50,7 +53,31 @@ class UserController extends Controller
     }
 
     /**
-     * ユーザーを削除
+     * ユーザー更新
+     */
+    public function update(ProfileUpdateRequest $request): RedirectResponse
+    {
+        \Log::info($request);
+        // まず、リクエストからユーザー情報を更新
+        $user = $request->user();
+
+        // パスワード以外のフィールドを更新
+        $user->fill($request->except('password'));
+
+        // メールアドレスが変更された場合は、メールの確認日をリセット
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
+        }
+
+        // ユーザー情報を保存
+        $user->save();
+
+        return Redirect::route('admin.dashboard')->with('status', 'profile-updated');
+    }
+
+
+    /**
+     * ユーザー削除
      */
     public function destroy($id)
     {
@@ -61,6 +88,6 @@ class UserController extends Controller
         $user->delete();
 
         // 成功メッセージを表示してリストにリダイレクト
-        return redirect()->route('admin.userList')->with('success', 'ユーザーを削除しました。');
+        return redirect()->route('admin.userList.index')->with('success', 'ユーザーを削除しました。');
     }
 }
