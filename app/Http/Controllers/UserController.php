@@ -57,8 +57,7 @@ class UserController extends Controller
      */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        \Log::info($request);
-        // まず、リクエストからユーザー情報を更新
+        // リクエストからユーザー情報を更新
         $user = $request->user();
 
         // パスワード以外のフィールドを更新
@@ -74,7 +73,6 @@ class UserController extends Controller
 
         return Redirect::route('admin.dashboard')->with('status', 'profile-updated');
     }
-
 
     /**
      * ユーザー削除
