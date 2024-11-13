@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
@@ -22,6 +23,7 @@ Route::middleware('auth', 'verified')->group(function () {
         })->name('dashboard');
 
         Route::resource('userList', UserController::class);
+        Route::resource('notificationSetting', NotificationController::class);
     });
 
     Route::get('/mypage', function () {
@@ -44,6 +46,9 @@ Route::middleware('auth', 'verified')->group(function () {
         return view('accountTerminationRequest');
     })->name('account.termination');
 
+    Route::get('/userGuide', function () {
+        return view('userGuide');
+    })->name('userGuide');
 
     Route::get('/change-account-information', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/change-account-information', [ProfileController::class, 'update'])->name('profile.update');

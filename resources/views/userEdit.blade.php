@@ -14,7 +14,7 @@
                             <h2 class="text-xl font-semibold mb-4">ユーザー情報編集</h2>
 
                             @if (session('success'))
-                                <div class="bg-green-200 text-green-700 p-2 rounded mb-4">
+                                <div class="bg-green-200 text-green-700 p-2 rounded mb-4" id="success-message">
                                     {{ session('success') }}
                                 </div>
                             @endif
