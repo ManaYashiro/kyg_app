@@ -13,7 +13,12 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js', 'resources/js/modules/base.js'])
+    @vite([
+        'resources/css/app.css',
+        'resources/css/beta.css',
+        'resources/js/app.js',
+        'resources/js/modules/base.js'
+    ])
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 </head>

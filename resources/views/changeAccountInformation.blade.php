@@ -34,7 +34,7 @@
                                         <x-input-error :messages="$errors->get('furigana')" class="mt-2" />
                                     </div>
 
-                                    <!-- furigana -->
+                                    <!-- mail address -->
                                     <div class="mt-4">
                                         <x-input-label for="email" :value="__('メールアドレス')" />
                                         <x-text-input id="email" class="block mt-1 w-full" type="text"
