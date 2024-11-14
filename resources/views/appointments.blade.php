@@ -13,9 +13,10 @@
                     <form method="POST" action="{{ route('appointments.store') }}">
                         @csrf <!-- CSRFトークンの追加 -->
                         <div class="mt-4">
-                            <x-input-label for="vehicle_name" value="車検予約" />
+                            <x-input-label for="" value="車検予約" />
                             <x-input-label for="reservation_datetime" value="予約日時" />
                             <x-text-input id="reservation_datetime" class="block mt-1 w-full" name='reservation_datetime'/>
+                            <x-input-error :messages="$errors->get('reservation_datetime')" class="mt-2" />
                         </div>
                         @for ($i = 0; $i < 3; $i++)
                         <div class="mt-4">
@@ -69,7 +70,6 @@
                                 :disabled="false"
                                 class="mt-2" />
                         </div>
-
                         @endfor
                         <!-- 過去利用履歴 -->
                         <div class="mt-4">

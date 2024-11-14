@@ -15,37 +15,38 @@ class  AppointmentsController extends Controller
 
     public function store(Request $request)
     {
-        //車両名を判定のために受け取る
-        $vehicle_names = $request->input('vehicle_name',[]);
+        //userからIDを受け取る
         $userId = Auth::user()->id;
-
-        // バリデーションルール
-        $validationRules = [
+        //バリデーション初期設定
+        $rules = [
             'reservation_datetime' => 'nullable|date',
+            'vehicle_name.0' => 'required|string|max:255',
+            'registration_number.0' => 'required|string|max:255',
+            'vehicle_type.0' => 'required|string|max:255',
+            'inspection_due_date.0' => 'required|date',
             'past_service_history' => 'required|string',
             'message' => 'nullable|string|max:255',
         ];
-        // 車両数に応じてバリデーションルールを追加
-        foreach ($vehicle_names as $index => $vehicle_name) {
-            if (!empty($vehicle_name)) {
-                // 車両名が入力されている場合にバリデーションルールを追加
-                $validationRules["vehicle_name.$index"] = 'required|string|max:255';
-                $validationRules["registration_number.$index"] = 'required|string|max:255';
-                $validationRules["vehicle_type.$index"] = 'required|string|max:255';
-                $validationRules["inspection_due_date.$index"] = 'required|date';
-                $validationRules["additional_services.$index"] = 'array|nullable';
+
+        foreach ($request->vehicle_name as $index => $value) {
+            // 車両名が入力されている場合、他の項目を必須にする
+            if ($value !== null && $value !== '') {
+                $rules["vehicle_name.$index"] = 'required|string|max:255';
+                $rules["registration_number.$index"] = 'required|string|max:255';
+                $rules["vehicle_type.$index"] = 'required|string|max:255';
+                $rules["inspection_due_date.$index"] = 'required|date';
             }
         }
         //バリデーションエラーメッセージ
         $errorMessages = [
-            'past_service_history.required' => '過去のサービス履歴は必須項目です。',
+            'past_service_history.required' => '過去利用履歴は必須項目です。',
             'vehicle_name.*.required' => '車両名は必須項目です。',
             'registration_number.*.required' => '登録番号は必須項目です。',
             'vehicle_type.*.required' => '車両タイプは必須項目です。',
             'inspection_due_date.*.required' => '車検期限を選択してください。',
         ];
-        // バリデーションを実行
-        $validatedData = $request->validate($validationRules,$errorMessages);
+        //バリデーションを実行
+        $validatedData = $request->validate($rules,$errorMessages);
 
         $sortNumber = 1; // ソート番号
 
