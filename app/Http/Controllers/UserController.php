@@ -40,7 +40,7 @@ class UserController extends Controller
         $users = $query->paginate(10); // ページごとに5件表示
 
         // ビューにユーザー情報を渡す
-        return view('userList', compact('users'));
+        return view('admin.userLists.userList', compact('users'));
     }
 
     /**
@@ -49,7 +49,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = User::findOrFail($id); // ユーザーを取得
-        return view('userEdit', compact('user')); // 編集ページにユーザー情報を渡す
+        return view('admin.userLists.userEdit', compact('user')); // 編集ページにユーザー情報を渡す
     }
 
     /**

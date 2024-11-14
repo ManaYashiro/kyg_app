@@ -19,7 +19,7 @@ class NotificationController extends Controller
     {
         $notifications = Notification::all();
 
-        return view('notificationSetting', compact('notifications'));
+        return view('admin.notifications.notificationSetting', compact('notifications'));
     }
 
     /**
