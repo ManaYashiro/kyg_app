@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('User List') }}
@@ -72,17 +72,13 @@
                                 @foreach ($users as $user)
                                     <tr onclick="window.location='{{ route('admin.userList.edit', $user->id) }}'"
                                         class="clickable-row" style="cursor: pointer;">
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">{{ $user->id }}
-                                        </td>
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">{{ $user->role }}
-                                        </td>
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">{{ $user->name }}
-                                        </td>
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">{{ $user->email }}
-                                        </td>
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                        <td class="border px-4 py-2 text-xs">{{ $user->id }}</td>
+                                        <td class="border px-4 py-2 text-xs">{{ $user->role }}</td>
+                                        <td class="border px-4 py-2 text-xs">{{ $user->name }}</td>
+                                        <td class="border px-4 py-2 text-xs">{{ $user->email }}</td>
+                                        <td class="border px-4 py-2 text-xs">
                                             {{ $user->phone_number }}</td>
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                        <td class="border px-4 py-2 text-xs">
                                             @php
                                                 $fullAddress = $user->address . ' ' . $user->building;
                                                 $maxLength = 30;
@@ -92,9 +88,10 @@
                                             @endphp
                                             {{ $fullAddress }}
                                         </td>
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                            {{ $user->preferred_contact_time }}</td>
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                        <td class="border px-4 py-2 text-xs">
+                                            {{ $user->preferred_contact_time }}
+                                        </td>
+                                        <td class="border px-4 py-2 text-xs">
                                             @php
                                                 $howDidYouHear = is_array($user->how_did_you_hear)
                                                     ? $user->how_did_you_hear
@@ -149,8 +146,9 @@
                                                 @endif
                                             @endforeach
                                         </td>
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                            {{ $user->is_newsletter_subscription ? 'Yes' : 'No' }}</td>
+                                        <td class="border px-4 py-2 text-xs">
+                                            {{ $user->is_newsletter_subscription ? 'Yes' : 'No' }}
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -165,4 +163,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-admin-app-layout>
