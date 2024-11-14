@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class ProfileUpdateRequest extends FormRequest
 {
@@ -15,23 +13,18 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => 'required|string',
             'furigana' => 'required|string',
-            'email' => [
-                'required',
-                'string',
-                'lowercase',
-                'email',
-                'max:255',
-                Rule::unique(User::class)->ignore($this->user()->id),
-            ],
+            'email' => 'required|string|unique:users,email,' . ($this->route('userList') ? $this->route('userList') : 'NULL'),
             'password' => 'nullable|string|min:8|confirmed',
             'password_confirmation' => 'nullable|string|min:8|same:password',
             'phone_number' => 'required|string|min:10',
             'post_code' => 'required|integer',
             'address' => 'required|string',
         ];
+
+        return $rules;
     }
 
     public function messages(): array
@@ -62,5 +55,4 @@ class ProfileUpdateRequest extends FormRequest
             'building.string' => '建物名は文字列でなければなりません',
         ];
     }
-
 }
