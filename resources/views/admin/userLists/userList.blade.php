@@ -92,59 +92,7 @@
                                             {{ $user->preferred_contact_time }}
                                         </td>
                                         <td class="border px-4 py-2 text-xs">
-                                            @php
-                                                $howDidYouHear = is_array($user->how_did_you_hear)
-                                                    ? $user->how_did_you_hear
-                                                    : (is_string($user->how_did_you_hear)
-                                                        ? json_decode($user->how_did_you_hear)
-                                                        : []);
-                                            @endphp
-                                            @foreach ($howDidYouHear as $item)
-                                                @switch($item)
-                                                    @case(1)
-                                                        インターネット広告
-                                                    @break
-
-                                                    @case(2)
-                                                        SNS
-                                                    @break
-
-                                                    @case(3)
-                                                        HP
-                                                    @break
-
-                                                    @case(4)
-                                                        郵便物
-                                                    @break
-
-                                                    @case(5)
-                                                        店頭看板
-                                                    @break
-
-                                                    @case(6)
-                                                        屋外広告
-                                                    @break
-
-                                                    @case(7)
-                                                        折込チラシ
-                                                    @break
-
-                                                    @case(8)
-                                                        フリーペーパー
-                                                    @break
-
-                                                    @case(9)
-                                                        家族・知人からの紹介
-                                                    @break
-
-                                                    @case(10)
-                                                        職場や取引先からの紹介
-                                                    @break
-                                                @endswitch
-                                                @if (!$loop->last)
-                                                    <br>
-                                                @endif
-                                            @endforeach
+                                            {{ $user->findUserAnkets() }}
                                         </td>
                                         <td class="border px-4 py-2 text-xs">
                                             {{ $user->is_newsletter_subscription ? 'Yes' : 'No' }}
