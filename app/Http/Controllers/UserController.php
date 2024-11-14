@@ -55,13 +55,13 @@ class UserController extends Controller
     /**
      * ユーザー更新
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(ProfileUpdateRequest $request, $userList): RedirectResponse
     {
         // リクエストからユーザー情報を更新
-        $user = $request->user();
+        $user = User::where('id', $request->route('userList'))->first();
 
         // パスワード以外のフィールドを更新
-        $user->fill($request->except('password'));
+        $user->update($request->except('password'));
 
         // メールアドレスが変更された場合は、メールの確認日をリセット
         if ($user->isDirty('email')) {
@@ -71,7 +71,7 @@ class UserController extends Controller
         // ユーザー情報を保存
         $user->save();
 
-        return Redirect::route('admin.dashboard')->with('status', 'profile-updated');
+        return Redirect::route('admin.userList.index')->with('success', 'ユーザーを更新しました');
     }
 
     /**
