@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRequest;
 use App\Models\Store;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -23,7 +24,7 @@ class StoreController extends Controller
      */
     public function create(): View
     {
-        return view('stores.create');
+        return view('admin.stores.create');
     }
 
     /**
@@ -33,7 +34,7 @@ class StoreController extends Controller
     {
         Store::create($request->validated());
 
-        return redirect()->route('stores.index')
+        return redirect()->route('admin.stores.index')
             ->with('success', 'Store created successfully.');
     }
 
@@ -42,7 +43,7 @@ class StoreController extends Controller
      */
     public function show(Store $store): View
     {
-        return view('stores.show', compact('store'));
+        return view('admin.stores.show', compact('store'));
     }
 
     /**
@@ -50,7 +51,7 @@ class StoreController extends Controller
      */
     public function edit(Store $store): View
     {
-        return view('stores.edit', compact('store'));
+        return view('admin.stores.edit', compact('store'));
     }
 
     /**
@@ -60,18 +61,24 @@ class StoreController extends Controller
     {
         $store->update($request->validated());
 
-        return redirect()->route('stores.index')
+        return redirect()->route('admin.stores.index')
             ->with('success', 'Store updated successfully');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Store $store): RedirectResponse
+    public function destroy(Store $store): JsonResponse
     {
         $store->delete();
 
-        return redirect()->route('stores.index')
-            ->with('success', 'Store deleted successfully');
+        return response()->json([
+            'success' => true,
+            'message' => '店舗を削除しました！',
+            'redirectUrl' => route('admin.stores.index'),
+        ], 200);
+
+        // return redirect()->route('admin.stores.index')
+        //     ->with('success', 'Store deleted successfully');
     }
 }
