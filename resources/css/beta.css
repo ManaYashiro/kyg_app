@@ -1,0 +1,9 @@
+/* マウスオーバー時に行全体をハイライト */
+.clickable-row:hover {
+    background-color: #f0f8ff;
+}
+
+/* 選択された行に対するハイライト */
+.clickable-row.selected {
+    background-color: #d0eaff;  /* クリックされた行を異なる色で強調表示 */
+}

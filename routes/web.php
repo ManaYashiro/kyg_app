@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ChangeAccountController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AppointmentsController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,9 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
         })->name('dashboard');
+
+        Route::resource('userList', UserController::class);
+        Route::resource('notificationSetting', NotificationController::class);
     });
 
     Route::get('/mypage', function () {
@@ -43,6 +47,9 @@ Route::middleware('auth', 'verified')->group(function () {
         return view('accountTerminationRequest');
     })->name('account.termination');
 
+    Route::get('/userGuide', function () {
+        return view('userGuide');
+    })->name('userGuide');
     Route::get('/appointments', [AppointmentsController::class, 'index'])->name('appointments.index');
     Route::post('/appointments', [AppointmentsController::class, 'store'])->name('appointments.store');
 
