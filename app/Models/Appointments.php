@@ -14,7 +14,6 @@ class Appointments extends Model
 
     // 複数代入可能なフィールドの定義
     protected $fillable = [
-
         'user_id',
         'sort_number',
         'reservation_datetime',
