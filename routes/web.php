@@ -4,6 +4,7 @@ use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Controllers\AppointmentsController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -49,6 +50,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/userGuide', function () {
         return view('userGuide');
     })->name('userGuide');
+    Route::get('/appointments', [AppointmentsController::class, 'index'])->name('appointments.index');
+    Route::post('/appointments', [AppointmentsController::class, 'store'])->name('appointments.store');
 
     Route::get('/change-account-information', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/change-account-information', [ProfileController::class, 'update'])->name('profile.update');
