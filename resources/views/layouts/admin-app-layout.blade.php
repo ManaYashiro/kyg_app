@@ -13,7 +13,7 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/base.js'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 
     {{-- JQuery --}}
@@ -41,16 +41,19 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 
-<body class="font-sans text-gray-900 antialiased">
-    <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-        <div>
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </div>
+<body class="font-sans antialiased">
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        <!-- Desktop sidebar -->
+        @include('includes.desktop-sidebar')
 
-        <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-            {{ $slot }}
+        <!-- Mobile sidebar -->
+        @include('includes.mobile-sidebar')
+
+        <div class="flex flex-col flex-1 w-full min-w-0">
+            @include('includes.header')
+            <main class="h-full overflow-y-auto">
+                {{ $slot }}
+            </main>
         </div>
     </div>
 

@@ -70,3 +70,56 @@ function navi() {
         },
     };
 }
+
+// 削除アラートメッセージ
+$(".delete--model").on("click", function (e) {
+    e.preventDefault();
+
+    var deleteModel = $(this).closest(".form-delete--model");
+    let modelTitle = deleteModel.data("title");
+
+    Swal.fire({
+        title: "「" + modelTitle + "」を削除してもよろしいですか?",
+        text: "これを元に戻すことはできません！",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "はい",
+        cancelButtonText: "いいえ",
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                url: deleteModel.attr("action"),
+                method: deleteModel.attr("method"),
+                data: deleteModel.serialize(),
+                success: function (response) {
+                    if (response.success) {
+                        Swal.fire({
+                            title: "削除しました！",
+                            text: response.message,
+                            icon: "success",
+                        }).then(() => {
+                            window.location.href = response.redirectUrl;
+                        });
+                    } else {
+                        // Show error message if deletion fails
+                        Swal.fire({
+                            title: "エラー！",
+                            text: "削除に失敗しました。再試行してください。",
+                            icon: "error",
+                        });
+                    }
+                },
+                error: function () {
+                    // Handle any AJAX errors
+                    Swal.fire({
+                        title: "エラー！",
+                        text: "サーバーへのリクエストに失敗しました。",
+                        icon: "error",
+                    });
+                },
+            });
+        }
+    });
+});
