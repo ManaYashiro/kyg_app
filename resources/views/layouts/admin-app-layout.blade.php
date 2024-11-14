@@ -42,27 +42,22 @@
 </head>
 
 <body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
-        @include('layouts.navigation')
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+        <!-- Desktop sidebar -->
+        @include('includes.desktop-sidebar')
 
-        <!-- Page Heading -->
-        @isset($header)
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endisset
+        <!-- Mobile sidebar -->
+        @include('includes.mobile-sidebar')
 
-        <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
-
-        <!-- jQueryのCDNを追加 -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+        <div class="flex flex-col flex-1 w-full min-w-0">
+            @include('includes.header')
+            <main class="h-full overflow-y-auto">
+                {{ $slot }}
+            </main>
+        </div>
     </div>
+
+    @stack('scripts')
 </body>
 
 </html>
