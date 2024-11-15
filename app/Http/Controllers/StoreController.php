@@ -10,6 +10,9 @@ use Illuminate\View\View;
 
 class StoreController extends Controller
 {
+
+    protected static $title = "店舗";
+
     /**
      * Display a listing of the resource.
      */
@@ -74,7 +77,7 @@ class StoreController extends Controller
 
         return response()->json([
             'success' => true,
-            'message' => '店舗を削除しました！',
+            'message' => self::$title . 'を削除しました！',
             'redirectUrl' => route('admin.stores.index'),
         ], 200);
 

@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Anket;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -109,7 +110,23 @@ class UserFactory extends Factory
                 'role' => User::USER,
                 'preferred_contact_time' => fake()->randomElement($contact_time),
                 'is_newsletter_subscription' => fake()->randomElement([true, false]),
+                'how_did_you_hear' => $this->randomAnket(),
             ];
         });
+    }
+
+    public function randomAnket(): array
+    {
+
+        $how_did_you_hear = Anket::get()->pluck('id')->toArray();
+
+        // Get a random quantity from 0 to 3
+        $quantity = rand(0, 3);
+
+        // Shuffle the array to randomize the order
+        shuffle($how_did_you_hear);
+
+        // Slice the array to get the desired quantity
+        return array_slice($how_did_you_hear, 0, $quantity);
     }
 }

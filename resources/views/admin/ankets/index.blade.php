@@ -20,8 +20,9 @@
                         </div>
                     @endif
 
-                    <a href="{{ route('admin.stores.create') }}">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 text-xs rounded my-3">
+                    <a href="{{ route('admin.ankets.create') }}">
+                        <button
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 text-xs rounded my-3">
                             登録
                         </button>
                     </a>
@@ -30,40 +31,32 @@
                             <thead>
                                 <tr class="bg-gray-200">
                                     <th class="px-4 py-2 w-8">ID.</th>
-                                    <th class="px-4 py-2 w-20">名前</th>
-                                    <th class="px-4 py-2 w-20">メールアドレス</th>
-                                    <th class="px-4 py-2 w-20">電話番号</th>
-                                    <th class="px-4 py-2 w-20">住所</th>
+                                    <th class="px-4 py-2 w-62">名前</th>
+                                    <th class="px-4 py-2 w-62">短い名</th>
                                     <th class="px-4 py-2 w-8">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($stores as $store)
-                                    <tr data-url="{{ route('admin.stores.update', $store->id) }}"
-                                        data-store="{{ $store }}">
-                                        <td class="border px-4 py-2 text-xs">{{ $store->id }}</td>
+                                @foreach ($ankets as $anket)
+                                    <tr data-url="{{ route('admin.ankets.update', $anket->id) }}"
+                                        data-anket="{{ $anket }}">
+                                        <td class="border px-4 py-2 text-xs">{{ $anket->id }}</td>
                                         <td class="border px-4 py-2 text-xs whitespace-nowrap">
-                                            {{ $store->name }}
+                                            {{ $anket->name }}
                                         </td>
                                         <td class="border px-4 py-2 text-xs whitespace-nowrap">
-                                            {{ $store->email }}
-                                        </td>
-                                        <td class="border px-4 py-2 text-xs whitespace-nowrap">
-                                            {{ $store->phone_number }}
-                                        </td>
-                                        <td class="border px-4 py-2 text-xs whitespace-nowrap">
-                                            {{ $store->address }}
+                                            {{ $anket->short_name }}
                                         </td>
                                         <td
                                             class="border px-4 py-2 text-xs whitespace-nowrap text-center flex flex-row gap-2 items-center justify-evenly">
-                                            <a href="{{ route('admin.stores.edit', $store->id) }}">
+                                            <a href="{{ route('admin.ankets.edit', $anket->id) }}">
                                                 <button
                                                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 text-xs px-4 rounded">
                                                     <i class="fa-regular fa-pen-to-square"></i>
                                                 </button>
                                             </a>
-                                            <form action="{{ route('admin.stores.destroy', $store->id) }}"
-                                                class="form-delete--model" method="POST" data-title="店舗">
+                                            <form action="{{ route('admin.ankets.destroy', $anket->id) }}"
+                                                class="form-delete--model" method="POST" data-title="アンケート">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit"
@@ -79,7 +72,7 @@
                     </div>
 
                     <div class="mt-4">
-                        {{ $stores->links('pagination::tailwind') }}
+                        {{ $ankets->links('pagination::tailwind') }}
                     </div>
                 </div>
             </div>

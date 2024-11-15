@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnketController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoreController;
@@ -24,8 +25,9 @@ Route::middleware('auth', 'verified')->group(function () {
             return view('admin.dashboard');
         })->name('dashboard');
 
-        Route::resource('stores', StoreController::class);
         Route::resource('userList', UserController::class);
+        Route::resource('stores', StoreController::class);
+        Route::resource('ankets', AnketController::class);
         Route::resource('notificationSetting', NotificationController::class);
     });
 

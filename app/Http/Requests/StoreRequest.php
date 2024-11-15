@@ -33,7 +33,6 @@ class StoreRequest extends FormRequest
         ];
     }
 
-
     public function messages(): array
     {
         return [

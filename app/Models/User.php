@@ -58,4 +58,19 @@ class User extends Authenticatable
             'how_did_you_hear' => 'array',
         ];
     }
+
+    function findUserAnkets()
+    {
+        if ($this->how_did_you_hear && count($this->how_did_you_hear)) {
+            $ankets = Anket::whereIn('id', $this->how_did_you_hear)->pluck('short_name');
+            $anketsData = "";
+            foreach ($ankets as $key => $anket) {
+                if ($anketsData !== "") {
+                    $anketsData .= "；";
+                }
+                $anketsData .= $anket;
+            }
+            return $anketsData;
+        }
+    }
 }
