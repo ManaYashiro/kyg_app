@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AnketController;
+use App\Http\Controllers\AppointmentListController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\StoreController;
@@ -14,12 +15,6 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth', 'verified')->group(function () {
-
-    // old dashboard
-    // Route::get('/dashboard', function () {
-    //     return view('dashboard');
-    // })->name('dashboard');
-
     Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
@@ -35,17 +30,11 @@ Route::middleware('auth', 'verified')->group(function () {
         return view('mypage');
     })->name('mypage');
 
-    Route::get('/reservation-history', function () {
-        return view('reservationHistory');
-    })->name('reservation.history');
+    Route::resource('appointmentList', AppointmentListController::class);
 
-    Route::get('/reservation-confirmation', function () {
-        return view('reservationConfirmation');
-    })->name('reservation.confirmation');
-
-    // Route::get('/change-account-information', function () {
-    //     return view('changeAccountInformation');
-    // })->name('account.information');
+    Route::get('/appointment-confirmation', function () {
+        return view('appointmentConfirmation');
+    })->name('appointment.confirmation');
 
     Route::get('/account-termination-request', function () {
         return view('accountTerminationRequest');

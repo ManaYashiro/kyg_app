@@ -12,10 +12,10 @@
         予約状況・履歴
         <div>
             <div>
-                <a href="{{ route('reservation.confirmation') }}" class="btn btn-primary">予約の確認</a>
+                <a href="{{ route('appointment.confirmation') }}" class="btn btn-primary">予約の確認</a>
             </div>
             <div>
-                <a href="{{ route('reservation.history') }}" class="btn btn-primary">予約の履歴</a>
+                <a href="{{ route('appointmentList.index') }}" class="btn btn-primary">予約の履歴</a>
             </div>
         </div>
         <div>

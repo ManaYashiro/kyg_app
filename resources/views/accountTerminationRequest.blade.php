@@ -38,6 +38,7 @@
                                         <x-input-error :messages="$errors->get('withdrawal')" class="mt-2" />
                                     </div>
 
+                                    <!-- 退会ボタン -->
                                     <div class="flex items-center justify-end mt-4">
                                         <x-primary-button class="ms-3">
                                             {{ __('退会') }}
