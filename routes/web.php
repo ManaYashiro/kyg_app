@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AnketController;
 use App\Http\Controllers\AppointmentListController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AppointmentsController;
@@ -19,6 +21,8 @@ Route::middleware('auth', 'verified')->group(function () {
         })->name('dashboard');
 
         Route::resource('userList', UserController::class);
+        Route::resource('stores', StoreController::class);
+        Route::resource('ankets', AnketController::class);
         Route::resource('notificationSetting', NotificationController::class);
     });
 

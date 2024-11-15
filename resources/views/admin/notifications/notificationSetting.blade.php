@@ -1,4 +1,4 @@
-<x-app-layout>
+<x-admin-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('User List') }}
@@ -137,9 +137,9 @@
                                         data-is_active="{{ $notification->is_active }}"
                                         data-image="{{ $notification->image }}"
                                         style="cursor: pointer;">
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">{{ $notification->id }}</td>
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">{{ $notification->title }}</td>
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                        <td class="border px-4 py-2 text-xs">{{ $notification->id }}</td>
+                                        <td class="border px-4 py-2 text-xs">{{ $notification->title }}</td>
+                                        <td class="border px-4 py-2 text-xs">
                                             @php
                                                 $category = $notification->category; // ここは必要に応じて取得する方法を変更
                                             @endphp
@@ -155,9 +155,9 @@
                                                 @default 未設定 @break
                                             @endswitch
                                         </td>
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">{{ $notification->published_at }}</td>
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">{{ $notification->is_active ? '公開' : '非公開' }}</td>
-                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">{{ Str::after($notification->image, 'notifications/') }}</td>
+                                        <td class="border px-4 py-2 text-xs">{{ $notification->published_at }}</td>
+                                        <td class="border px-4 py-2 text-xs">{{ $notification->is_active ? '公開' : '非公開' }}</td>
+                                        <td class="border px-4 py-2 text-xs">{{ Str::after($notification->image, 'notifications/') }}</td>
                                     </tr>
                                     @endforeach
                                 </tbody>
@@ -173,4 +173,4 @@
             </div>
         </div>
     </div>
-</x-app-layout>
+</x-admin-app-layout>

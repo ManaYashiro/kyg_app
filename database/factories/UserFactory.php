@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Anket;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
@@ -12,9 +12,11 @@ use Illuminate\Support\Str;
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * The name of the factory's corresponding model.
+     *
+     * @var string
      */
-    protected static ?string $password;
+    protected $model = User::class;
 
     /**
      * Define the model's default state.
@@ -23,13 +25,17 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
-            'password' => static::$password ??= Hash::make('password'),
-            'remember_token' => Str::random(10),
-        ];
+
+        $isAdmin = $attributes['role'] = User::ADMIN ? true : false;
+
+        return
+            array_merge($this->otherData($isAdmin), [
+                'name' => fake()->name(),
+                'furigana' => fake()->name(),
+                'role' => User::USER,
+                'email' => fake()->unique()->safeEmail(),
+                'password' => 'p@ssword1234',
+            ]);
     }
 
     /**
@@ -37,8 +43,90 @@ class UserFactory extends Factory
      */
     public function unverified(): static
     {
-        return $this->state(fn (array $attributes) => [
+        return $this->state(fn(array $attributes) => [
             'email_verified_at' => null,
         ]);
+    }
+
+    public function otherData(bool $isAdmin = false): array
+    {
+        return [
+            'phone_number' => fake()->phoneNumber(),
+            'post_code' => fake()->postcode(),
+            'address' => fake()->prefecture() . fake()->ward(),
+            'building' => fake()->secondaryAddress(),
+        ];
+    }
+
+    /**
+     * Indicate that the user is an admin.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function admin()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => User::ADMIN,
+                'preferred_contact_time' => null,
+                'is_newsletter_subscription' => FALSE,
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the user is an admin.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function user()
+    {
+        return $this->state(function (array $attributes) {
+            return [
+                'role' => User::USER,
+                'preferred_contact_time' => '9-12',
+                'is_newsletter_subscription' => FALSE,
+            ];
+        });
+    }
+
+    /**
+     * Indicate that the user is a regular user.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    public function randomUser()
+    {
+        return $this->state(function (array $attributes) {
+            $contact_time = [
+                '9-12',
+                '12-13',
+                '13-15',
+                '15-17',
+                '17-19',
+                'no_preference',
+            ];
+            return [
+                'role' => User::USER,
+                'preferred_contact_time' => fake()->randomElement($contact_time),
+                'is_newsletter_subscription' => fake()->randomElement([true, false]),
+                'how_did_you_hear' => $this->randomAnket(),
+            ];
+        });
+    }
+
+    public function randomAnket(): array
+    {
+
+        $how_did_you_hear = Anket::get()->pluck('id')->toArray();
+
+        // Get a random quantity from 0 to 3
+        $quantity = rand(0, 3);
+
+        // Shuffle the array to randomize the order
+        shuffle($how_did_you_hear);
+
+        // Slice the array to get the desired quantity
+        return array_slice($how_did_you_hear, 0, $quantity);
     }
 }

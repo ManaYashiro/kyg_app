@@ -4,13 +4,14 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     public const ADMIN = 'admin';
     public const USER = 'user';
@@ -58,13 +59,18 @@ class User extends Authenticatable
         ];
     }
 
-    public function jsonToString($data)
+    function findUserAnkets()
     {
-        return json_decode($data, true);
-    }
-
-    public function stringToJson($data)
-    {
-        return json_encode($data);
+        if ($this->how_did_you_hear && count($this->how_did_you_hear)) {
+            $ankets = Anket::whereIn('id', $this->how_did_you_hear)->pluck('short_name');
+            $anketsData = "";
+            foreach ($ankets as $key => $anket) {
+                if ($anketsData !== "") {
+                    $anketsData .= "；";
+                }
+                $anketsData .= $anket;
+            }
+            return $anketsData;
+        }
     }
 }
