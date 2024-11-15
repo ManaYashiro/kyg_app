@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable()->comment('ユーザーID');
+            $table->string('appoint_number')->nullable()->comment('予約番号');
             $table->tinyInteger('sort_number')->nullable()->comment('ソート番号');
             $table->dateTime('reservation_datetime')->nullable()->comment('予約日時');
             $table->string('vehicle_name')->nullable()->comment('車両名');

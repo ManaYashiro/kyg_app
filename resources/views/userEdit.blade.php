@@ -58,8 +58,8 @@
                                 <!-- 郵便番号 -->
                                 <div class="mb-4">
                                     <x-input-label for="post_code" :value="__('郵便番号')" />
-                                    <x-text-input id="post_code" class="block mt-1 w-full" type="text" name="post_code"
-                                        :value="old('post_code', $user->post_code ?? '')" required />
+                                    <x-text-input id="post_code" class="block mt-1 w-full" type="text"
+                                        name="post_code" :value="old('post_code', $user->post_code ?? '')" required />
                                     <x-input-error :messages="$errors->get('post_code')" class="mt-2" />
                                 </div>
 
@@ -82,16 +82,30 @@
                                 <!-- 電話時間 -->
                                 <div class="mb-4">
                                     <x-input-label for="preferred_contact_time" :value="__('電話希望時間')" />
-                                    <x-select id="preferred_contact_time" class="block mt-1 w-full" name="preferred_contact_time">
-                                        <option value="" disabled {{ is_null($user->preferred_contact_time) ? 'selected' : '' }}>
+                                    <x-select id="preferred_contact_time" class="block mt-1 w-full"
+                                        name="preferred_contact_time">
+                                        <option value="" disabled
+                                            {{ is_null($user->preferred_contact_time) ? 'selected' : '' }}>
                                             選択してください
                                         </option>
-                                        <option value="9-12" {{ $user->preferred_contact_time == '9-12' ? 'selected' : '' }}>9:00 - 12:00</option>
-                                        <option value="12-13" {{ $user->preferred_contact_time == '12-13' ? 'selected' : '' }}>12:00 - 13:00</option>
-                                        <option value="13-15" {{ $user->preferred_contact_time == '13-15' ? 'selected' : '' }}>13:00 - 15:00</option>
-                                        <option value="15-17" {{ $user->preferred_contact_time == '15-17' ? 'selected' : '' }}>15:00 - 17:00</option>
-                                        <option value="17-19" {{ $user->preferred_contact_time == '17-19' ? 'selected' : '' }}>17:00 - 19:00</option>
-                                        <option value="no_preference" {{ $user->preferred_contact_time == 'no_preference' ? 'selected' : '' }}>指定なし</option>
+                                        <option value="9-12"
+                                            {{ $user->preferred_contact_time == '9-12' ? 'selected' : '' }}>9:00 - 12:00
+                                        </option>
+                                        <option value="12-13"
+                                            {{ $user->preferred_contact_time == '12-13' ? 'selected' : '' }}>12:00 -
+                                            13:00</option>
+                                        <option value="13-15"
+                                            {{ $user->preferred_contact_time == '13-15' ? 'selected' : '' }}>13:00 -
+                                            15:00</option>
+                                        <option value="15-17"
+                                            {{ $user->preferred_contact_time == '15-17' ? 'selected' : '' }}>15:00 -
+                                            17:00</option>
+                                        <option value="17-19"
+                                            {{ $user->preferred_contact_time == '17-19' ? 'selected' : '' }}>17:00 -
+                                            19:00</option>
+                                        <option value="no_preference"
+                                            {{ $user->preferred_contact_time == 'no_preference' ? 'selected' : '' }}>
+                                            指定なし</option>
                                     </x-select>
                                     <x-input-error :messages="$errors->get('preferred_contact_time')" class="mt-2" />
                                 </div>
@@ -102,12 +116,15 @@
                                     <x-primary-button class="ms-3">更新</x-primary-button>
                                 </div>
                             </form>
+
                             <!-- 削除ボタン -->
-                            <form action="{{ route('admin.userList.destroy', $user->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                            <form action="{{ route('admin.userList.destroy', $user->id) }}" method="POST"
+                                onsubmit="return confirm('本当に削除しますか？');">
                                 @csrf
                                 @method('DELETE')
                                 <div class="mb-4 flex justify-end">
-                                    <button type="submit" class="ms-3 bg-red-500 inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-800 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                    <button type="submit"
+                                        class="ms-3 bg-red-500 inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-800 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
                                         削除
                                     </button>
                                 </div>

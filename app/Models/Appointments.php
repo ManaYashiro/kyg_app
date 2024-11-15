@@ -15,6 +15,7 @@ class Appointments extends Model
     // 複数代入可能なフィールドの定義
     protected $fillable = [
         'user_id',
+        'appoint_number',
         'sort_number',
         'reservation_datetime',
         'vehicle_name',
