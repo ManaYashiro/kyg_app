@@ -38,7 +38,7 @@ class ReservationListController extends Controller
      */
     public function edit($id)
     {
-        $appointment = Appointments::findOrFail($id); // 車検予約を取得
+        $appointment = Appointments::findOrFail($id); // 車検予約IDを取得
         return view('admin.reservationList.reservationListEdit', compact('appointment')); // 編集ページに車検予約を渡す
     }
 
@@ -59,10 +59,10 @@ class ReservationListController extends Controller
 
         //JSON_UNESCAPED_UNICODEで保存
         $validatedData['additional_services'] = json_encode($validatedData['additional_services'], JSON_UNESCAPED_UNICODE);
-        // 車検予約を取得
+        // 車検予約IDを取得
         $appointment = Appointments::where('appointments.id',$id)->first();
 
-        //車検予約を更新
+        //車検予約内容を更新
         $appointment->update($validatedData);
 
         // 成功メッセージを表示してリストにリダイレクト
