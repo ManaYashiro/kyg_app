@@ -45,7 +45,9 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/userGuide', function () {
         return view('userGuide');
     })->name('userGuide');
+
     Route::get('/appointments', [AppointmentsController::class, 'index'])->name('appointments.index');
+    Route::post('/appointments/confirm', [AppointmentsController::class, 'confirm'])->name('appointments.confirm');
     Route::post('/appointments', [AppointmentsController::class, 'store'])->name('appointments.store');
 
     Route::get('/change-account-information', [ProfileController::class, 'edit'])->name('profile.edit');

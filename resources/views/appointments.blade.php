@@ -18,7 +18,7 @@
                     @endif
 
                     <!-- フォーム開始 -->
-                    <form method="POST" action="{{ route('appointments.store') }}">
+                    <form method="POST" action="{{ route('appointments.confirm') }}">
                         @csrf <!-- CSRFトークンの追加 -->
 
                         <!-- 予約日時 -->
@@ -118,10 +118,9 @@
                             <textarea name="message" id="message" class="block mt-1 w-full border-gray-300 rounded-md"></textarea>
                         </div>
 
-                        <!-- 予約ボタン -->
                         <div class="mt-6">
-                            <x-primary-button class="ml-4">
-                                {{ __('予約') }}
+                            <x-primary-button class="ml-4" type="submit">
+                                {{ __('確認画面へ') }}
                             </x-primary-button>
                         </div>
                     </form>
