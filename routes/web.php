@@ -8,11 +8,12 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Controllers\AppointmentsController;
+use App\Http\Controllers\ReservationListController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('top');
-});
+})->name('top');
 
 Route::middleware('auth', 'verified')->group(function () {
     Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
@@ -20,6 +21,7 @@ Route::middleware('auth', 'verified')->group(function () {
             return view('admin.dashboard');
         })->name('dashboard');
 
+        Route::resource('reservationList', ReservationListController::class);
         Route::resource('userList', UserController::class);
         Route::resource('stores', StoreController::class);
         Route::resource('ankets', AnketController::class);

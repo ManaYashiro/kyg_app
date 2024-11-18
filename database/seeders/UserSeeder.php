@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Carbon;
 
 class UserSeeder extends Seeder
 {
@@ -18,6 +19,7 @@ class UserSeeder extends Seeder
                 'furigana' => 'admin',
                 'email' => 'admin@admin.admin',
                 'password' => 'adminp@ssword1234',
+                'email_verified_at' => Carbon::now(),
             ]
         );
         User::factory()->user()->create(
@@ -26,6 +28,7 @@ class UserSeeder extends Seeder
                 'furigana' => 'user',
                 'email' => 'user@user.user',
                 'password' => 'p@ssword1234',
+                'email_verified_at' => Carbon::now(),
             ]
         );
         User::factory(8)->randomUser()->create();
