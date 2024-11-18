@@ -1,7 +1,7 @@
 <x-admin-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('User List') }}
+            {{ __('予約一覧') }}
         </h2>
     </x-slot>
 
@@ -19,7 +19,7 @@
                                 </div>
                             @endif
 
-                            <form action="{{ route('admin.reservationmanagement.update', $appointment->id) }}" method="POST">
+                            <form action="{{ route('admin.reservationList.update', $appointment->id) }}" method="POST">
                                 @csrf
                                 @method('PUT')
 
@@ -85,7 +85,7 @@
                                 </div>
                             </form>
                             <!-- 削除ボタン -->
-                            <form action="{{ route('admin.reservationmanagement.destroy', $appointment->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
+                            <form action="{{ route('admin.reservationList.destroy', $appointment->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');">
                                 @csrf
                                 @method('DELETE')
                                 <div class="mb-4 flex justify-end">

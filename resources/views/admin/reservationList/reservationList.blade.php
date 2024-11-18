@@ -1,7 +1,7 @@
 <x-admin-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('User List') }}
+            {{ __('予約一覧') }}
         </h2>
     </x-slot>
 
@@ -16,7 +16,7 @@
                             </div>
                         @endif
 
-                        <form method="GET" action="{{ route('admin.reservationmanagement.index') }}" class="mb-4">
+                        <form method="GET" action="{{ route('admin.reservationList.index') }}" class="mb-4">
                             <div class="flex items-center gap-4">
                                 <!-- 予約フィルター -->
                                 <div>
@@ -47,15 +47,14 @@
                                     <th class="px-4 py-2 text-left" style="width: 15%;">名前</th>
                                 </tr>
                             </thead>
-
                             <!-- ボディ部分 -->
                             <tbody>
-                                @foreach ($reservationmanagements as $reservationmanagement)
-                                    <tr onclick="window.location='{{ route('admin.reservationmanagement.edit', $reservationmanagement->id) }}'"
+                                @foreach ($reservationlists as $reservationlist)
+                                    <tr onclick="window.location='{{ route('admin.reservationList.edit', $reservationlist->id) }}'"
                                         class="clickable-row" style="cursor: pointer;">
-                                        <td class="border px-4 py-2 text-xs">{{ $reservationmanagement->appoint_number }}</td>
-                                        <td class="border px-4 py-2 text-xs">{{ $reservationmanagement->reservation_datetime }}</td>
-                                        <td class="border px-4 py-2 text-xs">{{ $reservationmanagement->name }}</td>
+                                        <td class="border px-4 py-2 text-xs">{{ $reservationlist->appoint_number }}</td>
+                                        <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_datetime }}</td>
+                                        <td class="border px-4 py-2 text-xs">{{ $reservationlist->name }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -63,7 +62,7 @@
 
                         <!-- ページネーション -->
                         <div class="mt-4">
-                            {{ $reservationmanagements->links() }}
+                            {{ $reservationlists->links() }}
                         </div>
                     </div>
                 </div>
