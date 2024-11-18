@@ -14,7 +14,7 @@ class  AppointmentsController extends Controller
         return view('appointments', compact('appointment'));
     }
 
-    public function store(Request $request)
+    public function confirm(Request $request)
     {
         // userからIDを受け取る
         $userId = Auth::user()->id;
@@ -67,6 +67,7 @@ class  AppointmentsController extends Controller
         // 新しい予約番号を作成（例: 20231112001）
         $appointmentNumber = $date . str_pad($existingCount + 1, 3, '0', STR_PAD_LEFT);
 
+        $vehicles = [];
         // 各車両のデータをループして保存
         foreach ($validatedData['vehicle_name'] as $index => $vehicleName) {
             // データを配列に格納
@@ -85,13 +86,45 @@ class  AppointmentsController extends Controller
                 'past_service_history' => $validatedData['past_service_history'],
                 'message' => $validatedData['message'],
             ];
-
-            // 新しいレコードを作成
-            Appointments::create($data);
+            $vehicles[] = $data;
 
             $sortNumber++; // ソート番号をインクリメント
         }
 
-        return redirect()->route('appointments.index')->with('success', '車検予約が保存されました。');
+        // 確認画面に必要なデータを渡す
+        return view('appointmentsConfirm', compact('vehicles'));
+    }
+
+    public function store(Request $request)
+    {
+        // 送信された車両情報を配列で取得
+        $vehicleNames = $request->input('vehicle_name');
+        $registrationNumbers = $request->input('registration_number');
+        $vehicleTypes = $request->input('vehicle_type');
+        $inspectionDueDates = $request->input('inspection_due_date');
+        $additionalServices = $request->input('additional_services');
+        $reservationDatetime = $request->input('reservation_datetime');
+        $pastServiceHistory = $request->input('past_service_history');
+        $message = $request->input('message');
+
+        // 車両ごとにAppointmentsテーブルに保存
+        foreach ($vehicleNames as $index => $vehicleName) {
+            $appointment = new Appointments();
+            $appointment->user_id = Auth::user()->id;  // ユーザーID
+            $appointment->appoint_number = $request->input('appoint_number');  // 予約番号
+            $appointment->reservation_datetime = $reservationDatetime;
+            $appointment->vehicle_name = $vehicleName;
+            $appointment->registration_number = $registrationNumbers[$index];
+            $appointment->vehicle_type = $vehicleTypes[$index];
+            $appointment->inspection_due_date = $inspectionDueDates[$index];
+            $appointment->additional_services = $additionalServices[$index] ?? null;
+            $appointment->past_service_history = $pastServiceHistory;
+            $appointment->message = $message;
+            $appointment->sort_number = $index + 1;  // 車両の並び順
+
+            // 保存
+            $appointment->save();
+        }
+        return redirect()->route('appointments.index')->with('success', '予約が確定しました');
     }
 }
