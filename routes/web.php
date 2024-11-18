@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('top');
-});
+})->name('top');
 
 Route::middleware('auth', 'verified')->group(function () {
     Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {

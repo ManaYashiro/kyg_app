@@ -50,11 +50,9 @@ class RegisteredUserController extends Controller
         // ユーザーをログインさせる
         Auth::login($user);
 
-        // マイページへリダイレクトする
-        if (Auth::user()->role == User::ADMIN) {
-            return redirect(route('admin.dashboard', absolute: false));
-        }
-        return redirect(route('mypage', absolute: false));
+        //未ローグインで確認メール送信して、トップ画面にリダイレクトします。
+        $message = 'ご登録いただき、ありがとうございます。<br />お送りした確認用URLをメールからご確認の上、クリックしてください。';
+        return redirect(route('top', absolute: false))->with('verify-email', $message);
     }
 
     protected function formatPhoneNumber($phoneNumber)
