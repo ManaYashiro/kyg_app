@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
@@ -10,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class AuthenticatedSessionController extends Controller
+class KYGAuthenticatedSessionController extends Controller
 {
 
     public const ADMIN_DASHBOARD = '/admin/dashboard';
@@ -33,9 +34,10 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        if (Auth::user()->role == User::ADMIN) {
+        if (Auth::user()->role === User::ADMIN) {
             return redirect()->intended(self::ADMIN_DASHBOARD);
         }
+        Log::info("ユーザー" . Auth::user()->name . "はマイページにリダイレクトします");
         return redirect()->intended(self::USER_MYPAGE);
     }
 

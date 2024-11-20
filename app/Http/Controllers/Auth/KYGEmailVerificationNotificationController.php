@@ -7,7 +7,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 
-class EmailVerificationNotificationController extends Controller
+class KYGEmailVerificationNotificationController extends Controller
 {
     /**
      * Send a new email verification notification.
@@ -17,9 +17,9 @@ class EmailVerificationNotificationController extends Controller
         if ($request->user()->hasVerifiedEmail()) {
 
             if ($request->user()->role == User::ADMIN) {
-                return redirect()->intended(AuthenticatedSessionController::ADMIN_DASHBOARD);
+                return redirect()->intended(KYGAuthenticatedSessionController::ADMIN_DASHBOARD);
             }
-            return redirect()->intended(AuthenticatedSessionController::USER_MYPAGE);
+            return redirect()->intended(KYGAuthenticatedSessionController::USER_MYPAGE);
         }
 
         $request->user()->sendEmailVerificationNotification();
