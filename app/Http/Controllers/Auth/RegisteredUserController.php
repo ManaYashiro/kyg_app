@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
-class KYGRegisteredUserController extends Controller
+class RegisteredUserController extends Controller
 {
     /**
      * Display the registration view.

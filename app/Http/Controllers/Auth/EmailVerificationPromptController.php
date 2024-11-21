@@ -8,16 +8,15 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class KYGEmailVerificationPromptController extends Controller
+class EmailVerificationPromptController extends Controller
 {
     /**
      * Display the email verification prompt.
      */
     public function __invoke(Request $request): RedirectResponse|View
     {
-        $redirectUrl = $request->user()->role == User::ADMIN ? KYGAuthenticatedSessionController::ADMIN_DASHBOARD : KYGAuthenticatedSessionController::USER_MYPAGE;
         return $request->user()->hasVerifiedEmail()
-            ? redirect()->intended($redirectUrl)
+            ? (User::ADMIN ? redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD) : redirect()->intended(AuthenticatedSessionController::USER_MYPAGE))
             : view('auth.verify-email');
     }
 }

@@ -26,7 +26,6 @@ class EmailVerificationTest extends TestCase
     public function test_email_can_be_verified(): void
     {
         $user = User::factory()->unverified()->create();
-        $redirectUrl = $user->role == User::ADMIN ? AuthenticatedSessionController::ADMIN_DASHBOARD : AuthenticatedSessionController::USER_MYPAGE;
 
         Event::fake();
 
@@ -40,7 +39,7 @@ class EmailVerificationTest extends TestCase
 
         Event::assertDispatched(Verified::class);
         $this->assertTrue($user->fresh()->hasVerifiedEmail());
-        $response->assertRedirect($redirectUrl . '?verified=1');
+        $response->assertRedirect(User::ADMIN ? redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD) : redirect()->intended(AuthenticatedSessionController::USER_MYPAGE));
     }
 
     public function test_email_is_not_verified_with_invalid_hash(): void

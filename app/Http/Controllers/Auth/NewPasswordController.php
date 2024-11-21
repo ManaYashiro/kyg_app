@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
-class KYGNewPasswordController extends Controller
+class NewPasswordController extends Controller
 {
     /**
      * Display the password reset view.
