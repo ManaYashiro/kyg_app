@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
-class KYGConfirmablePasswordController extends Controller
+class ConfirmablePasswordController extends Controller
 {
     /**
      * Show the confirm password view.
@@ -38,8 +38,8 @@ class KYGConfirmablePasswordController extends Controller
 
 
         if (Auth::user()->role == User::ADMIN) {
-            return redirect()->intended(KYGAuthenticatedSessionController::ADMIN_DASHBOARD);
+            return redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD);
         }
-        return redirect()->intended(KYGAuthenticatedSessionController::USER_MYPAGE);
+        return redirect()->intended(AuthenticatedSessionController::USER_MYPAGE);
     }
 }

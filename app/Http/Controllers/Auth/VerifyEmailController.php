@@ -8,23 +8,22 @@ use Illuminate\Auth\Events\Verified;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\RedirectResponse;
 
-class KYGVerifyEmailController extends Controller
+class VerifyEmailController extends Controller
 {
     /**
      * Mark the authenticated user's email address as verified.
      */
     public function __invoke(EmailVerificationRequest $request): RedirectResponse
     {
-        $redirectUrl = $request->user()->role == User::ADMIN ? KYGAuthenticatedSessionController::ADMIN_DASHBOARD : KYGAuthenticatedSessionController::USER_MYPAGE;
 
         if ($request->user()->hasVerifiedEmail()) {
-            return redirect()->intended($redirectUrl . '?verified=1');
+            return (User::ADMIN ? redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD) : redirect()->intended(AuthenticatedSessionController::USER_MYPAGE));
         }
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
 
-        return redirect()->intended($redirectUrl . '?verified=1');
+        return (User::ADMIN ? redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD) : redirect()->intended(AuthenticatedSessionController::USER_MYPAGE));
     }
 }
