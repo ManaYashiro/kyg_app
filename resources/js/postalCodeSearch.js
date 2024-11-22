@@ -20,15 +20,27 @@ $(document).ready(function () {
                                 address.address3
                         );
                     } else {
-                        alert("住所が見つかりませんでした。");
+                        Swal.fire({
+                            title: "エラー！",
+                            text: "住所が見つかりませんでした。",
+                            icon: "error",
+                        });
                     }
                 },
                 error: function () {
-                    alert("郵便番号の検索に失敗しました。");
+                    Swal.fire({
+                        title: "エラー！",
+                        text: "郵便番号の検索に失敗しました。",
+                        icon: "error",
+                    });
                 },
             });
         } else {
-            alert("有効な郵便番号を入力してください。");
+            Swal.fire({
+                title: "エラー！",
+                text: "有効な郵便番号を入力してください。",
+                icon: "error",
+            });
         }
     });
 });
