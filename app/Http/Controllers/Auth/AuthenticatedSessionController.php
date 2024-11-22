@@ -35,10 +35,46 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         if (Auth::user()->role === User::ADMIN) {
-            return redirect()->to(self::ADMIN_DASHBOARD);
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            $request->session()->flash('error', __('auth.failed'));
+            return redirect()->intended(route('login'));
         }
-        Log::info("ユーザー" . Auth::user()->name . "はマイページにリダイレクトします");
         return redirect()->intended(self::USER_MYPAGE);
+    }
+
+    /**
+     * Display the login view.
+     */
+    public function admincreate(): View
+    {
+        return view('auth.adminlogin');
+    }
+
+    /**
+     * Handle an incoming authentication request.
+     */
+    public function adminstore(LoginRequest $request): RedirectResponse
+    {
+        $request->authenticate();
+
+        $request->session()->regenerate();
+
+        if (Auth::user()->role === User::USER) {
+            Auth::guard('web')->logout();
+
+            $request->session()->invalidate();
+
+            $request->session()->regenerateToken();
+
+            $request->session()->flash('error', __('auth.failed'));
+            return redirect()->intended(route('admin.login'));
+        }
+        return redirect()->to(self::ADMIN_DASHBOARD);
     }
 
     /**
