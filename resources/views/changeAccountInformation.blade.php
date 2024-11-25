@@ -46,7 +46,7 @@
                                     <div class="mt-4">
                                         <x-input-label for="password" :value="__('パスワード')" />
                                         <x-text-input id="password" class="block mt-1 w-full" type="text"
-                                            name="password" :value="old('password', '')" placeholder="変更する場合のみ入力してください" />
+                                            type="password" name="password" placeholder="変更する場合のみ入力してください" />
                                         <x-input-error :messages="$errors->get('password')" class="mt-2" />
                                     </div>
 
@@ -70,7 +70,8 @@
                                     <div class="mt-4">
                                         <x-input-label for="post_code" :value="__('郵便番号')" />
                                         <div class="flex items-center space-x-2">
-                                            <x-text-input id="post_code" class="block mt-1 w-full" type="text" name="post_code" :value="old('post_code', $users->post_code ?? '')" required />
+                                            <x-text-input id="post_code" class="block mt-1 w-full" type="text"
+                                                name="post_code" :value="old('post_code', $users->post_code ?? '')" required />
 
                                             <!-- 検索ボタン -->
                                             <button type="button" id="search-postcode"
@@ -104,7 +105,12 @@
                                         <div class="ml-1 mt-2 flex flex-row gap-3 items-center">
                                             <x-text-input id="is_newsletter_subscription" type="checkbox"
                                                 name="is_newsletter_subscription" :value="1"
-                                                :checked="old('is_newsletter_subscription', $users->is_newsletter_subscription ?? false, ) ? true : false" />
+                                                :checked="old(
+                                                    'is_newsletter_subscription',
+                                                    $users->is_newsletter_subscription ?? false,
+                                                )
+                                                    ? true
+                                                    : false" />
                                             <x-input-label for="is_newsletter_subscription" :value="__('受け取る')" />
                                             <x-input-error :messages="$errors->get('is_newsletter_subscription')" class="mt-2" />
                                         </div>
