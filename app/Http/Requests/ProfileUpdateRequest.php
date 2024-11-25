@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class ProfileUpdateRequest extends FormRequest
 {
@@ -13,10 +14,11 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = ($this->route('userList') ? $this->route('userList') : Auth::user()->id);
         $rules = [
             'name' => 'required|string',
             'furigana' => 'required|string',
-            'email' => 'required|string|unique:users,email,' . ($this->route('userList') ? $this->route('userList') : 'NULL'),
+            'email' => 'required|string|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8|confirmed',
             'password_confirmation' => 'nullable|string|min:8|same:password',
             'phone_number' => 'required|string|min:10',
