@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>{{ \App\Helpers\Formats::title() }}</title>
+    <title>{{ \App\Helpers\Formats::title() }}｜車検・点検整備のWEB予約ページ｜キムラユニティーグループ</title>
 
     {{-- Favicon --}}
     <link rel="shortcut icon" sizes="114x114" href="{{ Vite::asset('resources/img/main/favicon.ico') }}">
