@@ -11,6 +11,10 @@ export default defineConfig({
 
                 // custom
                 "resources/js/modules/base.js",
+
+                // images
+                "resources/img/main/favicon.ico",
+                "resources/img/main/logo.png",
             ],
             refresh: true,
         }),
