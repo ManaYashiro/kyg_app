@@ -6,11 +6,19 @@
     <form method="POST" action="{{ route('login') }}">
         @csrf
 
+        <x-text.main text="ログイン" class="mb-3" border="b" />
+        <x-text.main text="キムラユニティーグループのWEB予約サイトへのご訪問ありがとうございます。" color="blue" />
+        <x-text.main text="○ログインIDとパスワードを入力して [ログイン]ボタンを押してください。" />
+        <div class="mt-3 flex flex-col gap-1">
+            <x-text.plain text="※はじめてご利用いただく方は、お手数ですが右上の[会員登録]（スマホの場合はメニュー内）からユーザー登録をお願いいたします。" size="xs" />
+            <x-text.plain text="※ログインＩＤ・パスワードをお忘れの場合は[※パスワードの再設定はこちら]へお進みください。" size="xs" />
+        </div>
+
         <!-- Email Address -->
         <div>
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required
-                autofocus autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
+                required autofocus autocomplete="username" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 

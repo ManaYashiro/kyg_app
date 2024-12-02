@@ -1,25 +1,19 @@
-@php
-    // Define the allowed colors
-    $colors = ['red', 'blue', 'green'];
+<div class="w-full">
+    @if ($logout === 'logout')
+        <form action="{{ $url }}" method="POST">
+            @csrf
+        @elseif ($url)
+            <a href="{{ $url }}">
+    @endif
 
-    // Default to 'red' if $color is not in the allowed colors
-    $colorClass = in_array($color, $colors) ? "bg-{$color}-700" : 'bg-red-700';
-@endphp
+    <button {{ $attributes->merge(['class' => 'bg-red-1000 text-white text-xs px-2 py-2 rounded w-full']) }}
+        type="{{ $type }}">
+        {{ $name }}
+    </button>
 
-@if ($logout === 'logout')
-    <form action="{{ $url }}" method="POST">
-        @csrf
-    @elseif ($type === 'href' && $url)
-        <a href="{{ $url }}">
-@endif
-
-<button {{ $attributes->merge(['class' => "$colorClass text-white px-4 py-2 rounded-none main-button"]) }}
-    type="{{ $type }}" @if ($type === 'submit') type="submit" @endif>
-    {{ $name }}
-</button>
-
-@if ($logout === 'logout')
-    </form>
-@elseif ($type === 'href' && $url)
-    </a>
-@endif
+    @if ($logout === 'logout')
+        </form>
+    @elseif ($url)
+        </a>
+    @endif
+</div>
