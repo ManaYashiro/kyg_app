@@ -17,3 +17,21 @@
 .bg-gray-text {
     @apply font-bold bg-customgray py-1 px-2;
 }
+
+.form-label {
+    font-size: 14px;
+}
+
+.form-required {
+    font-size: 11px;
+    padding: 0 4px;
+    background: #d17565;
+    @apply flex justify-center items-center font-bold text-white rounded;
+}
+
+.form-any {
+    font-size: 11px;
+    padding: 0 4px;
+    background: #ecb666;
+    @apply flex justify-center items-center font-bold text-white rounded;
+}

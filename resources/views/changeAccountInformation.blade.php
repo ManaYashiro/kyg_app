@@ -101,18 +101,33 @@
 
                                     <!-- newsletter_subscription-->
                                     <div class="mt-4">
-                                        <x-input-label for="is_newsletter_subscription" :value="__('ショップからのお知らせを受け取る')" />
+                                        <x-input-label for="is_receive_newsletter" :value="__('メルマガ配信')" />
                                         <div class="ml-1 mt-2 flex flex-row gap-3 items-center">
-                                            <x-text-input id="is_newsletter_subscription" type="checkbox"
-                                                name="is_newsletter_subscription" :value="1"
-                                                :checked="old(
-                                                    'is_newsletter_subscription',
-                                                    $users->is_newsletter_subscription ?? false,
+                                            <x-text-input id="is_receive_newsletter" type="checkbox"
+                                                name="is_receive_newsletter" :value="1" :checked="old(
+                                                    'is_receive_newsletter',
+                                                    $users->is_receive_newsletter ?? false,
                                                 )
                                                     ? true
                                                     : false" />
-                                            <x-input-label for="is_newsletter_subscription" :value="__('受け取る')" />
-                                            <x-input-error :messages="$errors->get('is_newsletter_subscription')" class="mt-2" />
+                                            <x-input-label for="is_receive_newsletter" :value="__('受け取る')" />
+                                            <x-input-error :messages="$errors->get('is_receive_newsletter')" class="mt-2" />
+                                        </div>
+                                    </div>
+
+                                    <!-- notification_subscription-->
+                                    <div class="mt-4">
+                                        <x-input-label for="is_receive_notification" :value="__('店からのお知らせメール')" />
+                                        <div class="ml-1 mt-2 flex flex-row gap-3 items-center">
+                                            <x-text-input id="is_receive_notification" type="checkbox"
+                                                name="is_receive_notification" :value="1" :checked="old(
+                                                    'is_receive_notification',
+                                                    $users->is_receive_notification ?? false,
+                                                )
+                                                    ? true
+                                                    : false" />
+                                            <x-input-label for="is_receive_notification" :value="__('受け取る')" />
+                                            <x-input-error :messages="$errors->get('is_receive_notification')" class="mt-2" />
                                         </div>
                                     </div>
 

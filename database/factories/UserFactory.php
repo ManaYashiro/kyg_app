@@ -70,7 +70,8 @@ class UserFactory extends Factory
             return [
                 'role' => User::ADMIN,
                 'preferred_contact_time' => null,
-                'is_newsletter_subscription' => FALSE,
+                'is_receive_newsletter' => FALSE,
+                'is_receive_notification' => FALSE,
             ];
         });
     }
@@ -86,7 +87,8 @@ class UserFactory extends Factory
             return [
                 'role' => User::USER,
                 'preferred_contact_time' => '9-12',
-                'is_newsletter_subscription' => FALSE,
+                'is_receive_newsletter' => FALSE,
+                'is_receive_notification' => FALSE,
             ];
         });
     }
@@ -110,7 +112,8 @@ class UserFactory extends Factory
             return [
                 'role' => User::USER,
                 'preferred_contact_time' => fake()->randomElement($contact_time),
-                'is_newsletter_subscription' => fake()->randomElement([true, false]),
+                'is_receive_newsletter' => fake()->randomElement([true, false]),
+                'is_receive_notification' => fake()->randomElement([true, false]),
                 'how_did_you_hear' => $this->randomAnket(),
             ];
         });

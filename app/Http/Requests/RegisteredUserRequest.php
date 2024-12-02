@@ -31,9 +31,10 @@ class RegisteredUserRequest extends FormRequest
             'phone_number' => 'required|string|min:10',
             'post_code' => 'required|integer',
             'address' => 'required|string',
-            'preferred_contact_time' => 'nullable|in:9-12,12-13,13-15,15-17,17-19,no_preference',
-            'is_newsletter_subscription' => 'nullable|boolean',
-            'how_did_you_hear' => 'array',
+            'preferred_contact_time' => 'required|in:9-12,12-13,13-15,15-17,17-19,no_preference',
+            'is_receive_newsletter' => 'nullable|in:0,1',
+            'is_receive_notification' => 'required|in:0,1',
+            'how_did_you_hear' => 'required|array|min:1',
         ];
     }
 
@@ -64,6 +65,8 @@ class RegisteredUserRequest extends FormRequest
             'address.string' => '住所は文字列でなければなりません',
 
             'building.string' => '建物名は文字列でなければなりません',
+            'how_did_you_hear.required' => '少なくとも1つの:attributeを選択',
+            'how_did_you_hear.min' => '少なくとも1:attributeを選択',
         ];
     }
 
@@ -71,6 +74,10 @@ class RegisteredUserRequest extends FormRequest
     {
         return [
             'loginid' => 'ログインID',
+            'preferred_contact_time' => '電話希望時間',
+            'is_receive_newsletter' => 'メルマガ配信',
+            'is_receive_notification' => '店からのお知らせメール',
+            'how_did_you_hear' => 'アンケート',
         ];
     }
 }

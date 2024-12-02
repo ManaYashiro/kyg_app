@@ -27,7 +27,8 @@ return new class extends Migration
             $table->string('building')->nullable();
             $table->string('preferred_contact_time', 15)->nullable();
             $table->json('how_did_you_hear')->nullable();
-            $table->boolean('is_newsletter_subscription')->default(FALSE);
+            $table->boolean('is_receive_newsletter')->default(FALSE);
+            $table->boolean('is_receive_notification')->default(FALSE);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

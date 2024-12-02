@@ -64,6 +64,7 @@
                                     <th class="px-4 py-2 text-left" style="width: 8%;">電話時間</th>
                                     <th class="px-4 py-2 text-left" style="width: 12%;">アンケート</th>
                                     <th class="px-4 py-2 text-left" style="width: 10%;">News</th>
+                                    <th class="px-4 py-2 text-left" style="width: 10%;">Notif</th>
                                 </tr>
                             </thead>
 
@@ -95,7 +96,10 @@
                                             {{ $user->findUserAnkets() }}
                                         </td>
                                         <td class="border px-4 py-2 text-xs">
-                                            {{ $user->is_newsletter_subscription ? 'Yes' : 'No' }}
+                                            {{ $user->is_receive_newsletter ? 'Yes' : 'No' }}
+                                        </td>
+                                        <td class="border px-4 py-2 text-xs">
+                                            {{ $user->is_receive_notification ? 'Yes' : 'No' }}
                                         </td>
                                     </tr>
                                 @endforeach

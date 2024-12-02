@@ -41,7 +41,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'building',
         'preferred_contact_time',
         'how_did_you_hear',
-        'is_newsletter_subscription',
+        'is_receive_newsletter',
+        'is_receive_notification',
     ];
 
     /**
