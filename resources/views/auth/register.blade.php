@@ -2,11 +2,19 @@
     <form method="POST" action="{{ route('register') }}" autocomplete="off">
         @csrf
 
+        <!-- Login ID -->
+        <div class="mt-4">
+            <x-input-label for="loginid" :value="__('ログインID')" />
+            <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid')" required
+                autofocus />
+            <x-input-error :messages="$errors->get('loginid')" class="mt-2" />
+        </div>
+
         <!-- Name -->
         <div class="mt-4">
             <x-input-label for="name" :value="__('名前')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required
-                autofocus />
+            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')"
+                required />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 

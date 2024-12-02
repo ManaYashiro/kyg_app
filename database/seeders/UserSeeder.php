@@ -15,6 +15,7 @@ class UserSeeder extends Seeder
     {
         User::factory()->admin()->create(
             [
+                'loginid' => '0000000001',
                 'name' => 'admin',
                 'furigana' => 'admin',
                 'email' => 'admin@admin.admin',
@@ -24,6 +25,7 @@ class UserSeeder extends Seeder
         );
         User::factory()->user()->create(
             [
+                'loginid' => '0000000002',
                 'name' => 'user',
                 'furigana' => 'user',
                 'email' => 'user@user.user',

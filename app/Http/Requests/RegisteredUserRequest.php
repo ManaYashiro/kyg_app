@@ -22,6 +22,7 @@ class RegisteredUserRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'loginid' => 'required|string|min:4|max:10',
             'name' => 'required|string',
             'furigana' => 'required|string',
             'email' => 'required|email|unique:users,email',
@@ -30,7 +31,8 @@ class RegisteredUserRequest extends FormRequest
             'phone_number' => 'required|string|min:10',
             'post_code' => 'required|integer',
             'address' => 'required|string',
-            'preferred_contact_time' => 'nullable|in:9-12,12-13,13-15,15-17,17-19,no_preference',            'is_newsletter_subscription' => 'nullable|boolean',
+            'preferred_contact_time' => 'nullable|in:9-12,12-13,13-15,15-17,17-19,no_preference',
+            'is_newsletter_subscription' => 'nullable|boolean',
             'how_did_you_hear' => 'array',
         ];
     }
@@ -38,6 +40,8 @@ class RegisteredUserRequest extends FormRequest
     public function messages(): array
     {
         return [
+            'min' => ':attributeは最低:min文字以上でなければなりません',
+            'mmax' => ':attributeは最低:mmax文字以下でなければなりません',
             'name.string' => '名前は文字列でなければなりません',
 
             'furigana.string' => 'フリガナは文字列でなければなりません',
@@ -60,6 +64,13 @@ class RegisteredUserRequest extends FormRequest
             'address.string' => '住所は文字列でなければなりません',
 
             'building.string' => '建物名は文字列でなければなりません',
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'loginid' => 'ログインID',
         ];
     }
 }

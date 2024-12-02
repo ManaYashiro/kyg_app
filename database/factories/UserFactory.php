@@ -51,6 +51,7 @@ class UserFactory extends Factory
     public function otherData(bool $isAdmin = false): array
     {
         return [
+            'loginid' => fake()->regexify('[a-z0-9]{10}'),
             'phone_number' => fake()->phoneNumber(),
             'post_code' => fake()->postcode(),
             'address' => fake()->prefecture() . fake()->ward(),
