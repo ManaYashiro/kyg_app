@@ -14,6 +14,9 @@ export default {
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
+            fontSize: {
+                xxs: "0.5rem",
+            },
             colors: {
                 red: {
                     1000: "#CC0000",
@@ -24,6 +27,7 @@ export default {
                 blue: {
                     1000: "#0000CC",
                 },
+                customgray: "#eeeeee",
             },
         },
     },

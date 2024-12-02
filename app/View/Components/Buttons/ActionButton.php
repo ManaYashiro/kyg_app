@@ -10,16 +10,18 @@ class ActionButton extends Component
 {
     public $name;
     public $type;
+    public $class;
     public $url;
     public $logout;
 
     /**
      * Create a new component instance.
      */
-    public function __construct($name, $type = 'button', $url = null, $logout = "false")
+    public function __construct($name, $type = 'button', string $class = "px-2 py-2", $url = null, $logout = "false")
     {
         $this->name = $name;
         $this->type = $type;
+        $this->class = trim($class);
         $this->url = $url;
         $this->logout = $logout;
     }

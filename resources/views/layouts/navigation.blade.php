@@ -23,23 +23,36 @@
                         <button
                             class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div class="ms-1">
-                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20">
-                                    <path fill-rule="evenodd"
-                                        d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                        clip-rule="evenodd" />
-                                </svg>
+                                <div class="flex flex-col w-6" x-show="!open">
+                                    <i class="w-6 h-6 fa-solid fa-bars"></i>
+                                    <span class="text-xxs">MENU</span>
+                                </div>
+                                <div class="flex flex-col w-6" x-show="open">
+                                    <i class="w-6 h-6 fa-solid fa-x"></i>
+                                    <span class="text-xxs">CLOSE</span>
+                                </div>
                             </div>
                         </button>
                     </x-slot>
 
                     {{-- burgermenu content --}}
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                        <x-dropdown-link :href="route('top')">
+                            {{ __('作業カテゴリ一覧') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('top')">
+                            {{ __('店舗介') }}
+                        </x-dropdown-link>
+                        <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+                        <x-dropdown-link :href="route('top')">
+                            <i class="fa-solid fa-info"></i> {{ __('ご利用ガイド') }}
+                        </x-dropdown-link>
+                        <x-dropdown-link :href="route('top')">
+                            <i class="fa-solid fa-question"></i> {{ __('よくある質問') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
+                        {{--
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
 
@@ -49,6 +62,7 @@
                                 {{ __('Log Out') }}
                             </x-dropdown-link>
                         </form>
+                        --}}
                     </x-slot>
                 </x-dropdown>
             </div>

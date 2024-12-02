@@ -1,3 +1,7 @@
+@php
+    $buttonClass = 'bg-red-1000 text-white rounded w-full' . ($class ? ' ' . $class : '');
+@endphp
+
 <div class="w-full">
     @if ($logout === 'logout')
         <form action="{{ $url }}" method="POST">
@@ -6,8 +10,7 @@
             <a href="{{ $url }}">
     @endif
 
-    <button {{ $attributes->merge(['class' => 'bg-red-1000 text-white text-xs px-2 py-2 rounded w-full']) }}
-        type="{{ $type }}">
+    <button {{ $attributes->merge(['class' => $buttonClass]) }} type="{{ $type }}">
         {{ $name }}
     </button>
 

@@ -5,3 +5,15 @@
 .main-button {
     min-width: 100px;
 }
+
+.left-border-text {
+    @apply font-bold border-red-1000 border-l-2 ps-1 my-3;
+}
+
+.bottom-border-text {
+    @apply font-bold border-red-1000 border-b-2 pb-1 my-3;
+}
+
+.bg-gray-text {
+    @apply font-bold bg-customgray py-1 px-2;
+}

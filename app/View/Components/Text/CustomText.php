@@ -6,19 +6,25 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Plain extends Component
+class CustomText extends Component
 {
     public $text;
 
-    public $size;
+    public $class;
+
+    public $textClass;
 
     /**
      * Create a new component instance.
+     * string $text: Text
+     * string $class: div class
+     * string $textClass: text class
      */
-    public function __construct($text, $size = "sm")
+    public function __construct(string $text, string $class = "", string $textClass = "")
     {
         $this->text = $text;
-        $this->size = $size;
+        $this->class = $class;
+        $this->textClass = $textClass;
     }
 
     /**
@@ -26,6 +32,6 @@ class Plain extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.text.plain');
+        return view('components.text.custom-text');
     }
 }
