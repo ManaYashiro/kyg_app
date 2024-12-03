@@ -25,6 +25,8 @@ class ConfirmablePasswordController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
+        // パスワード再設定時に、ログインIDを使用している場合は、ログインIDとsendResetLinkパラメータの検証を変更します。
+        // 'loginid'
         if (! Auth::guard('web')->validate([
             'email' => $request->user()->email,
             'password' => $request->password,
@@ -36,9 +38,8 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
-
         if (Auth::user()->role == User::ADMIN) {
-            return redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD);
+            return redirect()->intended(AuthenticatedSessionController::ADMIN_DASHBOARD);
         }
         return redirect()->intended(AuthenticatedSessionController::USER_MYPAGE);
     }

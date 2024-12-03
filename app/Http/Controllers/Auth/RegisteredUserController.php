@@ -48,7 +48,7 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         // ユーザーをログインさせる
-        Auth::login($user);
+        // Auth::login($user);
 
         //未ローグインで確認メール送信して、トップ画面にリダイレクトします。
         $message = 'ご登録いただき、ありがとうございます。<br />お送りした確認用URLをメールからご確認の上、クリックしてください。';

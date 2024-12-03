@@ -6,6 +6,7 @@ use App\Exceptions\SendEmailFailedException;
 use App\Helpers\Log;
 use App\Notifications\NotifyAdminOfRegisteredUserNotification;
 use App\Notifications\RegisteredUserNotification;
+use App\Notifications\RegisteredUserPasswordResetNotification;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -100,6 +101,17 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
 
+    public function sendPasswordResetNotification($token)
+    {
+        $user = $this;
+        try {
+            // ユーザーパスワード再設定メール送信
+            $this->notify(new RegisteredUserPasswordResetNotification($user, $token));
+        } catch (SendEmailFailedException $e) {
+            throw new SendEmailFailedException(self::TITLE . 'のパスワード再設定メールの送信に失敗しました。');
+        }
+    }
+
     /**
      * Register any authentication / authorization services.
      */
@@ -117,8 +129,8 @@ class User extends Authenticatable implements MustVerifyEmail
                     $authUser->notify(new NotifyAdminOfRegisteredUserNotification($user));
                 }
             } catch (SendEmailFailedException $e) {
-                Log::info('管理者に' . User::TITLE . 'の登録のお知らせ', $this->user->name);
-                throw new SendEmailFailedException('管理者に' . User::TITLE . 'の登録のお知らせが失敗です。');
+                Log::info('管理者に' . self::TITLE . 'の登録のお知らせ', $this->user->name);
+                throw new SendEmailFailedException('管理者に' . self::TITLE . 'の登録のお知らせが失敗です。');
             }
         });
 

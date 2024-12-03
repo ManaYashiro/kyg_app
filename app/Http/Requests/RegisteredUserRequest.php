@@ -22,7 +22,7 @@ class RegisteredUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'loginid' => 'required|string|min:4|max:10',
+            'loginid' => 'required|string|unique:users,loginid|min:4|max:10',
             'name' => 'required|string',
             'furigana' => 'required|string',
             'email' => 'required|email|unique:users,email',
@@ -43,12 +43,12 @@ class RegisteredUserRequest extends FormRequest
         return [
             'min' => ':attributeは最低:min文字以上でなければなりません',
             'mmax' => ':attributeは最低:mmax文字以下でなければなりません',
+            'unique' => 'この:attributeはすでに登録されています',
             'name.string' => '名前は文字列でなければなりません',
 
             'furigana.string' => 'フリガナは文字列でなければなりません',
 
             'email.email' => 'メールアドレスの形式が正しくありません',
-            'email.unique' => 'このメールアドレスはすでに登録されています',
 
             'password.string' => 'パスワードは文字列でなければなりません',
             'password.min' => 'パスワードは最低8文字以上でなければなりません',

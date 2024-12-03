@@ -7,19 +7,20 @@ use App\Models\User;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
-use Illuminate\Support\Facades\URL;
 
-class RegisteredUserNotification extends Notification
+class RegisteredUserPasswordResetNotification extends Notification
 {
     use Queueable;
 
     protected $user;
+    protected $token;
     /**
      * Create a new notification instance.
      */
-    public function __construct($user)
+    public function __construct(User $user, string $token)
     {
         $this->user = $user;
+        $this->token = $token;
     }
 
     /**
@@ -37,20 +38,20 @@ class RegisteredUserNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        Log::info(User::TITLE . 'に登録メール送信中', $this->user->name);
-        $verificationUrl = $this->verificationUrl($notifiable, $this->user);
+        Log::info(User::TITLE . 'にパスワード再設定メール送信中', $this->user->name);
+        $passwordResetURL = $this->passwordResetURL();
 
         return (new MailMessage)
-            ->subject('ご登録いただきありがとうございます。')
+            ->subject('パスワード再設定のお知らせ')
             ->greeting($this->user->name . '様')
-            ->line('以下のボタンをクリックして、メールアドレスを確認してください。')
-            ->markdown('emails.auth.verifyemail', [
-                'url' => $verificationUrl,
+            ->line('以下のボタンをクリックすると、パスワード再設定画面にリダイレクトされます。')
+            ->markdown('emails.auth.reset-password', [
+                'url' => $passwordResetURL,
                 'user' => $this->user,
                 'salutation' => '宜しくお願い致します。',
-                'actionText' => 'メールアドレスの確認',
-                'displayableActionUrl' => $verificationUrl,
-                'actionUrl' => $verificationUrl,
+                'actionText' => 'パスワード再設定',
+                'displayableActionUrl' => $passwordResetURL,
+                'actionUrl' => $passwordResetURL,
             ]);
     }
 
@@ -66,12 +67,8 @@ class RegisteredUserNotification extends Notification
         ];
     }
 
-    protected function verificationUrl($notifiable, $user)
+    public function passwordResetURL()
     {
-        return URL::temporarySignedRoute(
-            'verification.verify',
-            now()->addMinutes(60),
-            ['id' => $notifiable->getKey(), 'hash' => sha1($user->email)]
-        );
+        return route('password.reset', $this->token);
     }
 }

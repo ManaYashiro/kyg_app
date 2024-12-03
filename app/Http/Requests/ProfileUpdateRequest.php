@@ -18,7 +18,8 @@ class ProfileUpdateRequest extends FormRequest
         $rules = [
             'name' => 'required|string',
             'furigana' => 'required|string',
-            'email' => 'required|string|unique:users,email,' . $id,
+            'loginid' => 'required|string|unique:users,loginid,' . $id,
+            'email' => 'required|email|unique:users,email,' . $id,
             'password' => 'nullable|string|min:8|confirmed',
             'password_confirmation' => 'nullable|string|min:8|same:password',
             'phone_number' => 'required|string|min:10',

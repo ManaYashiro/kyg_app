@@ -14,6 +14,18 @@
     @apply font-bold border-red-1000 border-b-2 pb-1 my-3;
 }
 
+.bg-success-response {
+    @apply font-bold text-center py-4 px-4 flex flex-col items-center justify-center;
+    color: #3a7794;
+    background-color: #d9edf7;
+}
+
+.bg-error-response {
+    @apply font-bold text-center py-4 px-4 flex flex-col items-center justify-center;
+    color: #a94442;
+    background-color: #f2dede;
+}
+
 .bg-gray-text {
     @apply font-bold bg-customgray py-1 px-2;
 }

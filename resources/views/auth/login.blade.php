@@ -18,7 +18,7 @@
             <x-text.custom-text text="ログイン情報" class="mb-2 text-sm bg-gray-text" />
 
             <!-- Login ID -->
-            <div>
+            <div class="mt-4">
                 <x-text.custom-text text="ログインID" class="text-sm left-border-text" />
                 <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid')"
                     required autofocus autocomplete="username" />

@@ -15,7 +15,7 @@
             <x-text.custom-text text="パスワード情報" class="mb-2 text-sm bg-gray-text" />
 
             <!-- Email Address -->
-            <div>
+            <div class="mt-4">
                 <x-text.custom-text text="メールアドレス" class="text-sm left-border-text" />
                 <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
                     required autofocus autocomplete="username" />

@@ -33,6 +33,7 @@ class UserFactory extends Factory
                 'name' => fake()->name(),
                 'furigana' => fake()->name(),
                 'role' => User::USER,
+                'loginid' => fake()->regexify('[a-z0-9]{10}'),
                 'email' => fake()->unique()->safeEmail(),
                 'password' => 'p@ssword1234',
             ]);
@@ -51,7 +52,6 @@ class UserFactory extends Factory
     public function otherData(bool $isAdmin = false): array
     {
         return [
-            'loginid' => fake()->regexify('[a-z0-9]{10}'),
             'phone_number' => fake()->phoneNumber(),
             'post_code' => fake()->postcode(),
             'address' => fake()->prefecture() . fake()->ward(),
