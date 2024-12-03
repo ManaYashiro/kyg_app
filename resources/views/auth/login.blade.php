@@ -1,4 +1,5 @@
 <x-guest-layout>
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
     <x-auth-session-error class="mb-4" :error="session('error')" />
@@ -13,8 +14,9 @@
             <x-text.custom-text text="※ログインＩＤ・パスワードをお忘れの場合は[※パスワードの再設定はこちら]へお進みください。" class="text-xs" />
         </div>
 
-        <div class="max-w-md mt-8 mx-auto">
+        <div class="max-w-md mt-6 py-8 mx-auto">
             <x-text.custom-text text="ログイン情報" class="mb-2 text-sm bg-gray-text" />
+
             <!-- Login ID -->
             <div>
                 <x-text.custom-text text="ログインID" class="text-sm left-border-text" />

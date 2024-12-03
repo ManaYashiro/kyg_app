@@ -44,20 +44,13 @@
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 </head>
 
-{{-- Translate to center for login blade --}}
-@php
-    $translateCenter = '';
-    if (Route::currentRouteName() === 'login') {
-        $translateCenter = 'absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2';
-    }
-@endphp
-
 <body class="font-sans text-gray-900 antialiased">
-    <div class="min-h-screen bg-gray-100 sm:justify-center items-center relative">
+    <div class="min-h-screen bg-gray-100 sm:justify-center items-center relative flex flex-col">
         @include('layouts.navigation')
-        <div
-            class="w-full {{ $translateCenter ?? '' }} m-auto max-w-screen-lg px-6 py-4 bg-white shadow-md overflow-hidden">
-            {{ $slot }}
+        <div class="w-full flex-1 max-w-screen-lg relative">
+            <div class="w-full my-8 m-auto px-6 py-4 bg-white shadow-md">
+                {{ $slot }}
+            </div>
         </div>
     </div>
 
