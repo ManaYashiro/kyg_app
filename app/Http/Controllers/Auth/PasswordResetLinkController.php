@@ -37,6 +37,9 @@ class PasswordResetLinkController extends Controller
         // need to show to the user. Finally, we'll send out a proper response.
 
         $foundUser = User::where('email', $request->input('email'))->first();
+        $messages = ['メールアドレスにパスワード再設定用のURLを発行しました。', '2時間以内にアクセスし、新しいパスワードを設定してください。'];
+        $actionText = "ホームヘ";
+        $actionUrl = route('top');
         if ($foundUser) {
             $status = Password::sendResetLink(
                 $request->only('email')
@@ -47,16 +50,8 @@ class PasswordResetLinkController extends Controller
         }
 
         return $status == Password::RESET_LINK_SENT
-            ? redirect()->route('password.response')->with('success', __($status))
+            ? redirect()->route('auth.response')->with(['success' => "true", 'messages' => $messages, 'actionText' => $actionText, 'actionUrl' => $actionUrl])
             : back()->withInput($request->only('email'))
             ->withErrors(['email' => __($status)]);
-    }
-
-    /**
-     * Display the password reset link request view.
-     */
-    public function response(): View
-    {
-        return view('auth.forgot-password-response');
     }
 }

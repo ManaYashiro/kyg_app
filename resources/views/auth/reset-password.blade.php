@@ -7,23 +7,24 @@
         @csrf
 
         <x-text.custom-text text="パスワード再設定" class="mb-3 bottom-border-text font-bold" />
-        <x-text.custom-text text="メールアドレスと新しいパスワードを入力して「パスワード再設定を送信する」をクリックしてください。" class="mb-6 text-sm" />
+        <x-text.custom-text text="新しいパスワードを入力してください。" class="mb-6 text-sm" />
 
-        <!-- Password Reset Token -->
+        {{-- Password Reset Token --}}
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
+        {{-- Hidden Email --}}
+        <input type="hidden" name="email" value="{{ $email }}">
 
-        <!-- Email Address -->
+        <!-- Login ID -->
         <div class="mt-4">
-            <x-text.custom-text text="メールアドレス" class="text-sm left-border-text" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
-                required autofocus />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-text.custom-text text="ログインID" class="text-sm left-border-text" />
+            <x-text.custom-text :text="$loginid" class="mb-6 text-xs" />
+            <x-input-error :messages="$errors->get('loginid')" class="mt-2" />
         </div>
 
         <!-- Password -->
         <div class="mt-4">
-            <x-text.custom-text text="パスコード" class="text-sm left-border-text" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required />
+            <x-text.custom-input-label text="パスワード" class="mb-2" option="必須" />
+            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autofocus />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
