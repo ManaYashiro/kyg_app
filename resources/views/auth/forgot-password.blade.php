@@ -23,7 +23,7 @@
             </div>
 
             <div class="flex flex-col items-end justify-center gap-10 mt-4">
-                <x-buttons.actionbutton name="{{ __('ログイン') }}" type="submit" class="px-4 py-4" />
+                <x-buttons.actionbutton name="{{ __('送信する') }}" type="submit" class="px-4 py-4" />
             </div>
         </div>
     </form>

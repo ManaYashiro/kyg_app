@@ -17,6 +17,8 @@
             <x-text.custom-input-label text="ログインID" class="mb-2" option="必須" />
             <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid')"
                 required autofocus />
+            <x-text.custom-input-label text="※半角英数字 4文字以上で入力してください。"
+                spanClass="font-normal text-xs text-gray-500 mt-1" />
             <x-input-error :messages="$errors->get('loginid')" class="mt-2" />
         </div>
 
@@ -24,6 +26,8 @@
         <div class="mt-4">
             <x-text.custom-input-label text="パスワード" class="mb-2" option="必須" />
             <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required />
+            <x-text.custom-input-label text="※半角英数字 4～20文字で入力してください。"
+                spanClass="font-normal text-xs text-gray-500 mt-1" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
@@ -31,6 +35,8 @@
         <div class="mt-4">
             <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
                 name="password_confirmation" required />
+            <x-text.custom-input-label text="※確認のためにもう一度パスワードを入力してください。"
+                spanClass="font-normal text-xs text-gray-500 mt-1" />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
@@ -56,6 +62,10 @@
             <x-text.custom-input-label text="メールアドレス" class="mb-2" option="必須" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')"
                 required />
+            <x-text.custom-input-label text="PCまたは携帯のアドレスをご入力ください。"
+                spanClass="font-normal text-xs text-gray-500 mt-1" />
+            <x-text.custom-input-label text="※1つのメールアドレスで3台のお車まで登録いただけます。4台目のお車の追加をご希望の方は、新しいメールアドレスでご登録ください。"
+                spanClass="font-normal text-xs text-gray-500 mt-1" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
@@ -64,6 +74,8 @@
             <x-text.custom-input-label text="電話番号" class="mb-2" option="必須" />
             <x-text-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number"
                 :value="old('phone_number')" required />
+            <x-text.custom-input-label text="※- （ハイフン）なしで記入　11桁以内" spanClass="font-normal text-xs text-gray-500 mt-1" />
+            <x-text.custom-input-label text="※自宅または携帯の番号をご入力下さい。" spanClass="font-normal text-xs text-gray-500 mt-1" />
             <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
         </div>
 
@@ -100,6 +112,11 @@
                     :checked="old('preferred_contact_time') == 'no_preference'" />
                 <x-input-label for="contact-time-1" :value="'指定なし'" />
             </div>
+            <x-text.custom-input-label text="電話連絡時のご希望時間帯を選択してください。"
+                spanClass="font-normal text-xs text-gray-500 mt-1" />
+            <x-text.custom-input-label
+                text="ご希望の時間帯にご連絡差し上げるよう努めてまいりますが、場合によってはご希望に添えない場合もございます。予めご了承いただけますようお願いいたします。"
+                spanClass="font-normal text-xs text-gray-500 mt-1" />
             <x-input-error :messages="$errors->get('preferred_contact_time')" class="mt-2" />
         </div>
 
@@ -116,6 +133,7 @@
                     検索
                 </button>
             </div>
+            <x-text.custom-input-label text="※- （ハイフン）なしで記入　7桁" spanClass="font-normal text-xs text-gray-500 mt-1" />
             <x-input-error :messages="$errors->get('post_code')" class="mt-2" />
         </div>
 
@@ -198,7 +216,6 @@
             </select>
         </div>
 
-
         <!-- Address -->
         <div class="mt-4">
             <x-text.custom-input-label text="市区町村・番地" class="mb-2" option="必須" />
@@ -214,6 +231,8 @@
                 :value="old('building')" />
             <x-input-error :messages="$errors->get('building')" class="mt-2" />
         </div>
+
+        {{-- TODO ADD CAR BLADE TEMPLATE HERE --}}
 
         <!-- Newsletter Subscription -->
         <div class="mt-6">
@@ -253,6 +272,8 @@
             <x-text-input id="manager" class="block mt-1 w-full" type="text" name="manager"
                 :value="old('manager')" />
             <x-input-error :messages="$errors->get('manager')" class="mt-2" />
+            <x-text.custom-input-label text="リースメンテナンス契約のある法人様のみご入力ください。"
+                spanClass="font-normal text-xs text-gray-500 mt-1" />
         </div>
 
         <!-- Department・ -->

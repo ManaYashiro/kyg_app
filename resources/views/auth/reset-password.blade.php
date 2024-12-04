@@ -25,6 +25,8 @@
         <div class="mt-4">
             <x-text.custom-input-label text="パスワード" class="mb-2" option="必須" />
             <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autofocus />
+            <x-text.custom-input-label text="※半角英数字 4～20文字で入力してください。"
+                spanClass="font-normal text-xs text-gray-500 mt-1" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
         </div>
 
@@ -32,11 +34,13 @@
         <div class="mt-4">
             <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
                 name="password_confirmation" required />
+            <x-text.custom-input-label text="※確認のためにもう一度パスワードを入力してください。"
+                spanClass="font-normal text-xs text-gray-500 mt-1" />
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
         <div class="flex flex-col items-end justify-center gap-10 mt-4">
-            <x-buttons.actionbutton name="{{ __('パスワード再設定を送信する') }}" type="submit" class="px-4 py-4" />
+            <x-buttons.actionbutton name="{{ __('送信する') }}" type="submit" class="px-4 py-4" />
         </div>
     </form>
 </x-guest-layout>
