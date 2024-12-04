@@ -118,7 +118,7 @@
                             <textarea name="message" id="message" class="block mt-1 w-full border-gray-300 rounded-md"></textarea>
                         </div>
 
-                        <div class="mt-6">
+                        <div class="mt-4">
                             <x-primary-button class="ml-4" type="submit">
                                 {{ __('確認画面へ') }}
                             </x-primary-button>

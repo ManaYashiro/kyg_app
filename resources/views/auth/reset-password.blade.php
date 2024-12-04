@@ -7,7 +7,7 @@
         @csrf
 
         <x-text.custom-text text="パスワード再設定" class="mb-3 bottom-border-text font-bold" />
-        <x-text.custom-text text="新しいパスワードを入力してください。" class="mb-6 text-sm" />
+        <x-text.custom-text text="新しいパスワードを入力してください。" class="mb-6" />
 
         {{-- Password Reset Token --}}
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
@@ -16,7 +16,7 @@
 
         <!-- Login ID -->
         <div class="mt-4">
-            <x-text.custom-text text="ログインID" class="text-sm left-border-text" />
+            <x-text.custom-text text="ログインID" class="left-border-text" />
             <x-text.custom-text :text="$loginid" class="mb-6 text-xs" />
             <x-input-error :messages="$errors->get('loginid')" class="mt-2" />
         </div>
@@ -39,8 +39,9 @@
             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
         </div>
 
-        <div class="flex flex-col items-end justify-center gap-10 mt-4">
-            <x-buttons.actionbutton name="{{ __('送信する') }}" type="submit" class="px-4 py-4" />
+        <div class="flex flex-col items-end justify-center gap-10 mt-12">
+            <x-buttons.actionbutton name="{{ __('送信する') }}" type="submit" class="px-4 py-4"
+                divClass="w-1/2 mx-auto" />
         </div>
     </form>
 </x-guest-layout>

@@ -47,7 +47,7 @@
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased text-base">
     <div class="min-h-screen bg-gray-100">
         @include('layouts.navigation')
 

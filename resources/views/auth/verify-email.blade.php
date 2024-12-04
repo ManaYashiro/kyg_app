@@ -14,7 +14,8 @@
 
                 <div class="max-w-md mx-auto">
                     <div class="flex flex-col items-end justify-center gap-10">
-                        <x-buttons.actionbutton name="{{ __('認証メールを再送信する') }}" type="submit" class="px-4 py-4" />
+                        <x-buttons.actionbutton name="{{ __('認証メールを再送信する') }}" type="submit" class="px-4 py-4"
+                            divClass="w-full mx-auto" />
                     </div>
                 </div>
             </form>

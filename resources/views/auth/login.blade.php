@@ -15,11 +15,11 @@
         </div>
 
         <div class="max-w-md mt-6 py-8 mx-auto">
-            <x-text.custom-text text="ログイン情報" class="mb-2 text-sm bg-gray-text" />
+            <x-text.custom-text text="ログイン情報" class="mb-2 bg-gray-text" />
 
             <!-- Login ID -->
             <div class="mt-4">
-                <x-text.custom-text text="ログインID" class="text-sm left-border-text" />
+                <x-text.custom-text text="ログインID" class="left-border-text" />
                 <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid')"
                     required autofocus autocomplete="username" />
                 <x-input-error :messages="$errors->get('loginid')" class="mt-2" />
@@ -27,7 +27,7 @@
 
             <!-- Password -->
             <div class="mt-4">
-                <x-text.custom-text text="パスワード" class="text-sm left-border-text" />
+                <x-text.custom-text text="パスワード" class="left-border-text" />
                 <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required />
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
@@ -52,7 +52,8 @@
                         </a>
                     </span>
                 @endif
-                <x-buttons.actionbutton name="{{ __('ログイン') }}" type="submit" class="px-4 py-4" />
+                <x-buttons.actionbutton name="{{ __('ログイン') }}" type="submit" class="px-4 py-4"
+                    divClass="w-full mx-auto" />
             </div>
         </div>
     </form>

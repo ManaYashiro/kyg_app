@@ -3,6 +3,7 @@
     'option' => '', // The optional text (e.g., '必須' or '任意')
     'spanClass' => 'font-bold', // Default class for the text span (optional, defaults to 'font-bold')
     'class' => '', // Additional classes for the root div (optional)
+    'attributes' => [], // Additional button attributes
 ])
 
 @php

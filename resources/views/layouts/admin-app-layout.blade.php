@@ -47,7 +47,7 @@
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased text-base">
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- Desktop sidebar -->
         @include('includes.desktop-sidebar')
