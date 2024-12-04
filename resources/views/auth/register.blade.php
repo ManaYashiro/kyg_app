@@ -49,12 +49,12 @@
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
 
-        <!-- Furigana -->
+        <!-- Name Furigana -->
         <div class="mt-4">
             <x-text.custom-input-label text="フリガナ" class="mb-2" option="必須" />
-            <x-text-input id="furigana" class="block mt-1 w-full" type="text" name="furigana" :value="old('furigana')"
-                required />
-            <x-input-error :messages="$errors->get('furigana')" class="mt-2" />
+            <x-text-input id="name_furigana" class="block mt-1 w-full" type="text" name="name_furigana"
+                :value="old('name_furigana')" required />
+            <x-input-error :messages="$errors->get('name_furigana')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
@@ -79,53 +79,78 @@
             <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
         </div>
 
+        <!-- Gender -->
+        <div class="mt-6">
+            <x-text.custom-input-label text="性別" class="mb-2" option="任意" />
+            <div class="mt-4 flex flex-col gap-2 justify-center items-start">
+                <div class="my-1 flex items-center gap-3">
+                    <x-text-input id="gender-male" type="radio" name="gender" value="0" :checked="old('gender') == '0'" />
+                    <x-input-label for="gender" :value="__('男性')" />
+                </div>
+                <div class="my-1 flex items-center gap-3">
+                    <x-text-input id="gender-female" type="radio" name="gender" value="1"
+                        :checked="old('gender') == '1'" />
+                    <x-input-label for="gender" :value="__('女性')" />
+                </div>
+                <x-input-error :messages="$errors->get('gender')" class="mt-2" />
+            </div>
+        </div>
+
+        <!-- Birthday -->
+        <div class="mt-6">
+            <x-text.custom-input-label text="生年月日" class="mb-2" option="必須" />
+            <x-text-input id="birthday" type="text" name="birthday" :value="old('birthday')"
+                class="datepicker block mt-1 w-full md:w-1/4" required />
+            <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
+        </div>
+
         <!-- Preferred Time -->
         <div class="mt-4">
             <x-text.custom-input-label text="電話希望時間" class="mb-2" option="必須" />
             <div class="mt-4 flex items-center gap-3 mb-3">
-                <x-text-input id="contact-time-1" type="radio" name="preferred_contact_time" value="9-12"
-                    :checked="old('preferred_contact_time') == '9-12'" />
+                <x-text-input id="contact-time-1" type="radio" name="call_time" value="9-12"
+                    :checked="old('call_time') == '9-12'" />
                 <x-input-label for="contact-time-1" :value="'9:00 - 12:00'" />
             </div>
             <div class="mt-4 flex items-center gap-3 mb-3">
-                <x-text-input id="contact-time-1" type="radio" name="preferred_contact_time" value="12-13"
-                    :checked="old('preferred_contact_time') == '12-13'" />
-                <x-input-label for="contact-time-1" :value="'12:00 - 13:00'" />
+                <x-text-input id="contact-time-2" type="radio" name="call_time" value="12-13"
+                    :checked="old('call_time') == '12-13'" />
+                <x-input-label for="contact-time-2" :value="'12:00 - 13:00'" />
             </div>
             <div class="mt-4 flex items-center gap-3 mb-3">
-                <x-text-input id="contact-time-1" type="radio" name="preferred_contact_time" value="13-15"
-                    :checked="old('preferred_contact_time') == '13-15'" />
-                <x-input-label for="contact-time-1" :value="'13:00 - 15:00'" />
+                <x-text-input id="contact-time-3" type="radio" name="call_time" value="13-15"
+                    :checked="old('call_time') == '13-15'" />
+                <x-input-label for="contact-time-3" :value="'13:00 - 15:00'" />
             </div>
             <div class="mt-4 flex items-center gap-3 mb-3">
-                <x-text-input id="contact-time-1" type="radio" name="preferred_contact_time" value="15-17"
-                    :checked="old('preferred_contact_time') == '15-17'" />
-                <x-input-label for="contact-time-1" :value="'15:00 - 17:00'" />
+                <x-text-input id="contact-time-4" type="radio" name="call_time" value="15-17"
+                    :checked="old('call_time') == '15-17'" />
+                <x-input-label for="contact-time-4" :value="'15:00 - 17:00'" />
             </div>
             <div class="mt-4 flex items-center gap-3 mb-3">
-                <x-text-input id="contact-time-1" type="radio" name="preferred_contact_time" value="17-19"
-                    :checked="old('preferred_contact_time') == '17-19'" />
-                <x-input-label for="contact-time-1" :value="'17:00 - 19:00'" />
+                <x-text-input id="contact-time-5" type="radio" name="call_time" value="17-19"
+                    :checked="old('call_time') == '17-19'" />
+                <x-input-label for="contact-time-5" :value="'17:00 - 19:00'" />
             </div>
             <div class="mt-4 flex items-center gap-3 mb-3">
-                <x-text-input id="contact-time-1" type="radio" name="preferred_contact_time" value="no_preference"
-                    :checked="old('preferred_contact_time') == 'no_preference'" />
-                <x-input-label for="contact-time-1" :value="'指定なし'" />
+                <x-text-input id="contact-time-6" type="radio" name="call_time" value="no_preference"
+                    :checked="old('call_time') == 'no_preference'" />
+                <x-input-label for="contact-time-6" :value="'指定なし'" />
             </div>
             <x-text.custom-input-label text="電話連絡時のご希望時間帯を選択してください。"
                 spanClass="font-normal text-xs text-gray-500 mt-1" />
             <x-text.custom-input-label
                 text="ご希望の時間帯にご連絡差し上げるよう努めてまいりますが、場合によってはご希望に添えない場合もございます。予めご了承いただけますようお願いいたします。"
                 spanClass="font-normal text-xs text-gray-500 mt-1" />
-            <x-input-error :messages="$errors->get('preferred_contact_time')" class="mt-2" />
+            <x-input-error :messages="$errors->get('call_time')" class="mt-2" />
         </div>
 
         <!-- Postal Code -->
         <div class="mt-4">
             <x-text.custom-input-label text="郵便番号" class="mb-2" option="必須" />
             <div class="flex items-center space-x-2">
-                <x-text-input id="post_code" class="block mt-1 flex-1" type="text" name="post_code"
-                    :value="old('post_code')" required />
+                <x-text-input id="zipcode" class="block mt-1 flex-1" type="text" name="zipcode"
+                    :value="old('zipcode')" required />
 
                 <!-- 検索ボタン -->
                 <button type="button" id="search-postcode"
@@ -134,14 +159,13 @@
                 </button>
             </div>
             <x-text.custom-input-label text="※- （ハイフン）なしで記入　7桁" spanClass="font-normal text-xs text-gray-500 mt-1" />
-            <x-input-error :messages="$errors->get('post_code')" class="mt-2" />
+            <x-input-error :messages="$errors->get('zipcode')" class="mt-2" />
         </div>
 
         {{-- TODO add prefecture・都道府県 in DB --}}
         <div class="mt-4">
             <x-text.custom-input-label text="都道府県" class="mb-2" option="必須" />
-            <select name="prefecture" id="prefecture"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+            <select name="prefecture" id="prefecture" name="prefecture" class="block mt-1 w-full md:w-1/4">
                 <option value="">▼都道府県を選択</option>
                 <optgroup label="---北海道---">
                     <option value="北海道">北海道</option>
@@ -216,20 +240,20 @@
             </select>
         </div>
 
-        <!-- Address -->
+        <!-- Address 1 -->
         <div class="mt-4">
             <x-text.custom-input-label text="市区町村・番地" class="mb-2" option="必須" />
-            <x-text-input id="address" class="block mt-1 w-full" type="text" name="address" :value="old('address')"
+            <x-text-input id="address1" class="block mt-1 w-full" type="text" name="address1" :value="old('address1')"
                 required />
-            <x-input-error :messages="$errors->get('address')" class="mt-2" />
+            <x-input-error :messages="$errors->get('address1')" class="mt-2" />
         </div>
 
-        <!-- Building -->
+        <!-- Address 2 -->
         <div class="mt-4">
             <x-text.custom-input-label text="建物名など" class="mb-2" option="任意" />
-            <x-text-input id="building" class="block mt-1 w-full" type="text" name="building"
-                :value="old('building')" />
-            <x-input-error :messages="$errors->get('building')" class="mt-2" />
+            <x-text-input id="address2" class="block mt-1 w-full" type="text" name="address2"
+                :value="old('address2')" />
+            <x-input-error :messages="$errors->get('address2')" class="mt-2" />
         </div>
 
         {{-- TODO ADD CAR BLADE TEMPLATE HERE --}}
@@ -239,13 +263,13 @@
             <x-text.custom-input-label text="メルマガ配信" class="mb-2" option="任意" />
             <div class="mt-4 flex flex-col gap-2 justify-center items-start">
                 <div class="my-1 flex items-center gap-3">
-                    <x-text-input id="contact-time-1" type="radio" name="is_receive_newsletter" value="1"
-                        :checked="old('is_receive_newsletter') == '1'" />
+                    <x-text-input id="is_receive_newsletter-yes" type="radio" name="is_receive_newsletter"
+                        value="1" :checked="old('is_receive_newsletter') == '1'" />
                     <x-input-label for="is_receive_newsletter" :value="__('受けする')" />
                 </div>
                 <div class="my-1 flex items-center gap-3">
-                    <x-text-input id="contact-time-1" type="radio" name="is_receive_newsletter" value="0"
-                        :checked="old('is_receive_newsletter') == '0'" />
+                    <x-text-input id="is_receive_newsletter-no" type="radio" name="is_receive_newsletter"
+                        value="0" :checked="old('is_receive_newsletter') == '0'" />
                     <x-input-label for="is_receive_newsletter" :value="__('受けしない')" />
                 </div>
                 <x-input-error :messages="$errors->get('is_receive_newsletter')" class="mt-2" />
@@ -255,17 +279,16 @@
         <!-- How did you hear -->
         <div class="mt-6">
             <x-text.custom-input-label text="【アンケート】弊社の車検を何でお知りになりましたか" class="mb-2" option="必須" />
-            @foreach ($how_did_you_hear as $anket)
+            @foreach ($questionnaire as $anket)
                 <div class="mt-4 flex items-center gap-3 mb-3">
-                    <x-text-input id="anket-{{ $anket->id }}" type="checkbox" name="how_did_you_hear[]"
-                        :value="$anket->id" :checked="in_array($anket->id, old('how_did_you_hear', []))" />
+                    <x-text-input id="anket-{{ $anket->id }}" type="checkbox" name="questionnaire[]"
+                        :value="$anket->id" :checked="in_array($anket->id, old('questionnaire', []))" />
                     <x-input-label for="anket-{{ $anket->id }}" :value="$anket->name" />
                 </div>
             @endforeach
-            <x-input-error :messages="$errors->get('how_did_you_hear')" class="mt-2" />
+            <x-input-error :messages="$errors->get('questionnaire')" class="mt-2" />
         </div>
 
-        {{-- TODO add manager and department in DB --}}
         <!-- Manager・担当者 -->
         <div class="mt-4">
             <x-text.custom-input-label text="担当者" class="mb-2" option="任意" />
@@ -289,13 +312,13 @@
             <x-text.custom-input-label text="店からのお知らせメール" class="mb-2" option="必須" />
             <div class="mt-4 flex flex-col gap-2 justify-center items-start">
                 <div class="my-1 flex items-center gap-3">
-                    <x-text-input id="contact-time-1" type="radio" name="is_receive_notification" value="1"
-                        :checked="old('is_receive_notification') == '1'" />
+                    <x-text-input id="is_receive_notification-yes" type="radio" name="is_receive_notification"
+                        value="1" :checked="old('is_receive_notification') == '1'" />
                     <x-input-label for="is_receive_notification" :value="__('受けする')" />
                 </div>
                 <div class="my-1 flex items-center gap-3">
-                    <x-text-input id="contact-time-1" type="radio" name="is_receive_notification" value="0"
-                        :checked="old('is_receive_notification') == '0'" />
+                    <x-text-input id="is_receive_notification-no" type="radio" name="is_receive_notification"
+                        value="0" :checked="old('is_receive_notification') == '0'" />
                     <x-input-label for="is_receive_notification" :value="__('受けしない')" />
                 </div>
                 <x-input-error :messages="$errors->get('is_receive_notification')" class="mt-2" />

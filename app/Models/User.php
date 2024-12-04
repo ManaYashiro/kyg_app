@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -33,15 +34,23 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'loginid',
         'name',
-        'furigana',
+        'name_furigana',
         'email',
         'password',
+        'zipcode',
+        'prefecture',
+        'address1',
+        'address2',
         'phone_number',
-        'post_code',
-        'address',
-        'building',
-        'preferred_contact_time',
-        'how_did_you_hear',
+        'gender',
+        'birthday',
+        'reg_device',
+        'reg_ipaddr',
+        'call_time',
+        'questionnaire',
+        'manager',
+        'department',
+        'remarks',
         'is_receive_newsletter',
         'is_receive_notification',
     ];
@@ -66,14 +75,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'how_did_you_hear' => 'array',
+            'questionnaire' => 'array',
         ];
     }
 
     public function findUserAnkets()
     {
-        if ($this->how_did_you_hear && count($this->how_did_you_hear)) {
-            $ankets = Anket::whereIn('id', $this->how_did_you_hear)->pluck('short_name');
+        if ($this->questionnaire && count($this->questionnaire)) {
+            $ankets = Anket::whereIn('id', $this->questionnaire)->pluck('short_name');
             $anketsData = "";
             foreach ($ankets as $key => $anket) {
                 if ($anketsData !== "") {
@@ -122,6 +131,15 @@ class User extends Authenticatable implements MustVerifyEmail
         static::creating(function ($user) {
             Log::info(self::TITLE . '登録中', $user->name);
 
+            if (!$user->customer_no) {
+                $lastCustomerNo = DB::table('users')->max('customer_no');
+                $user->customer_no = $lastCustomerNo ? $lastCustomerNo + 1 : config('database.starting_customer_no');
+            }
+        });
+
+        static::created(function ($user) {
+            Log::info(self::TITLE . '登録が完了しました', $user->name, true);
+
             try {
                 // 管理者にお知らせ
                 $authUsers = User::where('role', User::ADMIN)->get();
@@ -132,10 +150,6 @@ class User extends Authenticatable implements MustVerifyEmail
                 Log::info('管理者に' . self::TITLE . 'の登録のお知らせ', $this->user->name);
                 throw new SendEmailFailedException('管理者に' . self::TITLE . 'の登録のお知らせが失敗です。');
             }
-        });
-
-        static::created(function ($user) {
-            Log::info(self::TITLE . '登録が完了しました', $user->name, true);
         });
 
         static::updating(function ($user) {

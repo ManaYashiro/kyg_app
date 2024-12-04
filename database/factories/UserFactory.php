@@ -31,7 +31,7 @@ class UserFactory extends Factory
         return
             array_merge($this->otherData($isAdmin), [
                 'name' => fake()->name(),
-                'furigana' => fake()->name(),
+                'name_furigana' => fake()->name(),
                 'role' => User::USER,
                 'loginid' => fake()->regexify('[a-z0-9]{10}'),
                 'email' => fake()->unique()->safeEmail(),
@@ -53,9 +53,12 @@ class UserFactory extends Factory
     {
         return [
             'phone_number' => fake()->phoneNumber(),
-            'post_code' => fake()->postcode(),
-            'address' => fake()->prefecture() . fake()->ward(),
-            'building' => fake()->secondaryAddress(),
+            'zipcode' => fake()->postcode(),
+            'prefecture' => fake()->prefecture(),
+            'address1' => fake()->prefecture() . fake()->ward(),
+            'address2' => fake()->secondaryAddress(),
+            'gender' => fake()->randomElement([0, 1]), // 男性・女性
+            'birthday' => fake()->dateTimeBetween('1990-01-01', '2000-12-31'),
         ];
     }
 
@@ -69,7 +72,7 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'role' => User::ADMIN,
-                'preferred_contact_time' => null,
+                'call_time' => null,
                 'is_receive_newsletter' => FALSE,
                 'is_receive_notification' => FALSE,
             ];
@@ -86,7 +89,7 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'role' => User::USER,
-                'preferred_contact_time' => '9-12',
+                'call_time' => '9-12',
                 'is_receive_newsletter' => FALSE,
                 'is_receive_notification' => FALSE,
             ];
@@ -111,10 +114,10 @@ class UserFactory extends Factory
             ];
             return [
                 'role' => User::USER,
-                'preferred_contact_time' => fake()->randomElement($contact_time),
+                'call_time' => fake()->randomElement($contact_time),
                 'is_receive_newsletter' => fake()->randomElement([true, false]),
                 'is_receive_notification' => fake()->randomElement([true, false]),
-                'how_did_you_hear' => $this->randomAnket(),
+                'questionnaire' => $this->randomAnket(),
             ];
         });
     }
@@ -122,15 +125,15 @@ class UserFactory extends Factory
     public function randomAnket(): array
     {
 
-        $how_did_you_hear = Anket::get()->pluck('id')->toArray();
+        $questionnaire = Anket::get()->pluck('id')->toArray();
 
         // Get a random quantity from 0 to 3
         $quantity = rand(0, 3);
 
         // Shuffle the array to randomize the order
-        shuffle($how_did_you_hear);
+        shuffle($questionnaire);
 
         // Slice the array to get the desired quantity
-        return array_slice($how_did_you_hear, 0, $quantity);
+        return array_slice($questionnaire, 0, $quantity);
     }
 }

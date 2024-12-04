@@ -31,12 +31,12 @@
                                     <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                 </div>
 
-                                <!-- furigana -->
+                                <!-- name_furigana -->
                                 <div class="mb-4">
-                                    <x-input-label for="furigana" :value="__('フリガナ')" />
-                                    <x-text-input id="furigana" class="block mt-1 w-full" type="text"
-                                        name="furigana" :value="old('furigana', $user->furigana ?? '')" required />
-                                    <x-input-error :messages="$errors->get('furigana')" class="mt-2" />
+                                    <x-input-label for="name_furigana" :value="__('フリガナ')" />
+                                    <x-text-input id="name_furigana" class="block mt-1 w-full" type="text"
+                                        name="name_furigana" :value="old('name_furigana', $user->name_furigana ?? '')" required />
+                                    <x-input-error :messages="$errors->get('name_furigana')" class="mt-2" />
                                 </div>
 
                                 <!-- メールアドレス -->
@@ -57,57 +57,56 @@
 
                                 <!-- 郵便番号 -->
                                 <div class="mb-4">
-                                    <x-input-label for="post_code" :value="__('郵便番号')" />
-                                    <x-text-input id="post_code" class="block mt-1 w-full" type="text"
-                                        name="post_code" :value="old('post_code', $user->post_code ?? '')" required />
-                                    <x-input-error :messages="$errors->get('post_code')" class="mt-2" />
+                                    <x-input-label for="zipcode" :value="__('郵便番号')" />
+                                    <x-text-input id="zipcode" class="block mt-1 w-full" type="text" name="zipcode"
+                                        :value="old('zipcode', $user->zipcode ?? '')" required />
+                                    <x-input-error :messages="$errors->get('zipcode')" class="mt-2" />
                                 </div>
 
                                 <!-- 住所 -->
                                 <div class="mb-4">
-                                    <x-input-label for="address" :value="__('住所')" />
-                                    <x-text-input id="address" class="block mt-1 w-full" type="text" name="address"
-                                        :value="old('address', $user->address ?? '')" required />
-                                    <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                                    <x-input-label for="address1" :value="__('住所')" />
+                                    <x-text-input id="address1" class="block mt-1 w-full" type="text"
+                                        name="address1" :value="old('address1', $user->address1 ?? '')" required />
+                                    <x-input-error :messages="$errors->get('address1')" class="mt-2" />
                                 </div>
 
                                 <!-- 建物 -->
                                 <div class="mb-4">
-                                    <x-input-label for="building" :value="__('建物')" />
-                                    <x-text-input id="building" class="block mt-1 w-full" type="text"
-                                        name="building" :value="old('name', $user->building ?? '')" />
-                                    <x-input-error :messages="$errors->get('building')" class="mt-2" />
+                                    <x-input-label for="address2" :value="__('建物')" />
+                                    <x-text-input id="address2" class="block mt-1 w-full" type="text"
+                                        name="address2" :value="old('name', $user->address2 ?? '')" />
+                                    <x-input-error :messages="$errors->get('address2')" class="mt-2" />
                                 </div>
 
                                 <!-- 電話時間 -->
                                 <div class="mb-4">
-                                    <x-input-label for="preferred_contact_time" :value="__('電話希望時間')" />
-                                    <x-select id="preferred_contact_time" class="block mt-1 w-full"
-                                        name="preferred_contact_time">
+                                    <x-input-label for="call_time" :value="__('電話希望時間')" />
+                                    <x-select id="call_time" class="block mt-1 w-full" name="call_time">
                                         <option value="" disabled
-                                            {{ is_null($user->preferred_contact_time) ? 'selected' : '' }}>
+                                            {{ is_null($user->call_time) ? 'selected' : '' }}>
                                             選択してください
                                         </option>
-                                        <option value="9-12"
-                                            {{ $user->preferred_contact_time == '9-12' ? 'selected' : '' }}>9:00 - 12:00
+                                        <option value="9-12" {{ $user->call_time == '9-12' ? 'selected' : '' }}>9:00 -
+                                            12:00
                                         </option>
-                                        <option value="12-13"
-                                            {{ $user->preferred_contact_time == '12-13' ? 'selected' : '' }}>12:00 -
+                                        <option value="12-13" {{ $user->call_time == '12-13' ? 'selected' : '' }}>12:00
+                                            -
                                             13:00</option>
-                                        <option value="13-15"
-                                            {{ $user->preferred_contact_time == '13-15' ? 'selected' : '' }}>13:00 -
+                                        <option value="13-15" {{ $user->call_time == '13-15' ? 'selected' : '' }}>13:00
+                                            -
                                             15:00</option>
-                                        <option value="15-17"
-                                            {{ $user->preferred_contact_time == '15-17' ? 'selected' : '' }}>15:00 -
+                                        <option value="15-17" {{ $user->call_time == '15-17' ? 'selected' : '' }}>15:00
+                                            -
                                             17:00</option>
-                                        <option value="17-19"
-                                            {{ $user->preferred_contact_time == '17-19' ? 'selected' : '' }}>17:00 -
+                                        <option value="17-19" {{ $user->call_time == '17-19' ? 'selected' : '' }}>17:00
+                                            -
                                             19:00</option>
                                         <option value="no_preference"
-                                            {{ $user->preferred_contact_time == 'no_preference' ? 'selected' : '' }}>
+                                            {{ $user->call_time == 'no_preference' ? 'selected' : '' }}>
                                             指定なし</option>
                                     </x-select>
-                                    <x-input-error :messages="$errors->get('preferred_contact_time')" class="mt-2" />
+                                    <x-input-error :messages="$errors->get('call_time')" class="mt-2" />
                                 </div>
 
                                 <!-- 更新ボタン -->

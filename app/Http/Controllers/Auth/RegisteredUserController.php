@@ -20,8 +20,8 @@ class RegisteredUserController extends Controller
     public function create(): View
     {
         // これを実際の アンケートリストに変更します (DB から)
-        $how_did_you_hear = Anket::get();
-        return view('auth.register', compact('how_did_you_hear'));
+        $questionnaire = Anket::get();
+        return view('auth.register', compact('questionnaire'));
     }
 
     /**

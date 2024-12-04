@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Helpers\Log;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisteredUserRequest extends FormRequest
@@ -21,20 +22,29 @@ class RegisteredUserRequest extends FormRequest
      */
     public function rules(): array
     {
+        Log::info("zipcode", $this->zipcode);
+        Log::info("zipcode", strlen($this->zipcode));
         return [
-            'loginid' => 'required|string|unique:users,loginid|min:4|max:10',
+            'loginid' => 'required|string|unique:users,loginid|min:4|max:15',
             'name' => 'required|string',
-            'furigana' => 'required|string',
+            'name_furigana' => 'required|string',
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required|string|min:8',
+            'gender' => 'nullable|in:0,1',
+            'birthday' => 'required|date',
             'phone_number' => 'required|string|min:10',
-            'post_code' => 'required|integer',
-            'address' => 'required|string',
-            'preferred_contact_time' => 'required|in:9-12,12-13,13-15,15-17,17-19,no_preference',
+            'zipcode' => 'required|numeric|digits:7',
+            'prefecture' => 'required|string',
+            'address1' => 'required|string',
+            'address2' => 'nullable|string',
+            'call_time' => 'required|in:9-12,12-13,13-15,15-17,17-19,no_preference',
+            'questionnaire' => 'required|array|min:1',
+            'manager' => 'nullable|string',
+            'department' => 'nullable|string',
+            'remarks' => 'nullable|string',
             'is_receive_newsletter' => 'nullable|in:0,1',
             'is_receive_notification' => 'required|in:0,1',
-            'how_did_you_hear' => 'required|array|min:1',
         ];
     }
 
@@ -42,11 +52,12 @@ class RegisteredUserRequest extends FormRequest
     {
         return [
             'min' => ':attributeは最低:min文字以上でなければなりません',
-            'mmax' => ':attributeは最低:mmax文字以下でなければなりません',
+            'max' => ':attributeは最低:max文字以下でなければなりません',
+            'digits' => ':attributeは最低:digits文字ちょどでなければなりません',
             'unique' => 'この:attributeはすでに登録されています',
             'name.string' => '名前は文字列でなければなりません',
 
-            'furigana.string' => 'フリガナは文字列でなければなりません',
+            'name_furigana.string' => 'フリガナは文字列でなければなりません',
 
             'email.email' => 'メールアドレスの形式が正しくありません',
 
@@ -60,13 +71,13 @@ class RegisteredUserRequest extends FormRequest
             'phone_number.string' => '電話番号は文字列でなければなりません',
             'phone_number.min' => '電話番号は10桁以上でなければなりません',
 
-            'post_code.integer' => '郵便番号は整数でなければなりません',
+            'zipcode.integer' => '郵便番号は整数でなければなりません',
 
-            'address.string' => '住所は文字列でなければなりません',
+            'address1.string' => '住所は文字列でなければなりません',
 
-            'building.string' => '建物名は文字列でなければなりません',
-            'how_did_you_hear.required' => '少なくとも1つの:attributeを選択',
-            'how_did_you_hear.min' => '少なくとも1:attributeを選択',
+            'address2.string' => '建物名は文字列でなければなりません',
+            'questionnaire.required' => '少なくとも1つの:attributeを選択',
+            'questionnaire.min' => '少なくとも1:attributeを選択',
         ];
     }
 
@@ -74,10 +85,10 @@ class RegisteredUserRequest extends FormRequest
     {
         return [
             'loginid' => 'ログインID',
-            'preferred_contact_time' => '電話希望時間',
+            'call_time' => '電話希望時間',
             'is_receive_newsletter' => 'メルマガ配信',
             'is_receive_notification' => '店からのお知らせメール',
-            'how_did_you_hear' => 'アンケート',
+            'questionnaire' => 'アンケート',
         ];
     }
 }

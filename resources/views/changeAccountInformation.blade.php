@@ -26,12 +26,12 @@
                                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                                     </div>
 
-                                    <!-- furigana -->
+                                    <!-- name_furigana -->
                                     <div class="mt-4">
-                                        <x-input-label for="furigana" :value="__('フリガナ')" />
-                                        <x-text-input id="furigana" class="block mt-1 w-full" type="text"
-                                            name="furigana" :value="old('furigana', $users->furigana ?? '')" required />
-                                        <x-input-error :messages="$errors->get('furigana')" class="mt-2" />
+                                        <x-input-label for="name_furigana" :value="__('フリガナ')" />
+                                        <x-text-input id="name_furigana" class="block mt-1 w-full" type="text"
+                                            name="name_furigana" :value="old('name_furigana', $users->name_furigana ?? '')" required />
+                                        <x-input-error :messages="$errors->get('name_furigana')" class="mt-2" />
                                     </div>
 
                                     <!-- mail address -->
@@ -66,12 +66,12 @@
                                         <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
                                     </div>
 
-                                    <!-- post code -->
+                                    <!-- zipcode -->
                                     <div class="mt-4">
-                                        <x-input-label for="post_code" :value="__('郵便番号')" />
+                                        <x-input-label for="zipcode" :value="__('郵便番号')" />
                                         <div class="flex items-center space-x-2">
-                                            <x-text-input id="post_code" class="block mt-1 w-full" type="text"
-                                                name="post_code" :value="old('post_code', $users->post_code ?? '')" required />
+                                            <x-text-input id="zipcode" class="block mt-1 w-full" type="text"
+                                                name="zipcode" :value="old('zipcode', $users->zipcode ?? '')" required />
 
                                             <!-- 検索ボタン -->
                                             <button type="button" id="search-postcode"
@@ -80,23 +80,23 @@
                                                 検索
                                             </button>
                                         </div>
-                                        <x-input-error :messages="$errors->get('post_code')" class="mt-2" />
+                                        <x-input-error :messages="$errors->get('zipcode')" class="mt-2" />
                                     </div>
 
-                                    <!-- address -->
+                                    <!-- Address 1 -->
                                     <div class="mt-4">
-                                        <x-input-label for="address" :value="__('住所')" />
-                                        <x-text-input id="address" class="block mt-1 w-full" type="text"
-                                            name="address" :value="old('address', $users->address ?? '')" required />
-                                        <x-input-error :messages="$errors->get('address')" class="mt-2" />
+                                        <x-input-label for="address1" :value="__('住所')" />
+                                        <x-text-input id="address1" class="block mt-1 w-full" type="text"
+                                            name="address1" :value="old('address1', $users->address1 ?? '')" required />
+                                        <x-input-error :messages="$errors->get('address1')" class="mt-2" />
                                     </div>
 
-                                    <!-- building -->
+                                    <!-- Address 2 -->
                                     <div class="mt-4">
-                                        <x-input-label for="building" :value="__('建物')" />
-                                        <x-text-input id="building" class="block mt-1 w-full" type="text"
-                                            name="building" :value="old('name', $users->building ?? '')" />
-                                        <x-input-error :messages="$errors->get('building')" class="mt-2" />
+                                        <x-input-label for="address2" :value="__('建物')" />
+                                        <x-text-input id="address2" class="block mt-1 w-full" type="text"
+                                            name="address2" :value="old('name', $users->address2 ?? '')" />
+                                        <x-input-error :messages="$errors->get('address2')" class="mt-2" />
                                     </div>
 
                                     <!-- newsletter_subscription-->

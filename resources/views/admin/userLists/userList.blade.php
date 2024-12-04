@@ -81,7 +81,7 @@
                                             {{ $user->phone_number }}</td>
                                         <td class="border px-4 py-2 text-xs">
                                             @php
-                                                $fullAddress = $user->address . ' ' . $user->building;
+                                                $fullAddress = $user->address1 . ' ' . $user->address2;
                                                 $maxLength = 30;
                                                 if (strlen($fullAddress) > $maxLength) {
                                                     $fullAddress = mb_substr($fullAddress, 0, $maxLength) . '...';
@@ -90,7 +90,7 @@
                                             {{ $fullAddress }}
                                         </td>
                                         <td class="border px-4 py-2 text-xs">
-                                            {{ $user->preferred_contact_time }}
+                                            {{ $user->call_time }}
                                         </td>
                                         <td class="border px-4 py-2 text-xs">
                                             {{ $user->findUserAnkets() }}

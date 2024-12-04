@@ -38,7 +38,7 @@ class StoreRequest extends FormRequest
         return [
             'name.string' => '名前は文字列でなければなりません',
 
-            'furigana.string' => 'フリガナは文字列でなければなりません',
+            'name_furigana.string' => 'フリガナは文字列でなければなりません',
 
             'email.email' => 'メールアドレスの形式が正しくありません',
             'email.unique' => 'このメールアドレスはすでに登録されています',
@@ -46,7 +46,7 @@ class StoreRequest extends FormRequest
             'phone_number.string' => '電話番号は文字列でなければなりません',
             'phone_number.min' => '電話番号は10桁以上でなければなりません',
 
-            'post_code.integer' => '郵便番号は整数でなければなりません',
+            'zipcode.integer' => '郵便番号は整数でなければなりません',
 
             'address.string' => '住所は文字列でなければなりません',
 

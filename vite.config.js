@@ -11,6 +11,7 @@ export default defineConfig({
 
                 // custom
                 "resources/js/modules/base.js",
+                "resources/js/modules/datepicker.js",
 
                 // images
                 "resources/img/main/favicon.ico",
