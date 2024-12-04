@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('furigana', 100);
             $table->string('email')->unique();
             $table->string('password');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->dateTime('email_verified_at')->useCurrent()->nullable();
             $table->string('phone_number', 15);
             $table->integer('post_code', 10)->autoIncrement(false);
             $table->string('address', 150);
@@ -30,14 +30,15 @@ return new class extends Migration
             $table->boolean('is_receive_newsletter')->default(FALSE);
             $table->boolean('is_receive_notification')->default(FALSE);
             $table->rememberToken();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate();
+            $table->dateTime('deleted_at')->nullable()->useCurrentOnUpdate();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->dateTime('created_at')->useCurrent()->nullable();
         });
 
         Schema::create('sessions', function (Blueprint $table) {

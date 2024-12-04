@@ -24,7 +24,9 @@ return new class extends Migration
             $table->string('additional_services')->nullable()->comment('追加整備');
             $table->string('past_service_history')->nullable()->comment('過去利用履歴の有無');
             $table->text('message')->nullable()->comment('メッセージ');
-            $table->timestamps();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate();
+            $table->dateTime('deleted_at')->nullable()->useCurrentOnUpdate();
 
             //外部キー
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
