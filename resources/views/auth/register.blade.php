@@ -1,23 +1,21 @@
 <x-guest-layout>
 
-    <form method="POST" action="{{ route('register') }}" autocomplete="off">
+    <form id="form-user-register" class="multiPageForm" method="POST" action="{{ route('register') }}" autocomplete="off">
         @csrf
 
-        <div class="block">
+        <div id="page-1" class="page block">
             @include('auth.user-profile')
         </div>
 
-        <div class="hidden">
+        <div id="page-2" class="page hidden">
             @include('auth.user-profile-confirm')
         </div>
 
-        <div class="flex flex-col items-center justify-center gap-10 mt-4">
-            <x-buttons.actionbutton name="{{ __('次へ進む') }}" type="button" id="button-next" class="px-4 py-4"
-                divClass="w-1/3" />
-            <x-buttons.actionbutton name="{{ __('次へ進む') }}" type="button" id="button-prev" class="px-4 py-4 hidden"
-                divClass="w-1/3" />
-            <x-buttons.actionbutton name="{{ __('送信する') }}" type="submit" id="button-submit"
-                class="px-4 py-4 hidden" divClass="w-1/3" />
-        </div>
+        <x-navi.page-navi-buttons />
     </form>
+
+    @push('scripts')
+        @vite(['resources/js/modules/auth/register.js'])
+        @vite(['resources/js/modules/page-navi-buttons.js'])
+    @endpush
 </x-guest-layout>

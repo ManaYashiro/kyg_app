@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisteredUserRequest;
 use App\Models\Anket;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -29,9 +30,16 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(RegisteredUserRequest $request): RedirectResponse
+    public function store(RegisteredUserRequest $request): JsonResponse|RedirectResponse
     {
         $data = $request->validated();
+        if ($data['form_type'] === 'confirm') {
+            return response()->json([
+                'success' => true,
+                'message' => 'confirm OK'
+            ]);
+        }
+        Log::info(User::TITLE . 'のパラメータ：' . $data['name'], $data, true);
 
         // 電話番号が設定されていれば、ハイフンを追加またはそのままにする
         if (isset($data['phone_number'])) {

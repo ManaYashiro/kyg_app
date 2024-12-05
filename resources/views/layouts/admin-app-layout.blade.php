@@ -45,6 +45,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
+
 </head>
 
 <body class="font-sans antialiased text-base">

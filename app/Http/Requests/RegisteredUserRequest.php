@@ -22,9 +22,8 @@ class RegisteredUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        Log::info("zipcode", $this->zipcode);
-        Log::info("zipcode", strlen($this->zipcode));
         return [
+            'form_type' => 'required|in:"confirm","submit"',
             'loginid' => 'required|string|unique:users,loginid|min:4|max:15',
             'name' => 'required|string',
             'name_furigana' => 'required|string',
@@ -53,6 +52,7 @@ class RegisteredUserRequest extends FormRequest
         return [
             'min' => ':attributeは最低:min文字以上でなければなりません',
             'max' => ':attributeは最低:max文字以下でなければなりません',
+            'in' => ':attributeの選択物を選択してください',
             'digits' => ':attributeは最低:digits文字ちょどでなければなりません',
             'unique' => 'この:attributeはすでに登録されています',
             'name.string' => '名前は文字列でなければなりません',

@@ -27,7 +27,7 @@ return new class extends Migration
             $table->string('address1', 150);
             $table->string('address2')->nullable();
             $table->string('phone_number', 15);
-            $table->integer('gender', 1)->autoIncrement(false);
+            $table->integer('gender', 1)->nullable()->autoIncrement(false);
             $table->date('birthday');
             $table->string('reg_device', 20)->nullable();
             $table->string('reg_ipaddr', 15)->nullable();
@@ -36,7 +36,7 @@ return new class extends Migration
             $table->string('manager', 40)->nullable();
             $table->string('department', 128)->nullable();
             $table->string('remarks', 128)->nullable();
-            $table->boolean('is_receive_newsletter')->default(FALSE);
+            $table->boolean('is_receive_newsletter')->nullable();
             $table->boolean('is_receive_notification')->default(FALSE);
             $table->rememberToken();
             $table->dateTime('created_at')->useCurrent();

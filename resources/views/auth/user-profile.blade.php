@@ -1,3 +1,4 @@
+<input id="form-type" type="hidden" name="form_type" value="confirm">
 <x-text.custom-text text="会員登録" class="mb-3 bottom-border-text font-bold" />
 <div class="mt-3 flex flex-col gap-1">
     <x-text.custom-text text="各項目をご入力の上、[次へ進む] ボタンをクリックしてください。" class="text-xs" />
@@ -8,68 +9,75 @@
 
 <x-text.custom-text text="ログイン情報" class="mt-6 mb-2 bg-gray-text" />
 <!-- Login ID -->
-<div class="mt-4">
+<div id="container-loginid" class="mt-4">
     <x-text.custom-input-label text="ログインID" class="mb-2" option="必須" />
     <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid')" required
         autofocus />
     <x-text.custom-input-label text="※半角英数字 4文字以上で入力してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
+    <x-ajax-input-error id="error-loginid" class="mt-2" />
     <x-input-error :messages="$errors->get('loginid')" class="mt-2" />
 </div>
 
 <!-- Password -->
-<div class="mt-4">
+<div id="container-password" class="mt-4">
     <x-text.custom-input-label text="パスワード" class="mb-2" option="必須" />
     <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required />
     <x-text.custom-input-label text="※半角英数字 4～20文字で入力してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
+    <x-ajax-input-error id="error-password" class="mt-2" />
     <x-input-error :messages="$errors->get('password')" class="mt-2" />
 </div>
 
 <!-- Confirm Password -->
-<div class="mt-4">
+<div id="container-password_confirmation" class="mt-4">
     <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation"
         required />
     <x-text.custom-input-label text="※確認のためにもう一度パスワードを入力してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
+    <x-ajax-input-error id="error-password_confirmation" class="mt-2" />
     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
 </div>
 
 <x-text.custom-text text="基本情報" class="mt-6 mb-2 bg-gray-text" />
 <!-- Name -->
-<div class="mt-4">
+<div id="container-name" class="mt-4">
     <x-text.custom-input-label text="顧客名" class="mb-2" option="必須" />
     <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required />
+    <x-ajax-input-error id="error-name" class="mt-2" />
     <x-input-error :messages="$errors->get('name')" class="mt-2" />
 </div>
 
 <!-- Name Furigana -->
-<div class="mt-4">
+<div id="container-name_furigana" class="mt-4">
     <x-text.custom-input-label text="フリガナ" class="mb-2" option="必須" />
     <x-text-input id="name_furigana" class="block mt-1 w-full" type="text" name="name_furigana" :value="old('name_furigana')"
         required />
+    <x-ajax-input-error id="error-name_furigana" class="mt-2" />
     <x-input-error :messages="$errors->get('name_furigana')" class="mt-2" />
 </div>
 
 <!-- Email Address -->
-<div class="mt-4">
+<div id="container-email" class="mt-4">
     <x-text.custom-input-label text="メールアドレス" class="mb-2" option="必須" />
     <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
     <x-text.custom-input-label text="PCまたは携帯のアドレスをご入力ください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
     <x-text.custom-input-label text="※1つのメールアドレスで3台のお車まで登録いただけます。4台目のお車の追加をご希望の方は、新しいメールアドレスでご登録ください。"
         spanClass="font-normal text-xs text-gray-500 mt-1" />
+    <x-ajax-input-error id="error-email" class="mt-2" />
     <x-input-error :messages="$errors->get('email')" class="mt-2" />
 </div>
 
 <!-- Phone Number -->
-<div class="mt-4">
+<div id="container-phone_number" class="mt-4">
     <x-text.custom-input-label text="電話番号" class="mb-2" option="必須" />
     <x-text-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number')"
         required />
     <x-text.custom-input-label text="※- （ハイフン）なしで記入　11桁以内" spanClass="font-normal text-xs text-gray-500 mt-1" />
     <x-text.custom-input-label text="※自宅または携帯の番号をご入力下さい。" spanClass="font-normal text-xs text-gray-500 mt-1" />
+    <x-ajax-input-error id="error-phone_number" class="mt-2" />
     <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
 </div>
 
 <!-- Gender -->
-<div class="mt-4">
+<div id="container-gender" class="mt-4">
     <x-text.custom-input-label text="性別" class="mb-2" option="任意" />
     <div class="flex flex-col gap-2 justify-center items-start">
         <div class="my-1 flex items-center gap-3">
@@ -81,19 +89,21 @@
             <x-input-label for="gender" :value="__('女性')" />
         </div>
     </div>
+    <x-ajax-input-error id="error-gender" class="mt-2" />
     <x-input-error :messages="$errors->get('gender')" class="mt-2" />
 </div>
 
 <!-- Birthday -->
-<div class="mt-4">
+<div id="container-birthday" class="mt-4">
     <x-text.custom-input-label text="生年月日" class="mb-2" option="必須" />
     <x-text-input id="birthday" type="text" name="birthday" :value="old('birthday')"
         class="datepicker block mt-1 w-full md:w-1/4" required />
+    <x-ajax-input-error id="error-birthday" class="mt-2" />
     <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
 </div>
 
 <!-- Preferred Time -->
-<div class="mt-4">
+<div id="container-call_time" class="mt-4">
     <x-text.custom-input-label text="電話希望時間" class="mb-2" option="必須" />
     <div class="mt-4 flex items-center gap-3 mb-3">
         <x-text-input id="contact-time-1" type="radio" name="call_time" value="9-12" :checked="old('call_time') == '9-12'" />
@@ -123,11 +133,12 @@
     <x-text.custom-input-label text="電話連絡時のご希望時間帯を選択してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
     <x-text.custom-input-label text="ご希望の時間帯にご連絡差し上げるよう努めてまいりますが、場合によってはご希望に添えない場合もございます。予めご了承いただけますようお願いいたします。"
         spanClass="font-normal text-xs text-gray-500 mt-1" />
+    <x-ajax-input-error id="error-call_time" class="mt-2" />
     <x-input-error :messages="$errors->get('call_time')" class="mt-2" />
 </div>
 
 <!-- Postal Code -->
-<div class="mt-4">
+<div id="container-zipcode" class="mt-4">
     <x-text.custom-input-label text="郵便番号" class="mb-2" option="必須" />
     <div class="flex items-center space-x-2">
         <x-text-input id="zipcode" class="block mt-1 flex-1" type="text" name="zipcode" :value="old('zipcode')"
@@ -140,10 +151,11 @@
         </button>
     </div>
     <x-text.custom-input-label text="※- （ハイフン）なしで記入　7桁" spanClass="font-normal text-xs text-gray-500 mt-1" />
+    <x-ajax-input-error id="error-zipcode" class="mt-2" />
     <x-input-error :messages="$errors->get('zipcode')" class="mt-2" />
 </div>
 
-<div class="mt-4">
+<div id="container-prefecture" class="mt-4">
     <x-text.custom-input-label text="都道府県" class="mb-2" option="必須" />
     <select name="prefecture" id="prefecture" name="prefecture" class="block mt-1 w-full md:w-1/4">
         <option value="">▼都道府県を選択</option>
@@ -218,27 +230,31 @@
             <option value="海外">海外</option>
         </optgroup>
     </select>
+    <x-ajax-input-error id="error-prefecture" class="mt-2" />
+    <x-input-error :messages="$errors->get('prefecture')" class="mt-2" />
 </div>
 
 <!-- Address 1 -->
-<div class="mt-4">
+<div id="container-address1" class="mt-4">
     <x-text.custom-input-label text="市区町村・番地" class="mb-2" option="必須" />
     <x-text-input id="address1" class="block mt-1 w-full" type="text" name="address1" :value="old('address1')"
         required />
+    <x-ajax-input-error id="error-address1" class="mt-2" />
     <x-input-error :messages="$errors->get('address1')" class="mt-2" />
 </div>
 
 <!-- Address 2 -->
-<div class="mt-4">
+<div id="container-address2" class="mt-4">
     <x-text.custom-input-label text="建物名など" class="mb-2" option="任意" />
     <x-text-input id="address2" class="block mt-1 w-full" type="text" name="address2" :value="old('address2')" />
+    <x-ajax-input-error id="error-address2" class="mt-2" />
     <x-input-error :messages="$errors->get('address2')" class="mt-2" />
 </div>
 
 @include('auth.car-profile')
 
 <!-- Newsletter Subscription -->
-<div class="mt-4">
+<div id="container-is_receive_newsletter" class="mt-4">
     <x-text.custom-input-label text="メルマガ配信" class="mb-2" option="任意" />
     <div class="flex flex-col gap-2 justify-center items-start">
         <div class="my-1 flex items-center gap-3">
@@ -252,11 +268,12 @@
             <x-input-label for="is_receive_newsletter" :value="__('受けしない')" />
         </div>
     </div>
+    <x-ajax-input-error id="error-is_receive_newsletter" class="mt-2" />
     <x-input-error :messages="$errors->get('is_receive_newsletter')" class="mt-2" />
 </div>
 
 <!-- How did you hear -->
-<div class="mt-4">
+<div id="container-questionnaire" class="mt-4">
     <x-text.custom-input-label text="【アンケート】弊社の車検を何でお知りになりましたか" class="mb-2" option="必須" />
     @foreach ($questionnaire as $anket)
         <div class="mt-4 flex items-center gap-3 mb-3">
@@ -265,27 +282,30 @@
             <x-input-label for="anket-{{ $anket->id }}" :value="$anket->name" />
         </div>
     @endforeach
+    <x-ajax-input-error id="error-questionnaire" class="mt-2" />
     <x-input-error :messages="$errors->get('questionnaire')" class="mt-2" />
 </div>
 
 <!-- Manager・担当者 -->
-<div class="mt-4">
+<div id="container-manager" class="mt-4">
     <x-text.custom-input-label text="担当者" class="mb-2" option="任意" />
     <x-text-input id="manager" class="block mt-1 w-full" type="text" name="manager" :value="old('manager')" />
     <x-text.custom-input-label text="リースメンテナンス契約のある法人様のみご入力ください。"
         spanClass="font-normal text-xs text-gray-500 mt-1" />
+    <x-ajax-input-error id="error-manager" class="mt-2" />
     <x-input-error :messages="$errors->get('manager')" class="mt-2" />
 </div>
 
 <!-- Department・ -->
-<div class="mt-4">
+<div id="container-department" class="mt-4">
     <x-text.custom-input-label text="部署名／支店名" class="mb-2" option="任意" />
     <x-text-input id="department" class="block mt-1 w-full" type="text" name="department" :value="old('department')" />
+    <x-ajax-input-error id="error-department" class="mt-2" />
     <x-input-error :messages="$errors->get('department')" class="mt-2" />
 </div>
 
 <!-- Notification Subscription -->
-<div class="mt-4">
+<div id="container-is_receive_notification" class="mt-4">
     <x-text.custom-input-label text="店からのお知らせメール" class="mb-2" option="必須" />
     <div class="flex flex-col gap-2 justify-center items-start">
         <div class="my-1 flex items-center gap-3">
@@ -299,5 +319,6 @@
             <x-input-label for="is_receive_notification" :value="__('受けしない')" />
         </div>
     </div>
+    <x-ajax-input-error id="error-is_receive_notification" class="mt-2" />
     <x-input-error :messages="$errors->get('is_receive_notification')" class="mt-2" />
 </div>

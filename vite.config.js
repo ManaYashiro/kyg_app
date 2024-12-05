@@ -12,6 +12,10 @@ export default defineConfig({
                 // custom
                 "resources/js/modules/base.js",
                 "resources/js/modules/datepicker.js",
+                "resources/js/modules/page-navi-buttons.js",
+
+                // auth
+                "resources/js/modules/auth/register.js",
 
                 // images
                 "resources/img/main/favicon.ico",

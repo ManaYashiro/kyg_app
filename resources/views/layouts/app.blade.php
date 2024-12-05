@@ -45,6 +45,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
+
 </head>
 
 <body class="font-sans antialiased text-base">
@@ -59,6 +60,8 @@
         <!-- jQueryのCDNを追加 -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </div>
+
+    @stack('scripts')
 </body>
 
 </html>
