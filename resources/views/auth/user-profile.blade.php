@@ -81,11 +81,11 @@
     <x-text.custom-input-label text="性別" class="mb-2" option="任意" />
     <div class="flex flex-col gap-2 justify-center items-start">
         <div class="my-1 flex items-center gap-3">
-            <x-text-input id="gender-male" type="radio" name="gender" value="0" :checked="old('gender') == '0'" />
+            <x-text-input id="gender-male" type="radio" name="gender" :value="'0'" :checked="old('gender') == '0'" />
             <x-input-label for="gender" :value="__('男性')" />
         </div>
         <div class="my-1 flex items-center gap-3">
-            <x-text-input id="gender-female" type="radio" name="gender" value="1" :checked="old('gender') == '1'" />
+            <x-text-input id="gender-female" type="radio" name="gender" :value="'1'" :checked="old('gender') == '1'" />
             <x-input-label for="gender" :value="__('女性')" />
         </div>
     </div>
@@ -251,20 +251,30 @@
     <x-input-error :messages="$errors->get('address2')" class="mt-2" />
 </div>
 
-@include('auth.car-profile')
+<div class="divide-y divide-red-400">
+    <div class="mt-4">
+        @include('auth.car-profile', ['no' => 1])
+    </div>
+    <div class="mt-4">
+        @include('auth.car-profile', ['no' => 2])
+    </div>
+    <div class="mt-4">
+        @include('auth.car-profile', ['no' => 3])
+    </div>
+</div>
 
 <!-- Newsletter Subscription -->
 <div id="container-is_receive_newsletter" class="mt-4">
     <x-text.custom-input-label text="メルマガ配信" class="mb-2" option="任意" />
     <div class="flex flex-col gap-2 justify-center items-start">
         <div class="my-1 flex items-center gap-3">
-            <x-text-input id="is_receive_newsletter-yes" type="radio" name="is_receive_newsletter" value="1"
-                :checked="old('is_receive_newsletter') == '1'" />
+            <x-text-input id="is_receive_newsletter-yes" type="radio" name="is_receive_newsletter"
+                :value="'1'" :checked="old('is_receive_newsletter') == '1'" />
             <x-input-label for="is_receive_newsletter" :value="__('受けする')" />
         </div>
         <div class="my-1 flex items-center gap-3">
-            <x-text-input id="is_receive_newsletter-no" type="radio" name="is_receive_newsletter" value="0"
-                :checked="old('is_receive_newsletter') == '0'" />
+            <x-text-input id="is_receive_newsletter-no" type="radio" name="is_receive_newsletter"
+                :value="'0'" :checked="old('is_receive_newsletter') == '0'" />
             <x-input-label for="is_receive_newsletter" :value="__('受けしない')" />
         </div>
     </div>
@@ -310,12 +320,12 @@
     <div class="flex flex-col gap-2 justify-center items-start">
         <div class="my-1 flex items-center gap-3">
             <x-text-input id="is_receive_notification-yes" type="radio" name="is_receive_notification"
-                value="1" :checked="old('is_receive_notification') == '1'" />
+                :value="'1'" :checked="old('is_receive_notification') == '1'" />
             <x-input-label for="is_receive_notification" :value="__('受けする')" />
         </div>
         <div class="my-1 flex items-center gap-3">
             <x-text-input id="is_receive_notification-no" type="radio" name="is_receive_notification"
-                value="0" :checked="old('is_receive_notification') == '0'" />
+                :value="'0'" :checked="old('is_receive_notification') == '0'" />
             <x-input-label for="is_receive_notification" :value="__('受けしない')" />
         </div>
     </div>

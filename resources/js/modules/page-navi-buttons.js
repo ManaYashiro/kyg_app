@@ -2,7 +2,6 @@ window.isConfirmed = [];
 window.currentPage = 0;
 
 window.gotoPrev = function () {
-    console.log("gotoprev");
     if (window.currentPage > 0) {
         window.currentPage--; // Go to previous page
         window.isConfirmed[window.currentPage] = false;
@@ -10,11 +9,22 @@ window.gotoPrev = function () {
     }
 };
 window.gotoNext = function () {
-    console.log("gotonext", window.isConfirmed);
     if (window.isConfirmed[window.currentPage]) {
         if (window.currentPage < $pages.length - 1) {
             window.currentPage++; // Go to next page
             updatePages();
+        }
+    }
+};
+window.confirmData = function (formData) {
+    for (var data of formData.entries()) {
+        const key = data[0].replace(/[\[\]]/g, "");
+        const val = data[1];
+        $("#confirm-" + key + " span").text(""); // Clear the text
+        if (key === "password") {
+            $("#confirm-" + key + " span").text("*".repeat(val.length));
+        } else {
+            $("#confirm-" + key + " span").text(val);
         }
     }
 };

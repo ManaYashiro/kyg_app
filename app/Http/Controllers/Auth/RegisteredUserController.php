@@ -33,6 +33,8 @@ class RegisteredUserController extends Controller
     public function store(RegisteredUserRequest $request): JsonResponse|RedirectResponse
     {
         $data = $request->validated();
+        $all = $request->all();
+        Log::info(User::TITLE . 'のパラメータ：' . $all['name'], $all, true);
         if ($data['form_type'] === 'confirm') {
             return response()->json([
                 'success' => true,

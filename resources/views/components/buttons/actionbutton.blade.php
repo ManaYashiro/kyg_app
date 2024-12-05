@@ -17,8 +17,8 @@
     @if ($logout === 'logout')
         <form action="{{ $url }}" method="POST">
             @csrf
-        @elseif ($url)
-            <a href="{{ $url }}">
+    @elseif ($url)
+        <a href="{{ $url }}">
     @endif
 
     <button {{ $attributes->merge(['id' => $id, 'class' => $buttonClass]) }} type="{{ $type }}">

@@ -36,6 +36,8 @@ $(document).ready(function () {
                     console.log("Success:", response);
                     $formType.val("submit"); // ready for submit
 
+                    window.confirmData(formData);
+
                     // go to next page
                     window.isConfirmed[window.currentPage] = true;
                     window.gotoNext();
