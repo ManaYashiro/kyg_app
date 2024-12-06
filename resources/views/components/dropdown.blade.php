@@ -23,7 +23,7 @@
 
 <div class="relative" x-data="{ open: false }" @click.away="open = false" @close.stop="open = false">
     <div @click="open = ! open">
-        {{ $trigger }}
+        {{ $burgermenu }}
     </div>
 
     <div x-show="open" x-transition:enter="transition ease-out duration-200"

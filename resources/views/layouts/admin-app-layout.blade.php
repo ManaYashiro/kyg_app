@@ -6,7 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ \App\Helpers\Formats::title() }}｜車検・点検整備のWEB予約ページ｜キムラユニティーグループ</title>
+
+    {{-- Favicon --}}
+    <link rel="shortcut icon" sizes="114x114" href="{{ Vite::asset('resources/img/main/favicon.ico') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
@@ -16,6 +19,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/themes/base/jquery-ui.min.css"
+        integrity="sha512-TFee0335YRJoyiqz8hA8KV3P0tXa5CpRBSoM0Wnkn7JoJx1kaq1yXL/rb8YFpWXkMOjRcv5txv+C6UluttluCQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.14.1/jquery-ui.min.js"
         integrity="sha512-MSOo1aY+3pXCOCdGAYoBZ6YGI0aragoQsg1mKKBHXCYPIWxamwOE7Drh+N5CPgGI5SA9IEKJiPjdfqWFWmZtRA=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -37,11 +43,12 @@
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/base.js'])
+    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
+
 </head>
 
-<body class="font-sans antialiased">
+<body class="font-sans antialiased text-base">
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- Desktop sidebar -->
         @include('includes.desktop-sidebar')

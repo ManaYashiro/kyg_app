@@ -1,6 +1,6 @@
 $(document).ready(function () {
     $("#search-postcode").on("click", function () {
-        var postCode = $("#post_code")
+        var postCode = $("#zipcode")
             .val()
             .replace(/[^0-9]/g, ""); // 郵便番号の数字部分を取り出す
 
@@ -14,11 +14,8 @@ $(document).ready(function () {
                     if (data.results) {
                         var address = data.results[0];
                         // 住所を挿入する
-                        $("#address").val(
-                            address.address1 +
-                                address.address2 +
-                                address.address3
-                        );
+                        $("#prefecture").val(address.address1);
+                        $("#address1").val(address.address2 + address.address3);
                     } else {
                         Swal.fire({
                             title: "エラー！",

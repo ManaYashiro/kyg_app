@@ -22,13 +22,6 @@ Route::middleware('guest')->group(function () {
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
-    Route::prefix('admin')->name('admin.')->group(function () {
-        Route::get('login', [AuthenticatedSessionController::class, 'admincreate'])
-            ->name('login');
-
-        Route::post('login', [AuthenticatedSessionController::class, 'adminstore']);
-    });
-
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
         ->name('password.request');
 
@@ -40,6 +33,23 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
+
+    Route::get('auth-response', function () {
+        $success = session('success') ?? null;
+        $messages = session('messages') ?? [];
+        $actionText = session('actionText');
+        $actionUrl = session('actionUrl') ?? session('tempActionUrl');
+
+        if ($success === null) {
+            return redirect()->to($actionUrl);
+        }
+
+        session([
+            'tempActionUrl' => $actionUrl
+        ]);
+
+        return view('auth.response', compact('success', 'messages', 'actionText', 'actionUrl'));
+    })->name('auth.response');
 });
 
 Route::middleware('auth')->group(function () {

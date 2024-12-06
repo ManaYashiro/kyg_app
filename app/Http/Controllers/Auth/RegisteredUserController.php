@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Helpers\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisteredUserRequest;
+use App\Http\Requests\UserVehiclesRequest;
 use App\Models\Anket;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -20,8 +22,8 @@ class RegisteredUserController extends Controller
     public function create(): View
     {
         // これを実際の アンケートリストに変更します (DB から)
-        $how_did_you_hear = Anket::get();
-        return view('auth.register', compact('how_did_you_hear'));
+        $questionnaire = Anket::get();
+        return view('auth.register', compact('questionnaire'));
     }
 
     /**
@@ -29,9 +31,16 @@ class RegisteredUserController extends Controller
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function store(RegisteredUserRequest $request): RedirectResponse
+    public function store(RegisteredUserRequest $request): JsonResponse|RedirectResponse
     {
         $data = $request->validated();
+        if ($data['form_type'] === 'confirm') {
+            return response()->json([
+                'success' => true,
+                'message' => 'confirm OK'
+            ]);
+        }
+        Log::info(User::TITLE . 'のパラメータ：' . $data['name'], $data, true);
 
         // 電話番号が設定されていれば、ハイフンを追加またはそのままにする
         if (isset($data['phone_number'])) {
@@ -44,11 +53,14 @@ class RegisteredUserController extends Controller
         // ユーザーを作成する
         $user = User::create($data);
 
+        $userVehicle = $request->validate((new UserVehiclesRequest())->rules());
+        $user->userVehicles()->create($userVehicle);
+
         // 登録イベントを発火させる
         event(new Registered($user));
 
         // ユーザーをログインさせる
-        Auth::login($user);
+        // Auth::login($user);
 
         //未ローグインで確認メール送信して、トップ画面にリダイレクトします。
         $message = 'ご登録いただき、ありがとうございます。<br />お送りした確認用URLをメールからご確認の上、クリックしてください。';

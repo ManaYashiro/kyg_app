@@ -14,13 +14,13 @@
                     <form method="POST" action="{{ route('appointments.store') }}">
                         @csrf
 
-                        <div class="mt-6">
+                        <div class="mt-4">
                             <h3 class="text-xl font-semibold text-gray-800">予約番号</h3>
                             <p class="text-gray-600">{{ $vehicles[0]['appoint_number'] }}</p>
                             <input type="hidden" name="appoint_number" value="{{ $vehicles[0]['appoint_number'] }}">
                         </div>
 
-                        <div class="mt-6">
+                        <div class="mt-4">
                             <h3 class="text-xl font-semibold text-gray-800">予約日時</h3>
                             <p class="text-gray-600">{{ $vehicles[0]['reservation_datetime'] }}</p>
                             <input type="hidden" name="reservation_datetime"
@@ -53,7 +53,7 @@
                         @endforeach
 
                         <!-- 過去利用履歴 -->
-                        <div class="mt-6">
+                        <div class="mt-4">
                             <h3 class="text-lg font-semibold text-gray-800">過去利用履歴</h3>
                             <p class="text-gray-600">{{ $vehicles[0]['past_service_history'] }}</p>
                             <input type="hidden" name="past_service_history"
@@ -61,14 +61,14 @@
                         </div>
 
                         <!-- メッセージ -->
-                        <div class="mt-6">
+                        <div class="mt-4">
                             <h3 class="text-lg font-semibold text-gray-800">メッセージ</h3>
                             <p class="text-gray-600">{{ $vehicles[0]['message'] }}</p>
                             <input type="hidden" name="message" value="{{ $vehicles[0]['message'] }}">
                         </div>
 
                         <!-- 確定ボタン -->
-                        <div class="mt-6">
+                        <div class="mt-4">
                             <x-primary-button class="ml-4" type="submit">
                                 {{ __('予約を確定') }}
                             </x-primary-button>

@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
+use App\Enums\GenderEnum;
+use App\Enums\IsNewsletterEnum;
+use App\Enums\IsNotificationEnum;
 use App\Exceptions\SendEmailFailedException;
 use App\Helpers\Log;
 use App\Notifications\NotifyAdminOfRegisteredUserNotification;
 use App\Notifications\RegisteredUserNotification;
-use Illuminate\Auth\Notifications\VerifyEmail;
+use App\Notifications\RegisteredUserPasswordResetNotification;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
@@ -30,17 +33,27 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array<int, string>
      */
     protected $fillable = [
+        'loginid',
         'name',
-        'furigana',
+        'name_furigana',
         'email',
         'password',
+        'zipcode',
+        'prefecture',
+        'address1',
+        'address2',
         'phone_number',
-        'post_code',
-        'address',
-        'building',
-        'preferred_contact_time',
-        'how_did_you_hear',
-        'is_newsletter_subscription',
+        'gender',
+        'birthday',
+        'reg_device',
+        'reg_ipaddr',
+        'call_time',
+        'questionnaire',
+        'manager',
+        'department',
+        'remarks',
+        'is_receive_newsletter',
+        'is_receive_notification',
     ];
 
     /**
@@ -63,14 +76,70 @@ class User extends Authenticatable implements MustVerifyEmail
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
-            'how_did_you_hear' => 'array',
+            'questionnaire' => 'array',
+            'gender' => GenderEnum::class,
+            'is_receive_newsletter' => IsNewsletterEnum::class,
+            'is_receive_notification' => IsNotificationEnum::class,
         ];
+    }
+
+    /**
+     * Register any authentication / authorization services.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($user) {
+            Log::info(self::TITLE . '登録中', $user->name);
+
+            if (!$user->customer_no) {
+                $lastCustomerNo = DB::table('users')->max('customer_no');
+                $user->customer_no = $lastCustomerNo ? $lastCustomerNo + 1 : config('database.starting_customer_no');
+            }
+        });
+
+        static::created(function ($user) {
+            Log::info(self::TITLE . '登録が完了しました', $user->name, true);
+
+            try {
+                // 管理者にお知らせ
+                $authUsers = User::where('role', User::ADMIN)->get();
+                foreach ($authUsers as $key => $authUser) {
+                    $authUser->notify(new NotifyAdminOfRegisteredUserNotification($user));
+                }
+            } catch (SendEmailFailedException $e) {
+                Log::info('管理者に' . self::TITLE . 'の登録のお知らせ', $this->user->name);
+                throw new SendEmailFailedException('管理者に' . self::TITLE . 'の登録のお知らせが失敗です。');
+            }
+        });
+
+        static::updating(function ($user) {
+            Log::info(self::TITLE . '保存中', $user->name, true);
+        });
+
+        static::updated(function ($user) {
+            Log::info(self::TITLE . '保存が完了しました', $user->name, true);
+        });
+
+        static::deleting(function ($user) {
+            Log::info(self::TITLE . '保存中', $user->name, true);
+        });
+
+        static::deleted(function ($user) {
+            Log::info(self::TITLE . '保存が完了しました', $user->name, true);
+        });
+    }
+
+    public function userVehicles()
+    {
+        return $this->hasMany(UserVehicles::class);
     }
 
     public function findUserAnkets()
     {
-        if ($this->how_did_you_hear && count($this->how_did_you_hear)) {
-            $ankets = Anket::whereIn('id', $this->how_did_you_hear)->pluck('short_name');
+        if ($this->questionnaire && count($this->questionnaire)) {
+            $ankets = Anket::whereIn('id', $this->questionnaire)->pluck('short_name');
             $anketsData = "";
             foreach ($ankets as $key => $anket) {
                 if ($anketsData !== "") {
@@ -98,46 +167,14 @@ class User extends Authenticatable implements MustVerifyEmail
         }
     }
 
-    /**
-     * Register any authentication / authorization services.
-     */
-    protected static function boot()
+    public function sendPasswordResetNotification($token)
     {
-        parent::boot();
-
-        static::creating(function ($user) {
-            Log::info(self::TITLE . '登録中', $user->name);
-
-            try {
-                // 管理者にお知らせ
-                $authUsers = User::where('role', User::ADMIN)->get();
-                foreach ($authUsers as $key => $authUser) {
-                    $authUser->notify(new NotifyAdminOfRegisteredUserNotification($user));
-                }
-            } catch (SendEmailFailedException $e) {
-                Log::info('管理者に' . User::TITLE . 'の登録のお知らせ', $this->user->name);
-                throw new SendEmailFailedException('管理者に' . User::TITLE . 'の登録のお知らせが失敗です。');
-            }
-        });
-
-        static::created(function ($user) {
-            Log::info(self::TITLE . '登録が完了しました', $user->name, true);
-        });
-
-        static::updating(function ($user) {
-            Log::info(self::TITLE . '保存中', $user->name, true);
-        });
-
-        static::updated(function ($user) {
-            Log::info(self::TITLE . '保存が完了しました', $user->name, true);
-        });
-
-        static::deleting(function ($user) {
-            Log::info(self::TITLE . '保存中', $user->name, true);
-        });
-
-        static::deleted(function ($user) {
-            Log::info(self::TITLE . '保存が完了しました', $user->name, true);
-        });
+        $user = $this;
+        try {
+            // ユーザーパスワード再設定メール送信
+            $this->notify(new RegisteredUserPasswordResetNotification($user, $token));
+        } catch (SendEmailFailedException $e) {
+            throw new SendEmailFailedException(self::TITLE . 'のパスワード再設定メールの送信に失敗しました。');
+        }
     }
 }

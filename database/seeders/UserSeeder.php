@@ -15,8 +15,9 @@ class UserSeeder extends Seeder
     {
         User::factory()->admin()->create(
             [
+                'loginid' => '0000000001',
                 'name' => 'admin',
-                'furigana' => 'admin',
+                'name_furigana' => 'admin',
                 'email' => 'admin@admin.admin',
                 'password' => 'adminp@ssword1234',
                 'email_verified_at' => Carbon::now(),
@@ -24,8 +25,9 @@ class UserSeeder extends Seeder
         );
         User::factory()->user()->create(
             [
+                'loginid' => '0000000002',
                 'name' => 'user',
-                'furigana' => 'user',
+                'name_furigana' => 'user',
                 'email' => 'user@user.user',
                 'password' => 'p@ssword1234',
                 'email_verified_at' => Carbon::now(),

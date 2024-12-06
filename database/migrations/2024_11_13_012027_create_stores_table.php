@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('phone_number', 15);
             $table->string('address', 150);
-            $table->timestamps();
-            $table->softDeletes();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate();
+            $table->dateTime('deleted_at')->nullable()->useCurrentOnUpdate();
         });
     }
 

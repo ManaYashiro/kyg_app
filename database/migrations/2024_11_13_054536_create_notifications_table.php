@@ -21,7 +21,9 @@ class CreateNotificationsTable extends Migration
             $table->date('published_at')->nullable()->comment('公開日時（公開されている場合）'); // 公開日時（公開されている場合）
             $table->boolean('is_active')->default(true)->comment('お知らせの表示状態（公開/非公開）'); // お知らせの表示状態（公開/非公開）
             $table->string('image')->nullable()->comment('画像ファイル'); // 画像ファイル
-            $table->timestamps(); // 作成日時、更新日時（自動生成）
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate();
+            $table->dateTime('deleted_at')->nullable()->useCurrentOnUpdate();
         });
     }
 

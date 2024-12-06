@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
@@ -17,9 +20,31 @@ class NewPasswordController extends Controller
     /**
      * Display the password reset view.
      */
-    public function create(Request $request): View
+    public function create(Request $request): View|RedirectResponse
     {
-        return view('auth.reset-password', ['request' => $request]);
+        $loginid = null;
+        $email = null;
+        $token = $request->route('token');
+
+        // ブレード ファイルにログイン ID を表示するには、有効なトークンをすべて取得し、それらを 1 つずつ比較する必要があります。
+        $passwordResetToken = DB::table('password_reset_tokens')
+            ->where('created_at', '>=', Carbon::now()->subMinutes(config('auth.passwords.users.expire')))
+            ->get()
+            ->first(function ($data) use ($token) {
+                return Hash::check($token, $data->token);
+            });
+
+        if ($passwordResetToken) {
+            $data = User::where('email', $passwordResetToken->email)->select('loginid', 'email')->first();
+            $loginid = $data->loginid;
+            $email = $data->email;
+            return view('auth.reset-password', ['request' => $request, 'loginid' => $loginid, 'email' => $email]);
+        }
+
+        $messages = ['検証トークンが無効です。', '新しいトークンを作成してください。'];
+        $actionText = "パスワードを設定に戻る";
+        $actionUrl = route('password.request');
+        return redirect()->route('auth.response')->with(['success' => "false", 'messages' => $messages, 'actionText' => $actionText, 'actionUrl' => $actionUrl]);
     }
 
     /**

@@ -37,12 +37,13 @@ class RegisteredUserNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        Log::info(User::TITLE . 'にメール送信中', $this->user->name);
+        Log::info(User::TITLE . 'に登録メール送信中', $this->user->name);
         $verificationUrl = $this->verificationUrl($notifiable, $this->user);
+
         return (new MailMessage)
             ->subject('ご登録いただきありがとうございます。')
             ->greeting($this->user->name . '様')
-            ->line('下のボタンをクリックしてメールアドレスを確認してください。')
+            ->line('以下のボタンをクリックして、メールアドレスを確認してください。')
             ->markdown('emails.auth.verifyemail', [
                 'url' => $verificationUrl,
                 'user' => $this->user,

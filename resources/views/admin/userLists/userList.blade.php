@@ -64,6 +64,7 @@
                                     <th class="px-4 py-2 text-left" style="width: 8%;">電話時間</th>
                                     <th class="px-4 py-2 text-left" style="width: 12%;">アンケート</th>
                                     <th class="px-4 py-2 text-left" style="width: 10%;">News</th>
+                                    <th class="px-4 py-2 text-left" style="width: 10%;">Notif</th>
                                 </tr>
                             </thead>
 
@@ -80,7 +81,7 @@
                                             {{ $user->phone_number }}</td>
                                         <td class="border px-4 py-2 text-xs">
                                             @php
-                                                $fullAddress = $user->address . ' ' . $user->building;
+                                                $fullAddress = $user->address1 . ' ' . $user->address2;
                                                 $maxLength = 30;
                                                 if (strlen($fullAddress) > $maxLength) {
                                                     $fullAddress = mb_substr($fullAddress, 0, $maxLength) . '...';
@@ -89,13 +90,16 @@
                                             {{ $fullAddress }}
                                         </td>
                                         <td class="border px-4 py-2 text-xs">
-                                            {{ $user->preferred_contact_time }}
+                                            {{ $user->call_time }}
                                         </td>
                                         <td class="border px-4 py-2 text-xs">
                                             {{ $user->findUserAnkets() }}
                                         </td>
                                         <td class="border px-4 py-2 text-xs">
-                                            {{ $user->is_newsletter_subscription ? 'Yes' : 'No' }}
+                                            {{ $user->is_receive_newsletter ? 'Yes' : 'No' }}
+                                        </td>
+                                        <td class="border px-4 py-2 text-xs">
+                                            {{ $user->is_receive_notification ? 'Yes' : 'No' }}
                                         </td>
                                     </tr>
                                 @endforeach
