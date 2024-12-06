@@ -83,48 +83,6 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    public function findUserAnkets()
-    {
-        if ($this->questionnaire && count($this->questionnaire)) {
-            $ankets = Anket::whereIn('id', $this->questionnaire)->pluck('short_name');
-            $anketsData = "";
-            foreach ($ankets as $key => $anket) {
-                if ($anketsData !== "") {
-                    $anketsData .= "；";
-                }
-                $anketsData .= $anket;
-            }
-            return $anketsData;
-        }
-    }
-
-    /**
-     * Send the email verification notification.
-     *
-     * @return void
-     */
-    public function sendEmailVerificationNotification()
-    {
-        $user = $this;
-        try {
-            // ユーザー登録メール送信
-            $this->notify(new RegisteredUserNotification($user));
-        } catch (SendEmailFailedException $e) {
-            throw new SendEmailFailedException(self::TITLE . 'のメールの送信に失敗しました。');
-        }
-    }
-
-    public function sendPasswordResetNotification($token)
-    {
-        $user = $this;
-        try {
-            // ユーザーパスワード再設定メール送信
-            $this->notify(new RegisteredUserPasswordResetNotification($user, $token));
-        } catch (SendEmailFailedException $e) {
-            throw new SendEmailFailedException(self::TITLE . 'のパスワード再設定メールの送信に失敗しました。');
-        }
-    }
-
     /**
      * Register any authentication / authorization services.
      */
@@ -171,5 +129,52 @@ class User extends Authenticatable implements MustVerifyEmail
         static::deleted(function ($user) {
             Log::info(self::TITLE . '保存が完了しました', $user->name, true);
         });
+    }
+
+    public function userVehicles()
+    {
+        return $this->hasMany(UserVehicles::class);
+    }
+
+    public function findUserAnkets()
+    {
+        if ($this->questionnaire && count($this->questionnaire)) {
+            $ankets = Anket::whereIn('id', $this->questionnaire)->pluck('short_name');
+            $anketsData = "";
+            foreach ($ankets as $key => $anket) {
+                if ($anketsData !== "") {
+                    $anketsData .= "；";
+                }
+                $anketsData .= $anket;
+            }
+            return $anketsData;
+        }
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $user = $this;
+        try {
+            // ユーザー登録メール送信
+            $this->notify(new RegisteredUserNotification($user));
+        } catch (SendEmailFailedException $e) {
+            throw new SendEmailFailedException(self::TITLE . 'のメールの送信に失敗しました。');
+        }
+    }
+
+    public function sendPasswordResetNotification($token)
+    {
+        $user = $this;
+        try {
+            // ユーザーパスワード再設定メール送信
+            $this->notify(new RegisteredUserPasswordResetNotification($user, $token));
+        } catch (SendEmailFailedException $e) {
+            throw new SendEmailFailedException(self::TITLE . 'のパスワード再設定メールの送信に失敗しました。');
+        }
     }
 }

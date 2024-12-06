@@ -30,4 +30,9 @@ class UserVehicles extends Model
         'car3_number',
         'car3_class',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

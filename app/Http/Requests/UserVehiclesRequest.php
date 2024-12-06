@@ -24,17 +24,19 @@ class UserVehiclesRequest extends FormRequest
     {
         return [
             'user_id' => 'nullable',
-            'car1_name' => 'required|string|max:20',
+            'car1_name' => 'required|string|max:20|required_with:car1_number',
             'car1_katashiki' => 'nullable|string|max:20',
-            'car1_number' => 'required|string|max:20',
+            'car1_number' => 'required|string|max:20|required_with:car1_name',
             'car1_class' => 'nullable|string|max:30|in:' . implode(',', array_map(fn($case) => $case->value, CarClassEnum::cases())),
-            'car2_name' => 'nullable|string|max:20',
+
+            'car2_name' => 'nullable|string|max:20|required_with:car2_number',
             'car2_katashiki' => 'nullable|string|max:20',
-            'car2_number' => 'nullable|string|max:20',
+            'car2_number' => 'nullable|string|max:20|required_with:car2_name',
             'car2_class' => 'nullable|string|max:30|in:' . implode(',', array_map(fn($case) => $case->value, CarClassEnum::cases())),
-            'car3_name' => 'nullable|string|max:20',
+
+            'car3_name' => 'nullable|string|max:20|required_with:car3_number',
             'car3_katashiki' => 'nullable|string|max:20',
-            'car3_number' => 'nullable|string|max:20',
+            'car3_number' => 'nullable|string|max:20|required_with:car3_name',
             'car3_class' => 'nullable|string|max:30|in:' . implode(',', array_map(fn($case) => $case->value, CarClassEnum::cases())),
         ];
     }

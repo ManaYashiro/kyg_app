@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Helpers\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisteredUserRequest;
+use App\Http\Requests\UserVehiclesRequest;
 use App\Models\Anket;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -33,8 +34,6 @@ class RegisteredUserController extends Controller
     public function store(RegisteredUserRequest $request): JsonResponse|RedirectResponse
     {
         $data = $request->validated();
-        $all = $request->all();
-        Log::info(User::TITLE . 'のパラメータ：' . $all['name'], $all, true);
         if ($data['form_type'] === 'confirm') {
             return response()->json([
                 'success' => true,
@@ -53,6 +52,9 @@ class RegisteredUserController extends Controller
 
         // ユーザーを作成する
         $user = User::create($data);
+
+        $userVehicle = $request->validate((new UserVehiclesRequest())->rules());
+        $user->userVehicles()->create($userVehicle);
 
         // 登録イベントを発火させる
         event(new Registered($user));
