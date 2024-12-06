@@ -17,6 +17,7 @@
 </div>
 
 <x-text.custom-text text="基本情報" class="mt-6 mb-2 bg-gray-text" />
+
 <!-- Name -->
 <div class="mt-4">
     <x-text.custom-input-label text="顧客名" class="mb-2 left-border-text" />
@@ -44,7 +45,9 @@
 <!-- Gender -->
 <div class="mt-4">
     <x-text.custom-input-label text="性別" class="mb-2 left-border-text" />
-    <x-text.custom-text :text="''" id="confirm-gender" class="mb-6" />
+    @foreach (\App\Enums\GenderEnum::cases() as $gender)
+        <x-text.custom-text :text="$gender->getLabel()" id="confirm-gender-{{ $gender->value }}" class="mb-6 hidden isOption" />
+    @endforeach
 </div>
 
 <!-- Birthday -->
@@ -56,7 +59,10 @@
 <!-- Preferred Time -->
 <div class="mt-4">
     <x-text.custom-input-label text="電話希望時間" class="mb-2 left-border-text" />
-    <x-text.custom-text :text="''" id="confirm-call_time" class="mb-6" />
+    @foreach (\App\Enums\CallTimeEnum::cases() as $callTime)
+        <x-text.custom-text :text="$callTime->getLabel()" id="confirm-call_time-{{ $callTime->value }}"
+            class="mb-6 hidden isOption" />
+    @endforeach
 </div>
 
 <!-- Postal Code -->
@@ -65,6 +71,7 @@
     <x-text.custom-text :text="''" id="confirm-zipcode" class="mb-6" />
 </div>
 
+<!-- Prefecture -->
 <div class="mt-4">
     <x-text.custom-input-label text="都道府県" class="mb-2 left-border-text" />
     <x-text.custom-text :text="''" id="confirm-prefecture" class="mb-6" />
@@ -87,13 +94,26 @@
 <!-- Newsletter Subscription -->
 <div class="mt-4">
     <x-text.custom-input-label text="メルマガ配信" class="mb-2 left-border-text" />
-    <x-text.custom-text :text="''" id="confirm-is_receive_newsletter" class="mb-6" />
+    @foreach (array_reverse(\App\Enums\IsNewsletterEnum::cases()) as $newsletterOption)
+        <x-text.custom-text :text="$newsletterOption->getLabel()" id="confirm-is_receive_newsletter-{{ $newsletterOption->value }}"
+            class="mb-6 hidden isOption" />
+    @endforeach
 </div>
 
 <!-- How did you hear -->
 <div class="mt-4">
     <x-text.custom-input-label text="【アンケート】弊社の車検を何でお知りになりましたか" class="mb-2 left-border-text" />
-    <x-text.custom-text :text="''" id="confirm-questionnaire" class="mb-6" />
+    @php
+        $anketList = [];
+    @endphp
+    @foreach ($questionnaire as $anket)
+        @php
+            array_push($anketList, ['id' => $anket->id, 'name' => $anket->name]);
+        @endphp
+    @endforeach
+    <input type="hidden" id="confirm-questionnaire-list" data-list="{{ json_encode($anketList, JSON_PRETTY_PRINT) }}">
+    <x-text.custom-text :text="''" id="confirm-questionnaire" class="mb-6 w-full overflow-hidden"
+        textClass="block break-words" />
 </div>
 
 <!-- Manager・担当者 -->
@@ -111,5 +131,8 @@
 <!-- Notification Subscription -->
 <div class="mt-4">
     <x-text.custom-input-label text="店からのお知らせメール" class="mb-2 left-border-text" />
-    <x-text.custom-text :text="''" id="confirm-is_receive_notification" class="mb-6" />
+    @foreach (array_reverse(\App\Enums\IsNotificationEnum::cases()) as $notificationOption)
+        <x-text.custom-text :text="$notificationOption->getLabel()" id="confirm-is_receive_notification-{{ $notificationOption->value }}"
+            class="mb-6 hidden isOption" />
+    @endforeach
 </div>

@@ -123,3 +123,55 @@ $(".delete--model").on("click", function (e) {
         }
     });
 });
+
+window.confirmFormData = function (formData) {
+    // Hide options
+    $(".isOption").addClass("hidden").removeClass("block");
+    let questionnaireIds = [];
+    let questionnaireText = "";
+    let questionnaireList = $("#confirm-questionnaire-list").data("list");
+
+    for (var data of formData.entries()) {
+        const key = data[0].replace(/[\[\]]/g, "");
+        const val = data[1];
+
+        // Clear text
+        $("#confirm-" + key + " span").text("");
+
+        // Insert text
+        if (key === "password") {
+            $("#confirm-" + key + " span").text("*".repeat(val.length));
+        } else if (
+            key === "gender" ||
+            key === "call_time" ||
+            key === "is_receive_newsletter" ||
+            key === "is_receive_notification"
+        ) {
+            // from enums
+            $("#confirm-" + key + "-" + val)
+                .addClass("block")
+                .removeClass("hidden");
+        } else if (key === "questionnaire") {
+            // from DB
+            if (!questionnaireIds.includes(val)) {
+                questionnaireIds.push(val);
+                if (questionnaireText !== "") {
+                    questionnaireText += "； ";
+                }
+                questionnaireText += window.findObjectByKeyValue(
+                    questionnaireList,
+                    "id",
+                    val
+                ).name;
+            }
+        } else {
+            $("#confirm-" + key + " span").text(val);
+        }
+    }
+    // questionnaire text after looping through formData
+    $("#confirm-questionnaire span").text(questionnaireText);
+};
+
+window.findObjectByKeyValue = function (obj, key, value) {
+    return obj.find((item) => item[key].toString() === value.toString());
+};

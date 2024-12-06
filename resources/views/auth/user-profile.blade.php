@@ -80,14 +80,13 @@
 <div id="container-gender" class="mt-4">
     <x-text.custom-input-label text="性別" class="mb-2" option="任意" />
     <div class="flex flex-col gap-2 justify-center items-start">
-        <div class="my-1 flex items-center gap-3">
-            <x-text-input id="gender-male" type="radio" name="gender" :value="'0'" :checked="old('gender') == '0'" />
-            <x-input-label for="gender" :value="__('男性')" />
-        </div>
-        <div class="my-1 flex items-center gap-3">
-            <x-text-input id="gender-female" type="radio" name="gender" :value="'1'" :checked="old('gender') == '1'" />
-            <x-input-label for="gender" :value="__('女性')" />
-        </div>
+        @foreach (\App\Enums\GenderEnum::cases() as $gender)
+            <div class="my-1 flex items-center gap-3">
+                <x-text-input id="gender-{{ $gender->value }}" type="radio" name="gender" :value="$gender->value"
+                    :checked="old('gender') === $gender->value" />
+                <x-input-label for="gender" :value="__($gender->getLabel())" />
+            </div>
+        @endforeach
     </div>
     <x-ajax-input-error id="error-gender" class="mt-2" />
     <x-input-error :messages="$errors->get('gender')" class="mt-2" />
@@ -105,31 +104,13 @@
 <!-- Preferred Time -->
 <div id="container-call_time" class="mt-4">
     <x-text.custom-input-label text="電話希望時間" class="mb-2" option="必須" />
-    <div class="mt-4 flex items-center gap-3 mb-3">
-        <x-text-input id="contact-time-1" type="radio" name="call_time" value="9-12" :checked="old('call_time') == '9-12'" />
-        <x-input-label for="contact-time-1" :value="'9:00 - 12:00'" />
-    </div>
-    <div class="mt-4 flex items-center gap-3 mb-3">
-        <x-text-input id="contact-time-2" type="radio" name="call_time" value="12-13" :checked="old('call_time') == '12-13'" />
-        <x-input-label for="contact-time-2" :value="'12:00 - 13:00'" />
-    </div>
-    <div class="mt-4 flex items-center gap-3 mb-3">
-        <x-text-input id="contact-time-3" type="radio" name="call_time" value="13-15" :checked="old('call_time') == '13-15'" />
-        <x-input-label for="contact-time-3" :value="'13:00 - 15:00'" />
-    </div>
-    <div class="mt-4 flex items-center gap-3 mb-3">
-        <x-text-input id="contact-time-4" type="radio" name="call_time" value="15-17" :checked="old('call_time') == '15-17'" />
-        <x-input-label for="contact-time-4" :value="'15:00 - 17:00'" />
-    </div>
-    <div class="mt-4 flex items-center gap-3 mb-3">
-        <x-text-input id="contact-time-5" type="radio" name="call_time" value="17-19" :checked="old('call_time') == '17-19'" />
-        <x-input-label for="contact-time-5" :value="'17:00 - 19:00'" />
-    </div>
-    <div class="mt-4 flex items-center gap-3 mb-3">
-        <x-text-input id="contact-time-6" type="radio" name="call_time" value="no_preference"
-            :checked="old('call_time') == 'no_preference'" />
-        <x-input-label for="contact-time-6" :value="'指定なし'" />
-    </div>
+    @foreach (\App\Enums\CallTimeEnum::cases() as $callTime)
+        <div class="mt-4 flex items-center gap-3 mb-3">
+            <x-text-input id="contact-time-{{ $callTime->value }}" type="radio" name="call_time" :value="$callTime->value"
+                :checked="old('call_time') === $callTime->getLabel()" />
+            <x-input-label for="contact-time-{{ $callTime->value }}" :value="__($callTime->getLabel())" />
+        </div>
+    @endforeach
     <x-text.custom-input-label text="電話連絡時のご希望時間帯を選択してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
     <x-text.custom-input-label text="ご希望の時間帯にご連絡差し上げるよう努めてまいりますが、場合によってはご希望に添えない場合もございます。予めご了承いただけますようお願いいたします。"
         spanClass="font-normal text-xs text-gray-500 mt-1" />
@@ -155,6 +136,7 @@
     <x-input-error :messages="$errors->get('zipcode')" class="mt-2" />
 </div>
 
+<!-- Prefecture -->
 <div id="container-prefecture" class="mt-4">
     <x-text.custom-input-label text="都道府県" class="mb-2" option="必須" />
     <select name="prefecture" id="prefecture" name="prefecture" class="block mt-1 w-full md:w-1/4">
@@ -267,16 +249,13 @@
 <div id="container-is_receive_newsletter" class="mt-4">
     <x-text.custom-input-label text="メルマガ配信" class="mb-2" option="任意" />
     <div class="flex flex-col gap-2 justify-center items-start">
-        <div class="my-1 flex items-center gap-3">
-            <x-text-input id="is_receive_newsletter-yes" type="radio" name="is_receive_newsletter"
-                :value="'1'" :checked="old('is_receive_newsletter') == '1'" />
-            <x-input-label for="is_receive_newsletter" :value="__('受けする')" />
-        </div>
-        <div class="my-1 flex items-center gap-3">
-            <x-text-input id="is_receive_newsletter-no" type="radio" name="is_receive_newsletter"
-                :value="'0'" :checked="old('is_receive_newsletter') == '0'" />
-            <x-input-label for="is_receive_newsletter" :value="__('受けしない')" />
-        </div>
+        @foreach (array_reverse(\App\Enums\IsNewsletterEnum::cases()) as $newsletterOption)
+            <div class="my-1 flex items-center gap-3">
+                <x-text-input id="is_receive_newsletter-{{ $newsletterOption->value }}" type="radio"
+                    name="is_receive_newsletter" :value="$newsletterOption->value" :checked="old('is_receive_newsletter') === $newsletterOption->value" />
+                <x-input-label for="is_receive_newsletter-{{ $newsletterOption->value }}" :value="__($newsletterOption->getLabel())" />
+            </div>
+        @endforeach
     </div>
     <x-ajax-input-error id="error-is_receive_newsletter" class="mt-2" />
     <x-input-error :messages="$errors->get('is_receive_newsletter')" class="mt-2" />
@@ -318,16 +297,13 @@
 <div id="container-is_receive_notification" class="mt-4">
     <x-text.custom-input-label text="店からのお知らせメール" class="mb-2" option="必須" />
     <div class="flex flex-col gap-2 justify-center items-start">
-        <div class="my-1 flex items-center gap-3">
-            <x-text-input id="is_receive_notification-yes" type="radio" name="is_receive_notification"
-                :value="'1'" :checked="old('is_receive_notification') == '1'" />
-            <x-input-label for="is_receive_notification" :value="__('受けする')" />
-        </div>
-        <div class="my-1 flex items-center gap-3">
-            <x-text-input id="is_receive_notification-no" type="radio" name="is_receive_notification"
-                :value="'0'" :checked="old('is_receive_notification') == '0'" />
-            <x-input-label for="is_receive_notification" :value="__('受けしない')" />
-        </div>
+        @foreach (array_reverse(\App\Enums\IsNotificationEnum::cases()) as $notificationOption)
+            <div class="my-1 flex items-center gap-3">
+                <x-text-input id="is_receive_notification-{{ $notificationOption->value }}" type="radio"
+                    name="is_receive_notification" :value="$notificationOption->value" :checked="old('is_receive_notification') === $notificationOption->value" />
+                <x-input-label for="is_receive_notification-{{ $notificationOption->value }}" :value="__($notificationOption->getLabel())" />
+            </div>
+        @endforeach
     </div>
     <x-ajax-input-error id="error-is_receive_notification" class="mt-2" />
     <x-input-error :messages="$errors->get('is_receive_notification')" class="mt-2" />

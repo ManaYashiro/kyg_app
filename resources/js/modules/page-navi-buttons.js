@@ -16,18 +16,6 @@ window.gotoNext = function () {
         }
     }
 };
-window.confirmData = function (formData) {
-    for (var data of formData.entries()) {
-        const key = data[0].replace(/[\[\]]/g, "");
-        const val = data[1];
-        $("#confirm-" + key + " span").text(""); // Clear the text
-        if (key === "password") {
-            $("#confirm-" + key + " span").text("*".repeat(val.length));
-        } else {
-            $("#confirm-" + key + " span").text(val);
-        }
-    }
-};
 
 const $pages = $(".page"); // Get all pages (divs)
 const $prevButton = $("#button-prev");

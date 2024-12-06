@@ -2,17 +2,18 @@
 
 namespace App\Models;
 
+use App\Enums\GenderEnum;
+use App\Enums\IsNewsletterEnum;
+use App\Enums\IsNotificationEnum;
 use App\Exceptions\SendEmailFailedException;
 use App\Helpers\Log;
 use App\Notifications\NotifyAdminOfRegisteredUserNotification;
 use App\Notifications\RegisteredUserNotification;
 use App\Notifications\RegisteredUserPasswordResetNotification;
-use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 
@@ -76,6 +77,9 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'questionnaire' => 'array',
+            'gender' => GenderEnum::class,
+            'is_receive_newsletter' => IsNewsletterEnum::class,
+            'is_receive_notification' => IsNotificationEnum::class,
         ];
     }
 

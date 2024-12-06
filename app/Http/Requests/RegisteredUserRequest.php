@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
-use App\Helpers\Log;
+use App\Enums\GenderEnum;
+use App\Enums\IsNewsletterEnum;
+use App\Enums\IsNotificationEnum;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisteredUserRequest extends FormRequest
@@ -30,20 +32,20 @@ class RegisteredUserRequest extends FormRequest
             'email' => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required|string|min:8',
-            'gender' => 'nullable|in:0,1',
+            'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),
             'birthday' => 'required|date',
             'phone_number' => 'required|string|min:10',
             'zipcode' => 'required|numeric|digits:7',
             'prefecture' => 'required|string',
             'address1' => 'required|string',
             'address2' => 'nullable|string',
-            'call_time' => 'required|in:9-12,12-13,13-15,15-17,17-19,no_preference',
+            'call_time' => 'required|in:09-12,12-13,13-15,15-17,17-19,no_preference',
             'questionnaire' => 'required|array|min:1',
             'manager' => 'nullable|string',
             'department' => 'nullable|string',
             'remarks' => 'nullable|string',
-            'is_receive_newsletter' => 'nullable|in:0,1',
-            'is_receive_notification' => 'required|in:0,1',
+            'is_receive_newsletter' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, IsNewsletterEnum::cases())),
+            'is_receive_notification' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, IsNotificationEnum::cases())),
         ];
     }
 

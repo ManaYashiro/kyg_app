@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Enums\GenderEnum;
+use App\Enums\IsNewsletterEnum;
+use App\Enums\IsNotificationEnum;
 use App\Models\Anket;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -57,7 +60,7 @@ class UserFactory extends Factory
             'prefecture' => fake()->prefecture(),
             'address1' => fake()->prefecture() . fake()->ward(),
             'address2' => fake()->secondaryAddress(),
-            'gender' => fake()->randomElement([0, 1]), // 男性・女性
+            'gender' => fake()->randomElement([GenderEnum::Male, GenderEnum::Female]), // 男性・女性
             'birthday' => fake()->dateTimeBetween('1990-01-01', '2000-12-31'),
         ];
     }
@@ -115,8 +118,8 @@ class UserFactory extends Factory
             return [
                 'role' => User::USER,
                 'call_time' => fake()->randomElement($contact_time),
-                'is_receive_newsletter' => fake()->randomElement([true, false]),
-                'is_receive_notification' => fake()->randomElement([true, false]),
+                'is_receive_newsletter' => fake()->randomElement([IsNewsletterEnum::No, IsNewsletterEnum::Yes]),
+                'is_receive_notification' => fake()->randomElement([IsNotificationEnum::No, IsNotificationEnum::Yes]),
                 'questionnaire' => $this->randomAnket(),
             ];
         });
