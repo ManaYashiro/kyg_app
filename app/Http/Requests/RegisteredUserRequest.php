@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Enums\CallTimeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
@@ -24,29 +25,37 @@ class RegisteredUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'form_type' => 'required|in:"confirm","submit"',
-            'loginid' => 'required|string|unique:users,loginid|min:4|max:15',
-            'name' => 'required|string',
-            'name_furigana' => 'required|string',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-            'password_confirmation' => 'required|string|min:8',
-            'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),
-            'birthday' => 'required|date',
-            'phone_number' => 'required|string|min:10',
-            'zipcode' => 'required|numeric|digits:7',
-            'prefecture' => 'required|string',
-            'address1' => 'required|string',
-            'address2' => 'nullable|string',
-            'call_time' => 'required|in:09-12,12-13,13-15,15-17,17-19,no_preference',
-            'questionnaire' => 'required|array|min:1',
-            'manager' => 'nullable|string',
-            'department' => 'nullable|string',
-            'remarks' => 'nullable|string',
-            'is_receive_newsletter' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, IsNewsletterEnum::cases())),
-            'is_receive_notification' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, IsNotificationEnum::cases())),
-        ];
+        $userVehiclesRequest = new UserVehiclesRequest();
+        $userVehiclesRules = $userVehiclesRequest->rules();
+        return
+            array_merge(
+                [
+                    'loginid' => 'required|string|unique:users,loginid|min:4|max:15',
+                    'name' => 'required|string',
+                    'name_furigana' => 'required|string',
+                    'email' => 'required|email|unique:users,email',
+                    'password' => 'required|string|min:4|max:20|confirmed',
+                    'password_confirmation' => 'required|string|min:4|max:20',
+                    'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),
+                    'birthday' => 'required|date',
+                    'phone_number' => 'required|string|min:10',
+                    'zipcode' => 'required|numeric|digits:7',
+                    'prefecture' => 'required|string',
+                    'address1' => 'required|string',
+                    'address2' => 'nullable|string',
+                    'call_time' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, CallTimeEnum::cases())),
+                ],
+                $userVehiclesRules,
+                [
+                    'questionnaire' => 'required|array|min:1',
+                    'manager' => 'nullable|string',
+                    'department' => 'nullable|string',
+                    'remarks' => 'nullable|string',
+                    'is_receive_newsletter' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, IsNewsletterEnum::cases())),
+                    'is_receive_notification' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, IsNotificationEnum::cases())),
+                    'form_type' => 'required|in:"confirm","submit"',
+                ]
+            );
     }
 
     public function messages(): array
@@ -85,12 +94,14 @@ class RegisteredUserRequest extends FormRequest
 
     public function attributes(): array
     {
-        return [
+        $userVehiclesRequest = new UserVehiclesRequest();
+        $userVehiclesAttributes = $userVehiclesRequest->attributes();
+        return array_merge([
             'loginid' => 'ログインID',
             'call_time' => '電話希望時間',
             'is_receive_newsletter' => 'メルマガ配信',
             'is_receive_notification' => '店からのお知らせメール',
             'questionnaire' => 'アンケート',
-        ];
+        ], $userVehiclesAttributes);
     }
 }

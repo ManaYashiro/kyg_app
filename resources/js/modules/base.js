@@ -135,24 +135,47 @@ window.confirmFormData = function (formData) {
         const key = data[0].replace(/[\[\]]/g, "");
         const val = data[1];
 
+        if (val === null || val === "") {
+            // skip iteration user did not add any data
+            continue;
+        }
+
         // Clear text
         $("#confirm-" + key + " span").text("");
 
         // Insert text
         if (key === "password") {
+            // password
+
+            // Show password as asterisks
             $("#confirm-" + key + " span").text("*".repeat(val.length));
+
+            // Show container of option
+            $("#confirm-" + key + " span")
+                .closest(".isConfirm")
+                .removeClass("hidden")
+                .addClass("block");
         } else if (
             key === "gender" ||
             key === "call_time" ||
             key === "is_receive_newsletter" ||
             key === "is_receive_notification"
         ) {
-            // from enums
+            // ENUM based values
+
+            // All text are loaded and will be displayed only on the selected item
             $("#confirm-" + key + "-" + val)
                 .addClass("block")
                 .removeClass("hidden");
+
+            // Show container of option
+            $("#confirm-" + key + "-" + val)
+                .closest(".isConfirm")
+                .addClass("block")
+                .removeClass("hidden");
         } else if (key === "questionnaire") {
-            // from DB
+            // List from DB
+
             if (!questionnaireIds.includes(val)) {
                 questionnaireIds.push(val);
                 if (questionnaireText !== "") {
@@ -165,7 +188,16 @@ window.confirmFormData = function (formData) {
                 ).name;
             }
         } else {
+            // Other inputs for confirmation
+
+            // Show text
             $("#confirm-" + key + " span").text(val);
+
+            // Show container of option
+            $("#confirm-" + key + " span")
+                .closest(".isConfirm")
+                .removeClass("hidden")
+                .addClass("block");
         }
     }
     // questionnaire text after looping through formData

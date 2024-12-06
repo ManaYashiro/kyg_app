@@ -35,7 +35,7 @@
     @foreach (\App\Enums\CarClassEnum::cases() as $carClass)
         <div class="mt-4 flex items-center gap-3 mb-3">
             <x-text-input id="car{{ $no }}_class_{{ $carClass->value }}" type="radio"
-                name="car{{ $no }}_class" :value="$carClass->getLabel()" :checked="old('car{{ $no }}_class') === $carClass->getLabel()" />
+                name="car{{ $no }}_class" :value="$carClass->value" :checked="old('car{{ $no }}_class') === $carClass->value" />
             <x-input-label for="car{{ $no }}_class_{{ $carClass->value }}" :value="__($carClass->getLabel())" />
         </div>
     @endforeach
