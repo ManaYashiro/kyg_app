@@ -8,7 +8,7 @@ use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\UserMiddleware;
-use App\Http\Controllers\AppointmentsController;
+use App\Http\Controllers\ConfirmationItemController;
 use App\Http\Controllers\ReservationListController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,9 +49,9 @@ Route::middleware('auth', 'verified')->group(function () {
         return view('userGuide');
     })->name('userGuide');
 
-    Route::get('/appointments', [AppointmentsController::class, 'index'])->name('appointments.index');
-    Route::post('/appointments/confirm', [AppointmentsController::class, 'confirm'])->name('appointments.confirm');
-    Route::post('/appointments', [AppointmentsController::class, 'store'])->name('appointments.store');
+    Route::get('/confirmationitems', [ConfirmationItemController::class, 'index'])->name('confirmationitems.index'); //確認事項
+    Route::post('/confirmationitems/confirm', [ConfirmationItemController::class, 'confirm'])->name('appointments.confirm'); //最終内容確認
+    Route::post('/confirmationitems', [ConfirmationItemController::class, 'store'])->name('confirmationitems.store'); //登録
 
     Route::get('/change-account-information', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/change-account-information', [ProfileController::class, 'update'])->name('profile.update');
