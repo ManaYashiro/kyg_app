@@ -42,8 +42,11 @@
         integrity="sha512-m4zOGknNg3h+mK09EizkXi9Nf7B3zwsN9ow+YkYIPZoA6iX2vSzLezg4FnW0Q6Z1CPaJdwgUFQ3WSAUC4E/5Hg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    {{-- Full Calendar --}}
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js'])
+    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/css/calender.css'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 
 </head>
