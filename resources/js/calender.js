@@ -129,8 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (info.event.title === "✕") {
                 return; // 何もしない（遷移を防ぐ）
             }
-            window.location.href = "http://kyg.app.local/appointments"; // 遷移先URL
-            // window.location.href = "http://kyg.app.local/comfirmationites"; // 遷移先URL
+            window.location.href = "http://kyg.app.local/confirmationitems"; // 遷移先URL
         },
 
         eventMouseEnter: function (info) {

@@ -5,11 +5,11 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-20">
+    <div class="pt-[1.5rem] pb-[3rem]">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-[10rem]">
             <div class="bg-white overflow-hidden shadow-sm ">
-                <div class="p-6 text-gray-900">
-                    <h3 class="mb-4">確認事項</h3>
+                <div class="pt-0 pr-6 pb-6 pl-6 text-gray-900">
+                    <x-text.custom-text text="確認事項" class="mb-3 bottom-border-text font-bold" />
                     @if ($errors->any())
                     <div id="error-message" class="box-attention">
                         <strong>内容に不足または誤りがあります。</strong><br>
@@ -24,8 +24,7 @@
                         <!-- 予約日時 -->
                         <div class="mt-4">
                             <h5>
-                            <span class="form_required">必須</span>
-                            <x-input-label class="h5text" for="vehicle" value="【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。" />
+                            <x-text.custom-input-label text="【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。" class="mb-2" option="必須" />
                             </h5>
                             <x-select id="vehicle" class="block mt-1 w-[120px] h-[38px] rounded-none" name="vehicle">
                                 <option value="" {{ old('vehicle') == '' ? 'selected' : '' }}>
@@ -42,15 +41,14 @@
                                     未登録の車
                                 </option>
                             </x-select>
-                            <p class="caption">未登録車の場合は、次ページのメッセージ欄に車名・ナンバーをご入力ください。</p>
+                            <x-text.custom-input-label text="未登録車の場合は、次ページのメッセージ欄に車名・ナンバーをご入力ください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
                             <x-input-error :messages="$errors->get('vehicle')" class="attention" />
                         </div>
 
                         <!-- 追加装備 -->
                         <div class="mt-4">
                             <h5>
-                            <span class="form_any">任意</span>
-                            <x-input-label class="h5text" or="additional_services" value="【追加整備】本作業とあわせて追加作業を依頼したい場合にお選びください。" />
+                            <x-text.custom-input-label text="【追加整備】本作業とあわせて追加作業を依頼したい場合にお選びください。" class="mb-2" option="任意" />
                             </h5>
                             <x-checkbox name="additional_services[]" value="エンジンオイル交換"
                                 label="エンジンオイル交換"
@@ -71,20 +69,18 @@
                         <!-- 車検満期日 -->
                         <div class="mt-4">
                             <h5>
-                            <span class="form_required">必須</span>
-                            <x-input-label class="h5text" for="inspection_due_date" value="車検満期日をご入力ください。" />
+                            <x-text.custom-input-label text="車検満期日をご入力ください。" class="mb-2" option="必須" />
                             </h5>
-                            <x-text-input id="inspection_due_date" class="block mt-1 w-full rounded-none" type="date"
-                                name='inspection_due_date' />
-                            <p class="caption">（記入例：2022/10/30）</p>
+                            <x-text-input id="inspection_due_date" class="datepicker block mt-1 w-full rounded-none" type="text"
+                            name='inspection_due_date' />
+                            <x-text.custom-input-label text="（記入例：令和6年3月15日、2022/10/30）" spanClass="font-normal text-xs text-gray-500 mt-1" />
                             <x-input-error :messages="$errors->get('inspection_due_date')" class="attention" />
                         </div>
 
                         <!-- 過去利用履歴 -->
                         <div class="mt-4">
                             <h5>
-                            <span class="form_required">必須</span>
-                            <x-input-label class="h5text" for="past_service_history" value="今回ご予約いただく店舗・作業は、過去にご利用がございますか？" />
+                            <x-text.custom-input-label text="今回ご予約いただく店舗・作業は、過去にご利用がございますか？" class="mb-2" option="必須" />
                             </h5>
                             <div class="mt-4">
                             <x-radio name="past_service_history" value="A)この店舗・作業どちらも、初めて利用" label="A)この店舗・作業どちらも、初めて利用"
@@ -95,17 +91,13 @@
                                 :checked="old('past_service_history') === 'C)この店舗・作業とも、以前に利用している'" :disabled="false" class="mt-2" />
                             <x-radio name="past_service_history" value="D)この作業は、弊社の別の店舗で利用した" label="D)この作業は、弊社の別の店舗で利用した"
                                 :checked="old('past_service_history') === 'D)この作業は、弊社の別の店舗で利用した'" :disabled="false" class="mt-2" />
-                            <p class="caption">※今回ご予約いただく「店舗」ならびに、ご予約いただく「作業」（車検・点検やオイル・タイヤ交換など）に対してお聞かせ下さい。</p>
+                            <x-text.custom-input-label text="※今回ご予約いただく「店舗」ならびに、ご予約いただく「作業」（車検・点検やオイル・タイヤ交換など）に対してお聞かせ下さい。" spanClass="font-normal text-xs text-gray-500 mt-1" />
                             <x-input-error :messages="$errors->get('past_service_history')" class="attention" />
                             </div>
                         </div>
                         <div class="btn-area1">
-                            <x-primary-button class="ml-4" type="submit">
-                                {{ __('前戻る') }}
-                            </x-primary-button>
-                            <x-primary-button class="ml-4" type="submit">
-                                {{ __('確認画面へ') }}
-                            </x-primary-button>
+                            <input type="button" class="ml-4 btn-type1" value="前の画面に戻る" onclick="window.location.href='{{ route('top') }}'">
+                            <input class="ml-4 btn-type2" type="submit" value="次へ進む">
                         </div>
                     </form>
                     <!-- フォーム終了 -->

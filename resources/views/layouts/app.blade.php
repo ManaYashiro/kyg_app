@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    {{-- JQuery --}}
+    {{-- jQuery & jQuery UI --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -46,9 +46,8 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/css/calender.css'])
+    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/css/calender.css','resources/js/modules/datepicker.js'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
-
 </head>
 
 <body class="font-sans antialiased text-base">
@@ -59,12 +58,10 @@
         <main>
             {{ $slot }}
         </main>
-
-        <!-- jQueryのCDNを追加 -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     </div>
 
     @stack('scripts')
 </body>
 
 </html>
+
