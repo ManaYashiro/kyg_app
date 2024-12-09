@@ -16,7 +16,7 @@
 
                     <h2>最終内容確認</h2>
                     <p>ご予約内容をご確認ください。<br>以下の内容でよろしければ画面下の【完了する】ボタンをクリックしてください。</p>
-                    <form method="POST" action="{{ route('confirmationitems.store') }}">
+                    <form method="POST" action="{{ route('confirmationItems.store') }}">
                         @csrf
                         <div class="mt-6">
                             <h4>予約についてのご要望などメッセージがございましたらご記入ください</h4>
@@ -260,7 +260,7 @@
                             </x-primary-button>
                         </div>
                     </form>
-                    <a href="{{ route('confirmationitems.index') }}" class="text-blue-600">戻る</a>
+                    <a href="{{ route('confirmationItems.index') }}" class="text-blue-600">戻る</a>
                 </div>
             </div>
         </div>

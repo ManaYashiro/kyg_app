@@ -10,4 +10,3 @@ import "./postalCodeSearch.js";
 import "./notification.js";
 import "./session.js";
 import "./top.js";
-import "./calender.js";

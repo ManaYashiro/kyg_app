@@ -71,8 +71,7 @@
                             <h5>
                             <x-text.custom-input-label text="車検満期日をご入力ください。" class="mb-2" option="必須" />
                             </h5>
-                            <x-text-input id="inspection_due_date" class="datepicker block mt-1 w-full rounded-none" type="text"
-                            name='inspection_due_date' />
+                            <x-text-input id="inspection_due_date" type="text" name='inspection_due_date' :value="old('inspection_due_date')" class="datepicker block mt-1 w-full rounded-none"/>
                             <x-text.custom-input-label text="（記入例：令和6年3月15日、2022/10/30）" spanClass="font-normal text-xs text-gray-500 mt-1" />
                             <x-input-error :messages="$errors->get('inspection_due_date')" class="attention" />
                         </div>

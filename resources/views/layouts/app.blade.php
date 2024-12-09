@@ -46,7 +46,8 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/css/calender.css','resources/js/modules/datepicker.js'])
+    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/css/calender.css','resources/js/modules/datepicker.js','resources/js/modules/calender.js'
+    , 'resources/css/confirmationitems.css'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 </head>
 

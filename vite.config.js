@@ -13,7 +13,7 @@ export default defineConfig({
                 "resources/js/modules/base.js",
                 "resources/js/modules/datepicker.js",
                 "resources/js/modules/page-navi-buttons.js",
-
+                "resources/js/modules/calender.js",
                 // auth
                 "resources/js/modules/auth/register.js",
 

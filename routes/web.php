@@ -49,9 +49,9 @@ Route::middleware('auth', 'verified')->group(function () {
         return view('userGuide');
     })->name('userGuide');
 
-    Route::get('/confirmationitems', [ConfirmationItemController::class, 'index'])->name('confirmationitems.index'); //確認事項
-    Route::post('/confirmationitems/confirm', [ConfirmationItemController::class, 'confirm'])->name('appointments.confirm'); //最終内容確認
-    Route::post('/confirmationitems', [ConfirmationItemController::class, 'store'])->name('confirmationitems.store'); //登録
+    Route::get('/resrrvation/enty', [ConfirmationItemController::class, 'index'])->name('confirmationItems.index'); //確認事項
+    Route::post('/resrrvation/confirmation', [ConfirmationItemController::class, 'confirm'])->name('appointments.confirm'); //最終内容確認
+    Route::post('//resrrvation/enty', [ConfirmationItemController::class, 'store'])->name('confirmationItems.store'); //登録
 
     Route::get('/change-account-information', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/change-account-information', [ProfileController::class, 'update'])->name('profile.update');

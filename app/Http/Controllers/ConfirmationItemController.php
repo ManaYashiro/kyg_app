@@ -25,7 +25,18 @@ class  ConfirmationItemController extends Controller
         $rules = [
             'vehicle' => 'required|string',
             'additional_services' => 'nullable|array',
-            'inspection_due_date' => 'required|date',
+            'inspection_due_date' => ['required', function ($value) {
+                // 日付形式の検証
+                // 1. 西暦形式 (YYYY/MM/DD) の正規表現チェック
+                // 2. 令和形式 (令和X年X月X日) の正規表現チェック
+                if (
+                    // 西暦形式チェック (YYYY/MM/DD)
+                    !preg_match('/^\d{4}\/\d{2}\/\d{2}$/', $value) &&
+                    !preg_match('/^(令和)(\d{1,2})年(\d{1,2})月(\d{1,2})日$/', $value) // 令和形式チェック (令和X年X月X日)
+                ) {
+                    return;
+                }
+            }],
             'past_service_history' => 'required|string',
         ];
 
