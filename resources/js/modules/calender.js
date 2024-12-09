@@ -130,7 +130,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 return; // 何もしない（遷移を防ぐ）
             }
             window.location.href =
-                window.location.href.replace(/\/$/, "") + "/resrrvation/entry"; // 遷移先URL
+                window.location.href.replace(/\/$/, "") + "/reservation/entry"; // 遷移先URL
         },
 
         eventMouseEnter: function (info) {
