@@ -87,7 +87,8 @@
                                             {{ is_null($user->call_time) ? 'selected' : '' }}>
                                             選択してください
                                         </option>
-                                        <option value="9-12" {{ $user->call_time == '9-12' ? 'selected' : '' }}>9:00 -
+                                        <option value="09-12" {{ $user->call_time == '09-12' ? 'selected' : '' }}>9:00
+                                            -
                                             12:00
                                         </option>
                                         <option value="12-13" {{ $user->call_time == '12-13' ? 'selected' : '' }}>12:00

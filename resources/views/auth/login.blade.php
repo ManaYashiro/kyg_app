@@ -52,7 +52,7 @@
                         </a>
                     </span>
                 @endif
-                <x-buttons.actionbutton name="{{ __('ログイン') }}" type="submit" class="px-4 py-4"
+                <x-buttons.actionbutton :id="'login'" name="{{ __('ログイン') }}" type="submit" class="px-4 py-4"
                     divClass="w-full mx-auto" />
             </div>
         </div>
