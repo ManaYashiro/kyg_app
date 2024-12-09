@@ -108,3 +108,34 @@ input[type="button"] {
 .mt-4 {
     margin-top: 1 rem;
 }
+/* 最終内容確認*/
+.w100 {
+    width: 100% !important;
+}
+
+textarea {
+    padding-left: 2px;
+}
+
+.attention-not-done {
+    color: #222222;
+    text-align: center;
+}
+
+.attention-not-done-wrapper {
+    background-color: #ffe7e7;
+}
+
+.attention-not-done-wrapper {
+    align-items: center;
+    display: flex;
+    height: 94px;
+    justify-content: center;
+    margin-bottom: 42px;
+}
+
+.attention-not-done span {
+    display: inline-block;
+    font-size: 20px;
+    margin-bottom: 4px;
+}

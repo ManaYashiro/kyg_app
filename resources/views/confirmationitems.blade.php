@@ -95,7 +95,7 @@
                             </div>
                         </div>
                         <div class="btn-area1">
-                            <input type="button" class="ml-4 btn-type1" value="前の画面に戻る" onclick="window.location.href='{{ route('top') }}'">
+                            <input type="button" class="ml-4 btn-type1" value="前の画面に戻る" onclick="window.location.href='{{ route('confirmationItems.index') }}'">
                             <input class="ml-4 btn-type2" type="submit" value="次へ進む">
                         </div>
                     </form>
