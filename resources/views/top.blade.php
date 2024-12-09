@@ -82,24 +82,87 @@
                 </div>
 
                 <div>
-                    <div>
-                        ご希望の店舗をお選び下さい。
+                    <label for="store">ご希望の店舗をお選び下さい。</label>
+                    <div class="flex items-center">
+                        <select class="block mt-1 w-full" id="store" name="store">
+                            <option value="0">-- 選択してください --</option>
+                            <option value="1">稲沢本店</option>
+                            <option value="2">名古屋北店</option>
+                            <option value="3">刈谷店</option>
+                            <option value="4">錦店</option>
+                            <option value="5">豊田上郷店</option>
+                            <option value="6">犬山店</option>
+                        </select>
+                        <button type="button" id="storedetails" class="ml-4 mt-2">詳細</button>
                     </div>
                 </div>
                 <div>
                     <div>
-                        作業カテゴリをお選び下さい。
+                        <label for="taskcategory">作業カテゴリをお選び下さい。</label>
+                        <div class="flex items-center">
+                            <select class="block mt-1 w-full" id="taskcategory" name="taskcategory">
+                                <option value="0">-- 選択してください --</option>
+
+                            </select>
+                            <button type="button" id="workdetails" class="ml-4 mt-2">詳細</button>
+                        </div>
                     </div>
                 </div>
                 <div>
                     <div>
-                        予約する作業をお選び下さい。
+                        <label for="reservationtask">予約する作業をお選び下さい。</label>
+                        <div class="flex items-center">
+                            <select class="block mt-1 w-full" id="reservationtask"
+                                name="reservationtask">
+                                <option value="0">-- 選択してください --</option>
+                            </select>
+                            <button type="button" id="reservationdetails" class="ml-4 mt-2">詳細</button>
+                        </div>
                     </div>
                 </div>
                 <div>
                     <div>
                         予約日時を選択
                     </div>
+                    <div id="app">
+                        <div id='calendar'></div>
+                    </div>
+                    <label>〇受付中</label>
+                    <label>✕受付終了</label>
+                </div>
+            </div>
+        </div>
+        <!-- モーダル -->
+        <!-- 店舗 -->
+        <div id="storeModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+            <div class="bg-white p-6 rounded shadow-md w-1/2">
+                <h2 id="modalTitle" class="text-xl font-bold mb-4"></h2>
+                <p id="modalContent"></p>
+                <!-- ボタンを中央揃え -->
+                <div class="flex justify-center">
+                    <button id="closeModal" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">閉じる</button>
+                </div>
+            </div>
+        </div>
+        <!-- 作業 -->
+        <div id="taskModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+            <div class="bg-white p-6 rounded shadow-md w-1/2">
+                <h2 id="modalTitle" class="text-xl font-bold mb-4"></h2>
+                <p id="modalContent"></p>
+                <!-- ボタンを中央揃え -->
+                <div class="flex justify-center">
+                    <button id="closeModal" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">閉じる</button>
+                </div>
+            </div>
+        </div>
+        <!-- 予約 -->
+        <div id="reservationModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+            <div class="bg-white p-6 rounded shadow-md w-1/2">
+                <h2 id="modalTitle" class="text-xl font-bold mb-4"></h2>
+                <p id="modalContent"></p>
+                <!-- ボタンを中央揃え -->
+                <div class="flex justify-center">
+                    <button id="closeModal" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">閉じる</button>
                 </div>
             </div>
         </div>
