@@ -64,6 +64,8 @@
             </div>
         </div>
     </div>
+    @section('styles')
+    @endsection
     @push('scripts')
     @endpush
 </x-admin-app-layout>

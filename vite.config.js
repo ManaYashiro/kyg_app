@@ -24,6 +24,7 @@ export default defineConfig({
                 // images
                 "resources/img/main/favicon.ico",
                 "resources/img/main/logo.png",
+                "resources/img/main/kimura_footer.png",
             ],
             refresh: true,
         }),

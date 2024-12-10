@@ -15,7 +15,7 @@
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-    {{-- JQuery --}}
+    {{-- jQuery & jQuery UI --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
@@ -42,6 +42,8 @@
         integrity="sha512-m4zOGknNg3h+mK09EizkXi9Nf7B3zwsN9ow+YkYIPZoA6iX2vSzLezg4FnW0Q6Z1CPaJdwgUFQ3WSAUC4E/5Hg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    @yield('styles')
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
@@ -49,15 +51,17 @@
 </head>
 
 <body class="wait-for-icons bg-customgray-200 font-sans antialiased text-base">
-    <div class="min-h-screen">
+    <div class="min-h-screen flex flex-col">
         @include('layouts.navigation')
 
         <!-- Page Content -->
-        <div class="min-h-full h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 relative">
-            <div class="w-full my-6 m-auto px-4 py-2 bg-white shadow-md">
+        <div class="min-h-full h-full w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 relative">
+            <div class="w-full mt-6 mx-auto px-4 pt-2 pb-8 bg-white shadow-md">
                 {{ $slot }}
             </div>
         </div>
+
+        @include('layouts.footer')
     </div>
 
     @stack('scripts')
