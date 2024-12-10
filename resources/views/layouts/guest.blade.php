@@ -48,8 +48,8 @@
 
 </head>
 
-<body class="wait-for-icons font-sans antialiased text-base">
-    <div class="min-h-screen bg-customgray-200">
+<body class="wait-for-icons bg-customgray-200 font-sans antialiased text-base">
+    <div class="min-h-screen">
         @include('layouts.navigation')
 
         <!-- Page Content -->

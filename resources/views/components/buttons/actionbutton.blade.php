@@ -5,11 +5,13 @@
     'class' => '', // Additional button classes
     'name' => 'Button', // Button label
     'type' => 'button', // Button type
+    'isButtonRed' => true, // ButtonClassColor
     'attributes' => [], // Additional button attributes
 ])
 
 @php
-    $buttonClass = 'w-full bg-red-1000 text-white rounded w-full' . ($class ? ' ' . $class : '');
+    $buttonColor = $isButtonRed ? 'bg-red-1000 text-white' : 'bg-gray-200 text-black';
+    $buttonClass = 'w-full ' . $buttonColor . ' rounded w-full' . ($class ? ' ' . $class : '');
 @endphp
 
 <div class="{{ $divClass }}">

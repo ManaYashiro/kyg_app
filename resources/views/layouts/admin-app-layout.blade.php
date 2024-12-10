@@ -48,7 +48,7 @@
 
 </head>
 
-<body class="wait-for-icons font-sans antialiased text-base">
+<body class="wait-for-icons bg-customgray-200 font-sans antialiased text-base">
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- Desktop sidebar -->
         @include('includes.desktop-sidebar')

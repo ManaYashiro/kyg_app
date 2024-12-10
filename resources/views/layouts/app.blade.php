@@ -45,13 +45,15 @@
     {{-- Full Calendar --}}
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 
+    @yield('styles')
+
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/css/hamburger.css', 'resources/css/calender.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js', 'resources/js/modules/calender.js', 'resources/css/confirmationitems.css'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 </head>
 
-<body class="wait-for-icons font-sans antialiased text-base">
-    <div class="min-h-screen bg-customgray-200">
+<body class="wait-for-icons bg-customgray-200 font-sans antialiased text-base">
+    <div class="min-h-screen">
         @include('layouts.navigation')
 
         <!-- Page Content -->
