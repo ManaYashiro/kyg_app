@@ -31,13 +31,11 @@
     display: flex;
     flex-direction: row;
     flex-wrap: wrap-reverse;
-    margin: 0;
     padding: 32px 0;
 }
 
 .btn-area1 {
     clear: both;
-    margin-top: 25px;
     overflow: hidden;
     text-align: center;
 }
@@ -111,6 +109,7 @@ input[type="button"] {
 /* 最終内容確認*/
 .w100 {
     width: 100% !important;
+    padding: 0 0 0 2px;
 }
 
 textarea {
@@ -138,4 +137,8 @@ textarea {
     display: inline-block;
     font-size: 20px;
     margin-bottom: 4px;
+}
+
+.ns {
+    margin-top: 0 !important;
 }
