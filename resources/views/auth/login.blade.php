@@ -9,9 +9,9 @@
         <x-text.custom-text text="ログイン" class="mb-3 bottom-border-text font-bold" />
         <x-text.custom-text text="キムラユニティーグループのWEB予約サイトへのご訪問ありがとうございます。" class="font-bold text-sm text-blue-500" />
         <x-text.custom-text text="○ログインIDとパスワードを入力して [ログイン]ボタンを押してください。" class="mb-6 font-bold text-sm" />
-        <div class="mt-3 flex flex-col gap-1">
-            <x-text.custom-text text="※はじめてご利用いただく方は、お手数ですが右上の[会員登録]（スマホの場合はメニュー内）からユーザー登録をお願いいたします。" class="text-xs" />
-            <x-text.custom-text text="※ログインＩＤ・パスワードをお忘れの場合は[※パスワードの再設定はこちら]へお進みください。" class="text-xs" />
+        <div class="mt-6 flex flex-col">
+            <x-text.custom-text text="※はじめてご利用いただく方は、お手数ですが右上の[会員登録]（スマホの場合はメニュー内）からユーザー登録をお願いいたします。" class="" />
+            <x-text.custom-text text="※ログインＩＤ・パスワードをお忘れの場合は[※パスワードの再設定はこちら]へお進みください。" class="" />
         </div>
 
         <div class="max-w-md mt-6 py-8 mx-auto">
@@ -45,8 +45,8 @@
 
             <div class="flex flex-col items-end justify-center gap-10 mt-4">
                 @if (Route::has('password.request'))
-                    <span class="text-xs">{{ __('※パスワードの再設定は') }}
-                        <a class="underline text-xs text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                    <span class="">{{ __('※パスワードの再設定は') }}
+                        <a class="underline text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                             href="{{ route('password.request') }}">
                             こちら
                         </a>

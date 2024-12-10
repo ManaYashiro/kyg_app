@@ -143,7 +143,7 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function userVehicles()
     {
-        return $this->hasMany(UserVehicles::class);
+        return $this->hasMany(UserVehicle::class);
     }
 
     public function findUserAnkets()

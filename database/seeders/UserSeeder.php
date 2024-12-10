@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enums\CallTimeEnum;
 use App\Models\User;
+use App\Models\UserVehicle;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
@@ -25,7 +26,8 @@ class UserSeeder extends Seeder
                 'email_verified_at' => Carbon::now(),
             ]
         );
-        User::factory()->user()->create(
+
+        $user = User::factory()->user()->create(
             [
                 'loginid' => '0000000002',
                 'name' => 'user',
@@ -35,7 +37,12 @@ class UserSeeder extends Seeder
                 'email_verified_at' => Carbon::now(),
             ]
         );
-        User::factory(5)->randomUser()->create();
+        $this->generateFakeUserVehicle($user->id);
+
+        $users = User::factory(5)->randomUser()->create();
+        foreach ($users as $key => $user) {
+            $this->generateFakeUserVehicle($user->id);
+        }
     }
 
     public function loginUser(): object
@@ -66,5 +73,12 @@ class UserSeeder extends Seeder
             'is_newsletter_subscription' => fake()->randomElement([true, false]),
             'how_did_you_hear' => $userFactory->randomAnket(),
         ];
+    }
+
+    public function generateFakeUserVehicle($userId)
+    {
+        UserVehicle::factory()->create([
+            'user_id' => $userId
+        ]);
     }
 }

@@ -48,11 +48,13 @@
 
 </head>
 
-<body class="font-sans text-base antialiased">
-    <div class="min-h-screen bg-gray-100 sm:justify-center items-center relative flex flex-col">
+<body class="wait-for-icons font-sans antialiased text-base">
+    <div class="min-h-screen bg-customgray-200">
         @include('layouts.navigation')
-        <div class="w-full flex-1 max-w-screen-lg relative">
-            <div class="w-full my-8 m-auto px-6 py-4 bg-white shadow-md">
+
+        <!-- Page Content -->
+        <div class="min-h-full h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 relative">
+            <div class="w-full my-6 m-auto px-4 py-2 bg-white shadow-md">
                 {{ $slot }}
             </div>
         </div>

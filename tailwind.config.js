@@ -27,7 +27,10 @@ export default {
                 blue: {
                     1000: "#0000CC",
                 },
-                customgray: "#eeeeee",
+                customgray: {
+                    100: "#eeeeee",
+                    200: "#f0f0f0",
+                },
             },
         },
     },

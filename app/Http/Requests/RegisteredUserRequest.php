@@ -25,8 +25,8 @@ class RegisteredUserRequest extends FormRequest
      */
     public function rules(): array
     {
-        $userVehiclesRequest = new UserVehiclesRequest();
-        $userVehiclesRules = $userVehiclesRequest->rules();
+        $userVehicleRequest = new UserVehicleRequest();
+        $userVehicleRules = $userVehicleRequest->rules();
         return
             array_merge(
                 [
@@ -45,7 +45,7 @@ class RegisteredUserRequest extends FormRequest
                     'address2' => 'nullable|string',
                     'call_time' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, CallTimeEnum::cases())),
                 ],
-                $userVehiclesRules,
+                $userVehicleRules,
                 [
                     'questionnaire' => 'required|array|min:1',
                     'manager' => 'nullable|string',
@@ -94,14 +94,14 @@ class RegisteredUserRequest extends FormRequest
 
     public function attributes(): array
     {
-        $userVehiclesRequest = new UserVehiclesRequest();
-        $userVehiclesAttributes = $userVehiclesRequest->attributes();
+        $userVehicleRequest = new UserVehicleRequest();
+        $userVehicleAttributes = $userVehicleRequest->attributes();
         return array_merge([
             'loginid' => 'ログインID',
             'call_time' => '電話希望時間',
             'is_receive_newsletter' => 'メルマガ配信',
             'is_receive_notification' => '店からのお知らせメール',
             'questionnaire' => 'アンケート',
-        ], $userVehiclesAttributes);
+        ], $userVehicleAttributes);
     }
 }
