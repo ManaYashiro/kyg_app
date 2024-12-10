@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Helpers\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisteredUserRequest;
-use App\Http\Requests\UserVehiclesRequest;
+use App\Http\Requests\UserVehicleRequest;
 use App\Models\Anket;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
@@ -53,7 +53,8 @@ class RegisteredUserController extends Controller
         // ユーザーを作成する
         $user = User::create($data);
 
-        $userVehicle = $request->validate((new UserVehiclesRequest())->rules());
+        // 会員登録と別に作成する
+        $userVehicle = $request->validate((new UserVehicleRequest())->rules());
         $user->userVehicles()->create($userVehicle);
 
         // 登録イベントを発火させる

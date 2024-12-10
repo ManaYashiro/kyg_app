@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Appointments;
-use App\Models\UserVehicles;
+use App\Models\UserVehicle;
 use App\Models\Anket;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,7 +51,7 @@ class  ConfirmationItemController extends Controller
         $validatedData = $request->validate($rules, $errorMessages);
 
         // ユーザーに関連付けられた車両データを取得
-        $userVehicles = UserVehicles::where('user_id', $user->id)->first();
+        $userVehicle = UserVehicle::where('user_id', $user->id)->first();
 
         // 性別値を取得
         $genderValue = $user->gender->value;
@@ -87,9 +87,9 @@ class  ConfirmationItemController extends Controller
         }
 
         // 車の分類を取得
-        $car1_class = getCarClass($userVehicles->car1_class);
-        $car2_class = getCarClass($userVehicles->car2_class);
-        $car3_class = getCarClass($userVehicles->car3_class);
+        $car1_class = getCarClass($userVehicle->car1_class);
+        $car2_class = getCarClass($userVehicle->car2_class);
+        $car3_class = getCarClass($userVehicle->car3_class);
 
         //最終内容確認へ渡すために代入
         $finalcheck = [
@@ -115,17 +115,17 @@ class  ConfirmationItemController extends Controller
                 'department' => $user->department,
             ],
             'vehicles' => [
-                'car1_name' => $userVehicles->car1_name,
-                'car1_katashiki' => $userVehicles->car1_katashiki,
-                'car1_number' => $userVehicles->car1_number,
+                'car1_name' => $userVehicle->car1_name,
+                'car1_katashiki' => $userVehicle->car1_katashiki,
+                'car1_number' => $userVehicle->car1_number,
                 'car1_class' => $car1_class,
-                'car2_name' => $userVehicles->car2_name,
-                'car2_katashiki' => $userVehicles->car2_katashiki,
-                'car2_number' => $userVehicles->car2_number,
+                'car2_name' => $userVehicle->car2_name,
+                'car2_katashiki' => $userVehicle->car2_katashiki,
+                'car2_number' => $userVehicle->car2_number,
                 'car2_class' => $car2_class,
-                'car3_name' => $userVehicles->car3_name,
-                'car3_katashiki' => $userVehicles->car3_katashiki,
-                'car3_number' => $userVehicles->car3_number,
+                'car3_name' => $userVehicle->car3_name,
+                'car3_katashiki' => $userVehicle->car3_katashiki,
+                'car3_number' => $userVehicle->car3_number,
                 'car3_class' => $car3_class,
             ],
         ];

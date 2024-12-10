@@ -9,8 +9,8 @@
                 url="{{ route('mypage') }}" />
         </div>
         <div class="main-button flex justify-center items-center">
-            <x-buttons.actionbutton name="ログアウト" type="submit" class="text-xs px-2 py-2" divClass="w-full"
-                url="{{ route('logout') }}" logout="logout" />
+            <x-buttons.actionbutton name="ログアウト" id="logout" type="submit" class="text-xs px-2 py-2" divClass="w-full"
+                url="{{ route('logout') }}" />
         </div>
     </div>
 @else

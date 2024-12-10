@@ -46,23 +46,23 @@
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/css/calender.css','resources/js/modules/datepicker.js','resources/js/modules/calender.js'
-    , 'resources/css/confirmationitems.css'])
+    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/css/calender.css', 'resources/js/modules/datepicker.js', 'resources/js/modules/calender.js', 'resources/css/confirmationitems.css'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 </head>
 
-<body class="font-sans antialiased text-base">
-    <div class="min-h-screen bg-gray-100">
+<body class="wait-for-icons font-sans antialiased text-base">
+    <div class="min-h-screen bg-customgray-200">
         @include('layouts.navigation')
 
         <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
+        <div class="min-h-full h-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 relative">
+            <div class="w-full my-6 m-auto px-4 py-2 bg-white shadow-md">
+                {{ $slot }}
+            </div>
+        </div>
     </div>
 
     @stack('scripts')
 </body>
 
 </html>
-

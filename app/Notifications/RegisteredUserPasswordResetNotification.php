@@ -13,7 +13,7 @@ class RegisteredUserPasswordResetNotification extends Notification
     use Queueable;
 
     protected $user;
-    protected $token;
+    public $token;
     /**
      * Create a new notification instance.
      */

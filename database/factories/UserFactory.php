@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\CallTimeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
@@ -54,9 +55,10 @@ class UserFactory extends Factory
 
     public function otherData(bool $isAdmin = false): array
     {
+        $zipcode = ['5320011', '1000000', '4500001'];
         return [
             'phone_number' => fake()->phoneNumber(),
-            'zipcode' => fake()->postcode(),
+            'zipcode' => fake()->randomElement($zipcode),
             'prefecture' => fake()->prefecture(),
             'address1' => fake()->prefecture() . fake()->ward(),
             'address2' => fake()->secondaryAddress(),
@@ -76,8 +78,8 @@ class UserFactory extends Factory
             return [
                 'role' => User::ADMIN,
                 'call_time' => null,
-                'is_receive_newsletter' => FALSE,
-                'is_receive_notification' => FALSE,
+                'is_receive_newsletter' => IsNewsletterEnum::No,
+                'is_receive_notification' => IsNotificationEnum::No,
             ];
         });
     }
@@ -92,9 +94,10 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'role' => User::USER,
-                'call_time' => '9-12',
-                'is_receive_newsletter' => FALSE,
-                'is_receive_notification' => FALSE,
+                'call_time' => CallTimeEnum::A_09_12,
+                'questionnaire' => $this->fakeAnket(),
+                'is_receive_newsletter' => IsNewsletterEnum::No,
+                'is_receive_notification' => IsNotificationEnum::No,
             ];
         });
     }
@@ -107,25 +110,18 @@ class UserFactory extends Factory
     public function randomUser()
     {
         return $this->state(function (array $attributes) {
-            $contact_time = [
-                '9-12',
-                '12-13',
-                '13-15',
-                '15-17',
-                '17-19',
-                'no_preference',
-            ];
+            $call_time = CallTimeEnum::cases();
             return [
                 'role' => User::USER,
-                'call_time' => fake()->randomElement($contact_time),
+                'call_time' => fake()->randomElement($call_time),
                 'is_receive_newsletter' => fake()->randomElement([IsNewsletterEnum::No, IsNewsletterEnum::Yes]),
                 'is_receive_notification' => fake()->randomElement([IsNotificationEnum::No, IsNotificationEnum::Yes]),
-                'questionnaire' => $this->randomAnket(),
+                'questionnaire' => $this->fakeAnket(),
             ];
         });
     }
 
-    public function randomAnket(): array
+    public function fakeAnket(): array
     {
 
         $questionnaire = Anket::get()->pluck('id')->toArray();
