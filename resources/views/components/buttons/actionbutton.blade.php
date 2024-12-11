@@ -1,6 +1,5 @@
 @props([
     'divClass' => '', // Class for the container div
-    'logout' => null, // Logout trigger
     'url' => null, // The URL link for the button
     'id' => '', // Button id
     'class' => '', // Additional button classes
@@ -14,7 +13,7 @@
 @endphp
 
 <div class="{{ $divClass }}">
-    @if ($logout === 'logout')
+    @if ($id === 'logout')
         <form action="{{ $url }}" method="POST">
             @csrf
     @elseif ($url)
@@ -25,7 +24,7 @@
         {{ $name }}
     </button>
 
-    @if ($logout === 'logout')
+    @if ($id === 'logout')
         </form>
     @elseif ($url)
         </a>

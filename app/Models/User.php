@@ -91,8 +91,9 @@ class User extends Authenticatable implements MustVerifyEmail
         parent::boot();
 
         static::creating(function ($user) {
-            Log::info(self::TITLE . '登録中', $user->name);
-
+            if (config('app.env') !== 'testing') {
+                Log::info(self::TITLE . '登録中', $user->name);
+            }
             if (!$user->customer_no) {
                 $lastCustomerNo = DB::table('users')->max('customer_no');
                 $user->customer_no = $lastCustomerNo ? $lastCustomerNo + 1 : config('database.starting_customer_no');
@@ -100,40 +101,49 @@ class User extends Authenticatable implements MustVerifyEmail
         });
 
         static::created(function ($user) {
-            Log::info(self::TITLE . '登録が完了しました', $user->name, true);
-
-            try {
-                // 管理者にお知らせ
-                $authUsers = User::where('role', User::ADMIN)->get();
-                foreach ($authUsers as $key => $authUser) {
-                    $authUser->notify(new NotifyAdminOfRegisteredUserNotification($user));
+            if (config('app.env') !== 'testing') {
+                Log::info(self::TITLE . '登録が完了しました', $user->name, true);
+                try {
+                    // 管理者にお知らせ
+                    $authUsers = User::where('role', User::ADMIN)->get();
+                    foreach ($authUsers as $key => $authUser) {
+                        $authUser->notify(new NotifyAdminOfRegisteredUserNotification($user));
+                    }
+                } catch (SendEmailFailedException $e) {
+                    Log::info('管理者に' . self::TITLE . 'の登録のお知らせ', $this->user->name);
+                    throw new SendEmailFailedException('管理者に' . self::TITLE . 'の登録のお知らせが失敗です。');
                 }
-            } catch (SendEmailFailedException $e) {
-                Log::info('管理者に' . self::TITLE . 'の登録のお知らせ', $this->user->name);
-                throw new SendEmailFailedException('管理者に' . self::TITLE . 'の登録のお知らせが失敗です。');
             }
         });
 
         static::updating(function ($user) {
-            Log::info(self::TITLE . '保存中', $user->name, true);
+            if (config('app.env') !== 'testing') {
+                Log::info(self::TITLE . '保存中', $user->name, true);
+            }
         });
 
         static::updated(function ($user) {
-            Log::info(self::TITLE . '保存が完了しました', $user->name, true);
+            if (config('app.env') !== 'testing') {
+                Log::info(self::TITLE . '保存が完了しました', $user->name, true);
+            }
         });
 
         static::deleting(function ($user) {
-            Log::info(self::TITLE . '保存中', $user->name, true);
+            if (config('app.env') !== 'testing') {
+                Log::info(self::TITLE . '保存中', $user->name, true);
+            }
         });
 
         static::deleted(function ($user) {
-            Log::info(self::TITLE . '保存が完了しました', $user->name, true);
+            if (config('app.env') !== 'testing') {
+                Log::info(self::TITLE . '保存が完了しました', $user->name, true);
+            }
         });
     }
 
     public function userVehicles()
     {
-        return $this->hasMany(UserVehicles::class);
+        return $this->hasMany(UserVehicle::class);
     }
 
     public function findUserAnkets()
@@ -158,6 +168,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function sendEmailVerificationNotification()
     {
+        // if (config('app.env') !== 'testing') {
         $user = $this;
         try {
             // ユーザー登録メール送信
@@ -165,16 +176,19 @@ class User extends Authenticatable implements MustVerifyEmail
         } catch (SendEmailFailedException $e) {
             throw new SendEmailFailedException(self::TITLE . 'のメールの送信に失敗しました。');
         }
+        // }
     }
 
     public function sendPasswordResetNotification($token)
     {
         $user = $this;
+        // if (config('app.env') !== 'testing') {
         try {
             // ユーザーパスワード再設定メール送信
             $this->notify(new RegisteredUserPasswordResetNotification($user, $token));
         } catch (SendEmailFailedException $e) {
             throw new SendEmailFailedException(self::TITLE . 'のパスワード再設定メールの送信に失敗しました。');
         }
+        // }
     }
 }

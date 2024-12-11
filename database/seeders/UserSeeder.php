@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Enums\CallTimeEnum;
 use App\Models\User;
+use App\Models\UserVehicle;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Carbon;
 
@@ -23,7 +26,8 @@ class UserSeeder extends Seeder
                 'email_verified_at' => Carbon::now(),
             ]
         );
-        User::factory()->user()->create(
+
+        $user = User::factory()->user()->create(
             [
                 'loginid' => '0000000002',
                 'name' => 'user',
@@ -33,6 +37,48 @@ class UserSeeder extends Seeder
                 'email_verified_at' => Carbon::now(),
             ]
         );
-        User::factory(8)->randomUser()->create();
+        $this->generateFakeUserVehicle($user->id);
+
+        $users = User::factory(5)->randomUser()->create();
+        foreach ($users as $key => $user) {
+            $this->generateFakeUserVehicle($user->id);
+        }
+    }
+
+    public function loginUser(): object
+    {
+        return (object) $user = [
+            'loginid' => '0000000002',
+            'email' => 'user@user.user',
+            'password' => 'p@ssword1234',
+        ];
+    }
+
+    public function registerUser(): object
+    {
+        $userFactory = new UserFactory();
+        $call_time = CallTimeEnum::cases();
+        $zipcode = ['5320011', '1000000', '4500001'];
+        return (object) [
+            'loginid' => '0000000003',
+            'name' => 'usera',
+            'furigana' => 'usera',
+            'email' => 'usera@usera.usera',
+            'password' => 'p@ssword1234',
+            'phone_number' => fake()->phoneNumber(),
+            'zipcode' => fake()->randomElement($zipcode),
+            'address1' => fake()->prefecture() . fake()->ward(),
+            'address2' => fake()->secondaryAddress(),
+            'call_time' => fake()->randomElement($call_time),
+            'is_newsletter_subscription' => fake()->randomElement([true, false]),
+            'how_did_you_hear' => $userFactory->randomAnket(),
+        ];
+    }
+
+    public function generateFakeUserVehicle($userId)
+    {
+        UserVehicle::factory()->create([
+            'user_id' => $userId
+        ]);
     }
 }

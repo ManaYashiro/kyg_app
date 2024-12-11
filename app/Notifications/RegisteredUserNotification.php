@@ -37,7 +37,9 @@ class RegisteredUserNotification extends Notification
      */
     public function toMail(object $notifiable): MailMessage
     {
-        Log::info(User::TITLE . 'に登録メール送信中', $this->user->name);
+        if (config('app.env') !== 'testing') {
+            Log::info(User::TITLE . 'に登録メール送信中', $this->user->name);
+        }
         $verificationUrl = $this->verificationUrl($notifiable, $this->user);
 
         return (new MailMessage)
