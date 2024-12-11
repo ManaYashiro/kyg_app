@@ -26,31 +26,36 @@
                         <div class="mt-4">
                             <x-text.custom-input-label text="予約日" class="mb-2 left-border-text" />
                             <p>{{ $finalcheck['vehicle'] }}</p>
+                            <input type="hidden" name="vehicle" value="{{ $finalcheck['vehicle'] }}">
                         </div>
                         <!-- 時間 -->
                         <div class="mt-4">
                             <x-text.custom-input-label text="時間" class="mb-2 left-border-text" />
                             <p>{{ $finalcheck['vehicle'] }}</p>
+                            <input type="hidden" name="vehicle" value="{{ $finalcheck['vehicle'] }}">
                         </div>
                         <!-- ご希望の店舗 -->
                         <div class="mt-4">
                             <x-text.custom-input-label text="ご希望の店舗" class="mb-2 left-border-text" />
                             <p>{{ $finalcheck['vehicle'] }}</p>
+                            <input type="hidden" name="vehicle" value="{{ $finalcheck['vehicle'] }}">
                         </div>
                         <!-- 作業カテゴリ -->
                         <div class="mt-4">
                             <x-text.custom-input-label text="作業カテゴリ" class="mb-2 left-border-text" />
                             <p>{{ $finalcheck['vehicle'] }}</p>
+                            <input type="hidden" name="vehicle" value="{{ $finalcheck['vehicle'] }}">
                         </div>
                         <!-- 予約する作業 -->
                         <div class="mt-4">
                             <x-text.custom-input-label text="予約する作業" class="mb-2 left-border-text" />
                             <p>{{ $finalcheck['vehicle'] }}</p>
+                            <input type="hidden" name="vehicle" value="{{ $finalcheck['vehicle'] }}">
                         </div>
-                        <div class="mt-6">
+                        <div class="mt-4">
                             <x-text.custom-text text="確認事項" class="mt-6 mb-2 bg-gray-text" />
                         </div>
-                        <!-- 予約日時 -->
+                        <!-- 車両選択 -->
                         <div class="mt-4">
                             <x-text.custom-input-label text="【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。" class="mb-2 left-border-text" />
                             <p>{{ $finalcheck['vehicle'] }}</p>
@@ -62,19 +67,19 @@
                             @foreach ($finalcheck['additional_services'] as $service)
                             <p>{{ $service }}</p>
                             @endforeach
-                            <input type="hidden" name="vehicle" value="{{ implode(', ', $finalcheck['additional_services']) }}">
+                            <input type="hidden" name="additional_services" value="{{ implode(', ', $finalcheck['additional_services']) }}">
                         </div>
                         <!-- 車検満期日 -->
                         <div class="mt-4">
                             <x-text.custom-input-label text="車検満期日をご入力ください。" class="mb-2 left-border-text" />
                             <p>{{ $finalcheck['inspection_due_date'] }}</p>
-                            <input type="hidden" name="vehicle" value="{{ $finalcheck['inspection_due_date'] }}">
+                            <input type="hidden" name="inspection_due_date" value="{{ $finalcheck['inspection_due_date'] }}">
                         </div>
                         <!-- 過去利用履歴 -->
                         <div class="mt-4">
-                            <x-text.custom-input-label text="車検満期日をご入力ください。" class="mb-2 left-border-text" />
+                            <x-text.custom-input-label text="今回ご予約いただく店舗・作業は、過去にご利用がございますか？" class="mb-2 left-border-text" />
                             <p>{{ $finalcheck['past_service_history'] }}</p>
-                            <input type="hidden" name="vehicle" value="{{ $finalcheck['past_service_history'] }}">
+                            <input type="hidden" name="past_service_history" value="{{ $finalcheck['past_service_history'] }}">
                         </div>
                         <!-- 予約者情報 -->
                         <div class="mt-4">
@@ -84,6 +89,7 @@
                         <div class="mt-4">
                             <x-text.custom-input-label text="顧客名" class="mb-2 left-border-text" />
                             <p>{{ $finalcheck['user']['name'] }}</p>
+                            <input type="hidden" name="user" value="{{ $finalcheck['user']['name'] }}">
                         </div>
                         <!-- フリガナ -->
                         <div class="mt-4">
@@ -251,10 +257,10 @@
                         <div class="box-type1 ns">
                             <x-text.custom-text text="予約についてのご要望などメッセージがございましたらご記入ください" class="mt-6 mb-2 bg-gray-text" />
                         </div>
-                        <textarea name="" cols rows="7" class="w100" style="width: 809px; height: 158px;"></textarea>
+                        <textarea id='requirement' name="requirement" cols rows="7" class="w100" style="width: 809px; height: 158px;"></textarea>
                         <!-- 確定ボタン -->
                         <div class="btn-area1">
-                            <input type="button" class="ml-4 btn-type1" value="前の画面に戻る" onclick="window.location.href='{{ route('confirmationItems.index') }}'">
+                            <input type="button" class="ml-4 btn-type1" value="前の画面に戻る" onclick="window.history.back()">
                             <input class="ml-4 btn-type2" type="submit" value="完了する">
                         </div>
                     </form>
