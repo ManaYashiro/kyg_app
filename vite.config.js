@@ -25,6 +25,7 @@ export default defineConfig({
                 "resources/img/main/favicon.ico",
                 "resources/img/main/logo.png",
                 "resources/img/main/kimura_footer.png",
+                "resources/img/main/pagetop.gif",
             ],
             refresh: true,
         }),

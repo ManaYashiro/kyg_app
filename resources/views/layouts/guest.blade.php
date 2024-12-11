@@ -64,6 +64,7 @@
         @include('layouts.footer')
     </div>
 
+    @include('layouts.scroll-up')
     @stack('scripts')
 </body>
 
