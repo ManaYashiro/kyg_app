@@ -16,6 +16,22 @@ Route::get('/', function () {
     return view('top');
 })->name('top');
 
+Route::get('/support/categories', function () {
+    return view('workCategories');
+})->name('categories');
+
+Route::get('/support/stores', function () {
+    return view('storeIntroduction');
+})->name('stores');
+
+Route::get('/support/guide', function () {
+    return view('userGuide');
+})->name('guide');
+
+Route::get('/support/faq', function () {
+    return view('frequentlyAskedQuestions');
+})->name('faq');
+
 Route::middleware('auth', 'verified')->group(function () {
     Route::middleware([AdminMiddleware::class])->prefix('admin')->name('admin.')->group(function () {
         Route::get('/dashboard', function () {
@@ -44,10 +60,6 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::get('/account-termination-request', function () {
         return view('accountTerminationRequest');
     })->name('account.termination');
-
-    Route::get('/userGuide', function () {
-        return view('userGuide');
-    })->name('userGuide');
 
     Route::get('/reservation/entry', [ConfirmationItemController::class, 'index'])->name('confirmationItems.index'); //確認事項
     Route::post('/reservation/confirmation', [ConfirmationItemController::class, 'confirm'])->name('appointments.confirm'); //最終内容確認
