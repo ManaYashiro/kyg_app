@@ -11,8 +11,8 @@ enum IsNewsletterEnum: int
     public function getLabel(): string
     {
         return match ($this) {
-            self::No => '受けしない',
-            self::Yes => '受けする',
+            self::No => '配信を希望しない',
+            self::Yes => '配信を希望する',
         };
     }
 

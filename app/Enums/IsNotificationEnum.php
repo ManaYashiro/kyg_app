@@ -11,8 +11,8 @@ enum IsNotificationEnum: int
     public function getLabel(): string
     {
         return match ($this) {
-            self::No => '受けしない',
-            self::Yes => '受けする',
+            self::No => '受信しない',
+            self::Yes => '受信する',
         };
     }
 
