@@ -20,7 +20,6 @@
                     <!-- フォーム開始 -->
                     <form method="POST" action="{{ route('appointments.confirm') }}">
                         @csrf <!-- CSRFトークンの追加 -->
-
                         <!-- 予約日時 -->
                         <div class="mt-4">
                             <h5>
@@ -54,28 +53,24 @@
                                 label="エンジンオイル交換"
                                 :checked="in_array('エンジンオイル交換', old('additional_services', []))"
                                 :disabled="false" class="mt-2" />
-
                             <x-checkbox name="additional_services[]" value="タイヤローテション[前⇔後]"
                                 label="タイヤローテション[前⇔後]"
                                 :checked="in_array('タイヤローテション[前⇔後]', old('additional_services', []))"
                                 :disabled="false" class="mt-2" />
-
                             <x-checkbox name="additional_services[]" value="タイヤ付替[夏⇔冬シーズンチェンジ]"
                                 label="タイヤ付替[夏⇔冬シーズンチェンジ]"
                                 :checked="in_array('タイヤ付替[夏⇔冬シーズンチェンジ]', old('additional_services', []))"
                                 :disabled="false" class="mt-2" />
                         </div>
-
                         <!-- 車検満期日 -->
                         <div class="mt-4">
                             <h5>
                             <x-text.custom-input-label text="車検満期日をご入力ください。" class="mb-2" option="必須" />
                             </h5>
                             <x-text-input id="inspection_due_date" type="text" name='inspection_due_date' :value="old('inspection_due_date')" class="datepicker block mt-1 w-full rounded-none"/>
-                            <x-text.custom-input-label text="（記入例：令和6年3月15日、2022/10/30）" spanClass="font-normal text-xs text-gray-500 mt-1" />
+                            <x-text.custom-input-label text="（記入例：2022/10/30）" spanClass="font-normal text-xs text-gray-500 mt-1" />
                             <x-input-error :messages="$errors->get('inspection_due_date')" class="attention" />
                         </div>
-
                         <!-- 過去利用履歴 -->
                         <div class="mt-4">
                             <h5>
@@ -95,7 +90,7 @@
                             </div>
                         </div>
                         <div class="btn-area1">
-                            <input type="button" class="ml-4 btn-type1" value="前の画面に戻る" onclick="window.location.href='{{ route('top') }}'">
+                            <input type="button" class="ml-4 btn-type1" value="前の画面に戻る" onclick="window.location.href='{{ route('confirmationItems.index') }}'">
                             <input class="ml-4 btn-type2" type="submit" value="次へ進む">
                         </div>
                     </form>
