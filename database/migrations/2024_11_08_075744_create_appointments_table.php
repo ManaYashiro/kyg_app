@@ -15,7 +15,7 @@ return new class extends Migration
 
             $table->id();
             $table->unsignedBigInteger('user_id')->comment('ユーザーID');
-            $table->text('reservation_number')->nullable()->comment('予約番号');
+            $table->text('reservation_number')->comment('予約番号');
             $table->dateTime('reservation_datetime')->nullable()->comment('予約日時');
             $table->string('customer_name', 40)->nullable()->comment('顧客名');
             $table->string('main_menu', 40)->nullable()->comment('メインメニュー名');

@@ -82,6 +82,10 @@ class  ConfirmationItemController extends Controller
         $birthday = $user->birthday;
         $formattedBirthday = date('Y/m/d', strtotime($birthday));
 
+        // 新しい予約番号を動的に生成
+        $lastAppointment = Appointments::orderBy('reservation_number', 'desc')->first();
+        $appointmentNumber = $lastAppointment ? $lastAppointment->reservation_number + 1 : 10001;
+
         //最終内容確認へ渡すために代入
         $finalcheck = [
             'vehicle' => $validatedData['vehicle'],
@@ -128,16 +132,18 @@ class  ConfirmationItemController extends Controller
         ]);
 
         // 確認画面に必要なデータを渡す
-        return view('appointmentsConfirm', compact('finalcheck', 'anketnames', 'anket'));
+        return view('appointmentsConfirm', compact('finalcheck', 'anketnames', 'anket', 'appointmentNumber'));
     }
 
     public function store(Request $request)
     {
-        \Log::info($request);
+        // 新しい予約番号を受け取る
+        $appointmentNumber = $request->input('appointmentNumber');
         // 新しい予約を保存
         $appointment = new Appointments();
         $appointment->user_id = Auth::id(); //ユーザーID
-        $appointment->reservation_number = Auth::id(); //予約番号
+        $appointment->reservation_number = $appointmentNumber; //予約番号
+        $appointment->reservation_datetime = $request->input('inspection_due_date'); //予約日時
         $appointment->customer_name = $request->input('user'); //顧客名
         $appointment->store = $request->input('user'); //ご希望の店舗(仮)
         $appointment->taskcategory = $request->input('user'); //作業カテゴリ(仮)
