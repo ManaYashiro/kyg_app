@@ -71,108 +71,106 @@
     @endphp
 
     <div class="w-full flex-1 max-w-screen-lg relative m-auto">
-        <div class="w-full my-8 m-auto px-6 py-4 bg-white shadow-md">
-            <div class="mb-3 bottom-border-text font-bold">
-                <span class="">作業カテゴリ一覧</span>
-            </div>
+        <div class="mb-3 bottom-border-text font-bold">
+            <span class="">作業カテゴリ一覧</span>
+        </div>
 
-            <!-- ページネーションの表示 -->
-            <div class="mt-8">
-                <div class="flex justify-center space-x-2 pager">
-                    <!-- 前のページリンク -->
-                    @if ($previousPage)
-                        <a href="?page={{ $previousPage }}" class="">
-                            ＜
-                        </a>
+        <!-- ページネーションの表示 -->
+        <div class="mt-8">
+            <div class="flex justify-center space-x-2 pager">
+                <!-- 前のページリンク -->
+                @if ($previousPage)
+                    <a href="?page={{ $previousPage }}" class="">
+                        ＜
+                    </a>
+                @else
+                    <span class="cursor-not-allowed">
+                        ＜
+                    </span>
+                @endif
+
+                <!-- ページリンク -->
+                @for ($page = 1; $page <= $totalPages; $page++)
+                    <!-- 現在のページは無効化する -->
+                    @if ($page === $currentPage)
+                        <button type="button" class="cursor-not-number" disabled>
+                            {{ $page }}
+                        </button>
                     @else
-                        <span class="cursor-not-allowed">
-                            ＜
-                        </span>
-                    @endif
-
-                    <!-- ページリンク -->
-                    @for ($page = 1; $page <= $totalPages; $page++)
-                        <!-- 現在のページは無効化する -->
-                        @if ($page === $currentPage)
-                            <button type="button" class="cursor-not-number" disabled>
-                                {{ $page }}
-                            </button>
-                        @else
-                            <a href="?page={{ $page }}" class="">
-                                {{ $page }}
-                            </a>
-                        @endif
-                    @endfor
-
-                    <!-- 次のページリンク -->
-                    @if ($nextPage)
-                        <a href="?page={{ $nextPage }}" class="">
-                            ＞
+                        <a href="?page={{ $page }}" class="">
+                            {{ $page }}
                         </a>
-                    @else
-                        <span class="cursor-not-allowed">
-                            ＞
-                        </span>
                     @endif
-                </div>
-            </div>
+                @endfor
 
-            <!-- ページネーションされたイベント項目を表示 -->
-            @foreach ($pagedItems as $event)
-                <div class="event-block">
-                    <div class="event-item">
-                        <div class="event-name">
-                            {{ $event['name'] }}
-                        </div>
-                        <ul class="spec">
-                            <li>[ご希望の店舗] {{ $event['store'] }}</li>
-                            @if (!empty($event['description']))
-                                <li>{{ $event['description'] }}</li>
-                            @endif
-                        </ul>
+                <!-- 次のページリンク -->
+                @if ($nextPage)
+                    <a href="?page={{ $nextPage }}" class="">
+                        ＞
+                    </a>
+                @else
+                    <span class="cursor-not-allowed">
+                        ＞
+                    </span>
+                @endif
+            </div>
+        </div>
+
+        <!-- ページネーションされたイベント項目を表示 -->
+        @foreach ($pagedItems as $event)
+            <div class="event-block">
+                <div class="event-item">
+                    <div class="event-name">
+                        {{ $event['name'] }}
                     </div>
-                </div>
-            @endforeach
-
-            <!-- ページネーションの表示 -->
-            <div class="mt-8">
-                <div class="flex justify-center space-x-2 pager">
-                    <!-- 前のページリンク -->
-                    @if ($previousPage)
-                        <a href="?page={{ $previousPage }}" class="">
-                            ＜
-                        </a>
-                    @else
-                        <span class="cursor-not-allowed">
-                            ＜
-                        </span>
-                    @endif
-
-                    <!-- ページリンク -->
-                    @for ($page = 1; $page <= $totalPages; $page++)
-                        <!-- 現在のページは無効化する -->
-                        @if ($page === $currentPage)
-                            <button type="button" class="cursor-not-number" disabled>
-                                {{ $page }}
-                            </button>
-                        @else
-                            <a href="?page={{ $page }}" class="">
-                                {{ $page }}
-                            </a>
+                    <ul class="spec">
+                        <li>[ご希望の店舗] {{ $event['store'] }}</li>
+                        @if (!empty($event['description']))
+                            <li>{{ $event['description'] }}</li>
                         @endif
-                    @endfor
-
-                    <!-- 次のページリンク -->
-                    @if ($nextPage)
-                        <a href="?page={{ $nextPage }}" class="">
-                            ＞
-                        </a>
-                    @else
-                        <span class="cursor-not-allowed">
-                            ＞
-                        </span>
-                    @endif
+                    </ul>
                 </div>
+            </div>
+        @endforeach
+
+        <!-- ページネーションの表示 -->
+        <div class="mt-8">
+            <div class="flex justify-center space-x-2 pager">
+                <!-- 前のページリンク -->
+                @if ($previousPage)
+                    <a href="?page={{ $previousPage }}" class="">
+                        ＜
+                    </a>
+                @else
+                    <span class="cursor-not-allowed">
+                        ＜
+                    </span>
+                @endif
+
+                <!-- ページリンク -->
+                @for ($page = 1; $page <= $totalPages; $page++)
+                    <!-- 現在のページは無効化する -->
+                    @if ($page === $currentPage)
+                        <button type="button" class="cursor-not-number" disabled>
+                            {{ $page }}
+                        </button>
+                    @else
+                        <a href="?page={{ $page }}" class="">
+                            {{ $page }}
+                        </a>
+                    @endif
+                @endfor
+
+                <!-- 次のページリンク -->
+                @if ($nextPage)
+                    <a href="?page={{ $nextPage }}" class="">
+                        ＞
+                    </a>
+                @else
+                    <span class="cursor-not-allowed">
+                        ＞
+                    </span>
+                @endif
             </div>
         </div>
     </div>
