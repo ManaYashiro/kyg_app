@@ -1,0 +1,123 @@
+/* catgories */
+
+/* グレー枠でカテゴリー囲う */
+.event-block {
+    background-color: #ffffff;
+    border: 1px solid #dddddd;
+    clear: both;
+    margin-bottom: 16px;
+    margin-top: 20px;
+    overflow: hidden;
+    padding: 10px;
+}
+
+/* カテゴリー名をグレー背景に */
+.event-name {
+    background-color: #eeeeee;
+    clear: both;
+    font-size: 20px;
+    margin-bottom: 16px;
+    padding: 16px;
+}
+
+/* ul, liのスタイル */
+ol, ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.event-block ul.spec li {
+    border-bottom: 1px solid #eeeeee;
+    margin-bottom: 5px;
+    padding: 0 0 5px 20px;
+    position: relative;
+}
+
+.event-block ul.spec li:before,
+.event-block ul.spec-np li:before {
+    background-color: #757575;
+    content: "";
+    height: 6px;
+    left: 6px;
+    position: absolute;
+    top: 8px;
+    width: 6px;
+}
+
+/* リストの内容が空でない場合のみマーカーを表示 */
+.event-block ul.spec li:not(:empty):before,
+.event-block ul.spec-np li:not(:empty):before {
+    content: "";
+}
+
+/* ページネーションリンクの基本スタイル */
+div.pager a {
+    border: 1px solid #cccccc; /* 同じ枠線サイズ（1px） */
+    display: inline-block;
+    list-style: none;
+    margin: 0 0.25em;
+    padding: .25em .4em;
+    text-decoration: none;
+}
+
+/* マウスオーバー時の背景色と文字色変更 */
+div.pager a:hover {
+    background-color: #525252;
+    color: white; /* 文字色を白に */
+    border: 1px solid #525252; /* 同じ枠線サイズ（1px） */
+}
+
+/* 現在のページ（選択中）のスタイル */
+div.pager a.bg-gray-300 {
+    background-color: #e2e8f0; /* 薄いグレー */
+    color: black; /* 文字色を黒に */
+    cursor: not-allowed; /* 非活性状態 */
+}
+
+/* 非活性な矢印（次ページ・前ページリンク） */
+div.pager .cursor-not-allowed {
+    color: #d1d5db; /* 明るい灰色 */
+    cursor: not-allowed;
+}
+
+/* 通常のリンクスタイル */
+div.pager a {
+    color: #4a4a4a; /* 文字色 */
+    border-color: #cccccc; /* 枠線の色 */
+}
+
+/* 前後ページのリンク */
+div.pager a:hover {
+    background-color: #525252;
+    color: white; /* 文字色を白に */
+    border: 1px solid #525252; /* 同じ枠線サイズ（1px） */
+}
+
+/* 非活性のリンク（前後ページリンク） */
+div.pager .cursor-not-allowed {
+    color: #d1d5db; /* 明るい灰色 */
+    cursor: not-allowed;
+    border: 1px solid #cccccc; /* 同じ枠線サイズ（1px） */
+    display: inline-block;
+    list-style: none;
+    margin: 0 0.25em;
+    padding: .25em .4em;
+    text-decoration: none;
+
+}
+
+/* 非活性のリンク（ページ数ページリンク） */
+div.pager .cursor-not-number {
+    background-color: #c2c2c2; /* 明るいグレー */
+    cursor: not-allowed;
+    border: 1px solid #cccccc; /* 同じ枠線サイズ（1px） */
+    display: inline-block;
+    list-style: none;
+    margin: 0 0.25em;
+    padding: .25em .4em;
+    text-decoration: none;
+}
+
+
+/* stores */

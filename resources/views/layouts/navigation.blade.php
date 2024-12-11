@@ -37,17 +37,17 @@
 
                     {{-- burgermenu content --}}
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('top')">
+                        <x-dropdown-link :href="route('categories')">
                             {{ __('作業カテゴリ一覧') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('top')">
+                        <x-dropdown-link :href="route('stores')">
                             {{ __('店舗介') }}
                         </x-dropdown-link>
                         <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
-                        <x-dropdown-link :href="route('top')">
+                        <x-dropdown-link :href="route('guide')">
                             <i class="fa-solid fa-info"></i> {{ __('ご利用ガイド') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('top')">
+                        <x-dropdown-link :href="route('faq')">
                             <i class="fa-solid fa-question"></i> {{ __('よくある質問') }}
                         </x-dropdown-link>
 

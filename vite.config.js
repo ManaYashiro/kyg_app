@@ -7,6 +7,7 @@ export default defineConfig({
             input: [
                 "resources/css/app.css",
                 "resources/css/beta.css",
+                "resources/css/hamburger.css",
                 "resources/js/app.js",
 
                 // custom
