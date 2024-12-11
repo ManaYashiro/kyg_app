@@ -168,7 +168,7 @@
     </main>
 
     @section('styles')
-        @vite(['resources/css/calender.css', 'resources/css/confirmationitems.css'])
+        @vite(['resources/css/calender.css'])
     @endsection
     @push('scripts')
         @vite(['resources/js/modules/calender.js'])

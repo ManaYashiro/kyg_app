@@ -54,6 +54,31 @@
     <x-input-error :messages="$errors->get('name_furigana')" class="mt-2" />
 </div>
 
+<!-- Birthday -->
+<div id="container-birthday" class="mt-4">
+    <x-text.custom-input-label text="生年月日" class="mb-2" option="必須" />
+    <x-text-input id="birthday" type="text" name="birthday" :value="old('birthday')"
+        class="datepicker block mt-1 w-full md:w-1/4" required />
+    <x-ajax-input-error id="error-birthday" class="mt-2" />
+    <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
+</div>
+
+<!-- Gender -->
+<div id="container-gender" class="mt-4">
+    <x-text.custom-input-label text="性別" class="mb-2" option="任意" />
+    <div class="flex flex-col gap-2 justify-center items-start">
+        @foreach (\App\Enums\GenderEnum::cases() as $gender)
+            <div class="my-1 flex items-center gap-3">
+                <x-text-input id="gender-{{ $gender->value }}" type="radio" name="gender" :value="$gender->value"
+                    :checked="old('gender') === $gender->value" />
+                <x-input-label for="gender" :value="__($gender->getLabel())" />
+            </div>
+        @endforeach
+    </div>
+    <x-ajax-input-error id="error-gender" class="mt-2" />
+    <x-input-error :messages="$errors->get('gender')" class="mt-2" />
+</div>
+
 <!-- Email Address -->
 <div id="container-email" class="mt-4">
     <x-text.custom-input-label text="メールアドレス" class="mb-2" option="必須" />
@@ -74,31 +99,6 @@
     <x-text.custom-input-label text="※自宅または携帯の番号をご入力下さい。" spanClass="font-normal text-xs text-gray-500 mt-1" />
     <x-ajax-input-error id="error-phone_number" class="mt-2" />
     <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
-</div>
-
-<!-- Gender -->
-<div id="container-gender" class="mt-4">
-    <x-text.custom-input-label text="性別" class="mb-2" option="任意" />
-    <div class="flex flex-col gap-2 justify-center items-start">
-        @foreach (\App\Enums\GenderEnum::cases() as $gender)
-            <div class="my-1 flex items-center gap-3">
-                <x-text-input id="gender-{{ $gender->value }}" type="radio" name="gender" :value="$gender->value"
-                    :checked="old('gender') === $gender->value" />
-                <x-input-label for="gender" :value="__($gender->getLabel())" />
-            </div>
-        @endforeach
-    </div>
-    <x-ajax-input-error id="error-gender" class="mt-2" />
-    <x-input-error :messages="$errors->get('gender')" class="mt-2" />
-</div>
-
-<!-- Birthday -->
-<div id="container-birthday" class="mt-4">
-    <x-text.custom-input-label text="生年月日" class="mb-2" option="必須" />
-    <x-text-input id="birthday" type="text" name="birthday" :value="old('birthday')"
-        class="datepicker block mt-1 w-full md:w-1/4" required />
-    <x-ajax-input-error id="error-birthday" class="mt-2" />
-    <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
 </div>
 
 <!-- Preferred Time -->
