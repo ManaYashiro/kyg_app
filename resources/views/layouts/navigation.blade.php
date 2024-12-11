@@ -21,7 +21,7 @@
                     {{-- burgermenu button --}}
                     <x-slot name="burgermenu">
                         <button
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                            class="inline-flex items-center ms-3 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div class="ms-1">
                                 <div class="flex flex-col w-6" x-show="!open">
                                     <i class="w-6 h-6 fa-solid fa-bars"></i>

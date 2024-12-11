@@ -112,8 +112,7 @@
                     <div>
                         <label for="reservationtask">予約する作業をお選び下さい。</label>
                         <div class="flex items-center">
-                            <select class="block mt-1 w-full" id="reservationtask"
-                                name="reservationtask">
+                            <select class="block mt-1 w-full" id="reservationtask" name="reservationtask">
                                 <option value="0">-- 選択してください --</option>
                             </select>
                             <button type="button" id="reservationdetails" class="ml-4 mt-2">詳細</button>
@@ -134,7 +133,7 @@
         </div>
         <!-- モーダル -->
         <!-- 店舗 -->
-        <div id="storeModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+        <div id="storeModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 justify-center items-center">
             <div class="bg-white p-6 rounded shadow-md w-1/2">
                 <h2 id="modalTitle" class="text-xl font-bold mb-4"></h2>
                 <p id="modalContent"></p>
@@ -145,7 +144,7 @@
             </div>
         </div>
         <!-- 作業 -->
-        <div id="taskModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+        <div id="taskModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 justify-center items-center">
             <div class="bg-white p-6 rounded shadow-md w-1/2">
                 <h2 id="modalTitle" class="text-xl font-bold mb-4"></h2>
                 <p id="modalContent"></p>
@@ -156,7 +155,7 @@
             </div>
         </div>
         <!-- 予約 -->
-        <div id="reservationModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center">
+        <div id="reservationModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 justify-center items-center">
             <div class="bg-white p-6 rounded shadow-md w-1/2">
                 <h2 id="modalTitle" class="text-xl font-bold mb-4"></h2>
                 <p id="modalContent"></p>
@@ -167,4 +166,11 @@
             </div>
         </div>
     </main>
+
+    @section('styles')
+        @vite(['resources/css/calender.css', 'resources/css/confirmationitems.css'])
+    @endsection
+    @push('scripts')
+        @vite(['resources/js/modules/calender.js'])
+    @endpush
 </x-app-layout>

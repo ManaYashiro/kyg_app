@@ -595,12 +595,12 @@ $(document).ready(function () {
         `);
 
         // モーダルを表示
-        $("#storeModal").removeClass("hidden");
+        $("#storeModal").removeClass("hidden").addClass("flex");
     });
 
     $("#closeModal").on("click", function () {
         // モーダルを非表示
-        $("#storeModal").addClass("hidden");
+        $("#storeModal").addClass("hidden").removeClass("flex");
     });
 
     //店舗情報
@@ -697,12 +697,12 @@ $(document).ready(function () {
         `);
 
         // モーダルを表示
-        $("#storeModal").removeClass("hidden");
+        $("#storeModal").removeClass("hidden").addClass("flex");
     });
 
     $("#closeModal").on("click", function () {
         // モーダルを非表示
-        $("#storeModal").addClass("hidden");
+        $("#storeModal").addClass("hidden").removeClass("flex");
     });
 
     //作業カテゴリ情報
@@ -794,12 +794,12 @@ $(document).ready(function () {
         `);
 
         // モーダルを表示
-        $("#storeModal").removeClass("hidden");
+        $("#storeModal").removeClass("hidden").addClass("flex");
     });
 
     $("#closeModal").on("click", function () {
         // モーダルを非表示
-        $("#storeModal").addClass("hidden");
+        $("#storeModal").addClass("hidden").removeClass("flex");
     });
 
     //予約する作業情報

@@ -11,7 +11,10 @@
 }
 
 .main-button {
-    min-width: 100px;
+    min-width: 110px;
+}
+.main-button button {
+    height: 35px;
 }
 
 .left-border-text {
