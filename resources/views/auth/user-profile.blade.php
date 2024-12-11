@@ -263,7 +263,7 @@
 
 <!-- How did you hear -->
 <div id="container-questionnaire" class="mt-4">
-    <x-text.custom-input-label text="【アンケート】弊社の車検を何でお知りになりましたか" class="mb-2" option="必須" />
+    <x-text.custom-input-label text="【アンケート】弊社の車検を何でお知りになりましたか（複数回答3つまで）" class="mb-2" option="必須" />
     @foreach ($questionnaire as $anket)
         <div class="mt-4 flex items-center gap-3 mb-3">
             <x-text-input id="anket-{{ $anket->id }}" type="checkbox" name="questionnaire[]" :value="$anket->id"

@@ -21,7 +21,7 @@
                     {{-- burgermenu button --}}
                     <x-slot name="burgermenu">
                         <button
-                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                            class="inline-flex items-center ms-3 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
                             <div class="ms-1">
                                 <div class="flex flex-col w-6" x-show="!open">
                                     <i class="w-6 h-6 fa-solid fa-bars"></i>
@@ -37,17 +37,17 @@
 
                     {{-- burgermenu content --}}
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('top')">
+                        <x-dropdown-link :href="route('categories')">
                             {{ __('作業カテゴリ一覧') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('top')">
+                        <x-dropdown-link :href="route('stores')">
                             {{ __('店舗介') }}
                         </x-dropdown-link>
                         <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
-                        <x-dropdown-link :href="route('top')">
+                        <x-dropdown-link :href="route('guide')">
                             <i class="fa-solid fa-info"></i> {{ __('ご利用ガイド') }}
                         </x-dropdown-link>
-                        <x-dropdown-link :href="route('top')">
+                        <x-dropdown-link :href="route('faq')">
                             <i class="fa-solid fa-question"></i> {{ __('よくある質問') }}
                         </x-dropdown-link>
 
@@ -70,7 +70,7 @@
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">
                 <button @click="open = ! open"
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
+                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-customgray-200 focus:outline-none focus:bg-customgray-200 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
                             stroke-linecap="round" stroke-linejoin="round" stroke-width="2"

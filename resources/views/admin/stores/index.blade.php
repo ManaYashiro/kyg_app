@@ -21,7 +21,8 @@
                     @endif
 
                     <a href="{{ route('admin.stores.create') }}">
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 text-xs rounded my-3">
+                        <button
+                            class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-4 py-2 text-xs rounded my-3">
                             登録
                         </button>
                     </a>
@@ -85,6 +86,8 @@
             </div>
         </div>
     </div>
+    @section('styles')
+    @endsection
     @push('scripts')
     @endpush
 </x-admin-app-layout>

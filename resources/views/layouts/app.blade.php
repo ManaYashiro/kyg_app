@@ -45,24 +45,29 @@
     {{-- Full Calendar --}}
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
 
+    @yield('styles')
+
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/css/calender.css','resources/js/modules/datepicker.js','resources/js/modules/calender.js'
-    , 'resources/css/confirmationitems.css'])
+    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/css/hamburger.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 </head>
 
-<body class="font-sans antialiased text-base">
-    <div class="min-h-screen bg-gray-100">
+<body class="wait-for-icons bg-customgray-200 font-sans antialiased text-base">
+    <div class="min-h-screen flex flex-col">
         @include('layouts.navigation')
 
         <!-- Page Content -->
-        <main>
-            {{ $slot }}
-        </main>
+        <div class="min-h-full h-full w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 relative">
+            <div class="w-full mt-6 mx-auto px-4 pt-2 pb-8 bg-white shadow-md">
+                {{ $slot }}
+            </div>
+        </div>
+
+        @include('layouts.footer')
     </div>
 
+    @include('layouts.scroll-up')
     @stack('scripts')
 </body>
 
 </html>
-
