@@ -45,7 +45,7 @@
     @yield('styles')
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js'])
+    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js', 'resources/js/dashboard.js'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 
 </head>
@@ -58,11 +58,11 @@
         <!-- Mobile sidebar -->
         @include('includes.mobile-sidebar')
 
-        <div class="flex flex-col flex-1 w-full min-w-0">
+        <div class="min-h-full h-full w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 relative">
             @include('includes.header')
-            <main class="h-full overflow-y-auto">
+            <div class="w-full mt-6 mx-auto px-4 pt-2 pb-8 bg-white shadow-md">
                 {{ $slot }}
-            </main>
+            </div>
         </div>
     </div>
 

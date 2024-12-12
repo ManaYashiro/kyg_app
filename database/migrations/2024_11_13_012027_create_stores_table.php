@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('address', 150);
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate();
-            $table->dateTime('deleted_at')->nullable()->useCurrentOnUpdate();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

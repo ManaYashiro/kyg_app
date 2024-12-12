@@ -41,7 +41,7 @@ return new class extends Migration
             $table->rememberToken();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate();
-            $table->dateTime('deleted_at')->nullable()->useCurrentOnUpdate();
+            $table->dateTime('deleted_at')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
