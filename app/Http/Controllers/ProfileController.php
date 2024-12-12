@@ -2,7 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Enums\FormTypeEnum;
+use App\Enums\SubmitTypeEnum;
+use App\Http\Requests\RegisteredUserRequest;
+use App\Models\Anket;
+use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,16 +22,27 @@ class ProfileController extends Controller
      */
     public function edit(Request $request): View
     {
-        return view('changeAccountInformation', [
-            'users' => $request->user(),
-        ]);
+        $formType = FormTypeEnum::USER_UPDATE->value;
+        $submitType = SubmitTypeEnum::CONFIRM->value;
+        $route = route('profile.update');
+        $user = User::where('id', Auth::user()->id)->with('userVehicles')->first();
+        // これを実際の アンケートリストに変更します (DB から)
+        $questionnaire = Anket::get();
+        return view('auth.profile', compact('user', 'route', 'formType', 'submitType', 'questionnaire'));
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(RegisteredUserRequest $request): JsonResponse|RedirectResponse
     {
+        $data = $request->validated();
+        if ($data['submit_type'] === 'confirm') {
+            return response()->json([
+                'success' => true,
+                'message' => 'confirm OK'
+            ]);
+        }
         // まず、リクエストからユーザー情報を更新
         $user = $request->user();
 

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Enums\GenderEnum;
 use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
+use App\Enums\PrefectureEnum;
 use App\Exceptions\SendEmailFailedException;
 use App\Helpers\Log;
 use App\Notifications\NotifyAdminOfRegisteredUserNotification;
@@ -78,6 +79,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
             'questionnaire' => 'array',
             'gender' => GenderEnum::class,
+            'prefecture' => PrefectureEnum::class,
             'is_receive_newsletter' => IsNewsletterEnum::class,
             'is_receive_notification' => IsNotificationEnum::class,
         ];

@@ -3,10 +3,14 @@
 namespace App\Http\Requests;
 
 use App\Enums\CallTimeEnum;
+use App\Enums\FormTypeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
+use App\Enums\SubmitTypeEnum;
+use App\Helpers\Log;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class RegisteredUserRequest extends FormRequest
 {
@@ -25,15 +29,31 @@ class RegisteredUserRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = null;
+        switch ($this->form_type) {
+            case FormTypeEnum::USER_REGISTER->value:
+                $id = null;
+                break;
+            case FormTypeEnum::USER_UPDATE->value:
+                $id = Auth::user()->id;
+                break;
+            case FormTypeEnum::ADMIN_UPDATE->value:
+                $id = $this->route('userList');
+                break;
+
+            default:
+                # code...
+                break;
+        }
         $userVehicleRequest = new UserVehicleRequest();
         $userVehicleRules = $userVehicleRequest->rules();
         return
             array_merge(
                 [
-                    'loginid' => 'required|string|unique:users,loginid|min:4|max:15',
+                    'loginid' => 'required|string|min:4|max:15|unique:users,loginid,' . $id,
                     'name' => 'required|string',
                     'name_furigana' => 'required|string',
-                    'email' => 'required|email|unique:users,email',
+                    'email' => 'required|email|unique:users,email,' . $id,
                     'password' => 'required|string|min:4|max:20|confirmed',
                     'password_confirmation' => 'required|string|min:4|max:20',
                     'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),
@@ -53,7 +73,8 @@ class RegisteredUserRequest extends FormRequest
                     'department' => 'nullable|string',
                     'is_receive_notification' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, IsNotificationEnum::cases())),
                     'remarks' => 'nullable|string',
-                    'form_type' => 'required|in:"confirm","submit"',
+                    'form_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, FormTypeEnum::cases())),
+                    'submit_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, SubmitTypeEnum::cases())),
                 ]
             );
     }
