@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
+use App\Enums\FormTypeEnum;
+use App\Enums\SubmitTypeEnum;
+use App\Http\Requests\RegisteredUserRequest;
 use App\Models\Anket;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -62,27 +64,32 @@ class UserController extends Controller
             $query->whereDay('birthday', $request->birthday_day);
         }
 
-        // 登録順で並べ替える
-        if ($request->has('registration_order')) {
-            if ($request->registration_order == 'newest') {
-                // 新しい順（降順）
-                $query->orderBy('created_at', 'desc');
-            } elseif ($request->registration_order == 'oldest') {
-                // 古い順（昇順）
-                $query->orderBy('created_at', 'asc');
+        if ($request->has('registration_order') || $request->has('update_order')) {
+            // 登録順で並べ替える
+            if ($request->has('registration_order')) {
+                if ($request->registration_order == 'newest') {
+                    // 新しい順（降順）
+                    $query->orderBy('created_at', 'desc');
+                } elseif ($request->registration_order == 'oldest') {
+                    // 古い順（昇順）
+                    $query->orderBy('created_at', 'asc');
+                }
             }
+
+            // 更新順で並べ替える
+            if ($request->has('update_order')) {
+                if ($request->update_order == 'newest') {
+                    // 新しい順（降順）
+                    $query->orderBy('updated_at', 'desc');
+                } elseif ($request->update_order == 'oldest') {
+                    // 古い順（昇順）
+                    $query->orderBy('updated_at', 'asc');
+                }
+            }
+        } else {
+            $query->orderBy('customer_no', 'asc');
         }
 
-        // 更新順で並べ替える
-        if ($request->has('update_order')) {
-            if ($request->update_order == 'newest') {
-                // 新しい順（降順）
-                $query->orderBy('updated_at', 'desc');
-            } elseif ($request->update_order == 'oldest') {
-                // 古い順（昇順）
-                $query->orderBy('updated_at', 'asc');
-            }
-        }
 
         // 絞り込んだユーザーを5件ずつページネートして取得
         $users = $query->paginate(100); // ページごとに5件表示
@@ -96,16 +103,19 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        $user = User::findOrFail($id); // ユーザーを取得
+        $formType = FormTypeEnum::ADMIN_UPDATE->value;
+        $submitType = SubmitTypeEnum::SUBMIT->value;
+        $route = route('admin.userList.update', ['userList' => $id]);
+        $user = User::where('id', $id)->with('userVehicles')->first();
         // これを実際の アンケートリストに変更します (DB から)
         $questionnaire = Anket::get();
-        return view('admin.userLists.userEdit', compact('user', 'questionnaire')); // 編集ページにユーザー情報を渡す
+        return view('admin.userLists.userEdit', compact('user', 'route', 'formType', 'submitType', 'questionnaire')); // 編集ページにユーザー情報を渡す
     }
 
     /**
      * ユーザー更新
      */
-    public function update(ProfileUpdateRequest $request, $userList): RedirectResponse
+    public function update(RegisteredUserRequest $request, $userList): RedirectResponse
     {
         // リクエストからユーザー情報を更新
         $user = User::where('id', $request->route('userList'))->first();
@@ -116,10 +126,11 @@ class UserController extends Controller
         // メールアドレスが変更された場合は、メールの確認日をリセット
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
+
+            // ユーザー情報を保存
+            // $user->save();
         }
 
-        // ユーザー情報を保存
-        $user->save();
 
         return Redirect::route('admin.userList.index')->with('success', 'ユーザーを更新しました');
     }

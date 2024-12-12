@@ -34,7 +34,7 @@ return new class extends Migration
             $table->string('admin_notes', 128)->nullable()->comment('管理メモ');
             $table->dateTime('created_at')->nullable()->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate();
-            $table->dateTime('deleted_at')->nullable()->useCurrentOnUpdate();
+            $table->dateTime('deleted_at')->nullable();
 
             //外部キー
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

@@ -27,8 +27,9 @@ return new class extends Migration
             $table->string('car3_katashiki', 20)->nullable();
             $table->string('car3_number', 20)->nullable();
             $table->string('car3_class', 30)->nullable();
-            $table->timestamps();
-            $table->softDeletes();
+            $table->dateTime('created_at')->useCurrent();
+            $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 

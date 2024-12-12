@@ -8,7 +8,6 @@ use App\Enums\GenderEnum;
 use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
 use App\Enums\SubmitTypeEnum;
-use App\Helpers\Log;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
