@@ -21,7 +21,9 @@
 }
 
 /* ul, liのスタイル */
-ol, ul, li {
+ol,
+ul,
+li {
     list-style: none;
     margin: 0;
     padding: 0;
@@ -57,7 +59,7 @@ div.pager a {
     display: inline-block;
     list-style: none;
     margin: 0 0.25em;
-    padding: .25em .4em;
+    padding: 0.25em 0.4em;
     text-decoration: none;
 }
 
@@ -102,9 +104,8 @@ div.pager .cursor-not-allowed {
     display: inline-block;
     list-style: none;
     margin: 0 0.25em;
-    padding: .25em .4em;
+    padding: 0.25em 0.4em;
     text-decoration: none;
-
 }
 
 /* 非活性のリンク（ページ数ページリンク） */
@@ -115,9 +116,8 @@ div.pager .cursor-not-number {
     display: inline-block;
     list-style: none;
     margin: 0 0.25em;
-    padding: .25em .4em;
+    padding: 0.25em 0.4em;
     text-decoration: none;
 }
-
 
 /* stores */
