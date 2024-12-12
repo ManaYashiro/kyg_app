@@ -16,10 +16,11 @@ class StoreFactory extends Factory
      */
     public function definition(): array
     {
+        $startPhone = ['070', '080', '090'];
         return [
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
-            'phone_number' => fake()->phoneNumber(),
+            'phone_number' => fake()->randomElement($startPhone) . fake()->numerify('########'),
             'address' => fake()->country() . fake()->prefecture() . fake()->ward(),
         ];
     }

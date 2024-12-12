@@ -5,7 +5,7 @@ $(document).ready(function () {
     const $btnPrev = $("#button-prev");
     const $btnNext = $("#button-next");
     const $btnSubmit = $("#button-submit");
-    const $formType = $("#form-type");
+    const $submitType = $("#submit-type");
 
     const formActionUrl = $formUserRegister.attr("action");
     const formMethod = $formUserRegister.attr("method");
@@ -13,7 +13,7 @@ $(document).ready(function () {
         e.preventDefault();
         $("#password").val("");
         $("#password_confirmation").val("");
-        $formType.val("confirm");
+        $submitType.val("confirm");
     });
     $btnNext.on("click", function (e) {
         e.preventDefault();
@@ -34,7 +34,7 @@ $(document).ready(function () {
                 },
                 success: function (response) {
                     console.log("Success:", response);
-                    $formType.val("submit"); // ready for submit
+                    $submitType.val("submit"); // ready for submit
 
                     window.confirmFormData(formData);
 

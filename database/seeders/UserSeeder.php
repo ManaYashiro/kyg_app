@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Enums\CallTimeEnum;
+use App\Enums\PrefectureEnum;
 use App\Models\User;
 use App\Models\UserVehicle;
 use Database\Factories\UserFactory;
@@ -58,6 +59,7 @@ class UserSeeder extends Seeder
     {
         $userFactory = new UserFactory();
         $call_time = CallTimeEnum::cases();
+        $startPhone = ['070', '080', '090'];
         $zipcode = ['5320011', '1000000', '4500001'];
         return (object) [
             'loginid' => '0000000003',
@@ -65,9 +67,10 @@ class UserSeeder extends Seeder
             'furigana' => 'usera',
             'email' => 'usera@usera.usera',
             'password' => 'p@ssword1234',
-            'phone_number' => fake()->phoneNumber(),
+            'phone_number' => fake()->randomElement($startPhone) . fake()->numerify('########'),
             'zipcode' => fake()->randomElement($zipcode),
-            'address1' => fake()->prefecture() . fake()->ward(),
+            'prefecture' => PrefectureEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, PrefectureEnum::cases()))),
+            'address1' => fake()->ward(),
             'address2' => fake()->secondaryAddress(),
             'call_time' => fake()->randomElement($call_time),
             'is_newsletter_subscription' => fake()->randomElement([true, false]),

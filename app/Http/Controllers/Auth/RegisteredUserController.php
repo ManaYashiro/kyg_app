@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\FormTypeEnum;
+use App\Enums\SubmitTypeEnum;
 use App\Helpers\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisteredUserRequest;
@@ -21,9 +23,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
+        $formType = FormTypeEnum::USER_REGISTER->value;
+        $submitType = SubmitTypeEnum::CONFIRM->value;
         // これを実際の アンケートリストに変更します (DB から)
         $questionnaire = Anket::get();
-        return view('auth.register', compact('questionnaire'));
+        return view('auth.profile', compact('formType', 'submitType', 'questionnaire'));
     }
 
     /**
@@ -34,7 +38,7 @@ class RegisteredUserController extends Controller
     public function store(RegisteredUserRequest $request): JsonResponse|RedirectResponse
     {
         $data = $request->validated();
-        if ($data['form_type'] === 'confirm') {
+        if ($data['submit_type'] === 'confirm') {
             return response()->json([
                 'success' => true,
                 'message' => 'confirm OK'
