@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="pt-[1.5rem] pb-[3rem]">
-        <div class="bg-white overflow-hidden shadow-sm ">
+        <div class="bg-white overflow-hidden">
             <div class="pt-0 pr-6 pb-6 pl-6 text-gray-900">
                 <x-text.custom-text text="確認事項" class="mb-3 bottom-border-text font-bold" />
                 @if ($errors->any())

@@ -6,8 +6,7 @@
     </x-slot>
 
     <div class="pt-[1.5rem] pb-[3rem]">
-        <div class="bg-white overflow-hidden shadow-sm">
-
+        <div class="bg-white overflow-hidden">
                 <div class="attention-not-done-wrapper">
                     <div id="error-message" class="attention-not-done">
                         <span>まだ手続きは完了しておりません。</span><br>
