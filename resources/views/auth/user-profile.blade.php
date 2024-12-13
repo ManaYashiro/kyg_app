@@ -19,10 +19,13 @@
     <x-input-error :messages="$errors->get('loginid')" class="mt-2" />
 </div>
 
+@php
+    $requiredPassword = \App\Enums\FormTypeEnum::ADMIN_UPDATE->value !== $formType;
+@endphp
 <!-- Password -->
 <div id="container-password" class="mt-4">
-    <x-text.custom-input-label text="パスワード" class="mb-2" option="必須" />
-    <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required />
+    <x-text.custom-input-label text="パスワード" class="mb-2" :option="$requiredPassword ? '必須' : '任意'" />
+    <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" :required="$requiredPassword" />
     <x-text.custom-input-label text="※半角英数字 4～20文字で入力してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
     <x-ajax-input-error id="error-password" class="mt-2" />
     <x-input-error :messages="$errors->get('password')" class="mt-2" />
@@ -31,7 +34,7 @@
 <!-- Confirm Password -->
 <div id="container-password_confirmation" class="mt-4">
     <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation"
-        required />
+        :required="$requiredPassword" />
     <x-text.custom-input-label text="※確認のためにもう一度パスワードを入力してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
     <x-ajax-input-error id="error-password_confirmation" class="mt-2" />
     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
@@ -179,13 +182,22 @@
 
 <div class="divide-y divide-red-400">
     <div class="mt-4">
-        @include('auth.car-profile', ['no' => 1, 'userVehicles' => $user ? $user->userVehicles[0] : null])
+        @include('auth.car-profile', [
+            'no' => 1,
+            'userVehicles' => $user && count($user->userVehicles) > 0 ? $user->userVehicles[0] : null,
+        ])
     </div>
     <div class="mt-4">
-        @include('auth.car-profile', ['no' => 2, 'userVehicles' => $user ? $user->userVehicles[0] : null])
+        @include('auth.car-profile', [
+            'no' => 2,
+            'userVehicles' => $user && count($user->userVehicles) > 0 ? $user->userVehicles[0] : null,
+        ])
     </div>
     <div class="mt-4">
-        @include('auth.car-profile', ['no' => 3, 'userVehicles' => $user ? $user->userVehicles[0] : null])
+        @include('auth.car-profile', [
+            'no' => 3,
+            'userVehicles' => $user && count($user->userVehicles) > 0 ? $user->userVehicles[0] : null,
+        ])
     </div>
 </div>
 
@@ -213,7 +225,10 @@
     @foreach ($questionnaire as $anket)
         <div class="mt-4 flex items-center gap-3 mb-3">
             <x-text-input id="anket-{{ $anket->id }}" type="checkbox" name="questionnaire[]" :value="$anket->id"
-                :checked="in_array($anket->id, old('questionnaire') ?? $user ? $user->questionnaire : [])" />
+                :checked="in_array(
+                    $anket->id,
+                    old('questionnaire') ?? $user && $user->questionnaire ? $user->questionnaire : [],
+                )" />
             <x-input-label for="anket-{{ $anket->id }}" :value="$anket->name" />
         </div>
     @endforeach

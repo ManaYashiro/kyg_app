@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
+
+    protected static $title = "会員";
     /**
      * Display the user list with optional role filtering.
      *
@@ -117,18 +119,26 @@ class UserController extends Controller
      */
     public function update(RegisteredUserRequest $request, $userList): RedirectResponse
     {
+        $rerunSave = false;
+
         // リクエストからユーザー情報を更新
         $user = User::where('id', $request->route('userList'))->first();
 
-        // パスワード以外のフィールドを更新
-        $user->update($request->except('password'));
+        // パスワードを上書きする
+        if ($request->has('password') && !empty($request->password)) {
+            $user->password = bcrypt($request->password);
+            $rerunSave = true;
+        }
 
         // メールアドレスが変更された場合は、メールの確認日をリセット
         if ($user->isDirty('email')) {
             $user->email_verified_at = null;
+            $rerunSave = true;
+        }
 
-            // ユーザー情報を保存
-            // $user->save();
+        // ユーザー情報を保存
+        if ($rerunSave) {
+            $user->save();
         }
 
 
@@ -147,10 +157,16 @@ class UserController extends Controller
         $user->delete();
 
         // 成功メッセージを表示してリストにリダイレクト
-        return redirect()->route('admin.userList.index')->with('success', 'ユーザーを削除しました。');
+        // return redirect()->route('admin.userList.index')->with('success', 'ユーザーを削除しました。');
+
+        return response()->json([
+            'success' => true,
+            'message' => self::$title . 'を削除しました！',
+            'redirectUrl' => route('admin.userList.index'),
+        ], 200);
     }
 
-    public function delete(Request $request)
+    public function deleteUsers(Request $request)
     {
         $userIds = $request->input('ids');
 
