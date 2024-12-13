@@ -49,17 +49,17 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/mypage', function () {
             return view('mypage');
         })->name('mypage');
+
+        Route::resource('appointmentList', AppointmentListController::class);
+
+        Route::get('/appointment-confirmation', function () {
+            return view('appointmentConfirmation');
+        })->name('appointment.confirmation');
+
+        Route::get('/account-termination-request', function () {
+            return view('accountTerminationRequest');
+        })->name('account.termination');
     });
-
-    Route::resource('appointmentList', AppointmentListController::class);
-
-    Route::get('/appointment-confirmation', function () {
-        return view('appointmentConfirmation');
-    })->name('appointment.confirmation');
-
-    Route::get('/account-termination-request', function () {
-        return view('accountTerminationRequest');
-    })->name('account.termination');
 
     Route::get('/reservation/entry', [ConfirmationItemController::class, 'index'])->name('confirmationItems.index'); //確認事項
     Route::post('/reservation/confirmation', [ConfirmationItemController::class, 'confirm'])->name('appointments.confirm'); //最終内容確認

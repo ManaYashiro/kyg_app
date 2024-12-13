@@ -16,7 +16,7 @@
     <main class="mt-4">
         <div class="bg-white overflow-hidden">
             <div class="bg-white overflow-hidden sm:rounded-lg">
-                <div class="p-6 text-gray-900">
+                <div class="h-full overflow-y-auto p-6 text-gray-900">
                     <div>
                         キムラユニティーグループのWEB予約ページへようこそ。
                     </div>
@@ -170,7 +170,7 @@
     </main>
 
     @section('styles')
-        @vite(['resources/css/calender.css'])
+        @vite(['resources/css/modules/calender.css'])
     @endsection
     @push('scripts')
         @vite(['resources/js/modules/calender.js'])

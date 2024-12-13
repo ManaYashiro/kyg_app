@@ -179,13 +179,22 @@
 
 <div class="divide-y divide-red-400">
     <div class="mt-4">
-        @include('auth.car-profile', ['no' => 1, 'userVehicles' => $user ? $user->userVehicles[0] : null])
+        @include('auth.car-profile', [
+            'no' => 1,
+            'userVehicles' => $user && count($user->userVehicles) > 0 ? $user->userVehicles[0] : null,
+        ])
     </div>
     <div class="mt-4">
-        @include('auth.car-profile', ['no' => 2, 'userVehicles' => $user ? $user->userVehicles[0] : null])
+        @include('auth.car-profile', [
+            'no' => 2,
+            'userVehicles' => $user && count($user->userVehicles) > 0 ? $user->userVehicles[0] : null,
+        ])
     </div>
     <div class="mt-4">
-        @include('auth.car-profile', ['no' => 3, 'userVehicles' => $user ? $user->userVehicles[0] : null])
+        @include('auth.car-profile', [
+            'no' => 3,
+            'userVehicles' => $user && count($user->userVehicles) > 0 ? $user->userVehicles[0] : null,
+        ])
     </div>
 </div>
 
@@ -213,7 +222,10 @@
     @foreach ($questionnaire as $anket)
         <div class="mt-4 flex items-center gap-3 mb-3">
             <x-text-input id="anket-{{ $anket->id }}" type="checkbox" name="questionnaire[]" :value="$anket->id"
-                :checked="in_array($anket->id, old('questionnaire') ?? $user ? $user->questionnaire : [])" />
+                :checked="in_array(
+                    $anket->id,
+                    old('questionnaire') ?? $user && $user->questionnaire ? $user->questionnaire : [],
+                )" />
             <x-input-label for="anket-{{ $anket->id }}" :value="$anket->name" />
         </div>
     @endforeach

@@ -11,6 +11,8 @@ export default defineConfig({
                 "resources/js/app.js",
 
                 // custom
+                "resources/css/modules/calender.css",
+
                 "resources/js/modules/ajaxConfirm.js",
                 "resources/js/modules/base.js",
                 "resources/js/modules/datepicker.js",
@@ -19,7 +21,6 @@ export default defineConfig({
                 "resources/js/modules/dashboard.js",
                 // auth
                 "resources/css/modules/auth/mypage.css",
-
                 "resources/js/modules/auth/register.js",
 
                 // images

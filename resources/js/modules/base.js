@@ -1,4 +1,4 @@
-function navi() {
+window.navi = function () {
     function getThemeFromLocalStorage() {
         // if user already changed the theme, use it
         if (window.localStorage.getItem("dark")) {
@@ -69,7 +69,7 @@ function navi() {
             this.trapCleanup();
         },
     };
-}
+};
 $(document).ready(function () {
     $(window).scroll(function () {
         doScroll();
