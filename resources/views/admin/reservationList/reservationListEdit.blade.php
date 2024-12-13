@@ -7,7 +7,7 @@
 
     <div class="py-12">
         <div class="mx-auto" style="max-width: 90rem;">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="bg-white overflow-hidden shadow-sm border border-gray-800 border-r-0 border-b-0">
                 <div class="p-6 text-gray-900">
                     <div class="overflow-x-auto mt-4">
                         <div class="container mx-auto p-4">
