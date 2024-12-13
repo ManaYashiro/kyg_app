@@ -14,18 +14,11 @@
             <div class="flex-1 my-3 mx-1 md:m-3 px-2 md:px-5">
                 <x-text.custom-text text="予約状況・履歴" class="mb-2 bg-gray-text" />
                 <div class="flex gap-2 justify-center items-center">
-                    <a href="{{ route('appointment.confirmation') }}" class="button-container">
-                        <div
-                            class="flex flex-col justify-center items-center gap-2 border border-gray-400 hover:bg-gray-100 transition-colors duration-500 rounded-sm py-4 px-1">
-                            <i class="fa-regular fa-calendar text-red-700 text-3xl"></i>
-                            <span class="text-gray-600 text-sm md:text-base">予約の確認</span>
-                        </div>
-                    </a>
                     <a href="{{ route('appointmentList.index') }}" class="button-container">
                         <div
                             class="flex flex-col justify-center items-center gap-2 border border-gray-400 hover:bg-gray-100 transition-colors duration-500 rounded-sm py-4 px-1">
-                            <i class="fa-solid fa-user-clock text-red-700 text-3xl"></i>
-                            <span class="text-gray-600 text-sm md:text-base">予約の履歴</span>
+                            <i class="fa-regular fa-calendar text-red-700 text-3xl"></i>
+                            <span class="text-gray-600 text-sm md:text-base">予約一覧</span>
                         </div>
                     </a>
                 </div>
@@ -38,13 +31,6 @@
                             class="flex flex-col justify-center items-center gap-2 border border-gray-400 hover:bg-gray-100 transition-colors duration-500 rounded-sm py-4 px-1">
                             <i class="fa-regular fa-circle-user text-red-700 text-3xl"></i>
                             <span class="text-gray-600 text-sm md:text-base">登録情報の変更</span>
-                        </div>
-                    </a>
-                    <a href="{{ route('account.termination') }}" class="button-container">
-                        <div
-                            class="flex flex-col justify-center items-center gap-2 border border-gray-400 hover:bg-gray-100 transition-colors duration-500 rounded-sm py-4 px-1">
-                            <i class="fa-solid fa-arrow-right-from-bracket text-red-700 text-3xl"></i>
-                            <span class="text-gray-600 text-sm md:text-base">退会申請</span>
                         </div>
                     </a>
                 </div>
