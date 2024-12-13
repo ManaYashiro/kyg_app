@@ -40,6 +40,8 @@ Route::middleware('auth', 'verified')->group(function () {
 
         Route::resource('reservationList', ReservationListController::class);
         Route::resource('userList', UserController::class);
+        // multiple delete users
+        Route::post('userList/deleteUsers', [UserController::class, 'deleteUsers'])->name('userList.deleteUsers');
         Route::resource('stores', StoreController::class);
         Route::resource('ankets', AnketController::class);
         Route::resource('notificationSetting', NotificationController::class);

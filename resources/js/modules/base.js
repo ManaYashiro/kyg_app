@@ -110,7 +110,7 @@ $(document).ready(function () {
     $(".delete--model").on("click", function (e) {
         e.preventDefault();
 
-        var deleteModel = $(this).closest(".form-delete--model");
+        var deleteModel = $("#form-delete--model");
         let modelTitle = deleteModel.data("title");
 
         Swal.fire({

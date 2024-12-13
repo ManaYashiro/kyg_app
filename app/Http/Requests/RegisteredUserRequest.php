@@ -29,15 +29,28 @@ class RegisteredUserRequest extends FormRequest
     public function rules(): array
     {
         $id = null;
+        $passwordRules = [];
         switch ($this->form_type) {
             case FormTypeEnum::USER_REGISTER->value:
                 $id = null;
+                $passwordRules = [
+                    'password' => 'required|string|min:4|max:20|confirmed',
+                    'password_confirmation' => 'required|string|min:4|max:20',
+                ];
                 break;
             case FormTypeEnum::USER_UPDATE->value:
                 $id = Auth::user()->id;
+                $passwordRules = [
+                    'password' => 'required|string|min:4|max:20|confirmed',
+                    'password_confirmation' => 'required|string|min:4|max:20',
+                ];
                 break;
             case FormTypeEnum::ADMIN_UPDATE->value:
                 $id = $this->route('userList');
+                $passwordRules = [
+                    'password' => 'nullable|string|min:4|max:20|confirmed',
+                    'password_confirmation' => 'nullable|string|min:4|max:20',
+                ];
                 break;
 
             default:
@@ -53,8 +66,9 @@ class RegisteredUserRequest extends FormRequest
                     'name' => 'required|string',
                     'name_furigana' => 'required|string',
                     'email' => 'required|email|unique:users,email,' . $id,
-                    'password' => 'required|string|min:4|max:20|confirmed',
-                    'password_confirmation' => 'required|string|min:4|max:20',
+                ],
+                $passwordRules,
+                [
                     'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),
                     'birthday' => 'required|date',
                     'phone_number' => 'required|string|min:10',

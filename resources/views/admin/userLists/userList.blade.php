@@ -156,7 +156,7 @@
 
             <!-- テーブル -->
             <table class="min-w-full table-auto border-collapse" style="border: 1px solid #ccc;">
-                <thead class="bg-gray-200 sticky top-0 z-10">
+                <thead class="bg-gray-200 top-0 z-10">
                     <tr>
                         <th class="px-4 py-2 text-left" style="width: 5%;">
                             <input type="checkbox" id="select-all" class="select-all-checkbox">

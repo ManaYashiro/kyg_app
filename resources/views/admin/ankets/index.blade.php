@@ -53,10 +53,10 @@
                                         </button>
                                     </a>
                                     <form action="{{ route('admin.ankets.destroy', $anket->id) }}"
-                                        class="form-delete--model" method="POST" data-title="アンケート">
+                                        id="form-delete--model" method="POST" data-title="アンケート">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit"
+                                        <button type="button"
                                             class="delete--model bg-red-500 hover:bg-red-700 text-white font-bold py-2 text-xs px-4 rounded">
                                             <i class="fa-regular fa-trash-can"></i>
                                         </button>
