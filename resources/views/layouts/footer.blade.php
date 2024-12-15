@@ -1,4 +1,4 @@
-<div class="min-h-fit bg-red-600 text-white  mt-12 p-5">
+<div class="min-h-fit bg-red-600 text-white p-5">
     <div class="flex justify-between items-end text-[10px] leading-[18px] text-sm">
         <div class="flex flex-col font-bold">
             <div class="w-[150px]">

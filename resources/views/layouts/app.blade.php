@@ -48,7 +48,7 @@
     @yield('styles')
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/css/hamburger.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js'])
+    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/css/hamburger.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js', 'resources/css/top.css'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 </head>
 
@@ -58,7 +58,7 @@
 
         <!-- Page Content -->
         <div class="min-h-full h-full w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 relative">
-            <div class="w-full mt-6 mx-auto px-4 pt-2 pb-8 bg-white shadow-md">
+            <div class="w-full mt-6 mx-auto px-4 pt-2 pb-8 bg-white shadow-md ">
                 {{ $slot }}
             </div>
         </div>
