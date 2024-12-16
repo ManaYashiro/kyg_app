@@ -37,7 +37,7 @@ class ProfileController extends Controller
     public function update(RegisteredUserRequest $request): JsonResponse|RedirectResponse
     {
         $data = $request->validated();
-        if ($data['submit_type'] === 'confirm') {
+        if ($data['submit_type'] === SubmitTypeEnum::CONFIRM) {
             return response()->json([
                 'success' => true,
                 'message' => 'confirm OK'

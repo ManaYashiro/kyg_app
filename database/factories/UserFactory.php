@@ -97,7 +97,7 @@ class UserFactory extends Factory
             return [
                 'role' => User::USER,
                 'call_time' => CallTimeEnum::A_09_12,
-                'questionnaire' => $this->fakeAnket(),
+                'questionnaire' => [1, 2, 3],
                 'is_receive_newsletter' => IsNewsletterEnum::No,
                 'is_receive_notification' => IsNotificationEnum::No,
             ];
@@ -116,9 +116,9 @@ class UserFactory extends Factory
             return [
                 'role' => User::USER,
                 'call_time' => fake()->randomElement($call_time),
+                'questionnaire' => $this->fakeAnket(),
                 'is_receive_newsletter' => fake()->randomElement([IsNewsletterEnum::No, IsNewsletterEnum::Yes]),
                 'is_receive_notification' => fake()->randomElement([IsNotificationEnum::No, IsNotificationEnum::Yes]),
-                'questionnaire' => $this->fakeAnket(),
             ];
         });
     }

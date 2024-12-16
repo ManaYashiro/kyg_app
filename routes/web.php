@@ -39,9 +39,10 @@ Route::middleware('auth', 'verified')->group(function () {
         })->name('dashboard');
 
         Route::resource('reservationList', ReservationListController::class);
-        Route::resource('userList', UserController::class);
+        Route::resource('userList', UserController::class)->except(['show']);
         // multiple delete users
-        Route::post('userList/deleteUsers', [UserController::class, 'deleteUsers'])->name('userList.deleteUsers');
+        Route::post('userList/delete-users', [UserController::class, 'deleteUsers'])->name('userList.deleteUsers');
+        Route::get('userList/download-users-as-csv', [UserController::class, 'downloadUsersAsCSV'])->name('userList.downloadUsersAsCSV');
         Route::resource('stores', StoreController::class);
         Route::resource('ankets', AnketController::class);
         Route::resource('notificationSetting', NotificationController::class);

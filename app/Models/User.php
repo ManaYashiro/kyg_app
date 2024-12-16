@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CallTimeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
@@ -79,6 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
             'questionnaire' => 'array',
             'gender' => GenderEnum::class,
+            'call_time' => CallTimeEnum::class,
             'prefecture' => PrefectureEnum::class,
             'is_receive_newsletter' => IsNewsletterEnum::class,
             'is_receive_notification' => IsNotificationEnum::class,
