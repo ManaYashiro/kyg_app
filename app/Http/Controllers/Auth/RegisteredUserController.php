@@ -13,6 +13,7 @@ use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 
@@ -38,7 +39,7 @@ class RegisteredUserController extends Controller
     public function store(RegisteredUserRequest $request): JsonResponse|RedirectResponse
     {
         $data = $request->validated();
-        if ($data['submit_type'] === 'confirm') {
+        if ($data['submit_type'] === SubmitTypeEnum::CONFIRM) {
             return response()->json([
                 'success' => true,
                 'message' => 'confirm OK'
@@ -48,7 +49,7 @@ class RegisteredUserController extends Controller
 
         // 電話番号が設定されていれば、ハイフンを追加またはそのままにする
         if (isset($data['phone_number'])) {
-            $data['phone_number'] = $this->formatPhoneNumber($data['phone_number']);
+            $data['phone_number'] = $this::formatPhoneNumber($data['phone_number']);
         }
 
         // パスワードをハッシュ化する
@@ -67,13 +68,19 @@ class RegisteredUserController extends Controller
         // ユーザーをログインさせる
         // Auth::login($user);
 
+        // 管理者がユーザーを登録
+        if (Auth::user()->role === User::ADMIN) {
+            return redirect()->route('admin.userList.index')->with('success', 'ユーザーを作成しました');
+        }
+
         //未ローグインで確認メール送信して、トップ画面にリダイレクトします。
         $message = 'ご登録いただき、ありがとうございます。<br />お送りした確認用URLをメールからご確認の上、クリックしてください。';
         return redirect(route('top', absolute: false))->with('verify-email', $message);
     }
 
-    protected function formatPhoneNumber($phoneNumber)
+    public static function formatPhoneNumber($phoneNumber)
     {
+        return $phoneNumber;
         // ハイフンがすでに含まれている場合、そのまま返す
         if (strpos($phoneNumber, '-') !== false) {
             return $phoneNumber;
