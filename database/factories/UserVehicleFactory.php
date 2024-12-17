@@ -30,21 +30,21 @@ class UserVehicleFactory extends Factory
     public function smallCar(): array
     {
         $car1 = array(
-            'car1_name' => 'Toyota',
-            'car1_katashiki' => 'Yaris'
+            'car_name' => 'Toyota',
+            'car_katashiki' => 'Yaris'
         );
         $car2 = array(
-            'car1_name' => 'Toyota',
-            'car1_katashiki' => 'Aygo'
+            'car_name' => 'Toyota',
+            'car_katashiki' => 'Aygo'
         );
         $car3 = array(
-            'car1_name' => 'Toyota',
-            'car1_katashiki' => 'Corolla'
+            'car_name' => 'Toyota',
+            'car_katashiki' => 'Corolla'
         );
 
         $car = array_merge(fake()->randomElement([$car1, $car2, $car3]), [
-            'car1_number' => $this->randomCarNumber(),
-            'car1_class' => 1,
+            'car_number' => $this->randomCarNumber(),
+            'car_class' => 1,
         ]);
         return $car;
     }
@@ -52,21 +52,21 @@ class UserVehicleFactory extends Factory
     public function mediumCar(): array
     {
         $car1 = array(
-            'car1_name' => 'Ford',
-            'car1_katashiki' => 'Mustang GT'
+            'car_name' => 'Ford',
+            'car_katashiki' => 'Mustang GT'
         );
         $car2 = array(
-            'car1_name' => 'Ford',
-            'car1_katashiki' => 'Expedition'
+            'car_name' => 'Ford',
+            'car_katashiki' => 'Expedition'
         );
         $car3 = array(
-            'car1_name' => 'Ford',
-            'car1_katashiki' => 'Super Duty F-250'
+            'car_name' => 'Ford',
+            'car_katashiki' => 'Super Duty F-250'
         );
 
         $car = array_merge(fake()->randomElement([$car1, $car2, $car3]), [
-            'car1_number' => $this->randomCarNumber(),
-            'car1_class' => 2,
+            'car_number' => $this->randomCarNumber(),
+            'car_class' => 2,
         ]);
         return $car;
     }
@@ -75,21 +75,21 @@ class UserVehicleFactory extends Factory
     {
 
         $car1 = array(
-            'car1_name' => 'Isuzu',
-            'car1_katashiki' => 'MU-X'
+            'car_name' => 'Isuzu',
+            'car_katashiki' => 'MU-X'
         );
         $car2 = array(
-            'car1_name' => 'Isuzu',
-            'car1_katashiki' => 'Trooper'
+            'car_name' => 'Isuzu',
+            'car_katashiki' => 'Trooper'
         );
         $car3 = array(
-            'car1_name' => 'Isuzu',
-            'car1_katashiki' => 'D-Max'
+            'car_name' => 'Isuzu',
+            'car_katashiki' => 'D-Max'
         );
 
         $car = array_merge(fake()->randomElement([$car1, $car2, $car3]), [
-            'car1_number' => $this->randomCarNumber(),
-            'car1_class' => 5,
+            'car_number' => $this->randomCarNumber(),
+            'car_class' => 5,
         ]);
         return $car;
     }

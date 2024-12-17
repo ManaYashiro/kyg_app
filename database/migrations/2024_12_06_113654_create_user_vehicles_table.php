@@ -15,18 +15,10 @@ return new class extends Migration
         Schema::create('user_vehicles', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(User::class);
-            $table->string('car1_name', 20)->nullable(false);
-            $table->string('car1_katashiki', 20)->nullable();
-            $table->string('car1_number', 20)->nullable(false);
-            $table->string('car1_class', 30)->nullable();
-            $table->string('car2_name', 20)->nullable();
-            $table->string('car2_katashiki', 20)->nullable();
-            $table->string('car2_number', 20)->nullable();
-            $table->string('car2_class', 30)->nullable();
-            $table->string('car3_name', 20)->nullable();
-            $table->string('car3_katashiki', 20)->nullable();
-            $table->string('car3_number', 20)->nullable();
-            $table->string('car3_class', 30)->nullable();
+            $table->string('car_name', 20)->nullable(false);
+            $table->string('car_katashiki', 20)->nullable();
+            $table->string('car_number', 20)->nullable(false);
+            $table->string('car_class', 30)->nullable();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate();
             $table->dateTime('deleted_at')->nullable();

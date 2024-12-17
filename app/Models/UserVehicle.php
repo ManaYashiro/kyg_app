@@ -17,18 +17,10 @@ class UserVehicle extends Model
      */
     protected $fillable = [
         'user_id',
-        'car1_name',
-        'car1_katashiki',
-        'car1_number',
-        'car1_class',
-        'car2_name',
-        'car2_katashiki',
-        'car2_number',
-        'car2_class',
-        'car3_name',
-        'car3_katashiki',
-        'car3_number',
-        'car3_class',
+        'car_name',
+        'car_katashiki',
+        'car_number',
+        'car_class',
     ];
 
     public function user()
