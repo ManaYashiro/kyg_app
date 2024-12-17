@@ -9,11 +9,11 @@
 @endphp
 
 <button type="button" class="max-w-[100px]  bg-red-300 hover:bg-red-400 text-white text-sm font-normal p-2 rounded"
-    @click="car{{ $no }} = !car{{ $no }}"
-    x-text="car{{ $no }} === true ? '{{ $open }}' : '{{ $close }}'"></button>
-<div class="relative overflow-hidden duration-700" x-ref="containerCar{{ $no }}"
-    x-bind:class="{ 'max-h-0': !car{{ $no }} }"
-    x-bind:style="car{{ $no }} == true ? 'max-height: ' + height + 'px' : ''" x-cloak
+    @click="car_{{ $no }} = !car_{{ $no }}"
+    x-text="car_{{ $no }} === true ? '{{ $open }}' : '{{ $close }}'"></button>
+<div class="relative overflow-hidden duration-700" x-ref="containerCar_{{ $no }}"
+    x-bind:class="{ 'max-h-0': !car_{{ $no }} }"
+    x-bind:style="car_{{ $no }} == true ? 'max-height: ' + height + 'px' : ''" x-cloak
     x-transition:enter="transition-all ease-in duration-300" x-transition:enter-start="opacity-0 max-h-0"
     x-transition:enter-end="opacity-100 max-h-screen" x-transition:leave="transition-all ease-out duration-300"
     x-transition:leave-start="opacity-100 max-h-screen" x-transition:leave-end="opacity-0 max-h-0">
