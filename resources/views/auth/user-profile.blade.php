@@ -202,19 +202,19 @@
 </div>
 
 <div class="divide-y divide-red-400">
-    <div class="mt-4">
+    <div class="pt-4 flex flex-col" x-data="{ car1: true, height: 0 }" x-init="$nextTick(() => height = $refs.containerCar1.scrollHeight)">
         @include('auth.car-profile', [
             'no' => 1,
             'userVehicles' => $user && count($user->userVehicles) > 0 ? $user->userVehicles[0] : null,
         ])
     </div>
-    <div class="mt-4">
+    <div class="mt-4 pt-4 flex flex-col" x-data="{ car2: false, height: 0 }" x-init="$nextTick(() => height = $refs.containerCar2.scrollHeight)">
         @include('auth.car-profile', [
             'no' => 2,
             'userVehicles' => $user && count($user->userVehicles) > 0 ? $user->userVehicles[0] : null,
         ])
     </div>
-    <div class="mt-4">
+    <div class="mt-4 pt-4 flex flex-col" x-data="{ car3: false, height: 0 }" x-init="$nextTick(() => height = $refs.containerCar3.scrollHeight)">
         @include('auth.car-profile', [
             'no' => 3,
             'userVehicles' => $user && count($user->userVehicles) > 0 ? $user->userVehicles[0] : null,
