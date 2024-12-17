@@ -82,10 +82,10 @@ class RegisteredUserRequest extends FormRequest
                 [
                     'is_receive_newsletter' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, IsNewsletterEnum::cases())),
                     'questionnaire' => 'required|array|min:1|max:3',
-                    'manager' => 'nullable|string',
-                    'department' => 'nullable|string',
+                    'manager' => 'nullable|string|max:128',
+                    'department' => 'nullable|string|max:128',
                     'is_receive_notification' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, IsNotificationEnum::cases())),
-                    'remarks' => 'nullable|string',
+                    'remarks' => 'nullable|string|max:128',
                     'form_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, FormTypeEnum::cases())),
                     'submit_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, SubmitTypeEnum::cases())),
                 ]

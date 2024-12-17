@@ -85,6 +85,9 @@ class UserController extends Controller
 
         // リクエストからユーザー情報を更新
         $user = User::where('id', $request->route('userList'))->first();
+        $originalEmail = $user->email;
+
+        $user->update($request->except('password'));
 
         // パスワードを上書きする
         if ($request->has('password') && !empty($request->password)) {
@@ -93,7 +96,7 @@ class UserController extends Controller
         }
 
         // メールアドレスが変更された場合は、メールの確認日をリセット
-        if ($user->isDirty('email')) {
+        if ($user->email !== $originalEmail) {
             $user->email_verified_at = null;
             $rerunSave = true;
         }
@@ -102,7 +105,6 @@ class UserController extends Controller
         if ($rerunSave) {
             $user->save();
         }
-
 
         return Redirect::route('admin.userList.index')->with('success', 'ユーザーを更新しました');
     }
