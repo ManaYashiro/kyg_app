@@ -27,4 +27,9 @@ class Appointments extends Model
         'past_service_history',
         'message',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
