@@ -35,4 +35,9 @@ class UserVehicle extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function appointments()
+    {
+        return $this->hasOne(Appointments::class);
+    }
 }
