@@ -22,7 +22,7 @@
                     ])
                 </div>
 
-                <div class="mb-4 flex justify-end">
+                <div class="mt-4 flex justify-end">
                     <!-- 更新ボタン -->
                     <x-primary-button class="ms-3">更新</x-primary-button>
 

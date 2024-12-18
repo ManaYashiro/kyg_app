@@ -4,16 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Enums\FormTypeEnum;
 use App\Enums\SubmitTypeEnum;
+use App\Helpers\Log;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Requests\RegisteredUserRequest;
 use App\Http\Requests\UserVehicleRequest;
 use App\Models\Anket;
 use App\Models\User;
-use Illuminate\Auth\Events\Registered;
+use App\Models\UserVehicle;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 
@@ -85,6 +85,33 @@ class UserController extends Controller
 
         // リクエストからユーザー情報を更新
         $user = User::where('id', $request->route('userList'))->first();
+        $originalEmail = $user->email;
+
+        $user->update($request->except('password'));
+
+        // 会員登録と別に作成する
+        $userVehicles = $request->validate((new UserVehicleRequest())->rules());
+        for ($i = 0; $i < UserVehicle::MAX_NO_OF_CARS; $i++) {
+            // 車名とナンバーはすでに検証されています
+            // 空の場合は、DB 挿入エラーを防ぐためにシーケンスをスキップするだけです
+            if (empty($userVehicles['car_name'][$i]) || empty($userVehicles['car_number'][$i])) {
+                continue;
+            }
+            $car_attributes["car_name.$i"] = "車名(" . ($i + 1) . "台目)";
+            $car_data = [
+                'sequence_no' => $userVehicles['sequence_no'][$i] ?? null,
+                'car_name' => $userVehicles['car_name'][$i] ?? null,
+                'car_katashiki' => $userVehicles['car_katashiki'][$i] ?? null,
+                'car_number' => $userVehicles['car_number'][$i] ?? null,
+
+                'car_class' => $userVehicles["car_class" . ($i + 1)] ?? null,
+            ];
+            if ($car_data['sequence_no']) {
+                $user->userVehicles()->where('user_id', 3)->where('sequence_no', $car_data['sequence_no'])->update($car_data);
+            } else {
+                $user->userVehicles()->create($car_data);
+            }
+        }
 
         // パスワードを上書きする
         if ($request->has('password') && !empty($request->password)) {
@@ -93,7 +120,7 @@ class UserController extends Controller
         }
 
         // メールアドレスが変更された場合は、メールの確認日をリセット
-        if ($user->isDirty('email')) {
+        if ($user->email !== $originalEmail) {
             $user->email_verified_at = null;
             $rerunSave = true;
         }
@@ -102,7 +129,6 @@ class UserController extends Controller
         if ($rerunSave) {
             $user->save();
         }
-
 
         return Redirect::route('admin.userList.index')->with('success', 'ユーザーを更新しました');
     }

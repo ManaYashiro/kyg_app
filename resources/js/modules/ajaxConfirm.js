@@ -29,7 +29,9 @@ window.ajaxConfirm = function (
             if (xhr.status === 422) {
                 const errors = xhr.responseJSON.errors;
                 Object.keys(errors).forEach((key, index) => {
-                    const $err = $("#error-" + key);
+                    // fix keys for array, change `.` to `_`
+                    const errKey = key.replace(/\./g, "_");
+                    const $err = $("#error-" + errKey);
                     $err.removeClass("hidden");
                     if (index === 0) {
                         $("html, body").animate(

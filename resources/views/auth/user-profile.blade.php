@@ -15,7 +15,7 @@
 <!-- Login ID -->
 <div id="container-loginid" class="mt-4">
     <x-text.custom-input-label text="ログインID" class="mb-2" option="必須" />
-    <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid') ?? $user ? $user->loginid : null" required
+    <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid') ?? ($user ? $user->loginid : null)" required
         autofocus />
     @if ($formType !== \App\Enums\FormTypeEnum::ADMIN_UPDATE->value)
         <x-text.custom-input-label text="※半角英数字 4文字以上で入力してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
@@ -54,7 +54,7 @@
 <!-- Name -->
 <div id="container-name" class="mt-4">
     <x-text.custom-input-label text="顧客名" class="mb-2" option="必須" />
-    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name') ?? $user ? $user->name : null" required />
+    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name') ?? ($user ? $user->name : null)" required />
     <x-ajax-input-error id="error-name" class="mt-2" />
     <x-input-error :messages="$errors->get('name')" class="mt-2" />
 </div>
@@ -62,7 +62,7 @@
 <!-- Name Furigana -->
 <div id="container-name_furigana" class="mt-4">
     <x-text.custom-input-label text="フリガナ" class="mb-2" option="必須" />
-    <x-text-input id="name_furigana" class="block mt-1 w-full" type="text" name="name_furigana" :value="old('name_furigana') ?? $user ? $user->name_furigana : null"
+    <x-text-input id="name_furigana" class="block mt-1 w-full" type="text" name="name_furigana" :value="old('name_furigana') ?? ($user ? $user->name_furigana : null)"
         required />
     <x-ajax-input-error id="error-name_furigana" class="mt-2" />
     <x-input-error :messages="$errors->get('name_furigana')" class="mt-2" />
@@ -71,7 +71,7 @@
 <!-- Birthday -->
 <div id="container-birthday" class="mt-4">
     <x-text.custom-input-label text="生年月日" class="mb-2" option="必須" />
-    <x-text-input id="birthday" type="text" name="birthday" :value="old('birthday') ?? $user ? $user->birthday : null"
+    <x-text-input id="birthday" type="text" name="birthday" :value="old('birthday') ?? ($user ? $user->birthday : null)"
         class="datepicker block mt-1 w-full md:w-1/4" required />
     <x-ajax-input-error id="error-birthday" class="mt-2" />
     <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
@@ -85,9 +85,9 @@
         @foreach (\App\Enums\GenderEnum::cases() as $gender)
             <div class="my-1 flex items-center gap-3">
                 <x-text-input id="gender-{{ $gender->value }}" type="radio" name="gender" :value="$gender->value"
-                    :checked="(old('gender') ?? $user && isset($user->gender) ? $user->gender->value : null) ===
+                    :checked="(old('gender') ?? ($user && isset($user->gender) ? $user->gender->value : null)) ==
                         $gender->value" />
-                <x-input-label for="gender" :value="__($gender->getLabel())" />
+                <x-input-label for="gender-{{ $gender->value }}" :value="__($gender->getLabel())" />
             </div>
         @endforeach
     </div>
@@ -98,7 +98,7 @@
 <!-- Email Address -->
 <div id="container-email" class="mt-4">
     <x-text.custom-input-label text="メールアドレス" class="mb-2" option="必須" />
-    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email') ?? $user ? $user->email : null"
+    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email') ?? ($user ? $user->email : null)"
         required />
     @if ($formType !== \App\Enums\FormTypeEnum::ADMIN_UPDATE->value)
         <x-text.custom-input-label text="PCまたは携帯のアドレスをご入力ください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
@@ -112,7 +112,7 @@
 <!-- Phone Number -->
 <div id="container-phone_number" class="mt-4">
     <x-text.custom-input-label text="電話番号" class="mb-2" option="必須" />
-    <x-text-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number') ?? $user ? $user->phone_number : null"
+    <x-text-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number') ?? ($user ? $user->phone_number : null)"
         required />
     @if ($formType !== \App\Enums\FormTypeEnum::ADMIN_UPDATE->value)
         <x-text.custom-input-label text="※- （ハイフン）なしで記入　11桁以内" spanClass="font-normal text-xs text-gray-500 mt-1" />
@@ -128,7 +128,7 @@
     @foreach (\App\Enums\CallTimeEnum::cases() as $callTime)
         <div class="mt-4 flex items-center gap-3 mb-3">
             <x-text-input id="contact-time-{{ $callTime->value }}" type="radio" name="call_time" :value="$callTime->value"
-                :checked="(old('call_time') ?? $user && isset($user->call_time) ? $user->call_time->value : null) ===
+                :checked="(old('call_time') ?? ($user && isset($user->call_time) ? $user->call_time->value : null)) ===
                     $callTime->value" />
             <x-input-label for="contact-time-{{ $callTime->value }}" :value="__($callTime->getLabel())" />
         </div>
@@ -146,7 +146,7 @@
 <div id="container-zipcode" class="mt-4">
     <x-text.custom-input-label text="郵便番号" class="mb-2" option="必須" />
     <div class="flex items-center space-x-2">
-        <x-text-input id="zipcode" class="block mt-1 flex-1" type="text" name="zipcode" :value="old('zipcode') ?? $user ? $user->zipcode : null"
+        <x-text-input id="zipcode" class="block mt-1 flex-1" type="text" name="zipcode" :value="old('zipcode') ?? ($user ? $user->zipcode : null)"
             required />
 
         <!-- 検索ボタン -->
@@ -164,7 +164,7 @@
 
 <!-- Prefecture -->
 @php
-    $selected = old('prefecture') ?? ($user && isset($user->prefecture) ? $user->prefecture : null);
+    $selected = old('prefecture') ?? ($user && isset($user->prefecture) ? $user->prefecture->value : null);
 @endphp
 <div id="container-prefecture" class="mt-4">
     <x-text.custom-input-label text="都道府県" class="mb-2" option="必須" />
@@ -173,7 +173,8 @@
         @foreach (\App\Enums\PrefectureEnum::getRegions() as $region => $prefectures)
             <optgroup label="{{ $region }}">
                 @foreach ($prefectures as $prefecture)
-                    <option {{ $selected == $prefecture ? 'selected="selected"' : '' }} value="{{ $prefecture }}">
+                    <option {{ $selected === $prefecture->value ? 'selected="selected"' : '' }}
+                        value="{{ $prefecture->value }}">
                         {{ $prefecture }}
                     </option>
                 @endforeach
@@ -186,7 +187,7 @@
 <!-- Address 1 -->
 <div id="container-address1" class="mt-4">
     <x-text.custom-input-label text="市区町村・番地" class="mb-2" option="必須" />
-    <x-text-input id="address1" class="block mt-1 w-full" type="text" name="address1" :value="old('address1') ?? $user ? $user->address1 : null"
+    <x-text-input id="address1" class="block mt-1 w-full" type="text" name="address1" :value="old('address1') ?? ($user ? $user->address1 : null)"
         required />
     <x-ajax-input-error id="error-address1" class="mt-2" />
     <x-input-error :messages="$errors->get('address1')" class="mt-2" />
@@ -195,30 +196,29 @@
 <!-- Address 2 -->
 <div id="container-address2" class="mt-4">
     <x-text.custom-input-label text="建物名など" class="mb-2" option="任意" />
-    <x-text-input id="address2" class="block mt-1 w-full" type="text" name="address2" :value="old('address2') ?? $user ? $user->address2 : null" />
+    <x-text-input id="address2" class="block mt-1 w-full" type="text" name="address2" :value="old('address2') ?? ($user ? $user->address2 : null)" />
     <x-ajax-input-error id="error-address2" class="mt-2" />
     <x-input-error :messages="$errors->get('address2')" class="mt-2" />
 </div>
 
+@php
+    $userVehicles = $user && count($user->userVehicles) > 0 ? $user->userVehicles : [];
+@endphp
 <div class="divide-y divide-red-400">
-    <div class="mt-4">
-        @include('auth.car-profile', [
-            'no' => 1,
-            'userVehicles' => $user && count($user->userVehicles) > 0 ? $user->userVehicles[0] : null,
-        ])
-    </div>
-    <div class="mt-4">
-        @include('auth.car-profile', [
-            'no' => 2,
-            'userVehicles' => $user && count($user->userVehicles) > 0 ? $user->userVehicles[0] : null,
-        ])
-    </div>
-    <div class="mt-4">
-        @include('auth.car-profile', [
-            'no' => 3,
-            'userVehicles' => $user && count($user->userVehicles) > 0 ? $user->userVehicles[0] : null,
-        ])
-    </div>
+    @for ($i = 0; $i < \App\Models\UserVehicle::MAX_NO_OF_CARS; $i++)
+        @php
+            $sequence_no = $i + 1;
+            $car_show = isset($userVehicles[$i]) && !empty($userVehicles[$i]->car_name) ? 'true' : 'false';
+            // $car_show = true;
+        @endphp
+        <div :class="{ 'mt-4': '{{ $sequence_no > 1 }}' }" class="pt-4 flex flex-col" x-data="{ car_show_{{ $sequence_no }}: {{ $car_show }}, height: 0 }"
+            x-init="$nextTick(() => height = $refs.containerCar_{{ $sequence_no }}.scrollHeight)">
+            @include('auth.car-profile', [
+                'sequence_no' => $sequence_no,
+                'userVehicle' => $userVehicles[$i] ?? null,
+            ])
+        </div>
+    @endfor
 </div>
 
 <!-- Newsletter Subscription -->
@@ -248,7 +248,7 @@
             <x-text-input id="anket-{{ $anket->id }}" type="checkbox" name="questionnaire[]" :value="$anket->id"
                 :checked="in_array(
                     $anket->id,
-                    old('questionnaire') ?? $user && $user->questionnaire ? $user->questionnaire : [],
+                    old('questionnaire') ?? ($user && $user->questionnaire ? $user->questionnaire : []),
                 )" />
             <x-input-label for="anket-{{ $anket->id }}" :value="$anket->name" />
         </div>
@@ -260,7 +260,7 @@
 <!-- Manager・担当者 -->
 <div id="container-manager" class="mt-4">
     <x-text.custom-input-label text="担当者" class="mb-2" option="任意" />
-    <x-text-input id="manager" class="block mt-1 w-full" type="text" name="manager" :value="old('manager') ?? $user ? $user->manager : null" />
+    <x-text-input id="manager" class="block mt-1 w-full" type="text" name="manager" :value="old('manager') ?? ($user ? $user->manager : null)" />
     @if ($formType !== \App\Enums\FormTypeEnum::ADMIN_UPDATE->value)
         <x-text.custom-input-label text="リースメンテナンス契約のある法人様のみご入力ください。"
             spanClass="font-normal text-xs text-gray-500 mt-1" />
@@ -272,7 +272,7 @@
 <!-- Department・ -->
 <div id="container-department" class="mt-4">
     <x-text.custom-input-label text="部署名／支店名" class="mb-2" option="任意" />
-    <x-text-input id="department" class="block mt-1 w-full" type="text" name="department" :value="old('department') ?? $user ? $user->department : null" />
+    <x-text-input id="department" class="block mt-1 w-full" type="text" name="department" :value="old('department') ?? ($user ? $user->department : null)" />
     <x-ajax-input-error id="error-department" class="mt-2" />
     <x-input-error :messages="$errors->get('department')" class="mt-2" />
 </div>
@@ -295,3 +295,13 @@
     <x-ajax-input-error id="error-is_receive_notification" class="mt-2" />
     <x-input-error :messages="$errors->get('is_receive_notification')" class="mt-2" />
 </div>
+
+@if ($formType === \App\Enums\FormTypeEnum::ADMIN_UPDATE->value)
+    <!-- Admin Remarks -->
+    <div id="container-remarks" class="mt-4">
+        <x-text.custom-input-label text="管理用備考" class="mb-2" />
+        <x-textarea id="remarks" class="block mt-1 w-full" type="text" name="remarks" :value="old('remarks') ?? ($user ? $user->remarks : null)" />
+        <x-ajax-input-error id="error-remarks" class="mt-2" />
+        <x-input-error :messages="$errors->get('remarks')" class="mt-2" />
+    </div>
+@endif
