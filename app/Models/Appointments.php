@@ -15,17 +15,23 @@ class Appointments extends Model
     // 複数代入可能なフィールドの定義
     protected $fillable = [
         'user_id',
-        'appoint_number',
-        'sort_number',
+        'reservation_number',
         'reservation_datetime',
-        'vehicle_name',
-        'registration_number',
-        'vehicle_type',
-        'license_plate',
-        'inspection_due_date',
+        'customer_name',
+        'main_menu',
+        'sub_menu',
+        'store',
+        'taskcategory',
+        'reservationtask',
+        'vehicle',
         'additional_services',
+        'inspection_due_date',
         'past_service_history',
-        'message',
+        'requirement',
+        'reservation_count',
+        'remarks',
+        'reservation_status',
+        'admin_notes',
     ];
 
     public function user()

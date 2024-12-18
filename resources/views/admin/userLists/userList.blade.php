@@ -12,11 +12,8 @@
                     {{ session('success') }}
                 </div>
             @endif
-            <div class="mb-3">
-                <span class="font-bold">会員一覧</span>
-            </div>
-            <div class="border border-gray-300 p-4 m-4 flex justify-center">
-                <form method="GET" action="{{ route('admin.userList.index') }}" class="mb-4 w-full max-w-4xl">
+            <div class="border border-gray-300 p-4 justify-center">
+                <form method="GET" action="{{ route('admin.userList.index') }}" class="mx-auto w-full max-w-4xl">
                     <div class="flex justify-between gap-6">
                         <div class="w-full">
                             <span class="">会員検索</span>
@@ -43,11 +40,11 @@
                                         value="{{ request('name') }}">
                                 </div>
                                 <div class="flex items-center w-1/2">
-                                    <label for="name_firigana"
+                                    <label for="name_furigana"
                                         class="text-xs font-medium text-gray-700 w-1/3">フリガナ</label>
-                                    <input type="text" name="name_firigana" id="name_firigana"
+                                    <input type="text" name="name_furigana" id="name_furigana"
                                         class="block w-full border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-xs"
-                                        value="{{ request('name_firigana') }}">
+                                        value="{{ request('name_furigana') }}">
                                 </div>
                             </div>
 
@@ -140,16 +137,24 @@
                 </form>
             </div>
 
+            <div
+                class="my-3 pb-2 border border-t-0 border-l-0 border-r-0 border-b-gray-400 flex justify-between items-center">
+                <span class="font-bold">会員一覧</span>
+                <div class="flex gap-2 justify-center items-center w-[250px]">
+                    <x-buttons.actionbutton name="CSVでダウンロード" type="button" class="text-sm p-2" divClass="grow-[2]"
+                        url="{{ route('admin.userList.downloadUsersAsCSV', request()->query()) }}" />
+                    <x-buttons.actionbutton name="作成" type="button" class="text-sm p-2" divClass="grow-[1]"
+                        url="{{ route('admin.userList.create') }}" />
+                </div>
+            </div>
+
             <div class="flex justify-between items-center mb-4">
                 <!-- 削除ボタン -->
-                <div>
-                    <button id="delete-selected" class="bg-red-500 text-white px-4 py-2 rounded-md"
-                        disabled>削除</button>
-                </div>
-
+                <button id="delete-selected" class="bg-red-500 text-white px-4 py-2 rounded-md disabled:bg-red-300"
+                    disabled>チェックした項目を削除</button>
                 <!-- ページネーション -->
                 <div class="mt-4">
-                    {{ $users->links('vendor.pagination.admin') }}
+                    {{ $users->appends(request()->query())->links('vendor.pagination.admin') }}
                 </div>
 
             </div>
@@ -164,7 +169,7 @@
                         <th class="px-4 py-2 text-left text-xs" style="width: 10%;">Role</th>
                         <th class="px-4 py-2 text-left text-xs" style="width: 10%;">会員番号</th>
                         <th class="px-4 py-2 text-left text-xs" style="width: 5%;">ログインID</th>
-                        <th class="px-4 py-2 text-left text-xs" style="width: 15%;">名前</th>
+                        <th class="px-4 py-2 text-left text-xs" style="width: 15%;">顧客名</th>
                         <th class="px-4 py-2 text-left text-xs" style="width: 20%;">メールアドレス</th>
                         <th class="px-4 py-2 text-left text-xs" style="width: 10%;">電話番号</th>
                         <th class="px-4 py-2 text-left text-xs" style="width: 10%;">誕生日</th>

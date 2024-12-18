@@ -36,7 +36,7 @@ $(document).ready(function () {
             // 削除確認ダイアログ
             if (confirm("選択したユーザーを削除しますか？")) {
                 $.ajax({
-                    url: "/admin/userList/deleteUsers", // 削除用のルート
+                    url: "/admin/userList/delete-users", // 削除用のルート
                     method: "POST",
                     data: {
                         ids: selectedIds,
