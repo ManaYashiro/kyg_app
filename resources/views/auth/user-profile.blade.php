@@ -87,7 +87,7 @@
                 <x-text-input id="gender-{{ $gender->value }}" type="radio" name="gender" :value="$gender->value"
                     :checked="(old('gender') ?? ($user && isset($user->gender) ? $user->gender->value : null)) ==
                         $gender->value" />
-                <x-input-label for="gender" :value="__($gender->getLabel())" />
+                <x-input-label for="gender-{{ $gender->value }}" :value="__($gender->getLabel())" />
             </div>
         @endforeach
     </div>

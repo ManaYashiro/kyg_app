@@ -74,17 +74,17 @@
 
     <!-- Car Class {{ $sequence_no }} -->
     @php
-        $key = 'car_class_' . $sequence_no;
-        $errorKey = 'car_class_' . ($sequence_no - 1);
-        $name = 'car_class[]';
+        $key = "car_class_$sequence_no";
+        $errorKey = "car_class$sequence_no";
+        $name = "car_class$sequence_no";
     @endphp
     <div id="container-{{ $key }}" class="mt-4">
         <x-text.custom-input-label text="車種区分({{ $sequence_no }}台目)" class="mb-2" :option="$sequence_no !== 1 ? '任意' : '任意'" />
         @foreach (\App\Enums\CarClassEnum::cases() as $carClass)
             <div class="mt-4 flex items-center gap-3 mb-3">
-                <x-text-input id="{{ $key }}_{{ $carClass->value }}" type="radio"
-                    name="{{ $name }}" :value="$carClass->value" :checked="(old($key) ?? ($userVehicle ? $userVehicle->car_class : null)) == $carClass->value" />
-                <x-input-label for="{{ $key }}_{{ $carClass->value }}" :value="__($carClass->getLabel())" />
+                <x-text-input id="{{ $key }}" type="radio" name="{{ $name }}" :value="$carClass->value"
+                    :checked="(old($key) ?? ($userVehicle ? $userVehicle->car_class : null)) == $carClass->value" />
+                <x-input-label for="{{ $key }}" :value="$carClass->getLabel()" />
             </div>
         @endforeach
         <x-ajax-input-error id="error-{{ $errorKey }}" class="mt-2" />

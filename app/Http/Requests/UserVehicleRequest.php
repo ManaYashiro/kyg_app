@@ -25,6 +25,7 @@ class UserVehicleRequest extends FormRequest
     public function rules(): array
     {
         $required_cars_rules = [];
+        $car_class_rules = [];
 
         // required or optional name and number
         for ($i = 0; $i < UserVehicle::MAX_NO_OF_CARS; $i++) {
@@ -41,6 +42,7 @@ class UserVehicleRequest extends FormRequest
                     $required_cars_rules["car_number.$i"] = "max:20|required_with:car_name.$i";
                     break;
             }
+            $car_class_rules["car_class$i"] = 'max:30|in:' . implode(',', array_map(fn($case) => $case->value, CarClassEnum::cases()));
         }
 
         return array_merge([
@@ -51,12 +53,11 @@ class UserVehicleRequest extends FormRequest
             'car_name' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
             'car_katashiki' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
             'car_number' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
-            'car_class' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
 
             // array element should be string
             'car_katashiki.*' => 'max:20',
-            'car_class.*' => 'max:30|in:' . implode(',', array_map(fn($case) => $case->value, CarClassEnum::cases())),
-        ], $required_cars_rules);
+
+        ], $required_cars_rules, $car_class_rules);
     }
 
     public function attributes(): array

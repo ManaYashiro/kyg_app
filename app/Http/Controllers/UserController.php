@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Enums\FormTypeEnum;
 use App\Enums\SubmitTypeEnum;
+use App\Helpers\Log;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Requests\RegisteredUserRequest;
 use App\Http\Requests\UserVehicleRequest;
@@ -102,7 +103,8 @@ class UserController extends Controller
                 'car_name' => $userVehicles['car_name'][$i] ?? null,
                 'car_katashiki' => $userVehicles['car_katashiki'][$i] ?? null,
                 'car_number' => $userVehicles['car_number'][$i] ?? null,
-                'car_class' => $userVehicles['car_class'][$i] ?? null,
+
+                'car_class' => $userVehicles["car_class" . ($i + 1)] ?? null,
             ];
             if ($car_data['sequence_no']) {
                 $user->userVehicles()->where('user_id', 3)->where('sequence_no', $car_data['sequence_no'])->update($car_data);
