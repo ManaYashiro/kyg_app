@@ -20,19 +20,13 @@ $(document).ready(function () {
         const formData = new FormData($formUserRegister[0]);
 
         // Trigger form validation
-        if ($formUserRegister[0].checkValidity()) {
-            // If the form is valid, submit via AJAX
-            ajaxConfirm(
-                formActionUrl,
-                formMethod,
-                formData,
-                $submitType,
-                $errors
-            );
-        } else {
-            // If the form is not valid, trigger the browser's validation message
-            $formUserRegister[0].reportValidity();
-        }
+        // if ($formUserRegister[0].checkValidity()) {
+        // If the form is valid, submit via AJAX
+        ajaxConfirm(formActionUrl, formMethod, formData, $submitType, $errors);
+        // } else {
+        //     // If the form is not valid, trigger the browser's validation message
+        //     $formUserRegister[0].reportValidity();
+        // }
     });
     $btnSubmit.on("click", function (e) {
         e.preventDefault();

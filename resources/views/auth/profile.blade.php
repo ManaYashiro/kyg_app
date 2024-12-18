@@ -17,7 +17,6 @@
         <div id="page-2" class="page hidden">
             @include('auth.user-profile-confirm')
         </div>
-
         <x-navi.page-navi-buttons />
     </form>
 

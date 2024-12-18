@@ -3,10 +3,12 @@
 namespace App\Http\Requests;
 
 use App\Enums\CarClassEnum;
+use App\Models\UserVehicle;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserVehicleRequest extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -22,22 +24,21 @@ class UserVehicleRequest extends FormRequest
      */
     public function rules(): array
     {
-        $max_no_of_cars = 3;
         $required_cars_rules = [];
 
         // required or optional name and number
-        for ($i = 0; $i < $max_no_of_cars; $i++) {
+        for ($i = 0; $i < UserVehicle::MAX_NO_OF_CARS; $i++) {
             switch ($i) {
                 case 0:
                     // 1台目
-                    $required_cars_rules["car_name.$i"] = "required|string|max:20|required_with:car_number.$i";
-                    $required_cars_rules["car_number.$i"] = "required|string|max:20|required_with:car_name.$i";
+                    $required_cars_rules["car_name.$i"] = "required|max:20|required_with:car_number.$i";
+                    $required_cars_rules["car_number.$i"] = "required|max:20|required_with:car_name.$i";
                     break;
 
                 default:
                     // 2台目から
-                    $required_cars_rules["car_name.$i"] = "string|max:20|required_with:car_number.$i";
-                    $required_cars_rules["car_number.$i"] = "string|max:20|required_with:car_name.$i";
+                    $required_cars_rules["car_name.$i"] = "max:20|required_with:car_number.$i";
+                    $required_cars_rules["car_number.$i"] = "max:20|required_with:car_name.$i";
                     break;
             }
         }
@@ -46,25 +47,29 @@ class UserVehicleRequest extends FormRequest
             'user_id' => 'nullable',
 
             // param should be an array
-            'car_name' => 'required|array|max:3',
-            'car_katashiki' => 'required|array|max:3',
-            'car_number' => 'required|array|max:3',
-            'car_class' => 'required|array|max:3',
+            'sequence_no' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
+            'car_name' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
+            'car_katashiki' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
+            'car_number' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
+            'car_class' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
 
             // array element should be string
-            'car_katashiki.*' => 'string|max:20',
-            'car_class.*' => 'string|max:30|in:' . implode(',', array_map(fn($case) => $case->value, CarClassEnum::cases())),
+            'car_katashiki.*' => 'max:20',
+            'car_class.*' => 'max:30|in:' . implode(',', array_map(fn($case) => $case->value, CarClassEnum::cases())),
         ], $required_cars_rules);
     }
 
     public function attributes(): array
     {
-        return [
+        $car_attributes = [];
+        for ($i = 0; $i < UserVehicle::MAX_NO_OF_CARS; $i++) {
+            $car_attributes["car_name.$i"] = "車名(" . ($i + 1) . "台目)";
+            $car_attributes["car_katashiki.$i"] = "型式(" . ($i + 1) . "台目)";
+            $car_attributes["car_number.$i"] = "ナンバー(" . ($i + 1) . "台目)";
+            $car_attributes["car_class.$i"] = "車種区分(" . ($i + 1) . "台目)";
+        }
+        return array_merge([
             'user_id' => 'ユーザーID',
-            'car_name' => '車名',
-            'car_katashiki' => '型式',
-            'car_number' => 'ナンバー',
-            'car_class' => '車種区分',
-        ];
+        ], $car_attributes);
     }
 }
