@@ -6,19 +6,20 @@
 @php
     $open = $sequence_no . '台目：開く';
     $close = $sequence_no . '台目：閉る';
+
+    $car_show = 'car_show_' . $sequence_no;
 @endphp
 
-<button type="button"
-    class="max-w-[100px]  bg-red-300 hover:bg-red-400 text-white text-sm font-sequence_normal p-2 rounded"
-    @click="car_{{ $sequence_no }} = !car_{{ $sequence_no }}"
-    x-text="car_{{ $sequence_no }} === true ? '{{ $open }}' : '{{ $close }}'"></button>
+<button type="button" {{-- :class="{ 'bg-red-400': {{ $car_show }}, 'bg-red-200': !{{ $car_show }} }" --}}
+    class="max-w-[100px] bg-red-300 hover:bg-red-500 text-white text-sm font-sequence_normal p-2 rounded"
+    @click="{{ $car_show }} = !{{ $car_show }}"
+    x-text="{{ $car_show }} === true ? '{{ $close }}' : '{{ $open }}'"></button>
 <div class="relative overflow-hidden duration-700" x-ref="containerCar_{{ $sequence_no }}"
-    x-bind:class="{ 'max-h-0': !car_{{ $sequence_no }} }"
-    x-bind:style="car_{{ $sequence_no }} == true ? 'max-height: ' + height + 'px' : ''" x-cloak
+    x-bind:class="{ 'max-h-0': !{{ $car_show }} }"
+    x-bind:style="{{ $car_show }} == true ? 'max-height: ' + height + 'px' : ''" x-cloak
     x-transition:enter="transition-all ease-in duration-300" x-transition:enter-start="opacity-0 max-h-0"
     x-transition:enter-end="opacity-100 max-h-screen" x-transition:leave="transition-all ease-out duration-300"
     x-transition:leave-start="opacity-100 max-h-screen" x-transition:leave-end="opacity-0 max-h-0">
-
 
     <!-- Car Sequence {{ $sequence_no }} -->
     @php
