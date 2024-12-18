@@ -33,4 +33,9 @@ class Appointments extends Model
         'reservation_status',
         'admin_notes',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }
