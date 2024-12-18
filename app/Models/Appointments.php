@@ -23,7 +23,7 @@ class Appointments extends Model
         'store',
         'taskcategory',
         'reservationtask',
-        'vehicle',
+        'user_vehicle_id',
         'additional_services',
         'inspection_due_date',
         'past_service_history',
@@ -37,5 +37,10 @@ class Appointments extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function userVehicle()
+    {
+        return $this->belongsTo(UserVehicle::class);
     }
 }

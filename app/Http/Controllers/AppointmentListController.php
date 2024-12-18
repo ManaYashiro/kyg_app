@@ -31,7 +31,7 @@ class  AppointmentListController extends Controller
         $appointments = $appointments->get();
 
         $filteredGroupedAppointments = $appointments->filter(function ($appointment) {
-            return Carbon::parse($appointment->rAZeservation_datetime)
+            return Carbon::parse($appointment->reservation_datetime)
                 ->setTimezone('Asia/Tokyo')
                 ->gte(Carbon::now('Asia/Tokyo'));
         });
@@ -56,11 +56,13 @@ class  AppointmentListController extends Controller
     public function edit($id)
     {
         // Find the appointment by ID
-        $appointment = Appointments::findOrFail($id);
-        $groupedAppointment = $appointment->groupBy('appoint_number');
+        $appointment = Appointments::where('user_id', Auth::user()->id)->where('id', $id)->first();
+
+        // reservation_datetimeを秒数を除いてフォーマット変更
+        $appointment->reservation_datetime = Carbon::parse($appointment->reservation_datetime)->format('Y/m/d H:i');
 
         // 予約詳細ビューにデータを渡す
-        return view('appointmentDetails', compact('appointment', 'groupedAppointment'));
+        return view('appointmentDetails', compact('appointment'));
     }
 
     /**
