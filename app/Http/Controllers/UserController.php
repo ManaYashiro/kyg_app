@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Enums\FormTypeEnum;
 use App\Enums\SubmitTypeEnum;
-use App\Helpers\Log;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Requests\RegisteredUserRequest;
 use App\Http\Requests\UserVehicleRequest;
@@ -99,11 +98,17 @@ class UserController extends Controller
             }
             $car_attributes["car_name.$i"] = "車名(" . ($i + 1) . "台目)";
             $car_data = [
+                // sequence_no[]
                 'sequence_no' => $userVehicles['sequence_no'][$i] ?? null,
+                // car_name[]
                 'car_name' => $userVehicles['car_name'][$i] ?? null,
+                // car_katashiki[]
                 'car_katashiki' => $userVehicles['car_katashiki'][$i] ?? null,
+                // car_number[]
                 'car_number' => $userVehicles['car_number'][$i] ?? null,
 
+                // car_class パラメータは配列ではありません
+                // car_class1、car_class2、car_class3
                 'car_class' => $userVehicles["car_class" . ($i + 1)] ?? null,
             ];
             if ($car_data['sequence_no']) {

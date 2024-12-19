@@ -38,7 +38,7 @@ class UserVehicle extends Model
     }
 
     /**
-     * Register any authentication / authorization services.
+     * 車の保管順序に基づいて順番番号を自動的に追加します
      */
     protected static function boot()
     {
