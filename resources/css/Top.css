@@ -212,3 +212,44 @@ body {
     font-size: 1.2rem;
     margin-bottom: 50px;
 }
+
+/* デフォルトのチェックボックスを非表示にする */
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+/* カスタムチェックボックスの外観 */
+.custom-checkbox input[type="checkbox"] + span {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* チェックボックスの枠 */
+.custom-checkbox input[type="checkbox"] + span::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ff0000;
+    background-color: #ffffff;
+}
+
+/* チェックされている場合のチェックボックスの枠 */
+.custom-checkbox input[type="checkbox"]:checked + span::before {
+    background-color: #ffffff; /* チェックされた時の背景色（青） */
+    border-color: #ff0000; /* チェックされた時のボーダー色 */
+}
+
+/* チェックされている場合に表示されるチェックマークの色 */
+.custom-checkbox input[type="checkbox"]:checked + span::after {
+    content: "\2713"; /* チェックマークの Unicode */
+    position: absolute;
+    left: 2px;
+
+    font-size: 18px;
+    color: red; /* チェックマークの色（赤） */
+}

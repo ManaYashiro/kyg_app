@@ -219,13 +219,13 @@
             <hr class="my-3 border-2 border-red-600 -mx-14">
             <div　id="customers" class="flex space-x-4 items-center">
                 <label class="custom-radio-button">
-                    <input type="radio" name="customer" value="0" class="hidden-radio rounded-md">
+                    <input type="radio" name="customer" value="個人" class="hidden-radio rounded-md">
                     <span class="custom-button2">
                         <span class="icon">✓</span> 個人のお客様
                     </span>
                 </label>
                 <label class="custom-radio-button">
-                    <input type="radio" name="customer" value="1" class="hidden-radio rounded-md">
+                    <input type="radio" name="customer" value="法人" class="hidden-radio rounded-md">
                     <span class="custom-button2">
                         <span class="icon">✓</span> 法人のお客様
                     </span>
@@ -239,25 +239,23 @@
             </div>
             <hr class="my-3 border-2 border-red-600 -mx-4">
             <div id="reservationTasks">
-                <div class="flex space-x-4 mt-4 items-center text-xs font-bold mx-10">
+                <div class="reservation-task flex space-x-4 mt-4 items-center text-xs font-bold mx-10">
                     <!-- 初期表示 -->
                     <label class="custom-checkbox">
                         <input type="checkbox" name="reservationtask" value="★個人★車検ラビット４５（00分開始）（60分）">
                         <span>★個人★車検ラビット４５（00分開始）（60分）</span>
                     </label>
                     <div class="font-bold p-4 text-xs text-left grow"></div>
-                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく
-                    </div>
+                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく</div>
                 </div>
                 <hr class="my-3 border-1 border-red-600 mx-10">
-                <div class="flex space-x-4 mt-4 items-center text-xs font-bold mx-10">
+                <div class="reservation-task flex space-x-4 mt-4 items-center text-xs font-bold mx-10">
                     <label class="custom-checkbox">
                         <input type="checkbox" name="reservationtask" value="☆法人☆ご来店型クイック車検（00分開始）（60分）">
                         <span>☆法人☆ご来店型クイック車検（00分開始）（60分）</span>
                     </label>
                     <div class="font-bold p-4 text-xs text-left grow"></div>
-                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく
-                    </div>
+                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく</div>
                 </div>
                 <hr class="my-3 border-1 border-red-600 mx-10">
             </div>

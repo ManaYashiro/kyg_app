@@ -22,15 +22,7 @@ $(document).ready(function () {
                 "車検（30分開始）土曜のみ": [4, 3],
                 車検: [5, 6],
                 "点検整備・車検見積り": [
-                    7, 8, 9, 10, 11, 12, 13, 15, 19, 20, 21, 22, 23, 24,
-                ],
-                "点検整備・車検見積り": [
-                    7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-                    23, 24,
-                ],
-                "点検整備・車検見積り": [
-                    7, 8, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
-                    23, 24,
+                    7, 8, 10, 11, 12, 13, 15, 19, 20, 21, 22, 23, 24,
                 ],
             };
 
@@ -187,14 +179,14 @@ $(document).ready(function () {
             }
 
             // タスク予約を更新する関数
-            function updateReservationTasks(taskCategory, customerType) {
+            function updateReservationTasks(taskCategory) {
                 $("#reservationTasks").empty(); // 既存のタスクをクリア
 
                 // taskReservationオブジェクトを参照
                 if (taskReservation.hasOwnProperty(taskCategory)) {
                     const taskIds = taskReservation[taskCategory];
                     taskReservationData
-                        .filter((task) => taskIds.includes(task.id)) // 選択したカテゴリのIDに一致するタスクをフィルタ
+                        .filter((task) => taskIds.includes(task.id)) // 選択したIDに一致するタスクをフィルタ
                         .forEach((task) => {
                             const taskHTML = `
                                 <div class="flex space-x-4 mt-4 items-center text-xs font-bold mx-10 task-item">
@@ -210,40 +202,13 @@ $(document).ready(function () {
                             `;
                             $("#reservationTasks").append(taskHTML);
                         });
-
-                    $("#reservationTasks")
-                        .children(".task-item")
-                        .each(function () {
-                            const taskItem = $(this);
-                            const taskDivider = taskItem.next(".task-divider");
-                            const taskName = taskItem.find("span").text();
-
-                            if (taskName.includes("メンテパック")) {
-                                taskItem.removeClass("hidden-task");
-                                taskDivider.removeClass("hidden-task");
-                            } else if (
-                                customerType === "0" &&
-                                !taskName.includes("★個人★")
-                            ) {
-                                taskItem.addClass("hidden-task");
-                                taskDivider.addClass("hidden-task");
-                            } else if (
-                                customerType === "1" &&
-                                !taskName.includes("☆法人☆")
-                            ) {
-                                taskItem.addClass("hidden-task");
-                                taskDivider.addClass("hidden-task");
-                            } else {
-                                taskItem.removeClass("hidden-task");
-                                taskDivider.removeClass("hidden-task");
-                            }
-                        });
                 } else {
                     console.log(
                         "Error: taskCategory key does not exist in taskReservation."
                     );
                 }
             }
+
             // 初期表示
             updateTaskCategories("稲沢本店");
 
@@ -256,25 +221,36 @@ $(document).ready(function () {
             // 作業カテゴリのラジオボタンが変更された時に予約作業を更新
             $(document).on("change", 'input[name="taskcategory"]', function () {
                 const selectedTaskCategory = $(this).val();
-                const selectedCustomerType = $(
-                    'input[name="customer"]:checked'
-                ).val(); // 個人または法人の選択
-                updateReservationTasks(
-                    selectedTaskCategory,
-                    selectedCustomerType
-                );
+                updateReservationTasks(selectedTaskCategory);
             });
 
             // 個人・法人ラジオボタンが変更された時に予約作業を更新
             $('input[name="customer"]').on("change", function () {
-                const selectedTaskCategory = $(
-                    'input[name="taskcategory"]:checked'
-                ).val(); // 現在選択されている作業カテゴリ
                 const selectedCustomerType = $(this).val();
-                updateReservationTasks(
-                    selectedTaskCategory,
-                    selectedCustomerType
-                );
+                // チェックボックスをフィルタリングして個人・法人を切り替え
+                $(
+                    '#reservationTasks .custom-checkbox input[name="reservationtask"]'
+                ).each(function () {
+                    const checkboxValue = $(this).val();
+                    const taskText = $(this)
+                        .closest("label")
+                        .find("span")
+                        .text();
+                    //個人・法人フィルター
+                    if (checkboxValue.includes(selectedCustomerType)) {
+                        $(this).closest(".flex").show();
+                        $(this).closest(".flex").next("hr").show();
+                    } else {
+                        $(this).closest(".flex").hide();
+                        $(this).closest(".flex").next("hr").hide();
+                    }
+
+                    // 「メンテパック」は常に表示
+                    if (taskText.includes("メンテパック")) {
+                        $(this).closest(".flex").show();
+                        $(this).closest(".flex").next("hr").show();
+                    }
+                });
             });
 
             $(document).on("click", ".details-button2", function () {
@@ -302,8 +278,9 @@ $(document).ready(function () {
 });
 
 $(document).ready(function () {
-    $('input[name="reservationtask"]').on("change", function () {
-        // チェックされた場合、他のチェックボックスのチェックを外す
+    // 動的に追加されたチェックボックスにも対応するようにイベントをバインド
+    $(document).on("change", 'input[name="reservationtask"]', function () {
+        // 他のチェックボックスをすべて外す
         $('input[name="reservationtask"]').not(this).prop("checked", false);
     });
 });
