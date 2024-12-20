@@ -193,3 +193,22 @@ body {
 .top-image {
     width: 100%;
 }
+
+/* テキストコンテンツ */
+.text-content {
+    flex: 1;
+    margin: 30px;
+    padding: 20px;
+    z-index: 2; /* テキストを画像の上に配置 */
+}
+
+.text-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.text-content p {
+    font-size: 1.2rem;
+    margin-bottom: 50px;
+}
