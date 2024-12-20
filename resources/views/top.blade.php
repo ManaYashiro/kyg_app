@@ -14,19 +14,7 @@
     @endif
     <main>
         <div class="bg-white mx-10">
-            <section class="banner">
-                <div class="text-content">
-                    <h1>KIMURA UNITY GROUP</h1>
-                    <p>キムラユニティーグループのWEB予約ページへようこそ。</p>
-                    <div class="scroll-indicator">
-                        <img src="{{ Vite::asset('resources/img/top/scroll.png') }}" alt="スクロール" id="scrollbar" class="scroll">
-                    </div>
-                </div>
-                <div class="image-content">
-                    <img src="{{ Vite::asset('resources/img/top/top.png') }}" alt="タイトル" class="top-icon">
-                </div>
-            </section>
-            <div class="mt-14 ">
+            <div class="mt-14">
                 <x-text.custom-text text="キムラユニティー・オートプラザラビット各店の" class="text-xl font-bold" />
                 <x-text.custom-text text="車検やオイル交換、タイヤ交換などの予約ができます。" class="text-xl font-bold" />
                 <x-text.custom-text text="ご利用方法は右上「MENU」内ご利用ガイドをご覧ください。" class="mt-4 text-sm font-bold" />
@@ -44,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <hr class="my-10 border-2 border-gray-300  -mx-14">
+            <hr class="my-10 border-1 border-gray-300  -mx-14">
             <div class="text-gray-800">
                 <div class="flex justify-start items-center gap-2">
                     <x-text.custom-text text="●" class="font-bold text-xl text-red-600" />

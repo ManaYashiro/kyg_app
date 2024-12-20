@@ -38,6 +38,7 @@ export default defineConfig({
                 "resources/img/top/vmaintenance.png",
                 "resources/img/top/estimate.png",
                 "resources/img/top/top.png",
+                "resources/img/top/top2.png",
                 "resources/img/top/scroll.png",
                 "resources/img/top/inazawa.jpg",
                 "resources/img/top/nagoyakita.jpg",
