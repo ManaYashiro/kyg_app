@@ -212,7 +212,7 @@
             // $car_show = true;
         @endphp
         <div :class="{ 'mt-4': '{{ $sequence_no > 1 }}' }" class="pt-4 flex flex-col" x-data="{ car_show_{{ $sequence_no }}: {{ $car_show }}, height: 0 }"
-            x-init="$nextTick(() => height = $refs.containerCar_{{ $sequence_no }}.scrollHeight)">
+            x-init="$nextTick(() => height = $refs.containerCarShow_{{ $sequence_no }}.scrollHeight)">
             @include('auth.car-profile', [
                 'sequence_no' => $sequence_no,
                 'userVehicle' => $userVehicles[$i] ?? null,

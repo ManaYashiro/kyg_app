@@ -14,7 +14,7 @@
     class="max-w-[100px] bg-red-300 hover:bg-red-500 text-white text-sm font-sequence_normal p-2 rounded"
     @click="{{ $car_show }} = !{{ $car_show }}"
     x-text="{{ $car_show }} === true ? '{{ $close }}' : '{{ $open }}'"></button>
-<div class="relative overflow-hidden duration-700" x-ref="containerCar_{{ $sequence_no }}"
+<div class="relative overflow-hidden duration-700" x-ref="containerCarShow_{{ $sequence_no }}"
     x-bind:class="{ 'max-h-0': !{{ $car_show }} }"
     x-bind:style="{{ $car_show }} == true ? 'max-height: ' + height + 'px' : ''" x-cloak
     x-transition:enter="transition-all ease-in duration-300" x-transition:enter-start="opacity-0 max-h-0"

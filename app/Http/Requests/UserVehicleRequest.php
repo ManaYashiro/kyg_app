@@ -27,7 +27,7 @@ class UserVehicleRequest extends FormRequest
         $required_cars_rules = [];
         $car_class_rules = [];
 
-        // required or optional name and number
+        // required or optional name and number pair
         for ($i = 0; $i < UserVehicle::MAX_NO_OF_CARS; $i++) {
             switch ($i) {
                 case 0:
@@ -42,6 +42,9 @@ class UserVehicleRequest extends FormRequest
                     $required_cars_rules["car_number.$i"] = "max:20|required_with:car_name.$i";
                     break;
             }
+
+            // car_class パラメータは配列ではありません
+            // car_class1、car_class2、car_class3
             $car_class_rules["car_class$i"] = 'max:30|in:' . implode(',', array_map(fn($case) => $case->value, CarClassEnum::cases()));
         }
 
