@@ -18,15 +18,29 @@ export default defineConfig({
                 "resources/js/modules/calender.js",
 
                 // auth
+                // - css
                 "resources/css/modules/auth/mypage.css",
 
+                // - js
                 "resources/js/modules/auth/register.js",
 
                 // images
+                // - main
                 "resources/img/main/favicon.ico",
                 "resources/img/main/logo.png",
                 "resources/img/main/kimura_footer.png",
                 "resources/img/main/pagetop.gif",
+
+                // - top
+                "resources/img/top/warning.png",
+                "resources/img/top/check.png",
+                "resources/img/top/maintenance.png",
+                "resources/img/top/vmaintenance.png",
+                "resources/img/top/estimate.png",
+                "resources/img/top/top.png",
+                "resources/img/top/scroll.png",
+                "resources/img/top/inazawa.jpg",
+                "resources/img/top/nagoyakita.jpg",
             ],
             refresh: true,
         }),

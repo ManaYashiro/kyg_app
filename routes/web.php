@@ -4,6 +4,7 @@ use App\Http\Controllers\AnketController;
 use App\Http\Controllers\AppointmentListController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TopController;
 use App\Http\Controllers\StoreController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\AdminMiddleware;
@@ -12,9 +13,13 @@ use App\Http\Controllers\ConfirmationItemController;
 use App\Http\Controllers\ReservationListController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('top');
-})->name('top');
+// Route::get('/', function () {
+//     return view('top');
+// })->name('top');
+
+Route::get('/', [TopController::class, 'index'])->name('top');
+Route::get('/gettaskdata', [TopController::class, 'getTaskData'])->name('gettaskdata');
+
 
 Route::get('/support/categories', function () {
     return view('workCategories');

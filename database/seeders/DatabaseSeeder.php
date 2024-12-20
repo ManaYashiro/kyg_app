@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
             AnketSeeder::class,
             UserSeeder::class,
             StoreSeeder::class,
+            Task_categorySeeder::class,
+            Task_reservationSeeder::class,
         ]);
     }
 }

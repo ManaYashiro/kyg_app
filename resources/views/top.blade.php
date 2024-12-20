@@ -12,9 +12,20 @@
             {!! session('verify-email') !!}
         </div>
     @endif
-
     <main>
         <div class="bg-white mx-10">
+            <section class="banner">
+                <div class="text-content">
+                    <h1>KIMURA UNITY GROUP</h1>
+                    <p>キムラユニティーグループのWEB予約ページへようこそ。</p>
+                    <div class="scroll-indicator">
+                        <img src="{{ Vite::asset('resources/img/top/scroll.png') }}" alt="スクロール" id="scrollbar" class="scroll">
+                    </div>
+                </div>
+                <div class="image-content">
+                    <img src="{{ Vite::asset('resources/img/top/top.png') }}" alt="タイトル" class="top-icon">
+                </div>
+            </section>
             <div class="mt-14 ">
                 <x-text.custom-text text="キムラユニティー・オートプラザラビット各店の" class="text-xl font-bold" />
                 <x-text.custom-text text="車検やオイル交換、タイヤ交換などの予約ができます。" class="text-xl font-bold" />
@@ -65,27 +76,21 @@
                             class="font-bold text-xl"></x-text.custom-text>
                     </div>
                 </ul>
-                <div class="mt-6 text-red-600 font-bold text-xl inline-block border-b border-red-600">
-                    <x-text.custom-text text="■ご利用に際して予めご了承ください" class="text-xl font-bold" />
+                <div class="flex justify-start items-center gap-2 mt-4">
+                    <img src="{{ Vite::asset('resources/img/top/warning.png') }}" alt="注意">
+                    <x-text.custom-text text="ご利用に際して予めご了承ください"
+                        class="text-xl text-red-600 font-bold  inline-block border-b border-red-600" />
                 </div>
                 <ul class="list-none ml-6 mt-2 text-base font-bold">
                     <li class="flex items-center">
-                        <span class="w-4 h-4 border-2 border-black mr-2 flex-shrink-0 rounded-sm">
-                            <svg class="w-4 h-4 text-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M20 6L9 17l-5-5"></path>
-                            </svg>
+                        <span class="w-4 h-4 mr-2 flex-shrink-0 rounded-sm">
+                            <img src="{{ Vite::asset('resources/img/top/check.png') }}" alt="注意">
                         </span>
                         車検証の情報提供をお願いする場合がございます。<br>（事前に部品の手配が必要な場合など）
                     </li>
                     <li class="flex items-center">
-                        <span class="w-4 h-4 border-2 border-black mr-2 flex-shrink-0 rounded-sm">
-                            <svg class="w-4 h-4 text-red-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                stroke-linejoin="round">
-                                <path d="M20 6L9 17l-5-5"></path>
-                            </svg>
+                        <span class="w-4 h-4 mr-2 flex-shrink-0 rounded-sm">
+                            <img src="{{ Vite::asset('resources/img/top/check.png') }}" alt="注意">
                         </span>
                         急を要する場合等には直接お電話させて頂く場合がございます。
                     </li>
@@ -94,75 +99,84 @@
             <div>
                 <div>
                     <div class="flex justify-start items-center gap-3 mt-7">
-                        <x-text.custom-text text="STEP 01" class="font-bold text-3xl text-red-600"></x-text.custom-text>
+                        <x-text.custom-text text="STEP 01" id='step' class="font-bold text-3xl text-red-600"></x-text.custom-text>
                         <x-text.custom-text text="ご希望の店舗をお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
                     </div>
                 </div>
                 <hr class="my-3 border-2 border-red-600 -mx-14">
-                <div class="flex space-x-4 mt-8 items-center">
-                <label class="custom-radio-button">
-                    <input type="radio" name="store" value="稲沢本店" class="hidden-radio rounded-md">
-                    <span class="custom-button">
-                    <span class="icon">✓</span> 稲沢本店
-                    </span>
-                </label>
-                <div class="font-bold p-4 text-xs text-left grow">〒492-8224 愛知県稲沢市奥田大沢町3-1　9:00-19:00 水曜定休</div>
-                <div class="text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600">さらに詳しく</div>
+                <div id="stores" class="flex space-x-4 mt-8 items-center">
+                    <label class="custom-radio-button">
+                        <input type="radio" name="store" value="稲沢本店" class="hidden-radio rounded-md">
+                        <span class="custom-button">
+                            <span class="icon">✓</span> 稲沢本店
+                        </span>
+                    </label>
+                    <div class="font-bold p-4 text-xs text-left grow">〒492-8224 愛知県稲沢市奥田大沢町3-1　9:00-19:00 水曜定休</div>
+                    <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+                        data-store-id="1">さらに詳しく</div>
                 </div>
-                <hr class="my-3 border-1 border-red-300">
+                <hr class="my-3 border-1 border-red-600">
                 <div class="flex space-x-4  items-center">
                     <label class="custom-radio-button">
                         <input type="radio" name="store" value="名古屋北店" class="hidden-radio rounded-md">
                         <span class="custom-button">
-                        <span class="icon">✓</span> 名古屋北店
+                            <span class="icon">✓</span> 名古屋北店
                         </span>
                     </label>
-                    <div class="font-bold p-4 text-xs text-left grow">〒462-0034 愛知県名古屋市北区天道町5丁目21　9:00-18:00 日曜・祝日定休</div>
-                    <div class="text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600">さらに詳しく</div>
+                    <div class="font-bold p-4 text-xs text-left grow">〒462-0034 愛知県名古屋市北区天道町5丁目21　9:00-18:00 日曜・祝日定休
+                    </div>
+                    <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+                        data-store-id="2">さらに詳しく</div>
                 </div>
-                <hr class="my-3 border-2 border-red-300  ">
+                <hr class="my-3 border-1 border-red-600  ">
                 <div class="flex space-x-4  items-center">
                     <label class="custom-radio-button">
                         <input type="radio" name="store" value="刈谷店" class="hidden-radio rounded-md">
                         <span class="custom-button">
-                        <span class="icon">✓</span> 刈谷店
+                            <span class="icon">✓</span> 刈谷店
                         </span>
                     </label>
-                    <div class="font-bold p-4 text-xs text-left grow">〒448-0006 愛知県刈谷市西境町治右田140　9:00-19:00 日祝日9:00-17:00 水曜定休</div>
-                    <div class="text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600">さらに詳しく</div>
+                    <div class="font-bold p-4 text-xs text-left grow">〒448-0006 愛知県刈谷市西境町治右田140　9:00-19:00
+                        日祝日9:00-17:00 水曜定休</div>
+                    <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+                        data-store-id="3">さらに詳しく</div>
                 </div>
-                <hr class="my-3 border-1 border-red-300  ">
+                <hr class="my-3 border-1 border-red-600  ">
                 <div class="flex space-x-4  items-center">
                     <label class="custom-radio-button">
                         <input type="radio" name="store" value="錦店" class="hidden-radio rounded-md">
                         <span class="custom-button">
-                        <span class="icon">✓</span> 錦店
+                            <span class="icon">✓</span> 錦店
                         </span>
                     </label>
                     <div class="font-bold p-4 text-xs text-left grow">〒460-0003 愛知県名古屋市錦3-8-32　9:00-18:00 日祝日定休</div>
-                    <div class="text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600">さらに詳しく</div>
+                    <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+                        data-store-id="4">さらに詳しく</div>
                 </div>
-                <hr class="my-3 border-2 border-red-300  ">
+                <hr class="my-3 border-1 border-red-600  ">
                 <div class="flex space-x-4  items-center">
                     <label class="custom-radio-button">
                         <input type="radio" name="store" value="豊田上郷店" class="hidden-radio rounded-md">
                         <span class="custom-button">
-                        <span class="icon">✓</span> 豊田上郷店
+                            <span class="icon">✓</span> 豊田上郷店
                         </span>
                     </label>
-                    <div class="font-bold p-4 text-xs text-left grow">〒470-1213 愛知県稲沢市奥田大沢町3-1　9:00-18:00 日祝日9:00-17:00 水曜定休</div>
-                    <div class="text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600">さらに詳しく</div>
+                    <div class="font-bold p-4 text-xs text-left grow">〒470-1213 愛知県稲沢市奥田大沢町3-1　9:00-18:00 日祝日9:00-17:00
+                        水曜定休</div>
+                    <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+                        data-store-id="5">さらに詳しく</div>
                 </div>
-                <hr class="my-3 border-2 border-red-300  ">
+                <hr class="my-3 border-1 border-red-600  ">
                 <div class="flex space-x-4  items-center">
                     <label class="custom-radio-button">
                         <input type="radio" name="store" value="錦店" class="hidden-radio rounded-md">
                         <span class="custom-button">
-                        <span class="icon">✓</span> 犬山店
+                            <span class="icon">✓</span> 犬山店
                         </span>
                     </label>
                     <div class="font-bold p-4 text-xs text-left grow">〒484-0912 愛知県刈犬山市字舟田10　9:00-18:00 水曜定休</div>
-                    <div class="text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600">さらに詳しく</div>
+                    <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+                        data-store-id="6">さらに詳しく</div>
                 </div>
                 <div class="flex justify-start items-center gap-3 mt-14">
                     <x-text.custom-text text="STEP 02" class="font-bold text-3xl text-red-600"></x-text.custom-text>
@@ -172,22 +186,39 @@
             <hr class="my-3 border-2 border-red-600 -mx-14">
             <div id="taskCategories" class="flex space-x-4 items-center mt-8">
                 <!-- 初期表示 -->
-                <label class="custom-radio-button">
-                    <input type="radio" name="taskcategory" value="車検（00分開始）" class="hidden-radio rounded-md">
-                    <span class="custom-button3">
-                    <span class="icon">✓</span> 車検（00分開始）
+                <label id="task-category-label-1" class="custom-radio-button">
+                    <input type="radio" name="taskcategory" value="" id="task-category-input-1"
+                        class="hidden-radio rounded-md">
+                    <span class="custom-button3 flex flex-col">
+                        <div class="flex gap-2">
+                            <img src="{{ Vite::asset('resources/img/top/maintenance.png') }}"
+                                alt="車検"　class="button-icon">
+                        </div>
+                        <span class="icon">✓</span><span id="task-category-span-1">車検（00分開始）</span>
                     </span>
                 </label>
-                <label class="custom-radio-button">
-                    <input type="radio" name="taskcategory" value="車検（30分開始）" class="hidden-radio rounded-md">
-                    <span class="custom-button3">
-                    <span class="icon">✓</span> 車検（30分開始）
+                <label id="task-category-label-2" class="custom-radio-button">
+                    <input type="radio" name="taskcategory" value="" id="task-category-input-2"
+                        class="hidden-radio rounded-md">
+                    <span class="custom-button3 flex flex-col">
+                        <div class="flex gap-2">
+                            <img src="{{ Vite::asset('resources/img/top/maintenance.png') }}"
+                                alt="車検"　class="button-icon">
+                        </div>
+                        <span class="icon">✓</span><span id="task-category-span-2">車検（30分開始）</span>
                     </span>
                 </label>
-                <label class="custom-radio-button">
-                    <input type="radio" name="taskcategory" value="点検整備・見積もり" class="hidden-radio rounded-md">
-                    <span class="custom-button3">
-                    <span class="icon">✓</span> 点検整備・見積もり
+                <label id="task-category-label-3" class="custom-radio-button">
+                    <input type="radio" name="taskcategory" value="" id="task-category-input-3"
+                        class="hidden-radio rounded-md">
+                    <span class="custom-button3 flex flex-col">
+                        <div class="flex gap-2">
+                            <img src="{{ Vite::asset('resources/img/top/estimate.png') }}"
+                                alt="車検"　class="button-icon">
+                            <img src="{{ Vite::asset('resources/img/top/vmaintenance.png') }}"
+                                alt="車検"　class="button-icon">
+                        </div>
+                        <span class="icon">✓</span><span id="task-category-span-3">点検整備・見積もり</span>
                     </span>
                 </label>
             </div>
@@ -202,13 +233,13 @@
                 <label class="custom-radio-button">
                     <input type="radio" name="customer" value="0" class="hidden-radio rounded-md">
                     <span class="custom-button2">
-                    <span class="icon">✓</span> 個人のお客様
+                        <span class="icon">✓</span> 個人のお客様
                     </span>
                 </label>
                 <label class="custom-radio-button">
                     <input type="radio" name="customer" value="1" class="hidden-radio rounded-md">
                     <span class="custom-button2">
-                    <span class="icon">✓</span> 法人のお客様
+                        <span class="icon">✓</span> 法人のお客様
                     </span>
                 </label>
             </div>
@@ -227,18 +258,20 @@
                         <span>★個人★車検ラビット４５（00分開始）（60分）</span>
                     </label>
                     <div class="font-bold p-4 text-xs text-left grow"></div>
-                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく</div>
+                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく
+                    </div>
                 </div>
-                <hr class="my-3 border-1 border-red-300 mx-10">
+                <hr class="my-3 border-1 border-red-600 mx-10">
                 <div class="flex space-x-4 mt-4 items-center text-xs font-bold mx-10">
                     <label class="custom-checkbox">
                         <input type="checkbox" name="reservationtask" value="☆法人☆ご来店型クイック車検（00分開始）（60分）">
                         <span>☆法人☆ご来店型クイック車検（00分開始）（60分）</span>
                     </label>
                     <div class="font-bold p-4 text-xs text-left grow"></div>
-                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく</div>
+                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく
+                    </div>
                 </div>
-                <hr class="my-3 border-1 border-red-300 mx-10">
+                <hr class="my-3 border-1 border-red-600 mx-10">
             </div>
             <div>
                 <div class="flex justify-start items-center gap-3 mt-7 mx-10">
@@ -247,92 +280,21 @@
                 </div>
             </div>
             <hr class="my-3 border-2 border-red-600 -mx-4">
-            {{-- <div>
-                        <label for="store">ご希望の店舗をお選び下さい。</label>
-                        <div class="flex items-center">
-                            <select class="block mt-1 w-full" id="store" name="store">
-                                <option value="0">-- 選択してください --</option>
-                                <option value="1">稲沢本店</option>
-                                <option value="2">名古屋北店</option>
-                                <option value="3">刈谷店</option>
-                                <option value="4">錦店</option>
-                                <option value="5">豊田上郷店</option>
-                                <option value="6">犬山店</option>
-                            </select>
-                            <button type="button" id="storedetails" class="ml-4 mt-2">詳細</button>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <label for="taskcategory">作業カテゴリをお選び下さい。</label>
-                            <div class="flex items-center">
-                                <select class="block mt-1 w-full" id="taskcategory" name="taskcategory">
-                                    <option value="0">-- 選択してください --</option>
-
-                                </select>
-                                <button type="button" id="workdetails" class="ml-4 mt-2">詳細</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div>
-                        <div>
-                            <label for="reservationtask">予約する作業をお選び下さい。</label>
-                            <div class="flex items-center">
-                                <select class="block mt-1 w-full" id="reservationtask" name="reservationtask">
-                                    <option value="0">-- 選択してください --</option>
-                                </select>
-                                <button type="button" id="reservationdetails" class="ml-4 mt-2">詳細</button>
-                            </div>
-                        </div>
-                    </div>
-                    </div> --}}
-            {{-- <div>
+            <div>
                 <div id="app">
                     <div id='calendar'></div>
                 </div>
                 <label>〇受付中</label>
                 <label>✕受付終了</label>
             </div>
-        </div> --}}
-        <!-- モーダル -->
-        <!-- 店舗 -->
-        <div id="storeModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 justify-center items-center">
-            <div class="bg-white p-6 rounded shadow-md w-1/2">
-                <h2 id="modalTitle" class="text-xl font-bold mb-4"></h2>
-                <p id="modalContent"></p>
-                <!-- ボタンを中央揃え -->
-                <div class="flex justify-center">
-                    <button id="closeModal" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">閉じる</button>
-                </div>
-            </div>
-        </div>
-        <!-- 作業 -->
-        <div id="taskModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 justify-center items-center">
-            <div class="bg-white p-6 rounded shadow-md w-1/2">
-                <h2 id="modalTitle" class="text-xl font-bold mb-4"></h2>
-                <p id="modalContent"></p>
-                <!-- ボタンを中央揃え -->
-                <div class="flex justify-center">
-                    <button id="closeModal" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">閉じる</button>
-                </div>
-            </div>
-        </div>
-        <!-- 予約 -->
-        <div id="reservationModal" class="hidden fixed inset-0 bg-gray-800 bg-opacity-50 justify-center items-center">
-            <div class="bg-white p-6 rounded shadow-md w-1/2">
-                <h2 id="modalTitle" class="text-xl font-bold mb-4"></h2>
-                <p id="modalContent"></p>
-                <!-- ボタンを中央揃え -->
-                <div class="flex justify-center">
-                    <button id="closeModal" class="mt-4 px-4 py-2 bg-red-500 text-white rounded">閉じる</button>
-                </div>
-            </div>
-        </div>
     </main>
-
     @section('styles')
         @vite(['resources/css/calender.css'])
     @endsection
+    @push('modals')
+        @include('modules.modals.store-modal')
+        @include('modules.modals.reservation-modal')
+    @endpush
     @push('scripts')
         @vite(['resources/js/modules/calender.js'])
     @endpush
