@@ -1,5 +1,292 @@
+// $(document).ready(function () {
+//     // Ajaxでデータを取得
+//     $.ajax({
+//         url: "/gettaskdata",
+//         method: "GET",
+//         success: function (response) {
+//             const taskCategoryData = response.task_category;
+//             const taskReservationData = response.task_reservation;
+
+//             const storeCategories = {
+//                 稲沢本店: [1, 2, 6],
+//                 名古屋北店: [1, 4, 7],
+//                 刈谷店: [5, 3],
+//                 錦店: [5, 3],
+//                 豊田上郷店: [5, 3],
+//                 犬山店: [5, 3],
+//             };
+
+//             const taskReservation = {
+//                 "車検（00分開始）": [1, 2],
+//                 "車検（30分開始）": [4, 3],
+//                 "車検（30分開始）土曜のみ": [4, 3],
+//                 車検: [5, 6],
+//                 "点検整備・車検見積り": [
+//                     7, 8, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23,
+//                     24,
+//                 ],
+//                 "点検整備・車検見積り_稲沢": [
+//                     7, 8, 10, 11, 12, 13, 15, 19, 20, 21, 22, 23, 24,
+//                 ],
+//                 "点検整備・車検見積り_名北": [
+//                     7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23,
+//                     24,
+//                 ],
+//             };
+
+//             const taskinfo = {
+//                 "★個人★車検ラビット４５（00分開始）（60分）": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         【★個人★車検ラビット４５（00分開始）（60分）<br>
+//                         お仕事や家事で忙しいアナタに！追加作業がなければ、たった45分で車検が完了します。車検は満期日の３０日前から受けられます。
+//                     `,
+//                 },
+//                 "☆法人☆ご来店型クイック車検（00分開始）（60分）": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         ☆法人☆ご来店型クイック車検（00分開始）（60分）<br>
+//                         お仕事や家事で忙しいアナタに！追加作業がなければ、たった45分で車検が完了します。車検は満期日の３０日前から受けられます。
+//                     `,
+//                 },
+//                 "★個人★車検ラビット４５（30分開始）（60分）": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         【★個人★車検ラビット４５（30分開始）（60分）<br>
+//                         お仕事や家事で忙しいアナタに！追加作業がなければ、たった45分で車検が完了します。車検は満期日の３０日前から受けられます。
+//                     `,
+//                 },
+//                 "☆法人☆ご来店型クイック車検（30分開始）（60分）": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         ☆法人☆ご来店型クイック車検（30分開始）（60分）<br>
+//                         お仕事や家事で忙しいアナタに！追加作業がなければ、たった45分で車検が完了します。車検は満期日の３０日前から受けられます。
+//                     `,
+//                 },
+//                 "★個人★車検見積り（30分）": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         ★個人★車検見積り（30分）<br>
+//                         車検の事前見積りです。車検時に必要な整備や部品交換の料金をご提示します。
+//                     `,
+//                 },
+//                 "☆法人☆スケジュール点検（30分）": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         ☆法人☆スケジュール点検（30分）<br>
+//                         メンテナンス契約で定めたサイクルで行う点検です。所要時間は約30分程度です。
+//                     `,
+//                 },
+//                 "★☆法人☆スケジュール点検＋タイヤ付替え（60分）": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         ☆法人☆スケジュール点検＋タイヤ付替え（60分）<br>
+//                         メンテナンス契約で定めたサイクルで行う点検と一緒にタイヤ交換を行います。所要時間は約60分程度です。
+//                     `,
+//                 },
+//                 "★個人★12ヶ月点検（60分）": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         ★個人★12ヶ月点検（60分）<br>
+//                         運転者の義務として法律で定められた点検です。前回の点検（車検・1年点検）から12ヶ月後が点検の目安です。所要時間は約60分程度です。
+//                     `,
+//                 },
+//                 "☆法人☆スケジュール点検＋タイヤ付替え（60分）": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         ☆法人☆スケジュール点検＋タイヤ付替え（60分）<br>
+//                         メンテナンス契約で定めたサイクルで行う点検と一緒にタイヤ交換を行います。所要時間は約60分程度です。
+//                     `,
+//                 },
+//                 "☆法人☆12ヶ月点検（60分）": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         ☆法人☆12ヶ月点検（60分）<br>
+//                         運転者の義務として法律で定められた点検です。前回の点検（車検・1年点検）から12ヶ月後が点検の目安です。所要時間は約60分程度です。
+//                     `,
+//                 },
+//                 "☆法人☆6ヶ月点検（60分）": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         ☆法人☆6ヶ月点検（60分）
+//                         運転者の義務として法律で定められた点検です。前回の点検（車検・1年点検）から6ヶ月後が点検の目安です。所要時間は約60分程度です。
+//                     `,
+//                 },
+//                 "★個人★タイヤ付替え[ホイール付](30分)": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         ★個人★タイヤ付替え[ホイール付](30分)<br>
+//                         タイヤとホイールがセットされている状態の場合は、こちらをお選びください。
+//                     `,
+//                 },
+//                 "☆法人☆タイヤ付替え[ホイール付](30分)": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         ☆法人☆タイヤ付替え[ホイール付](30分)<br>
+//                         タイヤとホイールがセットされている状態の場合は、こちらをお選びください。
+//                     `,
+//                 },
+//                 "★個人★エンジンオイル交換（30分）": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         ☆法人☆エンジンオイル交換（30分）<br>
+//                         定期的なオイル交換はエンジンの調子を保ち、燃費の悪化を防ぐために重要です。3,000~5,000kmまたは半年ごとの交換をお勧めします。
+//                     `,
+//                 },
+//                 "☆法人☆エンジンオイル交換（30分）": {
+//                     name: "予約する作業情報",
+//                     details: `
+//                         ☆法人☆エンジンオイル交換（30分）<br>
+//                         定期的なオイル交換はエンジンの調子を保ち、燃費の悪化を防ぐために重要です。5,000kmまたは半年ごとの交換をお勧めします。
+//                     `,
+//                 },
+//             };
+
+//             // 店舗選択に応じて作業カテゴリを更新する関数
+//             function updateTaskCategories(store) {
+//                 // $("#taskCategories").empty();
+//                 if (storeCategories.hasOwnProperty(store)) {
+//                     const taskIds = storeCategories[store];
+//                     const filteredCategories = taskCategoryData
+//                         .filter((category) => taskIds.includes(category.id))
+//                         .sort(
+//                             (a, b) =>
+//                                 taskIds.indexOf(a.id) - taskIds.indexOf(b.id)
+//                         );
+
+//                     let categoryIndex = 0;
+//                     filteredCategories.forEach((category, index) => {
+//                         // ボタン表示
+//                         $("#taskCategories")
+//                             .find("#task-category-label-" + (index + 1))
+//                             .removeClass("hidden");
+
+//                         // ボタンテキストを変更
+//                         $("#taskCategories")
+//                             .find("#task-category-span-" + (index + 1))
+//                             .text(`${category.category_name}`);
+
+//                         // バリューを変更
+//                         $("#taskCategories")
+//                             .find("#task-category-input-" + (index + 1))
+//                             .val(`${category.category_name}`);
+//                         categoryIndex = index + 1;
+//                     });
+
+//                     for (let i = categoryIndex; i <= 3; i++) {
+//                         // ボタン表示
+//                         $("#taskCategories")
+//                             .find("#task-category-label-" + (categoryIndex + 1))
+//                             .addClass("hidden");
+//                     }
+//                 } else {
+//                     console.log(
+//                         "Error: store key does not exist in storeCategories."
+//                     );
+//                 }
+//             }
+
+//             // タスク予約を更新する関数
+//             function updateReservationTasks(taskCategory) {
+//                 $("#reservationTasks").empty(); // 既存のタスクをクリア
+
+//                 // taskReservationオブジェクトを参照
+//                 if (taskReservation.hasOwnProperty(taskCategory)) {
+//                     const taskIds = taskReservation[taskCategory];
+//                     taskReservationData
+//                         .filter((task) => taskIds.includes(task.id)) // 選択したIDに一致するタスクをフィルタ
+//                         .forEach((task) => {
+//                             const taskHTML = `
+//                                 <div class="flex space-x-4 mt-4 items-center text-xs font-bold mx-10 task-item">
+//                                     <label class="custom-checkbox">
+//                                         <input type="checkbox" name="reservationtask" value="${task.reservation_name}">
+//                                         <span>${task.reservation_name}</span>
+//                                     </label>
+//                                     <div class="font-bold p-4 text-xs text-left grow"></div>
+//                                     <div class="details-button2 text-red-600 font-bold px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+//                                     data-task-id="${task.reservation_name}" id="showDetailsBtn">さらに詳しく</div>
+//                                 </div>
+//                                 <hr class="my-3 border-1 border-red-300 mx-10 task-divider">
+//                             `;
+//                             $("#reservationTasks").append(taskHTML);
+//                         });
+//                 } else {
+//                     console.log(
+//                         "Error: taskCategory key does not exist in taskReservation."
+//                     );
+//                 }
+//             }
+
+//             // 初期表示
+//             updateTaskCategories("稲沢本店");
+
+//             // 店舗ラジオボタンが変更された時に作業カテゴリを更新
+//             $('input[name="store"]').on("change", function () {
+//                 const selectedStore = $(this).val();
+//                 console.log(selectedStore);
+//                 updateTaskCategories(selectedStore);
+//             });
+
+//             // 作業カテゴリのラジオボタンが変更された時に予約作業を更新
+//             $(document).on("change", 'input[name="taskcategory"]', function () {
+//                 const selectedTaskCategory = $(this).val();
+//                 updateReservationTasks(selectedTaskCategory);
+//             });
+
+//             // 個人・法人ラジオボタンが変更された時に予約作業を更新
+//             $('input[name="customer"]').on("change", function () {
+//                 const selectedCustomerType = $(this).val();
+//                 // チェックボックスをフィルタリングして個人・法人を切り替え
+//                 $(
+//                     '#reservationTasks .custom-checkbox input[name="reservationtask"]'
+//                 ).each(function () {
+//                     const checkboxValue = $(this).val();
+//                     const taskText = $(this)
+//                         .closest("label")
+//                         .find("span")
+//                         .text();
+//                     //個人・法人フィルター
+//                     if (checkboxValue.includes(selectedCustomerType)) {
+//                         $(this).closest(".flex").show();
+//                         $(this).closest(".flex").next("hr").show();
+//                     } else {
+//                         $(this).closest(".flex").hide();
+//                         $(this).closest(".flex").next("hr").hide();
+//                     }
+
+//                     // 「メンテパック」は常に表示
+//                     if (taskText.includes("メンテパック")) {
+//                         $(this).closest(".flex").show();
+//                         $(this).closest(".flex").next("hr").show();
+//                     }
+//                 });
+//             });
+
+//             $(document).on("click", ".details-button2", function () {
+//                 const taskId = $(this).data("task-id"); // 修正した data-task-id 属性を取得
+//                 const task = taskinfo[taskId]; // taskId で taskinfo オブジェクトを参照
+//                 if (task) {
+//                     console.log(task);
+//                     $("#modalTitle2").empty().text(`${task.name} `);
+//                     console.log(`${task.name} `);
+//                     $("#modalContent2").html(task.details);
+//                     console.log(task.details);
+//                     $("#reservationModal").removeClass("hidden");
+//                 }
+//             });
+
+//             // モーダルを閉じる
+//             $(document).on("click", "#closeModal", function () {
+//                 $("#reservationModal").addClass("hidden");
+//             });
+//         },
+//         error: function (error) {
+//             console.log("データの取得に失敗しました", error);
+//         },
+//     });
+// });
+
 $(document).ready(function () {
-    // Ajaxでデータを取得
     $.ajax({
         url: "/gettaskdata",
         method: "GET",
@@ -16,14 +303,22 @@ $(document).ready(function () {
                 犬山店: [5, 3],
             };
 
+            // 店舗ごとの点検整備・車検見積りの配列を定義
+            const storeSpecificTasks = {
+                稲沢本店: [7, 8, 10, 11, 12, 13, 15, 19, 20, 21, 22, 23],
+                名古屋北店: [
+                    7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23,
+                ],
+                default: [
+                    7, 8, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23,
+                ],
+            };
+
             const taskReservation = {
                 "車検（00分開始）": [1, 2],
                 "車検（30分開始）": [4, 3],
                 "車検（30分開始）土曜のみ": [4, 3],
                 車検: [5, 6],
-                "点検整備・車検見積り": [
-                    7, 8, 10, 11, 12, 13, 15, 19, 20, 21, 22, 23, 24,
-                ],
             };
 
             const taskinfo = {
@@ -134,9 +429,42 @@ $(document).ready(function () {
                 },
             };
 
-            // 店舗選択に応じて作業カテゴリを更新する関数
+            // タスク予約を更新する関数
+            function updateReservationTasks(taskCategory, selectedStore) {
+                $("#reservationTasks").empty();
+
+                let taskIds;
+                if (taskCategory === "点検整備・車検見積り") {
+                    // 店舗別の配列を使用（存在しない場合はデフォルトを使用）
+                    taskIds =
+                        storeSpecificTasks[selectedStore] ||
+                        storeSpecificTasks.default;
+                } else {
+                    // その他のカテゴリは通常通り処理
+                    taskIds = taskReservation[taskCategory] || [];
+                }
+
+                taskReservationData
+                    .filter((task) => taskIds.includes(task.id))
+                    .forEach((task) => {
+                        const taskHTML = `
+                            <div class="flex space-x-4 mt-4 items-center text-xs font-bold mx-10 task-item">
+                                <label class="custom-checkbox">
+                                    <input type="checkbox" name="reservationtask" value="${task.reservation_name}">
+                                    <span>${task.reservation_name}</span>
+                                </label>
+                                <div class="font-bold p-4 text-xs text-left grow"></div>
+                                <div class="details-button2 text-red-600 font-bold px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+                                data-task-id="${task.reservation_name}" id="showDetailsBtn">さらに詳しく</div>
+                            </div>
+                            <hr class="my-3 border-1 border-red-300 mx-10 task-divider">
+                        `;
+                        $("#reservationTasks").append(taskHTML);
+                    });
+            }
+
+            // 作業カテゴリを更新する関数
             function updateTaskCategories(store) {
-                // $("#taskCategories").empty();
                 if (storeCategories.hasOwnProperty(store)) {
                     const taskIds = storeCategories[store];
                     const filteredCategories = taskCategoryData
@@ -148,86 +476,55 @@ $(document).ready(function () {
 
                     let categoryIndex = 0;
                     filteredCategories.forEach((category, index) => {
-                        // ボタン表示
                         $("#taskCategories")
                             .find("#task-category-label-" + (index + 1))
                             .removeClass("hidden");
 
-                        // ボタンテキストを変更
                         $("#taskCategories")
                             .find("#task-category-span-" + (index + 1))
                             .text(`${category.category_name}`);
 
-                        // バリューを変更
                         $("#taskCategories")
                             .find("#task-category-input-" + (index + 1))
                             .val(`${category.category_name}`);
                         categoryIndex = index + 1;
                     });
 
-                    for (let i = categoryIndex; i <= 3; i++) {
-                        // ボタン表示
+                    for (let i = categoryIndex + 1; i <= 3; i++) {
                         $("#taskCategories")
-                            .find("#task-category-label-" + (categoryIndex + 1))
+                            .find("#task-category-label-" + i)
                             .addClass("hidden");
                     }
-                } else {
-                    console.log(
-                        "Error: store key does not exist in storeCategories."
-                    );
-                }
-            }
-
-            // タスク予約を更新する関数
-            function updateReservationTasks(taskCategory) {
-                $("#reservationTasks").empty(); // 既存のタスクをクリア
-
-                // taskReservationオブジェクトを参照
-                if (taskReservation.hasOwnProperty(taskCategory)) {
-                    const taskIds = taskReservation[taskCategory];
-                    taskReservationData
-                        .filter((task) => taskIds.includes(task.id)) // 選択したIDに一致するタスクをフィルタ
-                        .forEach((task) => {
-                            const taskHTML = `
-                                <div class="flex space-x-4 mt-4 items-center text-xs font-bold mx-10 task-item">
-                                    <label class="custom-checkbox">
-                                        <input type="checkbox" name="reservationtask" value="${task.reservation_name}">
-                                        <span>${task.reservation_name}</span>
-                                    </label>
-                                    <div class="font-bold p-4 text-xs text-left grow"></div>
-                                    <div class="details-button2 text-red-600 font-bold px-2 text-right inline-block border-b border-red-600 cursor-pointer"
-                                    data-task-id="${task.reservation_name}" id="showDetailsBtn">さらに詳しく</div>
-                                </div>
-                                <hr class="my-3 border-1 border-red-300 mx-10 task-divider">
-                            `;
-                            $("#reservationTasks").append(taskHTML);
-                        });
-                } else {
-                    console.log(
-                        "Error: taskCategory key does not exist in taskReservation."
-                    );
                 }
             }
 
             // 初期表示
-            updateTaskCategories("稲沢本店");
+            let currentStore = "稲沢本店";
+            updateTaskCategories(currentStore);
 
-            // 店舗ラジオボタンが変更された時に作業カテゴリを更新
+            // 店舗選択が変更された時のイベントハンドラ
             $('input[name="store"]').on("change", function () {
-                const selectedStore = $(this).val();
-                updateTaskCategories(selectedStore);
+                currentStore = $(this).val();
+                updateTaskCategories(currentStore);
+
+                // 現在選択されている作業カテゴリがあれば、それも更新
+                const selectedTaskCategory = $(
+                    'input[name="taskcategory"]:checked'
+                ).val();
+                if (selectedTaskCategory) {
+                    updateReservationTasks(selectedTaskCategory, currentStore);
+                }
             });
 
-            // 作業カテゴリのラジオボタンが変更された時に予約作業を更新
+            // 作業カテゴリが変更された時のイベントハンドラ
             $(document).on("change", 'input[name="taskcategory"]', function () {
                 const selectedTaskCategory = $(this).val();
-                updateReservationTasks(selectedTaskCategory);
+                updateReservationTasks(selectedTaskCategory, currentStore);
             });
 
-            // 個人・法人ラジオボタンが変更された時に予約作業を更新
+            // 個人・法人選択の処理
             $('input[name="customer"]').on("change", function () {
                 const selectedCustomerType = $(this).val();
-                // チェックボックスをフィルタリングして個人・法人を切り替え
                 $(
                     '#reservationTasks .custom-checkbox input[name="reservationtask"]'
                 ).each(function () {
@@ -236,7 +533,7 @@ $(document).ready(function () {
                         .closest("label")
                         .find("span")
                         .text();
-                    //個人・法人フィルター
+
                     if (checkboxValue.includes(selectedCustomerType)) {
                         $(this).closest(".flex").show();
                         $(this).closest(".flex").next("hr").show();
@@ -245,14 +542,12 @@ $(document).ready(function () {
                         $(this).closest(".flex").next("hr").hide();
                     }
 
-                    // 「メンテパック」は常に表示
                     if (taskText.includes("メンテパック")) {
                         $(this).closest(".flex").show();
                         $(this).closest(".flex").next("hr").show();
                     }
                 });
             });
-
             $(document).on("click", ".details-button2", function () {
                 const taskId = $(this).data("task-id"); // 修正した data-task-id 属性を取得
                 const task = taskinfo[taskId]; // taskId で taskinfo オブジェクトを参照

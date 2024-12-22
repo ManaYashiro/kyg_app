@@ -94,11 +94,6 @@ class Task_reservationSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'reservation_name' => '個人エンジンオイル交換',
-                'created_at' => now(),
-                'updated_at' => now(),
-            ],
-            [
                 'reservation_name' => '★個人★エンジンオイル交換（30分） ',
                 'created_at' => now(),
                 'updated_at' => now(),
