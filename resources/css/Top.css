@@ -1,0 +1,255 @@
+/* 店舗 */
+/* 隠されたラジオボタン */
+.hidden-radio {
+    display: none; /* ラジオボタン自体は非表示 */
+}
+
+/* カスタムボタンのスタイル */
+.custom-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: #dc2626; /* 初期背景色 (赤) */
+    color: white; /* 初期文字色 (白) */
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease; /* 色変更をなめらかに */
+    border: 2px solid #dc2626; /* 初期ボーダー色 (赤) */
+    width: 130px; /* 幅を固定 */
+    height: 40px; /* 高さを変更 */
+    position: relative; /* 相対位置に設定 */
+}
+
+/* ホバー時のスタイル */
+.custom-button:hover {
+    background-color: #f5c6c6; /* ホバー時に背景色を少し濃く */
+}
+
+/* ラジオボタンが選択されたときのスタイル */
+.hidden-radio:checked + .custom-button {
+    background-color: #f8e0e0; /* 選択時の背景色 (淡い赤) */
+    color: #e74c3c; /* 選択時の文字色 (赤) */
+    border: 2px solid #e74c3c; /* ボーダー色を赤に維持 */
+}
+
+/* チェックマークアイコンのスタイル */
+.icon {
+    display: none; /* 初期状態では非表示 */
+    margin-right: 8px; /* テキストとの間にスペースを追加 */
+    color: #e74c3c; /* チェックマークの色 (赤) */
+    position: absolute; /* アイコンを絶対位置で配置 */
+    left: 10px; /* 左側に配置 (固定) */
+    font-size: 18px; /* チェックマークのサイズ */
+}
+
+/* 法人・個人 */
+/* 選択時にチェックマークを表示 */
+.hidden-radio:checked + .custom-button .icon {
+    display: inline-block; /* 選択時に表示 */
+}
+
+/* 隠されたラジオボタン */
+.hidden-radio {
+    display: none; /* ラジオボタン自体は非表示 */
+}
+
+/* 法人・個人カスタムボタンのスタイル */
+.custom-button2 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: #dc2626; /* 初期背景色 (赤) */
+    color: white; /* 初期文字色 (白) */
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease; /* 色変更をなめらかに */
+    border: 2px solid #dc2626; /* 初期ボーダー色 (赤) */
+    width: 200px; /* 幅を固定 */
+    height: 45px; /* 高さを変更 */
+    position: relative; /* 相対位置に設定 */
+}
+
+/* ホバー時のスタイル */
+.custom-button2:hover {
+    background-color: #f5c6c6; /* ホバー時に背景色を少し濃く */
+}
+
+/* ラジオボタンが選択されたときのスタイル */
+.hidden-radio:checked + .custom-button2 {
+    background-color: #f8e0e0; /* 選択時の背景色 (淡い赤) */
+    color: #e74c3c; /* 選択時の文字色 (赤) */
+    border: 2px solid #e74c3c; /* ボーダー色を赤に維持 */
+}
+
+/* チェックマークアイコンのスタイル */
+.icon {
+    display: none; /* 初期状態では非表示 */
+    margin-right: 8px; /* テキストとの間にスペースを追加 */
+    color: #e74c3c; /* チェックマークの色 (赤) */
+    position: absolute; /* アイコンを絶対位置で配置 */
+    left: 10px; /* 左側に配置 (固定) */
+    font-size: 18px; /* チェックマークのサイズ */
+}
+
+/* 作業カテゴリ */
+/* 選択時にチェックマークを表示 */
+.hidden-radio:checked + .custom-button2 .icon {
+    display: inline-block; /* 選択時に表示 */
+}
+
+/* 隠されたラジオボタン */
+.hidden-radio {
+    display: none; /* ラジオボタン自体は非表示 */
+}
+
+/* 作業カテゴリカスタムボタンのスタイル */
+.custom-button3 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: 8px;
+    background-color: #dc2626; /* 初期背景色 (赤) */
+    color: white; /* 初期文字色 (白) */
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease; /* 色変更をなめらかに */
+    border: 2px solid #dc2626; /* 初期ボーダー色 (赤) */
+    width: 220px; /* 幅を固定 */
+    height: 120px; /* 高さを変更 */
+    position: relative; /* 相対位置に設定 */
+}
+
+/* ホバー時のスタイル */
+.custom-button3:hover {
+    background-color: #f5c6c6; /* ホバー時に背景色を少し濃く */
+}
+
+/* ラジオボタンが選択されたときのスタイル */
+.hidden-radio:checked + .custom-button3 {
+    background-color: #f8e0e0; /* 選択時の背景色 (淡い赤) */
+    color: #e74c3c; /* 選択時の文字色 (赤) */
+    border: 2px solid #e74c3c; /* ボーダー色を赤に維持 */
+}
+
+/* チェックマークアイコンのスタイル */
+.icon {
+    display: none; /* 初期状態では非表示 */
+    margin-right: 8px; /* テキストとの間にスペースを追加 */
+    color: #e74c3c; /* チェックマークの色 (赤) */
+    position: absolute; /* アイコンを絶対位置で配置 */
+    left: 10px; /* 左側に配置 (固定) */
+    font-size: 18px; /* チェックマークのサイズ */
+}
+
+.hidden-radio:checked + .custom-button3 .icon {
+    display: inline-block; /* 選択時に表示 */
+    position: absolute;
+    top: 1px; /* 上に移動 */
+    left: 8%;
+    transform: translateX(-50%); /* 水平位置を中央に調整 */
+}
+
+.checkbox {
+    accent-color: #f00;
+}
+
+.hidden-task {
+    display: none;
+}
+
+/* リセット */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* 全体設定 */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* バナーセクション */
+.banner {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    background-color: #c4221c; /* 赤い背景色 */
+    color: #fff;
+    overflow: hidden;
+}
+
+.image-content img {
+    clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.top-image {
+    width: 100%;
+}
+
+/* テキストコンテンツ */
+.text-content {
+    flex: 1;
+    margin: 30px;
+    padding: 20px;
+    z-index: 2; /* テキストを画像の上に配置 */
+}
+
+.text-content h1 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.text-content p {
+    font-size: 1.2rem;
+    margin-bottom: 50px;
+}
+
+/* デフォルトのチェックボックスを非表示にする */
+.custom-checkbox input[type="checkbox"] {
+    display: none;
+}
+
+/* カスタムチェックボックスの外観 */
+.custom-checkbox input[type="checkbox"] + span {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+/* チェックボックスの枠 */
+.custom-checkbox input[type="checkbox"] + span::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ff0000;
+    background-color: #ffffff;
+}
+
+/* チェックされている場合のチェックボックスの枠 */
+.custom-checkbox input[type="checkbox"]:checked + span::before {
+    background-color: #ffffff; /* チェックされた時の背景色（青） */
+    border-color: #ff0000; /* チェックされた時のボーダー色 */
+}
+
+/* チェックされている場合に表示されるチェックマークの色 */
+.custom-checkbox input[type="checkbox"]:checked + span::after {
+    content: "\2713"; /* チェックマークの Unicode */
+    position: absolute;
+    left: 2px;
+
+    font-size: 18px;
+    color: red; /* チェックマークの色（赤） */
+}
