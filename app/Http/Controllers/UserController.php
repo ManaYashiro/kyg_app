@@ -112,7 +112,7 @@ class UserController extends Controller
                 'car_class' => $userVehicles["car_class" . ($i + 1)] ?? null,
             ];
             if ($car_data['sequence_no']) {
-                $user->userVehicles()->where('user_id', 3)->where('sequence_no', $car_data['sequence_no'])->update($car_data);
+                $user->userVehicles()->where('user_id', $user->id)->where('sequence_no', $car_data['sequence_no'])->update($car_data);
             } else {
                 $user->userVehicles()->create($car_data);
             }

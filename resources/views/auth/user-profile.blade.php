@@ -205,20 +205,24 @@
     $userVehicles = $user && count($user->userVehicles) > 0 ? $user->userVehicles : [];
 @endphp
 <div class="divide-y divide-red-400">
-    @for ($i = 0; $i < \App\Models\UserVehicle::MAX_NO_OF_CARS; $i++)
-        @php
-            $sequence_no = $i + 1;
-            $car_show = isset($userVehicles[$i]) && !empty($userVehicles[$i]->car_name) ? 'true' : 'false';
-            // $car_show = true;
-        @endphp
-        <div :class="{ 'mt-4': '{{ $sequence_no > 1 }}' }" class="pt-4 flex flex-col" x-data="{ car_show_{{ $sequence_no }}: {{ $car_show }}, height: 0 }"
-            x-init="$nextTick(() => height = $refs.containerCarShow_{{ $sequence_no }}.scrollHeight)">
-            @include('auth.car-profile', [
-                'sequence_no' => $sequence_no,
-                'userVehicle' => $userVehicles[$i] ?? null,
-            ])
-        </div>
-    @endfor
+    <div class="pt-4 flex flex-col" x-data="{ car_show_1: true, height: 0 }" x-init="$nextTick(() => height = $refs.containerCarShow_1.scrollHeight)">
+        @include('auth.car-profile', [
+            'sequence_no' => 1,
+            'userVehicle' => $userVehicles[0] ?? null,
+        ])
+    </div>
+    <div class="mt-4 pt-4 flex flex-col" x-data="{ car_show_2: false, height: 0 }" x-init="$nextTick(() => height = $refs.containerCarShow_2.scrollHeight)">
+        @include('auth.car-profile', [
+            'sequence_no' => 2,
+            'userVehicle' => $userVehicles[1] ?? null,
+        ])
+    </div>
+    <div class="mt-4 pt-4 flex flex-col" x-data="{ car_show_3: false, height: 0 }" x-init="$nextTick(() => height = $refs.containerCarShow_3.scrollHeight)">
+        @include('auth.car-profile', [
+            'sequence_no' => 3,
+            'userVehicle' => $userVehicles[2] ?? null,
+        ])
+    </div>
 </div>
 
 <!-- Newsletter Subscription -->
