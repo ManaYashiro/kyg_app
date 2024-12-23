@@ -10,6 +10,7 @@ use App\Http\Requests\RegisteredUserRequest;
 use App\Http\Requests\UserVehicleRequest;
 use App\Models\Anket;
 use App\Models\User;
+use App\Models\UserVehicle;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -39,7 +40,7 @@ class RegisteredUserController extends Controller
     public function store(RegisteredUserRequest $request): JsonResponse|RedirectResponse
     {
         $data = $request->validated();
-        if ($data['submit_type'] === SubmitTypeEnum::CONFIRM) {
+        if ($data['submit_type'] === SubmitTypeEnum::CONFIRM->value) {
             return response()->json([
                 'success' => true,
                 'message' => 'confirm OK'
@@ -59,8 +60,30 @@ class RegisteredUserController extends Controller
         $user = User::create($data);
 
         // 会員登録と別に作成する
-        $userVehicle = $request->validate((new UserVehicleRequest())->rules());
-        $user->userVehicles()->create($userVehicle);
+        $userVehicles = $request->validate((new UserVehicleRequest())->rules());
+        for ($i = 0; $i < UserVehicle::MAX_NO_OF_CARS; $i++) {
+            // 車名とナンバーはすでに検証されています
+            // 空の場合は、DB 挿入エラーを防ぐためにシーケンスをスキップするだけです
+            if (empty($userVehicles['car_name'][$i]) || empty($userVehicles['car_number'][$i])) {
+                continue;
+            }
+            $car_attributes["car_name.$i"] = "車名(" . ($i + 1) . "台目)";
+            $car_data = [
+                // sequence_no[]
+                'sequence_no' => $userVehicles['sequence_no'][$i] ?? null,
+                // car_name[]
+                'car_name' => $userVehicles['car_name'][$i] ?? null,
+                // car_katashiki[]
+                'car_katashiki' => $userVehicles['car_katashiki'][$i] ?? null,
+                // car_number[]
+                'car_number' => $userVehicles['car_number'][$i] ?? null,
+
+                // car_class パラメータは配列ではありません
+                // car_class1、car_class2、car_class3
+                'car_class' => $userVehicles["car_class" . ($i + 1)] ?? null,
+            ];
+            $user->userVehicles()->create($car_data);
+        }
 
         // 登録イベントを発火させる
         event(new Registered($user));
@@ -69,8 +92,10 @@ class RegisteredUserController extends Controller
         // Auth::login($user);
 
         // 管理者がユーザーを登録
-        if (Auth::user()->role === User::ADMIN) {
-            return redirect()->route('admin.userList.index')->with('success', 'ユーザーを作成しました');
+        if (Auth::check()) {
+            if (Auth::user()->role === User::ADMIN) {
+                return redirect()->route('admin.userList.index')->with('success', 'ユーザーを作成しました');
+            }
         }
 
         //未ローグインで確認メール送信して、トップ画面にリダイレクトします。
