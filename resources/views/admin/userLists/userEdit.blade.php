@@ -51,6 +51,8 @@
 
     @section('styles')
     @endsection
+    @push('modals')
+    @endpush
     @push('scripts')
         @vite(['resources/js/modules/ajaxConfirm.js'])
         @vite(['resources/js/modules/page-navi-buttons.js'])

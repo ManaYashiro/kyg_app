@@ -50,7 +50,7 @@
 
 </head>
 
-<body class="wait-for-icons bg-customgray-200 font-sans antialiased text-base">
+<body class="wait-for-icons relative bg-customgray-200 font-sans antialiased text-base">
     <div class="min-h-screen flex flex-col">
         @include('layouts.navigation')
 
@@ -60,11 +60,12 @@
                 {{ $slot }}
             </div>
         </div>
-
         @include('layouts.footer')
     </div>
 
-    @include('layouts.scroll-up')
+    @include('modules.loading-screen')
+    @include('modules.scroll-up')
+    @stack('modals')
     @stack('scripts')
 </body>
 

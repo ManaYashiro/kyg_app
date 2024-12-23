@@ -50,7 +50,7 @@
 
 </head>
 
-<body class="wait-for-icons font-sans antialiased text-base">
+<body class="wait-for-icons relative font-sans antialiased text-base">
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- Desktop sidebar -->
         @include('includes.desktop-sidebar')
@@ -66,6 +66,8 @@
         </div>
     </div>
 
+    @include('modules.loading-screen')
+    @stack('modals')
     @stack('scripts')
 </body>
 

@@ -263,22 +263,22 @@
                 <x-text.custom-text text="予約する日時をお選びください。" class="font-bold text-xl"></x-text.custom-text>
             </div>
             <hr class="my-3 border-2 border-red-600 -mx-14">
-            <div>
-                <div id="app">
-                    <div id='calendar'></div>
-                </div>
+            <div id="calendar-container">
+                <x-text.custom-text text="予約日時を選択" class="mb-3 bottom-border-text font-bold" />
+                <div id='calendar'></div>
                 <label>〇受付中</label>
-                <label>✕受付終了</label>
+                <label>✖受付終了</label>
             </div>
     </main>
     @section('styles')
-        @vite(['resources/css/modules/calender.css'])
+        @vite(['resources/css/modules/calendar.css'])
     @endsection
     @push('modals')
         @include('modules.modals.store-modal')
         @include('modules.modals.reservation-modal')
+        @include('modules.modals.calendar-modal')
     @endpush
     @push('scripts')
-        @vite(['resources/js/modules/calender.js'])
+        @vite(['resources/js/modules/calendar.js'])
     @endpush
 </x-app-layout>

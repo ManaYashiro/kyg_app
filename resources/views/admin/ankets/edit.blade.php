@@ -41,6 +41,8 @@
     </div>
     @section('styles')
     @endsection
+    @push('modals')
+    @endpush
     @push('scripts')
     @endpush
 </x-admin-app-layout>

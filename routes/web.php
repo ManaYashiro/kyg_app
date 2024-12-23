@@ -44,7 +44,7 @@ Route::middleware('auth', 'verified')->group(function () {
         })->name('dashboard');
 
         Route::resource('reservationList', ReservationListController::class);
-        Route::resource('userList', UserController::class)->except(['show']);
+        Route::resource('userList', UserController::class)->only(['index', 'edit', 'destroy']);
         // multiple delete users
         Route::post('userList/delete-users', [UserController::class, 'deleteUsers'])->name('userList.deleteUsers');
         Route::get('userList/download-users-as-csv', [UserController::class, 'downloadUsersAsCSV'])->name('userList.downloadUsersAsCSV');
@@ -58,7 +58,7 @@ Route::middleware('auth', 'verified')->group(function () {
             return view('mypage');
         })->name('mypage');
 
-        Route::resource('appointmentList', AppointmentListController::class);
+        Route::resource('appointmentList', AppointmentListController::class)->except(['show']);
 
         Route::get('/appointment-confirmation', function () {
             return view('appointmentConfirmation');
@@ -77,5 +77,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::patch('/change-account-information', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/change-account-information', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::get('appointmentList/events', [AppointmentListController::class, 'events'])->withoutMiddleware('auth')->name('appointmentList.events');
+Route::get('appointmentList/go-to/unreserved', [AppointmentListController::class, 'gotoNearestUnreserved'])->withoutMiddleware('auth')->name('appointmentList.goto.NearestUnreserved');
 
 require __DIR__ . '/auth.php';
