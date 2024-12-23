@@ -9,6 +9,26 @@ use Illuminate\Support\Facades\Auth;
 
 class  AppointmentListController extends Controller
 {
+    public $day_start;
+    public $day_end;
+    public $time_start;
+    public $time_end;
+    public $time_interval;
+    public $break_day;
+    public $break_time;
+
+    public function __construct()
+    {
+        $this->day_start = config('appointment.day_start');
+        $this->day_end = config('appointment.day_end');
+        $this->time_start = config('appointment.time_start');
+        $this->time_end = config('appointment.time_end');
+        $this->time_interval = config('appointment.time_interval');
+        $this->break_day = config('appointment.break_day');
+        $this->break_time = config('appointment.break_time');
+    }
+
+
     /**
      * Display the appointments list with optional role filtering.
      *
@@ -96,19 +116,17 @@ class  AppointmentListController extends Controller
 
         // Get the current date using the provided year, month, and day
         $currentDate = Carbon::create($year, $month, $day);
-
-        $startOfWeek = $currentDate->startOfWeek(config('appointment.day_start'));
-
-        $endOfWeek = $startOfWeek->copy()->endOfWeek(config('appointment.day_end'));
+        $startOfWeek = $currentDate->startOfWeek($this->day_start);
+        $endOfWeek = $startOfWeek->copy()->endOfWeek($this->day_end);
 
         // Query appointments within the weekly date range
         $appointments = Appointments::whereBetween('reservation_datetime', [$startOfWeek, $endOfWeek])->get();
 
         $events = [];
         $existingAppointments = [];
-        $startTime = Carbon::createFromFormat('H:i:s', config('appointment.time_start'));
-        $endTime = Carbon::createFromFormat('H:i:s', config('appointment.time_end'));
-        $intervalTime = Carbon::parse(config('appointment.time_interval'));
+        $startTime = Carbon::createFromFormat('H:i:s', $this->time_start);
+        $endTime = Carbon::createFromFormat('H:i:s', $this->time_end);
+        $intervalTime = Carbon::parse($this->time_interval);
         $intervalTime = $intervalTime->hour * 60 + $intervalTime->minute;
         // $intervalMinutes = abs($intervalTime->diffInMinutes(Carbon::createFromFormat('H:i:s', '00:00:00')));
 
@@ -132,7 +150,8 @@ class  AppointmentListController extends Controller
 
             $currentTime = clone $startTime;
 
-            while ($currentTime <= $endTime) {
+            // 09:00:00 ~ 18:00:00
+            while ($currentTime < $endTime) {
 
                 $cloneCurrentTime = clone $currentTime;
                 $logTimeStart = $cloneCurrentTime->format('H:i:s');
@@ -146,10 +165,10 @@ class  AppointmentListController extends Controller
 
                 $currentTime->addMinutes($intervalTime);
 
-                if ((int) $dayIndex === (int) config('appointment.break_day')) {
+                if ($currentDate->dayOfWeek() === (int) $this->break_day) {
                     // 休日
                     array_push($events, $this->breakEvent($start, $end));
-                } else if ($logTimeStart === config('appointment.break_time')) {
+                } else if ($logTimeStart === $this->break_time) {
                     // 休憩
                     array_push($events, $this->breakEvent($start, $end));
                 } else if (!$this->hasExistingAppointment($existingAppointments, $start)) {
@@ -170,17 +189,53 @@ class  AppointmentListController extends Controller
 
     public function gotoNearestUnreserved(Request $request)
     {
+        $currentDate = Carbon::now();
+        $startOfWeek = $currentDate->startOfWeek($this->day_start);
+        $endOfWeek = $startOfWeek->copy()->endOfWeek($this->day_end);
+
+        $earliestAvailableDate = null;
+        $foundAvailable = false;
+        $reservation_date = 0;
+
+        while (!$foundAvailable) {
+
+            // Find the earliest date with less than 9 reservations, from 09:00 to 18:00 except 12:00
+            $firstAvailableDate = $this->firstAvailableDate($startOfWeek, $endOfWeek);
+            $earliestAvailableDate = $this->earliestAvailableDate($startOfWeek, $endOfWeek);
+
+            if (!empty($firstAvailableDate) && $firstAvailableDate->reservation_date) {
+                $foundAvailable = true;
+                $reservation_date = $firstAvailableDate->reservation_date;
+                break;
+            }
+
+            // Found earliest date then exit;
+            if (!empty($earliestAvailableDate) && $earliestAvailableDate->reservation_date) {
+                $foundAvailable = true;
+                $reservation_date = $earliestAvailableDate->reservation_date;
+                break;
+            }
+
+            // Move to the next week until we reach unreserved date
+            // Add 7 days to the current date
+            $updatedDate = $currentDate->addDays(7);
+
+            // Set start and end of the week based on the updated date
+            $startOfWeek = $updatedDate->startOfWeek($this->day_start);
+            $endOfWeek = $startOfWeek->copy()->endOfWeek($this->day_end);
+        }
+
         return response()->json([
-            'date' => Carbon::now()->addDays(30)->format('Y-m-d'),
+            'date' => $reservation_date,
         ]);
     }
 
-    public function hasExistingAppointment($existingAppointments, $start)
+    private function hasExistingAppointment($existingAppointments, $start)
     {
         return in_array($start, $existingAppointments);
     }
 
-    public function reservedEvent($start, $end): array
+    private function reservedEvent($start, $end): array
     {
         return [
             // 'title' => '✖',
@@ -191,7 +246,7 @@ class  AppointmentListController extends Controller
         ];
     }
 
-    public function unreservedEvent($start, $end): array
+    private function unreservedEvent($start, $end): array
     {
         return [
             // 'title' => '〇',
@@ -202,7 +257,7 @@ class  AppointmentListController extends Controller
         ];
     }
 
-    public function breakEvent($start, $end): array
+    private function breakEvent($start, $end): array
     {
         return [
             // 'title' => '',
@@ -210,5 +265,50 @@ class  AppointmentListController extends Controller
             'start' => $start,
             'end' => $end,
         ];
+    }
+
+    private function firstAvailableDate($startOfWeek, $endOfWeek): null|object
+    {
+        $now = Carbon::now();
+        $currentDate = Carbon::parse($startOfWeek);
+
+        while ($currentDate <= $endOfWeek) {
+            // skip break day
+            if ($this->break_day == $currentDate->dayOfWeek()) {
+                $currentDate->addDay();
+                continue;
+            }
+            // skip previous days
+            if ($currentDate >= $now) {
+                $reservationCount = Appointments::whereDate('reservation_datetime', $currentDate->format('Y-m-d'))
+                    ->whereNull('deleted_at')
+                    ->count();
+
+                if ($reservationCount === 0) {
+                    return (object) ['reservation_date' => $currentDate->format('Y-m-d')];
+                }
+            }
+            $currentDate->addDay();
+        }
+
+        return null;  // No available date
+    }
+
+
+    private function earliestAvailableDate($startOfWeek, $endOfWeek): null|object
+    {
+
+        $break_day = Carbon::parse($startOfWeek)->next((int) $this->break_day);
+        return Appointments::selectRaw("
+                CAST(reservation_datetime AS DATE) as reservation_date,
+                COUNT(*) as reservation_count
+            ")
+            ->whereBetween('reservation_datetime', [$startOfWeek, $endOfWeek])
+            ->whereRaw('CAST(reservation_datetime AS DATE) != ?', [$break_day])
+            ->whereNull('deleted_at')
+            ->groupByRaw("CAST(reservation_datetime AS DATE)")
+            ->havingRaw('COUNT(*) < 9')
+            ->orderByRaw("CAST(reservation_datetime AS DATE) ASC")
+            ->first();
     }
 }

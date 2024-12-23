@@ -63,7 +63,6 @@ fontAwesomeLoaded().then(() => {
             chokkinNoJoukyo: {
                 text: "直近の状況",
                 click: function () {
-                    console.log("go to has available");
                     $.ajax({
                         url: "/appointmentList/go-to/unreserved",
                         type: "GET",
@@ -72,15 +71,8 @@ fontAwesomeLoaded().then(() => {
                         },
                         data: {},
                         dataType: "json",
-                        beforeSend: function () {
-                            // 読み込み中が表示
-                            window.showLoading();
-                        },
-                        complete: function () {
-                            // 読み込み中が非表示
-                            resetButtons();
-                            window.hideLoading();
-                        },
+                        beforeSend: function () {},
+                        complete: function () {},
                         success: function (response) {
                             displayDate = new Date(response.date);
                             calendar.gotoDate(displayDate);
@@ -152,6 +144,7 @@ fontAwesomeLoaded().then(() => {
                     window.hideLoading();
                 },
                 success: function (response) {
+                    console.log(response);
                     successCallback(response);
                 },
                 error: function (error) {
