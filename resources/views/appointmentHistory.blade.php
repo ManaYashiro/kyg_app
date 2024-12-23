@@ -98,7 +98,7 @@
                     <tr>
                         <th class="px-4 py-2 text-left" style="width: 10%;">予約番号</th>
                         <th class="px-4 py-2 text-left" style="width: 18%;">予約日時</th>
-                        <th class="px-4 py-2 text-left" style="width: 8%;"">車両</th>
+                        <th class="px-4 py-2 text-left" style="width: 8%;">車両</th>
                         <th class="px-4 py-2 text-left" style="width: 10%;">希望店舗</th>
                         <th class="px-4 py-2 text-left" style="width: 20%;">作業カテゴリ</th>
                         <th class="px-4 py-2 text-left" style="width: 20%;">予約する作業</th>
@@ -145,5 +145,7 @@
         @else
             <div class="px-4 py-2 mb-6">予約履歴はありません</div>
         @endif
+        <x-buttons.actionbutton :id="'login'" name="{{ __('前の画面に戻る') }}" type="button" class="mt-5 px-4 py-4"
+        divClass="w-full sm:w-1/2 md:w-1/3 mx-auto" url="{{ route('mypage') }}" :buttonColor="'bg-gray-200 text-black'" />
     </div>
 </x-app-layout>

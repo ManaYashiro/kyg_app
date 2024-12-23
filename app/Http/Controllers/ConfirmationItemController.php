@@ -22,14 +22,14 @@ class  ConfirmationItemController extends Controller
         $user = Auth::user();
         //バリデーション
         $rules = [
-            'vehicle' => 'required|string',
+            'user_vehicle_id' => 'required|string',
             'additional_services' => 'nullable|array',
             'inspection_due_date' => 'required|date',
             'past_service_history' => 'required|string',
         ];
         // バリデーションエラーメッセージ
         $errorMessages = [
-            'vehicle' => '【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。を選択してください。',
+            'user_vehicle_id' => '【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。を選択してください。',
             'inspection_due_date' => '車検満期日をご入力ください。を入力してください。',
             'past_service_history' => '今回ご予約いただく店舗・作業は、過去にご利用がございますか？を選択してください。',
         ];
@@ -88,7 +88,7 @@ class  ConfirmationItemController extends Controller
 
         //最終内容確認へ渡すために代入
         $finalcheck = [
-            'vehicle' => $validatedData['vehicle'],
+            'user_vehicle_id' => $validatedData['user_vehicle_id'],
             'additional_services' => $validatedData['additional_services'] ?? [],  // 空の場合は空の配列
             'inspection_due_date' => $validatedData['inspection_due_date'],
             'past_service_history' => $validatedData['past_service_history'],
@@ -125,7 +125,7 @@ class  ConfirmationItemController extends Controller
             ],
         ];
         session([
-            'vehicle' => $request->input('vehicle'),
+            'user_vehicle_id' => $request->input('user_vehicle_id'),
             'additional_services' => $request->input('additional_services'),
             'inspection_due_date' => $request->input('inspection_due_date'),
             'past_service_history' => $request->input('past_service_history'),
@@ -148,7 +148,7 @@ class  ConfirmationItemController extends Controller
         $appointment->store = $request->input('user'); //ご希望の店舗(仮)
         $appointment->taskcategory = $request->input('user'); //作業カテゴリ(仮)
         $appointment->reservationtask = $request->input('user'); //予約する作業(仮)
-        $appointment->vehicle = $request->input('vehicle'); //車両台数
+        $appointment->user_vehicle_id = $request->input('user_vehicle_id'); //車両台数
         $appointment->additional_services = $request->input('additional_services'); //追加整備
         $appointment->inspection_due_date = $request->input('inspection_due_date'); //	車検満了日
         $appointment->past_service_history = $request->input('past_service_history'); //過去の利用履歴

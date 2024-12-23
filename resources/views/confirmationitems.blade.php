@@ -25,24 +25,24 @@
                             <x-text.custom-input-label text="【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。"
                                 class="mb-2" option="必須" />
                         </h5>
-                        <x-select id="vehicle" class="block mt-1 w-[120px] h-[38px] rounded-none" name="vehicle">
-                            <option value="" {{ old('vehicle') == '' ? 'selected' : '' }}>
+                        <x-select id="user_vehicle_id" class="block mt-1 w-[120px] h-[38px] rounded-none" name="user_vehicle_id">
+                            <option value="" {{ old('user_vehicle_id') == '' ? 'selected' : '' }}>
                             </option>
-                            <option value="1台目" {{ old('vehicle') == '1台目' ? 'selected' : '' }}>
+                            <option value="1" {{ old('user_vehicle_id') == '1台目' ? 'selected' : '' }}>
                                 1台目
                             </option>
-                            <option value="2台目" {{ old('vehicle') == '2台目' ? 'selected' : '' }}>
+                            <option value="2" {{ old('user_vehicle_id') == '2台目' ? 'selected' : '' }}>
                                 2台目
                             </option>
-                            <option value="3台目" {{ old('vehicle') == '3台目' ? 'selected' : '' }}>
+                            <option value="3" {{ old('user_vehicle_id') == '3台目' ? 'selected' : '' }}>
                                 3台目</option>
-                            <option value="未登録の車" {{ old('vehicle') == '未登録の車' ? 'selected' : '' }}>
+                            <option value="未登録の車" {{ old('user_vehicle_id') == '未登録の車' ? 'selected' : '' }}>
                                 未登録の車
                             </option>
                         </x-select>
                         <x-text.custom-input-label text="未登録車の場合は、次ページのメッセージ欄に車名・ナンバーをご入力ください。"
                             spanClass="font-normal text-xs text-gray-500 mt-1" />
-                        <x-input-error :messages="$errors->get('vehicle')" class="attention" />
+                        <x-input-error :messages="$errors->get('user_vehicle_id')" class="attention" />
                     </div>
 
                     <!-- 追加装備 -->
