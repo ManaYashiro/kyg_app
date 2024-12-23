@@ -36,7 +36,6 @@
                 </div>
             </div>
         </div>
-
         <x-buttons.actionbutton :id="'login'" name="{{ __('ホームヘ') }}" type="button" class="mt-5 px-4 py-4"
             divClass="w-full sm:w-1/2 md:w-1/3 mx-auto" url="{{ route('top') }}" :buttonColor="'bg-gray-200 text-black'" />
     </div>
