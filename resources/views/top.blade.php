@@ -111,7 +111,7 @@
                             <span class="icon">✓</span> 名古屋北店
                         </span>
                     </label>
-                    <div class="font-bold p-4 text-xs text-left grow">〒462-0034 愛知県名古屋市北区天道町5丁目21　9:00-18:00 日曜・祝日定休
+                    <div class="font-bold p-4 text-xs text-left grow">〒462-0034 愛知県名古屋市北区天道町5丁目21　9:00-18:00 日・祝日定休
                     </div>
                     <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
                         data-store-id="2">さらに詳しく</div>
@@ -137,7 +137,7 @@
                             <span class="icon">✓</span> 錦店
                         </span>
                     </label>
-                    <div class="font-bold p-4 text-xs text-left grow">〒460-0003 愛知県名古屋市錦3-8-32　9:00-18:00 日祝日定休</div>
+                    <div class="font-bold p-4 text-xs text-left grow">〒460-0003 愛知県名古屋市錦3-8-32　9:00-18:00 日・祝日定休</div>
                     <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
                         data-store-id="4">さらに詳しく</div>
                 </div>
