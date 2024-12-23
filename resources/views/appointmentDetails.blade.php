@@ -132,10 +132,9 @@
                     <x-input-error :messages="$errors->get('past_service_history')" class="attention" />
                 </div>
             </div>
-
             <div class="flex flex-row items-center justify-center gap-4 mt-8">
                 <div class="w-1/3">
-                    <button id="button-prev" class="bg-gray-200 text-black rounded w-full px-4 py-4" type="button">
+                    <button id="button-prev" class="bg-gray-200 text-black rounded w-full px-4 py-4" type="button" onclick="window.history.back()">
                         前の画面に戻る
                     </button>
                 </div>
@@ -146,11 +145,13 @@
                     </button>
                 </div>
 
-                <div class="w-1/3">
-                    <button id="button-cancel" class="bg-red-1000 text-white rounded w-full px-4 py-4" type="button">
+                <form action="{{ route('appointmentList.destroy', $appointment->id) }}" method="POST" onsubmit="return confirm('本当にキャンセルしますか？');" class="w-1/3">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-red-1000 text-white rounded w-full px-4 py-4">
                         キャンセル
                     </button>
-                </div>
+                </form>
             </div>
         </div>
     </div>
