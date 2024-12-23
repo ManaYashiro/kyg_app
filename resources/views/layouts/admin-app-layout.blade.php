@@ -45,12 +45,12 @@
     @yield('styles')
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js'])
+    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js', 'resources/js/modules/dashboard.js'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 
 </head>
 
-<body class="wait-for-icons bg-customgray-200 font-sans antialiased text-base">
+<body class="wait-for-icons font-sans antialiased text-base">
     <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- Desktop sidebar -->
         @include('includes.desktop-sidebar')
@@ -60,7 +60,7 @@
 
         <div class="flex flex-col flex-1 w-full min-w-0">
             @include('includes.header')
-            <main class="h-full overflow-y-auto">
+            <main class="h-full overflow-hidden">
                 {{ $slot }}
             </main>
         </div>

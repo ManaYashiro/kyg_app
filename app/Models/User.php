@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use App\Enums\CallTimeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
+use App\Enums\PrefectureEnum;
 use App\Exceptions\SendEmailFailedException;
 use App\Helpers\Log;
 use App\Notifications\NotifyAdminOfRegisteredUserNotification;
@@ -78,6 +80,8 @@ class User extends Authenticatable implements MustVerifyEmail
             'password' => 'hashed',
             'questionnaire' => 'array',
             'gender' => GenderEnum::class,
+            'call_time' => CallTimeEnum::class,
+            'prefecture' => PrefectureEnum::class,
             'is_receive_newsletter' => IsNewsletterEnum::class,
             'is_receive_notification' => IsNotificationEnum::class,
         ];
@@ -144,6 +148,11 @@ class User extends Authenticatable implements MustVerifyEmail
     public function userVehicles()
     {
         return $this->hasMany(UserVehicle::class);
+    }
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointments::class);
     }
 
     public function findUserAnkets()

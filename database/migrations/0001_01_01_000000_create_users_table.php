@@ -36,12 +36,12 @@ return new class extends Migration
             $table->string('manager', 40)->nullable();
             $table->string('department', 128)->nullable();
             $table->string('remarks', 128)->nullable();
-            $table->boolean('is_receive_newsletter')->nullable();
-            $table->boolean('is_receive_notification')->default(FALSE);
+            $table->integer('is_receive_newsletter', 1)->nullable()->autoIncrement(false);
+            $table->integer('is_receive_notification', 1)->autoIncrement(false);
             $table->rememberToken();
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate();
-            $table->dateTime('deleted_at')->nullable()->useCurrentOnUpdate();
+            $table->dateTime('deleted_at')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {

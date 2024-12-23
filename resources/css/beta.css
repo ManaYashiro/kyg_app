@@ -5,5 +5,5 @@
 
 /* 選択された行に対するハイライト */
 .clickable-row.selected {
-    background-color: #d0eaff;  /* クリックされた行を異なる色で強調表示 */
+    background-color: #d0eaff; /* クリックされた行を異なる色で強調表示 */
 }

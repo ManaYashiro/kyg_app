@@ -3,10 +3,13 @@
 namespace App\Http\Requests;
 
 use App\Enums\CallTimeEnum;
+use App\Enums\FormTypeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
+use App\Enums\SubmitTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class RegisteredUserRequest extends FormRequest
 {
@@ -25,17 +28,47 @@ class RegisteredUserRequest extends FormRequest
      */
     public function rules(): array
     {
+        $id = null;
+        $passwordRules = [];
+        switch ($this->form_type) {
+            case FormTypeEnum::USER_REGISTER->value:
+                $id = null;
+                $passwordRules = [
+                    'password' => 'required|string|min:4|max:20|confirmed',
+                    'password_confirmation' => 'required|string|min:4|max:20',
+                ];
+                break;
+            case FormTypeEnum::USER_UPDATE->value:
+                $id = Auth::user()->id;
+                $passwordRules = [
+                    'password' => 'required|string|min:4|max:20|confirmed',
+                    'password_confirmation' => 'required|string|min:4|max:20',
+                ];
+                break;
+            case FormTypeEnum::ADMIN_UPDATE->value:
+                $id = $this->route('userList');
+                $passwordRules = [
+                    'password' => 'nullable|string|min:4|max:20|confirmed',
+                    'password_confirmation' => 'nullable|string|min:4|max:20',
+                ];
+                break;
+
+            default:
+                # code...
+                break;
+        }
         $userVehicleRequest = new UserVehicleRequest();
         $userVehicleRules = $userVehicleRequest->rules();
         return
             array_merge(
                 [
-                    'loginid' => 'required|string|unique:users,loginid|min:4|max:15',
+                    'loginid' => 'required|string|min:4|max:15|unique:users,loginid,' . $id,
                     'name' => 'required|string',
                     'name_furigana' => 'required|string',
-                    'email' => 'required|email|unique:users,email',
-                    'password' => 'required|string|min:4|max:20|confirmed',
-                    'password_confirmation' => 'required|string|min:4|max:20',
+                    'email' => 'required|email|unique:users,email,' . $id,
+                ],
+                $passwordRules,
+                [
                     'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),
                     'birthday' => 'required|date',
                     'phone_number' => 'required|string|min:10',
@@ -49,11 +82,12 @@ class RegisteredUserRequest extends FormRequest
                 [
                     'is_receive_newsletter' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, IsNewsletterEnum::cases())),
                     'questionnaire' => 'required|array|min:1|max:3',
-                    'manager' => 'nullable|string',
-                    'department' => 'nullable|string',
+                    'manager' => 'nullable|string|max:128',
+                    'department' => 'nullable|string|max:128',
                     'is_receive_notification' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, IsNotificationEnum::cases())),
-                    'remarks' => 'nullable|string',
-                    'form_type' => 'required|in:"confirm","submit"',
+                    'remarks' => 'nullable|string|max:128',
+                    'form_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, FormTypeEnum::cases())),
+                    'submit_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, SubmitTypeEnum::cases())),
                 ]
             );
     }

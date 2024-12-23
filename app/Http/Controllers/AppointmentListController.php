@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Appointments;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class  AppointmentListController extends Controller
@@ -20,32 +21,30 @@ class  AppointmentListController extends Controller
         $currentDateTime = now(); // 現在の日時を取得
 
         // フィルタとソート
-        $query = Appointments::where('user_id', Auth::user()->id);
+        $appointments = Appointments::where('user_id', Auth::user()->id);
 
-        // 予約番号での検索
-        if ($request->filled('appoint_number')) {
-            $query->where('appoint_number', 'like', '%' . $request->appoint_number . '%');
+        // 予約番号の並び替え
+        if ($request->filled('sort_number')) {
+            $appointments->orderBy('reservation_number', $request->sort_number); // 'desc' または 'asc'
         }
 
-        // 日付の並び替え
-        if ($request->filled('sort_date')) {
-            $query->orderBy('reservation_datetime', $request->sort_date); // 'desc' または 'asc'
-        } else {
-            // デフォルトは新しい順
-            $query->orderBy('reservation_datetime', 'desc');
-        }
+        $appointments = $appointments->get();
 
-        // 予約番号でグループ化
-        $appointments = $query->get()->groupBy('appoint_number');  // グループ化は最初に
-
-        // 各グループ内で、現在日時以降の予約だけをフィルタリング
-        $filteredGroupedAppointments = $appointments->map(function ($appointmentsGroup) use ($currentDateTime) {
-            return $appointmentsGroup->filter(function ($appointment) use ($currentDateTime) {
-                return $appointment->reservation_datetime >= $currentDateTime;
-            });
+        $filteredGroupedAppointments = $appointments->filter(function ($appointment) {
+            return Carbon::parse($appointment->reservation_datetime)
+                ->setTimezone('Asia/Tokyo')
+                ->gte(Carbon::now('Asia/Tokyo'));
         });
 
-        \Log::info($filteredGroupedAppointments);
+        // 予約日時のフォーマット変更（時間部分のみ）
+        $filteredGroupedAppointments = $filteredGroupedAppointments->map(function ($appointment) {
+            // フォーマットして新しいプロパティを追加
+            $appointment->reservation_datetime = Carbon::parse($appointment->reservation_datetime)
+                ->setTimezone('Asia/Tokyo')
+                ->format('Y-m-d H:i');  // '2024-12-20 10:00' の形式
+            return $appointment;
+        });
+
         // ビューにデータを渡す
         return view('appointmentHistory', compact('appointments', 'filteredGroupedAppointments'));
     }
@@ -54,14 +53,16 @@ class  AppointmentListController extends Controller
      * 予約詳細画面
      */
 
-    public function edit($appointNumber)
+    public function edit($id)
     {
-        // 予約番号で予約情報を取得
-        $appointment = Appointments::where('appoint_number', $appointNumber)->get();
-        $groupedAppointment = $appointment->groupBy('appoint_number');
+        // Find the appointment by ID
+        $appointment = Appointments::where('user_id', Auth::user()->id)->where('id', $id)->first();
+
+        // reservation_datetimeを秒数を除いてフォーマット変更
+        $appointment->reservation_datetime = Carbon::parse($appointment->reservation_datetime)->format('Y/m/d H:i');
 
         // 予約詳細ビューにデータを渡す
-        return view('appointmentDetails', compact('appointment', 'groupedAppointment'));
+        return view('appointmentDetails', compact('appointment'));
     }
 
     /**

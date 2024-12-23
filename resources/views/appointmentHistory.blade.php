@@ -5,136 +5,145 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900">
-                    <div class="overflow-x-auto mt-4">
-                        @if (session('success'))
-                            <div class="bg-green-200 text-green-700 p-2 rounded mb-4" id="success-message">
-                                {{ session('success') }}
-                            </div>
-                        @endif
+    <div class="h-full overflow-y-auto p-6 text-gray-900">
+        @if (session('success'))
+            <div class="bg-green-200 text-green-700 p-2 rounded mb-4" id="success-message">
+                {{ session('success') }}
+            </div>
+        @endif
 
-                        <div class="overflow-x-auto mt-4">
-                            @if (session('success'))
-                                <div class="bg-green-200 text-green-700 p-2 rounded mb-4" id="success-message">
-                                    {{ session('success') }}
-                                </div>
-                            @endif
-                            <div class="mb-4">
-                                <h2 class="text-lg font-semibold">現在予約中のもの</h2>
-                                <table class="min-w-full table-auto border-collapse mt-2"
-                                    style="border: 1px solid #ccc;">
-                                    <tbody>
-                                        @foreach ($filteredGroupedAppointments as $appointNumber => $appointmentsGroup)
-                                            <!-- グループ内に現在の日時以降の予約があれば表示 -->
-                                            @if ($appointmentsGroup->count() > 0)
-                                                <thead class="sticky top-0 z-10">
-                                                    <tr>
-                                                        <th class="border px-4 py-2 text-left" colspan="3"
-                                                            style="font-size: 1rem; font-weight: bold;">
-                                                            予約番号: {{ $appointNumber }}
-                                                        </th>
-                                                    </tr>
+        <div class="mb-3 bottom-border-text font-bold">
+            <span class="">予約一覧</span>
+        </div>
 
-                                                    <tr>
-                                                        <th class="px-4 py-2 text-left bg-gray-200 "
-                                                            style="width: 10%;">予約番号</th>
-                                                        <th class="px-4 py-2 text-left bg-gray-200 " style="width: 8%;">
-                                                            台数</th>
-                                                        <th class="px-4 py-2 text-left bg-gray-200 "
-                                                            style="width: 20%;">予約日時</th>
-                                                    </tr>
-                                                </thead>
+        <div class="my-6">
+            <h2 class="text-sm font-semibold">現在予約中のもの</h2>
+            <table class="min-w-full table-auto border-collapse mt-2" style="border: 1px solid #ccc;">
+                <tbody>
+                    @if ($filteredGroupedAppointments && $filteredGroupedAppointments->isNotEmpty())
+                        <!-- グループ内に現在の日時以降の予約があれば表示 -->
+                        <thead class="sticky top-0 z-10">
+                            <tr>
+                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">予約番号</th>
+                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 18%;">予約日時</th>
+                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 8%;">車両</th>
+                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">希望店舗</th>
+                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 20%;">作業カテゴリ</th>
+                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 20%;">予約する作業</th>
+                            </tr>
+                        </thead>
 
-                                                @foreach ($appointmentsGroup as $appointment)
-                                                    <tr onclick="window.location='{{ route('appointmentList.edit', ['appointmentList' => $appointNumber]) }}'"
-                                                        class="clickable-row" style="cursor: pointer;">
-                                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                                            {{ $appointment->appoint_number }}
-                                                        </td>
+                        @foreach ($filteredGroupedAppointments as $appointment)
+                            <tr onclick="window.location='{{ route('appointmentList.edit', $appointment->id) }}';"
+                                class="clickable-row" style="cursor: pointer;">
+                                {{-- 予約番号: --}}
+                                <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                    {{ $appointment->reservation_number }}
+                                </td>
 
-                                                        {{-- 台数: グループ内で最大のsort_numberを取得 --}}
-                                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                                            {{ $appointmentsGroup->max('sort_number') }} 台
-                                                        </td>
+                                {{-- 予約日時: 予約日時を表示 --}}
+                                <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                    {{ $appointment->reservation_datetime }}
+                                </td>
 
-                                                        {{-- 予約日時: 予約日時を表示 --}}
-                                                        <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                                            {{ $appointment->reservation_datetime }}
-                                                        </td>
-                                                    </tr>
-                                                @endforeach
-                                            @endif
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
+                                {{-- 車両 --}}
+                                <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                    {{ $appointment->user_vehicle_id }}台目
+                                </td>
 
-                            <form method="GET" action="{{ route('appointmentList.index') }}" class="mb-6">
-                                <div class="flex items-center gap-4 mt-6">
-                                    <!-- 日付並び替え -->
-                                    <div>
-                                        <label for="sort_date"
-                                            class="block text-sm font-medium text-gray-700">日付</label>
-                                        <select name="sort_date" id="sort_date"
-                                            class="border-gray-300 rounded-md shadow-sm">
-                                            <option value="desc"
-                                                {{ request('sort_date') == 'desc' ? 'selected' : '' }}>新しい順</option>
-                                            <option value="asc"
-                                                {{ request('sort_date') == 'asc' ? 'selected' : '' }}>古い順</option>
-                                        </select>
-                                    </div>
+                                {{-- 希望店舗 --}}
+                                <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                    {{ $appointment->store }}
+                                </td>
 
-                                    <!-- 予約番号フィルター -->
-                                    <div>
-                                        <label for="appoint_number"
-                                            class="block text-sm font-medium text-gray-700">予約番号</label>
-                                        <input type="text" name="appoint_number" id="appoint_number"
-                                            class="border-gray-300 rounded-md shadow-sm"
-                                            value="{{ request('appoint_number') }}" placeholder="予約番号で検索">
-                                    </div>
+                                {{-- 作業カテゴリ --}}
+                                <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                    {{ $appointment->taskcategory }}
+                                </td>
 
-                                    <button type="submit" class="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md"
-                                        style="margin-top: 18px;">フィルタ</button>
-                                </div>
-                            </form>
+                                {{-- 予約する作業 --}}
+                                <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                    {{ $appointment->reservationtask }}
+                                </td>
+                            </tr>
+                        @endforeach
+                    @else
+                        <div class="px-4 py-2 mb-6">現在予約中の予約はありません</div>
+                    @endif
+                </tbody>
+            </table>
+        </div>
 
-                            <table class="min-w-full table-auto border-collapse" style="border: 1px solid #ccc;">
-                                <!-- ヘッダー部分 -->
-                                <thead class="bg-gray-200 sticky top-0 z-10">
-                                    <tr>
-                                        <th class="px-4 py-2 text-left" style="width: 10%;">予約番号</th>
-                                        <th class="px-4 py-2 text-left" style="width: 8%;">台数</th>
-                                        <th class="px-4 py-2 text-left" style="width: 20%;">予約日時</th>
-                                    </tr>
-                                </thead>
-
-                                <!-- ボディ部分 -->
-                                <tbody>
-                                    @foreach ($appointments as $appointNumber => $appointmentsGroup)
-                                        <tr onclick="window.location='{{ route('appointmentList.edit', ['appointmentList' => $appointNumber]) }}'"
-                                            class="clickable-row" style="cursor: pointer;">
-                                            <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                                {{ $appointNumber }}
-                                            </td>
-
-                                            {{-- 台数: グループ内で最大のsort_numberを取得 --}}
-                                            <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                                {{ $appointmentsGroup->max('sort_number') }} 台
-                                            </td>
-
-                                            {{-- 予約日時: グループ内の最初の予約の予約日時を取得 --}}
-                                            <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                                {{ $appointmentsGroup->first()->reservation_datetime }}
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+        <form method="GET" action="{{ route('appointmentList.index') }}" class="mb-6">
+            <div class="flex items-center gap-4 mt-8">
+                <!-- 予約番号並び替え -->
+                <div>
+                    <label for="sort_number" class="block text-sm font-medium text-gray-700">並び順</label>
+                    <select name="sort_number" id="sort_number" class="border-gray-300 rounded-md shadow-sm"
+                        onchange="this.form.submit()">
+                        <option value="desc" {{ request('sort_number') == 'desc' ? 'selected' : '' }}>予約番号 大きい順
+                        </option>
+                        <option value="asc" {{ request('sort_number') == 'asc' ? 'selected' : '' }}>予約番号 小さい順
+                        </option>
+                    </select>
                 </div>
             </div>
+        </form>
+
+        @if ($appointments && $appointments->isNotEmpty())
+
+            <table class="min-w-full table-auto border-collapse" style="border: 1px solid #ccc;">
+                <!-- ヘッダー部分 -->
+                <thead class="bg-gray-200 sticky top-0 z-10">
+                    <tr>
+                        <th class="px-4 py-2 text-left" style="width: 10%;">予約番号</th>
+                        <th class="px-4 py-2 text-left" style="width: 18%;">予約日時</th>
+                        <th class="px-4 py-2 text-left" style="width: 8%;"">車両</th>
+                        <th class="px-4 py-2 text-left" style="width: 10%;">希望店舗</th>
+                        <th class="px-4 py-2 text-left" style="width: 20%;">作業カテゴリ</th>
+                        <th class="px-4 py-2 text-left" style="width: 20%;">予約する作業</th>
+                    </tr>
+                </thead>
+
+                <!-- ボディ部分 -->
+                <tbody>
+                    @foreach ($appointments as $appointment)
+                        <tr>
+                            <!-- 予約番号 -->
+                            <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                {{ $appointment->reservation_number }}
+                            </td>
+
+                            <!-- 予約日時 -->
+                            <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                {{ \Carbon\Carbon::parse($appointment->reservation_datetime)->format('Y-m-d H:i') }}
+                            </td>
+
+                            <!-- 車両 -->
+                            <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                {{ $appointment->user_vehicle_id }}台目
+                            </td>
+
+                            <!-- 希望店舗 -->
+                            <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                {{ $appointment->store }}
+                            </td>
+
+                            <!-- 作業カテゴリ -->
+                            <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                {{ $appointment->taskcategory }}
+                            </td>
+
+                            <!-- 予約する作業 -->
+                            <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                {{ $appointment->reservationtask }}
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        @else
+            <div class="px-4 py-2 mb-6">予約履歴はありません</div>
+        @endif
+    </div>
 </x-app-layout>

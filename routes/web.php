@@ -44,7 +44,10 @@ Route::middleware('auth', 'verified')->group(function () {
         })->name('dashboard');
 
         Route::resource('reservationList', ReservationListController::class);
-        Route::resource('userList', UserController::class);
+        Route::resource('userList', UserController::class)->except(['show']);
+        // multiple delete users
+        Route::post('userList/delete-users', [UserController::class, 'deleteUsers'])->name('userList.deleteUsers');
+        Route::get('userList/download-users-as-csv', [UserController::class, 'downloadUsersAsCSV'])->name('userList.downloadUsersAsCSV');
         Route::resource('stores', StoreController::class);
         Route::resource('ankets', AnketController::class);
         Route::resource('notificationSetting', NotificationController::class);
@@ -54,17 +57,17 @@ Route::middleware('auth', 'verified')->group(function () {
         Route::get('/mypage', function () {
             return view('mypage');
         })->name('mypage');
+
+        Route::resource('appointmentList', AppointmentListController::class);
+
+        Route::get('/appointment-confirmation', function () {
+            return view('appointmentConfirmation');
+        })->name('appointment.confirmation');
+
+        Route::get('/account-termination-request', function () {
+            return view('accountTerminationRequest');
+        })->name('account.termination');
     });
-
-    Route::resource('appointmentList', AppointmentListController::class);
-
-    Route::get('/appointment-confirmation', function () {
-        return view('appointmentConfirmation');
-    })->name('appointment.confirmation');
-
-    Route::get('/account-termination-request', function () {
-        return view('accountTerminationRequest');
-    })->name('account.termination');
 
     Route::get('/reservation/entry', [ConfirmationItemController::class, 'index'])->name('confirmationItems.index'); //確認事項
     Route::post('/reservation/confirmation', [ConfirmationItemController::class, 'confirm'])->name('appointments.confirm'); //最終内容確認

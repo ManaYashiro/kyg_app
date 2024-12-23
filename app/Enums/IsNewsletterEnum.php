@@ -4,15 +4,15 @@ namespace App\Enums;
 
 enum IsNewsletterEnum: int
 {
-    case No = 0;
     case Yes = 1;
+    case No = 2;
 
     // return メルマガ配信 label
     public function getLabel(): string
     {
         return match ($this) {
-            self::No => '配信を希望しない',
             self::Yes => '配信を希望する',
+            self::No => '配信を希望しない',
         };
     }
 
@@ -20,8 +20,8 @@ enum IsNewsletterEnum: int
     public static function getLabelByValue(int $value): string
     {
         return match ($value) {
-            self::No->value => self::No->getLabel(),
             self::Yes->value => self::Yes->getLabel(),
+            self::No->value => self::No->getLabel(),
             default => 'Unknown', // Optional fallback for invalid values
         };
     }

@@ -275,7 +275,7 @@
             </div>
     </main>
     @section('styles')
-        @vite(['resources/css/calender.css'])
+        @vite(['resources/css/modules/calender.css'])
     @endsection
     @push('modals')
         @include('modules.modals.store-modal')

@@ -23,7 +23,7 @@ class CreateNotificationsTable extends Migration
             $table->string('image')->nullable()->comment('画像ファイル'); // 画像ファイル
             $table->dateTime('created_at')->useCurrent();
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate();
-            $table->dateTime('deleted_at')->nullable()->useCurrentOnUpdate();
+            $table->dateTime('deleted_at')->nullable();
         });
     }
 
