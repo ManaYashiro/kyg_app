@@ -85,11 +85,10 @@
                 </ul>
             </div>
             <div>
-                <div>
-                    <div class="flex justify-start items-center gap-3 mt-7">
-                        <x-text.custom-text text="STEP 01" id='step' class="font-bold text-3xl text-red-600"></x-text.custom-text>
-                        <x-text.custom-text text="ご希望の店舗をお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
-                    </div>
+                <div class="flex justify-start items-center gap-3 mt-7">
+                    <x-text.custom-text text="STEP 01" id='step'
+                        class="font-bold text-3xl text-red-600"></x-text.custom-text>
+                    <x-text.custom-text text="ご希望の店舗をお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
                 </div>
                 <hr class="my-3 border-2 border-red-600 -mx-14">
                 <div id="stores" class="flex space-x-4 mt-8 items-center">
@@ -117,7 +116,7 @@
                         data-store-id="2">さらに詳しく</div>
                 </div>
                 <hr class="my-3 border-1 border-red-600  ">
-                <div class="flex space-x-4  items-center">
+                <div class="flex space-x-4 items-center">
                     <label class="custom-radio-button">
                         <input type="radio" name="store" value="刈谷店" class="hidden-radio rounded-md">
                         <span class="custom-button">
@@ -125,9 +124,11 @@
                         </span>
                     </label>
                     <div class="font-bold p-4 text-xs text-left grow">〒448-0006 愛知県刈谷市西境町治右田140　9:00-19:00
-                        日祝日9:00-17:00 水曜定休</div>
+                        日祝日9:00-17:00 水曜定休
+                    </div>
                     <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
-                        data-store-id="3">さらに詳しく</div>
+                        data-store-id="3">さらに詳しく
+                    </div>
                 </div>
                 <hr class="my-3 border-1 border-red-600  ">
                 <div class="flex space-x-4  items-center">
@@ -154,7 +155,7 @@
                     <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
                         data-store-id="5">さらに詳しく</div>
                 </div>
-                <hr class="my-3 border-1 border-red-600  ">
+                <hr class="my-3 border-1 border-red-600">
                 <div class="flex space-x-4  items-center">
                     <label class="custom-radio-button">
                         <input type="radio" name="store" value="錦店" class="hidden-radio rounded-md">
@@ -166,7 +167,7 @@
                     <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
                         data-store-id="6">さらに詳しく</div>
                 </div>
-                <div class="flex justify-start items-center gap-3 mt-14">
+                <div class="flex justify-start items-center gap-3 mt-7">
                     <x-text.custom-text text="STEP 02" class="font-bold text-3xl text-red-600"></x-text.custom-text>
                     <x-text.custom-text text="作業カテゴリをお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
                 </div>
@@ -211,13 +212,13 @@
                 </label>
             </div>
             <div>
-                <div class="flex justify-start items-center gap-3 mt-14">
+                <div class="flex justify-start items-center gap-3 mt-7">
                     <x-text.custom-text text="STEP 03" class="font-bold text-3xl text-red-600"></x-text.custom-text>
                     <x-text.custom-text text="個人・法人をお選びください。" class="font-bold text-xl"></x-text.custom-text>
                 </div>
             </div>
             <hr class="my-3 border-2 border-red-600 -mx-14">
-            <div　id="customers" class="flex space-x-4 items-center">
+            <div id="customers" class="flex space-x-4 items-center">
                 <label class="custom-radio-button">
                     <input type="radio" name="customer" value="個人" class="hidden-radio rounded-md">
                     <span class="custom-button2">
@@ -231,41 +232,39 @@
                     </span>
                 </label>
             </div>
-            <div>
-                <div class="flex justify-start items-center gap-3 mt-14 mx-10">
-                    <x-text.custom-text text="STEP 04" class="font-bold text-3xl text-red-600"></x-text.custom-text>
-                    <x-text.custom-text text="予約する作業をお選びください。" class="font-bold text-xl"></x-text.custom-text>
-                </div>
+            <div class="flex justify-start items-center gap-3 mt-7">
+                <x-text.custom-text text="STEP 04" class="font-bold text-3xl text-red-600"></x-text.custom-text>
+                <x-text.custom-text text="予約する作業をお選びください。" class="font-bold text-xl"></x-text.custom-text>
             </div>
-            <hr class="my-3 border-2 border-red-600 -mx-4">
+            <hr class="my-3 border-2 border-red-600 -mx-14">
             <div id="reservationTasks">
-                <div class="reservation-task flex space-x-4 mt-4 items-center text-xs font-bold mx-10">
+                <div class="reservation-task flex space-x-4 mt-4 items-center text-xs font-bold">
                     <!-- 初期表示 -->
                     <label class="custom-checkbox">
                         <input type="checkbox" name="reservationtask" value="★個人★車検ラビット４５（00分開始）（60分）">
                         <span>★個人★車検ラビット４５（00分開始）（60分）</span>
                     </label>
                     <div class="font-bold p-4 text-xs text-left grow"></div>
-                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく</div>
+                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく
+                    </div>
                 </div>
-                <hr class="my-3 border-1 border-red-600 mx-10">
-                <div class="reservation-task flex space-x-4 mt-4 items-center text-xs font-bold mx-10">
+                <hr class="my-3 border-1 border-red-600">
+                <div class="reservation-task flex space-x-4 mt-4 items-center text-xs font-bold">
                     <label class="custom-checkbox">
                         <input type="checkbox" name="reservationtask" value="☆法人☆ご来店型クイック車検（00分開始）（60分）">
                         <span>☆法人☆ご来店型クイック車検（00分開始）（60分）</span>
                     </label>
                     <div class="font-bold p-4 text-xs text-left grow"></div>
-                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく</div>
+                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく
+                    </div>
                 </div>
-                <hr class="my-3 border-1 border-red-600 mx-10">
+                <hr class="my-3 border-1 border-red-600">
             </div>
-            <div>
-                <div class="flex justify-start items-center gap-3 mt-7 mx-10">
-                    <x-text.custom-text text="STEP 05" class="font-bold text-3xl text-red-600"></x-text.custom-text>
-                    <x-text.custom-text text="予約する日時をお選びください。" class="font-bold text-xl"></x-text.custom-text>
-                </div>
+            <div class="flex justify-start items-center gap-3 mt-7">
+                <x-text.custom-text text="STEP 05" class="font-bold text-3xl text-red-600"></x-text.custom-text>
+                <x-text.custom-text text="予約する日時をお選びください。" class="font-bold text-xl"></x-text.custom-text>
             </div>
-            <hr class="my-3 border-2 border-red-600 -mx-4">
+            <hr class="my-3 border-2 border-red-600 -mx-14">
             <div>
                 <div id="app">
                     <div id='calendar'></div>
