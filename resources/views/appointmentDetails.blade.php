@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
 
-    <div class="h-full overflow-y-auto p-6 text-gray-900">
+    <div class="h-full overflow-y-auto p-2 md:p-6 text-gray-900">
 
         <div class="mb-3 bottom-border-text font-bold">
             <span class="">予約一覧</span>

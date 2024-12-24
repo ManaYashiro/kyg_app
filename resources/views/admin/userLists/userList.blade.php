@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="bg-white h-full overflow-hidden shadow-sm border border-gray-800 border-r-0 border-b-0">
-        <div class="h-full overflow-y-auto p-6 text-gray-900">
+        <div class="h-full overflow-y-auto p-2 md:p-6 text-gray-900">
             @if (session('success'))
                 <div class="bg-green-200 text-green-700 p-2 rounded mb-4" id="success-message">
                     {{ session('success') }}

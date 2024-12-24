@@ -13,7 +13,7 @@
         </div>
     @endif
     <main>
-        <div class="bg-white mx-10">
+        <div class="bg-white md:mx-10">
             <div class="mt-14">
                 <x-text.custom-text text="キムラユニティー・オートプラザラビット各店の" class="text-xl font-bold" />
                 <x-text.custom-text text="車検やオイル交換、タイヤ交換などの予約ができます。" class="text-xl font-bold" />
@@ -269,6 +269,7 @@
                 <label>〇受付中</label>
                 <label>✖受付終了</label>
             </div>
+        </div>
     </main>
     @section('styles')
         @vite(['resources/css/modules/calendar.css'])

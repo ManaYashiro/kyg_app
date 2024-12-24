@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="bg-white h-full overflow-hidden shadow-sm border border-gray-800 border-r-0 border-b-0">
-        <div class="h-full overflow-y-auto p-6 text-gray-900">
+        <div class="h-full overflow-y-auto p-2 md:p-6 text-gray-900">
             @if (session()->has('message'))
                 <div class="bg-teal-100 border-t-4 border-teal-500 rounded-b text-teal-900 px-4 py-3 shadow-md my-3"
                     role="alert">
