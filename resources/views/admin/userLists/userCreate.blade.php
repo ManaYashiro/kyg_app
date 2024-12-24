@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="bg-white h-full overflow-hidden shadow-sm border border-gray-800 border-r-0 border-b-0">
-        <div class="h-full overflow-y-auto p-6 text-gray-900">
+        <div class="h-full overflow-y-auto p-2 md:p-6 text-gray-900">
             <form id="form-user-register" class="multiPageForm" method="POST" action="{{ $route ?? route('register') }}"
                 autocomplete="off">
                 @csrf
@@ -38,6 +38,8 @@
 
     @section('styles')
     @endsection
+    @push('modals')
+    @endpush
     @push('scripts')
         @vite(['resources/js/modules/ajaxConfirm.js'])
         @vite(['resources/js/modules/page-navi-buttons.js'])

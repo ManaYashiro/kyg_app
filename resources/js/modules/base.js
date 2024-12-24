@@ -70,7 +70,14 @@ window.navi = function () {
         },
     };
 };
+window.showLoading = function () {
+    $("#loading-screen").addClass("flex").removeClass("hidden");
+};
+window.hideLoading = function () {
+    $("#loading-screen").addClass("hidden").removeClass("flex");
+};
 $(document).ready(function () {
+    // Scroll top function start
     $(window).scroll(function () {
         doScroll();
     });
@@ -105,6 +112,12 @@ $(document).ready(function () {
             }
         }
     }
+    // Scroll top function end
+
+    // close modal button
+    $(".btn--close-modal").on("click", function () {
+        $(this).closest(".modal").addClass("hidden").removeClass("flex block");
+    });
 
     // 削除アラートメッセージ
     $(".delete--model").on("click", function (e) {

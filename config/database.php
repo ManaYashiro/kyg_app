@@ -170,6 +170,10 @@ return [
 
     ],
 
+    // ユーザーNO
     'starting_customer_no' => env('DB_STARTING_CUSTOMER_NO', '50000'),
+
+    // 予約NO
+    'starting_reservation_no' => env('DB_STARTING_RESERVATION_NO', '10001'),
 
 ];
