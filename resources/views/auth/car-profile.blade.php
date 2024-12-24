@@ -12,8 +12,9 @@
 
 <button type="button" {{-- :class="{ 'bg-red-400': {{ $car_show }}, 'bg-red-200': !{{ $car_show }} }" --}}
     class="max-w-[100px] bg-red-300 hover:bg-red-500 text-white text-sm font-sequence_normal p-2 rounded"
-    @click="{{ $car_show }} = !{{ $car_show }}"
-    x-text="{{ $car_show }} === true ? '{{ $close }}' : '{{ $open }}'"></button>
+    @click="car_show_{{ $sequence_no }} = !car_show_{{ $sequence_no }}; height = $refs.containerCarShow_{{ $sequence_no }}.scrollHeight"
+    x-text="car_show_{{ $sequence_no }} ? '{{ $close }}' : '{{ $open }}'">
+</button>
 <div class="relative overflow-hidden duration-700" x-ref="containerCarShow_{{ $sequence_no }}"
     x-bind:class="{ 'max-h-0': !{{ $car_show }} }"
     x-bind:style="{{ $car_show }} == true ? 'max-height: ' + height + 'px' : ''" x-cloak
