@@ -153,9 +153,10 @@
                     </div>
 
                     <div class="w-1/3 block">
-                        <button id="button-cancel" class="bg-red-1000 text-white rounded w-full px-4 py-4" type="button">
+                    <button id="button-cancel"
+                                 class="bg-red-1000 text-white rounded w-full px-4 py-4" type="button" data-appointment-id="{{ $appointment->id }}">
                             キャンセル
-                        </button>
+                    </button>
                     </div>
                 </div>
             </form>
