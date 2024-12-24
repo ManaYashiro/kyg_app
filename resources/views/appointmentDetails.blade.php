@@ -21,7 +21,7 @@
             @endif
             <form method="POST" action="{{ route('appointmentList.confirm') }}">
                 @csrf <!-- CSRFトークンの追加 -->
-
+                <input type="hidden" name="id" value="{{ $appointment->id }}">
                 <!-- 予約番号 -->
                 <div class="mb-4">
                     <x-input-label for="reservation_number" :value="__('予約番号')" />

@@ -19,8 +19,9 @@
                     {{ session('success') }}
                 </div>
             @endif
-            <form method="POST" action="{{ route('confirmationItems.store') }}">
-
+            <form method="POST" action="{{ route('appointmentDetails.store') }}">
+            @csrf
+            <input type="hidden" name="id" value="{{ $appointment['id'] }}" />
             <!-- 予約番号 -->
             <div class="mb-4">
                 <x-input-label for="reservation_number" :value="__('予約番号')" />
@@ -55,9 +56,10 @@
             <div class="mb-4">
                 <x-text.custom-input-label text="【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。" class="mb-2"/>
                 <x-data-display :value="$appointment['user_vehicle_id'] . '台目'" />
+                <input type="hidden" name="user_vehicle_id" value="{{ $appointment['user_vehicle_id'] }}" />
             </div>
 
-            <!-- 追加装備 -->
+            <!-- 追加整備 -->
             <div class="mt-4">
                 <h5>
                     <x-text.custom-input-label text="【追加整備】本作業とあわせて追加作業を依頼したい場合にお選びください。" class="mb-2"/>
@@ -74,6 +76,7 @@
                 <h5>
                     <x-text.custom-input-label text="車検満期日をご入力ください。" class="mb-2"/>
                     <x-data-display :value="$appointment['inspection_due_date']" />
+                    <input type="hidden" name="inspection_due_date" value="{{ $appointment['inspection_due_date'] }}" />
                 </h5>
             </div>
 
@@ -82,6 +85,7 @@
                 <h5>
                     <x-text.custom-input-label text="今回ご予約いただく店舗・作業は、過去にご利用がございますか？" class="mb-2"/>
                     <x-data-display :value="$appointment['past_service_history']" />
+                    <input type="hidden" name="past_service_history" value="{{ $appointment['past_service_history'] }}" />
                 </h5>
             </div>
             <div class="flex flex-row items-center justify-center gap-4 mt-8">
@@ -91,7 +95,7 @@
                     </button>
                 </div>
                 <div class="w-1/3 block">
-                    <button id="button-next" class="bg-red-1000 text-white rounded w-full px-4 py-4" type="button">
+                    <button id="button-next" class="bg-red-1000 text-white rounded w-full px-4 py-4" type="submit">
                         登録する
                     </button>
                 </div>

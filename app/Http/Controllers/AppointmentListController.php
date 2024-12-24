@@ -71,28 +71,24 @@ class  AppointmentListController extends Controller
 
     public function confirm(Request $request)
     {
-        \Log::info($request);
         $appointment = $request->all();
         // 確認画面に必要なデータを渡す
         return view('appointmentDetailsConfirm', compact('appointment'));
     }
 
-
     /**
      * 予約確定
      */
-    public function store($id)
+    public function update(Request $request)
     {
+        $id = $request->input('id');
         // 指定されたIDのユーザーを取得
-        $appointment = Appointments::findOrFail($id);
-
-        // ユーザー削除
-        $appointment->delete();
+        $appointment = Appointments::where('appointments.id', $id)->first();
+        $appointment->update($request->all());
 
         // 成功メッセージを表示してリストにリダイレクト
-        return redirect()->route('appointmentList.index')->with('success', '予約をキャンセルしました。');
+        return redirect()->route('appointmentList.index');
     }
-
 
     /**
      * 予約削除
