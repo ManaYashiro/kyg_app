@@ -59,6 +59,7 @@ Route::middleware('auth', 'verified')->group(function () {
         })->name('mypage');
 
         Route::resource('appointmentList', AppointmentListController::class);
+        Route::post('appointmentList.confirm', [AppointmentListController::class, 'confirm'])->name('appointmentList.confirm');
         Route::delete('/appointmentsList/{id}', [AppointmentListController::class, 'destroy'])->name('appointmentList.destroy');
 
         Route::get('/appointment-confirmation', function () {
