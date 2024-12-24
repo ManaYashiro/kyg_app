@@ -66,7 +66,7 @@
                     </div>
                 </div>
                 <div class="image-content w-3/5">
-                    <img src="{{ Vite::asset('resources/img/top/top2.png') }}" alt="タイトル" class="top-image">
+                    <img src="{{ Vite::asset('resources/img/top/top.png') }}" alt="タイトル" class="top-image">
                 </div>
             </section>
         @endif
