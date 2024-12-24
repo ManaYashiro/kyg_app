@@ -84,93 +84,91 @@
                     </li>
                 </ul>
             </div>
-            <div>
-                <div class="flex justify-start items-center gap-3 mt-7">
-                    <x-text.custom-text text="STEP 01" id='step'
-                        class="font-bold text-3xl text-red-600"></x-text.custom-text>
-                    <x-text.custom-text text="ご希望の店舗をお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
+            <div class="flex justify-start items-center gap-3 mt-7">
+                <x-text.custom-text text="STEP 01" id='step'
+                    class="font-bold text-3xl text-red-600"></x-text.custom-text>
+                <x-text.custom-text text="ご希望の店舗をお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
+            </div>
+            <hr class="my-3 border-2 border-red-600 -mx-14">
+            <div id="stores" class="flex space-x-4 mt-8 items-center">
+                <label class="custom-radio-button">
+                    <input type="radio" name="store" value="稲沢本店" class="hidden-radio rounded-md">
+                    <span class="custom-button">
+                        <span class="icon">✓</span> 稲沢本店
+                    </span>
+                </label>
+                <div class="font-bold p-4 text-xs text-left grow">〒492-8224 愛知県稲沢市奥田大沢町3-1　9:00-19:00 水曜定休</div>
+                <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+                    data-store-id="1">さらに詳しく</div>
+            </div>
+            <hr class="my-3 border-1 border-red-600">
+            <div class="flex space-x-4  items-center">
+                <label class="custom-radio-button">
+                    <input type="radio" name="store" value="名古屋北店" class="hidden-radio rounded-md">
+                    <span class="custom-button">
+                        <span class="icon">✓</span> 名古屋北店
+                    </span>
+                </label>
+                <div class="font-bold p-4 text-xs text-left grow">〒462-0034 愛知県名古屋市北区天道町5丁目21　9:00-18:00 日・祝日定休
                 </div>
-                <hr class="my-3 border-2 border-red-600 -mx-14">
-                <div id="stores" class="flex space-x-4 mt-8 items-center">
-                    <label class="custom-radio-button">
-                        <input type="radio" name="store" value="稲沢本店" class="hidden-radio rounded-md">
-                        <span class="custom-button">
-                            <span class="icon">✓</span> 稲沢本店
-                        </span>
-                    </label>
-                    <div class="font-bold p-4 text-xs text-left grow">〒492-8224 愛知県稲沢市奥田大沢町3-1　9:00-19:00 水曜定休</div>
-                    <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
-                        data-store-id="1">さらに詳しく</div>
+                <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+                    data-store-id="2">さらに詳しく</div>
+            </div>
+            <hr class="my-3 border-1 border-red-600  ">
+            <div class="flex space-x-4 items-center">
+                <label class="custom-radio-button">
+                    <input type="radio" name="store" value="刈谷店" class="hidden-radio rounded-md">
+                    <span class="custom-button">
+                        <span class="icon">✓</span> 刈谷店
+                    </span>
+                </label>
+                <div class="font-bold p-4 text-xs text-left grow">〒448-0006 愛知県刈谷市西境町治右田140　9:00-19:00
+                    日祝日9:00-17:00 水曜定休
                 </div>
-                <hr class="my-3 border-1 border-red-600">
-                <div class="flex space-x-4  items-center">
-                    <label class="custom-radio-button">
-                        <input type="radio" name="store" value="名古屋北店" class="hidden-radio rounded-md">
-                        <span class="custom-button">
-                            <span class="icon">✓</span> 名古屋北店
-                        </span>
-                    </label>
-                    <div class="font-bold p-4 text-xs text-left grow">〒462-0034 愛知県名古屋市北区天道町5丁目21　9:00-18:00 日・祝日定休
-                    </div>
-                    <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
-                        data-store-id="2">さらに詳しく</div>
+                <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+                    data-store-id="3">さらに詳しく
                 </div>
-                <hr class="my-3 border-1 border-red-600  ">
-                <div class="flex space-x-4 items-center">
-                    <label class="custom-radio-button">
-                        <input type="radio" name="store" value="刈谷店" class="hidden-radio rounded-md">
-                        <span class="custom-button">
-                            <span class="icon">✓</span> 刈谷店
-                        </span>
-                    </label>
-                    <div class="font-bold p-4 text-xs text-left grow">〒448-0006 愛知県刈谷市西境町治右田140　9:00-19:00
-                        日祝日9:00-17:00 水曜定休
-                    </div>
-                    <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
-                        data-store-id="3">さらに詳しく
-                    </div>
-                </div>
-                <hr class="my-3 border-1 border-red-600  ">
-                <div class="flex space-x-4  items-center">
-                    <label class="custom-radio-button">
-                        <input type="radio" name="store" value="錦店" class="hidden-radio rounded-md">
-                        <span class="custom-button">
-                            <span class="icon">✓</span> 錦店
-                        </span>
-                    </label>
-                    <div class="font-bold p-4 text-xs text-left grow">〒460-0003 愛知県名古屋市錦3-8-32　9:00-18:00 日・祝日定休</div>
-                    <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
-                        data-store-id="4">さらに詳しく</div>
-                </div>
-                <hr class="my-3 border-1 border-red-600  ">
-                <div class="flex space-x-4  items-center">
-                    <label class="custom-radio-button">
-                        <input type="radio" name="store" value="豊田上郷店" class="hidden-radio rounded-md">
-                        <span class="custom-button">
-                            <span class="icon">✓</span> 豊田上郷店
-                        </span>
-                    </label>
-                    <div class="font-bold p-4 text-xs text-left grow">〒470-1213 愛知県稲沢市奥田大沢町3-1　9:00-18:00 日祝日9:00-17:00
-                        水曜定休</div>
-                    <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
-                        data-store-id="5">さらに詳しく</div>
-                </div>
-                <hr class="my-3 border-1 border-red-600">
-                <div class="flex space-x-4  items-center">
-                    <label class="custom-radio-button">
-                        <input type="radio" name="store" value="錦店" class="hidden-radio rounded-md">
-                        <span class="custom-button">
-                            <span class="icon">✓</span> 犬山店
-                        </span>
-                    </label>
-                    <div class="font-bold p-4 text-xs text-left grow">〒484-0912 愛知県刈犬山市字舟田10　9:00-18:00 水曜定休</div>
-                    <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
-                        data-store-id="6">さらに詳しく</div>
-                </div>
-                <div class="flex justify-start items-center gap-3 mt-7">
-                    <x-text.custom-text text="STEP 02" class="font-bold text-3xl text-red-600"></x-text.custom-text>
-                    <x-text.custom-text text="作業カテゴリをお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
-                </div>
+            </div>
+            <hr class="my-3 border-1 border-red-600  ">
+            <div class="flex space-x-4  items-center">
+                <label class="custom-radio-button">
+                    <input type="radio" name="store" value="錦店" class="hidden-radio rounded-md">
+                    <span class="custom-button">
+                        <span class="icon">✓</span> 錦店
+                    </span>
+                </label>
+                <div class="font-bold p-4 text-xs text-left grow">〒460-0003 愛知県名古屋市錦3-8-32　9:00-18:00 日・祝日定休</div>
+                <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+                    data-store-id="4">さらに詳しく</div>
+            </div>
+            <hr class="my-3 border-1 border-red-600  ">
+            <div class="flex space-x-4  items-center">
+                <label class="custom-radio-button">
+                    <input type="radio" name="store" value="豊田上郷店" class="hidden-radio rounded-md">
+                    <span class="custom-button">
+                        <span class="icon">✓</span> 豊田上郷店
+                    </span>
+                </label>
+                <div class="font-bold p-4 text-xs text-left grow">〒470-1213 愛知県稲沢市奥田大沢町3-1　9:00-18:00 日祝日9:00-17:00
+                    水曜定休</div>
+                <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+                    data-store-id="5">さらに詳しく</div>
+            </div>
+            <hr class="my-3 border-1 border-red-600">
+            <div class="flex space-x-4  items-center">
+                <label class="custom-radio-button">
+                    <input type="radio" name="store" value="錦店" class="hidden-radio rounded-md">
+                    <span class="custom-button">
+                        <span class="icon">✓</span> 犬山店
+                    </span>
+                </label>
+                <div class="font-bold p-4 text-xs text-left grow">〒484-0912 愛知県刈犬山市字舟田10　9:00-18:00 水曜定休</div>
+                <div class="details-button text-red-600 font-bold text-xs px-2 text-right inline-block border-b border-red-600 cursor-pointer"
+                    data-store-id="6">さらに詳しく</div>
+            </div>
+            <div class="flex justify-start items-center gap-3 mt-7">
+                <x-text.custom-text text="STEP 02" class="font-bold text-3xl text-red-600"></x-text.custom-text>
+                <x-text.custom-text text="作業カテゴリをお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
             </div>
             <hr class="my-3 border-2 border-red-600 -mx-14">
             <div id="taskCategories" class="flex space-x-4 items-center mt-8">
