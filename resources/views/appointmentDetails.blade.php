@@ -151,14 +151,13 @@
                             確認画面へ
                         </button>
                     </div>
+
+                    <div class="w-1/3 block">
+                        <button id="button-cancel" class="bg-red-1000 text-white rounded w-full px-4 py-4" type="button">
+                            キャンセル
+                        </button>
+                    </div>
                 </div>
-            </form>
-            <form action="{{ route('appointmentList.destroy', $appointment->id) }}" method="POST" onsubmit="return confirm('本当にキャンセルしますか？');" class="w-1/3">
-                @csrf
-                @method('DELETE')
-                <button type="submit" class="bg-red-1000 text-white rounded w-full px-4 py-4">
-                    キャンセル
-                </button>
             </form>
         </div>
     </div>

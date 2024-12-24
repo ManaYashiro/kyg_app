@@ -71,7 +71,24 @@ class  AppointmentListController extends Controller
 
     public function confirm(Request $request)
     {
+        //バリデーション
+        $rules = [
+            'inspection_due_date' => 'required|date',
+        ];
+        // バリデーションエラーメッセージ
+        $errorMessages = [
+            'inspection_due_date' => '車検満期日をご入力ください。を入力してください。',
+        ];
+
+        // バリデーションの実行
+        $validatedData = $request->validate($rules, $errorMessages);
+
         $appointment = $request->all();
+
+        session([
+            'inspection_due_date' => $request->input('inspection_due_date'),
+        ]);
+
         // 確認画面に必要なデータを渡す
         return view('appointmentDetailsConfirm', compact('appointment'));
     }
