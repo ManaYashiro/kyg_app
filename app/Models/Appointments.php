@@ -2,12 +2,16 @@
 
 namespace App\Models;
 
+use App\Helpers\Log;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Appointments extends Model
 {
     use HasFactory;
+
+    public const TITLE = '予約';
 
     // テーブル名を明示的に指定
     protected $table = 'appointments';
@@ -42,5 +46,24 @@ class Appointments extends Model
     public function userVehicle()
     {
         return $this->belongsTo(UserVehicle::class);
+    }
+
+    /**
+     * Register any authentication / authorization services.
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($appointment) {
+            if (config('app.env') !== 'testing') {
+                Log::info(self::TITLE . '登録中', $appointment);
+            }
+
+            if (!$appointment->reservation_number) {
+                $lastReservationNumber = DB::table('appointments')->max('reservation_number');
+                $appointment->reservation_number = $lastReservationNumber ? $lastReservationNumber + 1 : config('database.starting_reservation_no');
+            }
+        });
     }
 }
