@@ -89,9 +89,9 @@
     <x-text.custom-text :text="''" id="confirm-address2" class="mb-6" />
 </div>
 
-@include('auth.car-profile-confirm', ['no' => 1])
-@include('auth.car-profile-confirm', ['no' => 2])
-@include('auth.car-profile-confirm', ['no' => 3])
+@include('auth.car-profile-confirm', ['sequence_no' => 1])
+@include('auth.car-profile-confirm', ['sequence_no' => 2])
+@include('auth.car-profile-confirm', ['sequence_no' => 3])
 
 <!-- Newsletter Subscription -->
 <div class="isConfirm mt-4 hidden">

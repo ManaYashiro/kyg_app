@@ -83,7 +83,6 @@ $(document).ready(function () {
     });
 
     $("#pagetop").on("click", function (e) {
-        console.log("clicked");
         $("html, body").animate(
             {
                 scrollTop: 0,
@@ -179,9 +178,21 @@ $(document).ready(function () {
         let questionnaireText = "";
         let questionnaireList = $("#confirm-questionnaire-list").data("list");
 
+        let carSequence = 0;
+
         for (var data of formData.entries()) {
             const key = data[0].replace(/[\[\]]/g, "");
             const val = data[1];
+
+            if (key === "car_name") {
+                carSequence++;
+                if (val !== "") {
+                    $("#confirm-" + key + "_" + carSequence + " span")
+                        .closest(".isConfirm")
+                        .removeClass("hidden")
+                        .addClass("block");
+                }
+            }
 
             if (val === null || val === "") {
                 // skip iteration user did not add any data
@@ -222,8 +233,12 @@ $(document).ready(function () {
                     .addClass("block")
                     .removeClass("hidden");
             } else if (key === "questionnaire") {
-                // List from DB
+                $("#confirm-questionnaire-list")
+                    .closest(".isConfirm")
+                    .addClass("block")
+                    .removeClass("hidden");
 
+                // List from DB
                 if (!questionnaireIds.includes(val)) {
                     questionnaireIds.push(val);
                     if (questionnaireText !== "") {
@@ -234,6 +249,27 @@ $(document).ready(function () {
                         "id",
                         val
                     ).name;
+                }
+            } else if (key.startsWith("car")) {
+                if (val !== "") {
+                    if (key.startsWith("car_class")) {
+                        const car_class_key =
+                            "#confirm-car_class_" + carSequence;
+                        const car_class_list_key =
+                            "#confirm-car_class-list_" + carSequence;
+                        const car_class_list =
+                            $(car_class_list_key).data("list");
+                        const car_list_text = window.findObjectByKeyValue(
+                            car_class_list,
+                            "id",
+                            val
+                        ).name;
+                        $(car_class_key + " span").text(car_list_text);
+                    } else {
+                        $("#confirm-" + key + "_" + carSequence + " span").text(
+                            val
+                        );
+                    }
                 }
             } else {
                 // Other inputs for confirmation

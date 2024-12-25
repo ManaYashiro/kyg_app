@@ -90,33 +90,7 @@ class UserController extends Controller
 
         // 会員登録と別に作成する
         $userVehicles = $request->validate((new UserVehicleRequest())->rules());
-        for ($i = 0; $i < UserVehicle::MAX_NO_OF_CARS; $i++) {
-            // 車名とナンバーはすでに検証されています
-            // 空の場合は、DB 挿入エラーを防ぐためにシーケンスをスキップするだけです
-            if (empty($userVehicles['car_name'][$i]) || empty($userVehicles['car_number'][$i])) {
-                continue;
-            }
-            $car_attributes["car_name.$i"] = "車名(" . ($i + 1) . "台目)";
-            $car_data = [
-                // sequence_no[]
-                'sequence_no' => $userVehicles['sequence_no'][$i] ?? null,
-                // car_name[]
-                'car_name' => $userVehicles['car_name'][$i] ?? null,
-                // car_katashiki[]
-                'car_katashiki' => $userVehicles['car_katashiki'][$i] ?? null,
-                // car_number[]
-                'car_number' => $userVehicles['car_number'][$i] ?? null,
-
-                // car_class パラメータは配列ではありません
-                // car_class1、car_class2、car_class3
-                'car_class' => $userVehicles["car_class" . ($i + 1)] ?? null,
-            ];
-            if ($car_data['sequence_no']) {
-                $user->userVehicles()->where('user_id', $user->id)->where('sequence_no', $car_data['sequence_no'])->update($car_data);
-            } else {
-                $user->userVehicles()->create($car_data);
-            }
-        }
+        $user->createVehicles($userVehicles);
 
         // パスワードを上書きする
         if ($request->has('password') && !empty($request->password)) {
