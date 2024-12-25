@@ -162,4 +162,9 @@
             </form>
         </div>
     </div>
+    @section('styles')
+    @endsection
+    @push('scripts')
+        @vite(['resources/js/modules/appointments/index.js'])
+    @endpush
 </x-app-layout>

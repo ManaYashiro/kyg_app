@@ -26,6 +26,9 @@ export default defineConfig({
                 // - js
                 "resources/js/modules/auth/register.js",
 
+                // appointments
+                "resources/js/modules/appointments/index.js",
+
                 // images
                 // - main
                 "resources/img/main/favicon.ico",
@@ -42,8 +45,6 @@ export default defineConfig({
                 "resources/img/top/top.png",
                 "resources/img/top/top2.png",
                 "resources/img/top/scroll.png",
-                "resources/img/top/inazawa.jpg",
-                "resources/img/top/nagoyakita.jpg",
             ],
             refresh: true,
         }),
