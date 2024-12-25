@@ -64,9 +64,16 @@
                 <h5>
                     <x-text.custom-input-label text="【追加整備】本作業とあわせて追加作業を依頼したい場合にお選びください。" class="mb-2"/>
                     @if(!empty($appointment['additional_services']))
-                        @foreach($appointment['additional_services'] as $service)
-                            <x-data-display :value="$service" />
+                        @php
+                            // 配列の場合は文字列に変換
+                            $services = is_array($appointment['additional_services'])
+                                ? implode(', ', $appointment['additional_services'])
+                                : $appointment['additional_services'];
+                        @endphp
+                        @foreach(explode(', ', $services) as $service)
+                            <x-data-display :value="$service" /><br>
                         @endforeach
+                        <input type="hidden" name="additional_services" value="{{ $services }}" />
                     @endif
                 </h5>
             </div>

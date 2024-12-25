@@ -57,7 +57,6 @@ class  AppointmentListController extends Controller
     {
         // Find the appointment by ID
         $appointment = Appointments::where('user_id', Auth::user()->id)->where('id', $id)->first();
-
         // reservation_datetimeを秒数を除いてフォーマット変更
         $appointment->reservation_datetime = Carbon::parse($appointment->reservation_datetime)->format('Y/m/d H:i');
 

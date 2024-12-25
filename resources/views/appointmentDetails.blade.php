@@ -71,7 +71,7 @@
                     </x-select>
                 </div>
 
-                <!-- 追加装備 -->
+                <!-- 追加整備 -->
                 <div class="mt-4">
                     <h5>
                         <x-text.custom-input-label text="【追加整備】本作業とあわせて追加作業を依頼したい場合にお選びください。" class="mb-2"
@@ -83,8 +83,7 @@
                             'additional_services',
                             is_array($appointment->additional_services)
                                 ? $appointment->additional_services
-                                : explode(',', $appointment->additional_services ?? ''),
-                        ),
+                                : explode(', ', $appointment->additional_services ?? '')                        ),
                     )"
                         :disabled="false" class="mt-2" />
                     <x-checkbox name="additional_services[]" value="タイヤローテション[前⇔後]" label="タイヤローテション[前⇔後]"
@@ -94,7 +93,7 @@
                                 'additional_services',
                                 is_array($appointment->additional_services)
                                     ? $appointment->additional_services
-                                    : explode(',', $appointment->additional_services ?? ''),
+                                    : explode(', ', $appointment->additional_services ?? '')
                             ),
                         )" :disabled="false" class="mt-2" />
                     <x-checkbox name="additional_services[]" value="タイヤ付替[夏⇔冬シーズンチェンジ]" label="タイヤ付替[夏⇔冬シーズンチェンジ]"
@@ -104,7 +103,7 @@
                                 'additional_services',
                                 is_array($appointment->additional_services)
                                     ? $appointment->additional_services
-                                    : explode(',', $appointment->additional_services ?? ''),
+                                    : explode(', ', $appointment->additional_services ?? '')
                             ),
                         )" :disabled="false" class="mt-2" />
                 </div>
