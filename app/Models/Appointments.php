@@ -3,11 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Appointments extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     // テーブル名を明示的に指定
     protected $table = 'appointments';
@@ -33,6 +35,17 @@ class Appointments extends Model
         'reservation_status',
         'admin_notes',
     ];
+
+    // モデルイベントを登録
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($appointment) {
+            // `reservation_status` を 0 に更新
+            $appointment->update(['reservation_status' => 0]);
+        });
+    }
 
     public function user()
     {

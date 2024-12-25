@@ -114,12 +114,7 @@ class  AppointmentListController extends Controller
     {
         // 指定されたIDのユーザーを取得
         $appointment = Appointments::findOrFail($id);
-
-        $appointment->update([
-            'reservation_status' => 0
-        ]);
-
-        // 成功メッセージを表示してリストにリダイレクト
-        return redirect()->route('appointmentList.index')->with('success', '予約をキャンセルしました。');
+        //論理削除
+        $appointment->delete();
     }
 }

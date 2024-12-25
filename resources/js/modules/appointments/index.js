@@ -21,7 +21,7 @@ $(document).ready(function () {
                     // 成功時の処理
                     alert("予約をキャンセルしました。");
                     // 一覧ページにリダイレクト
-                    window.location.href = route("appointmentList.index"); // route()ヘルパーを使用
+                    window.location.href = "/appointmentList";
                 },
                 error: function (xhr, status, error) {
                     // エラー時の処理
