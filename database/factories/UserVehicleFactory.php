@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Enums\CarClassEnum;
 use App\Models\UserVehicle;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -44,7 +45,7 @@ class UserVehicleFactory extends Factory
 
         $car = array_merge(fake()->randomElement([$car1, $car2, $car3]), [
             'car_number' => $this->randomCarNumber(),
-            'car_class' => 1,
+            'car_class' => CarClassEnum::Keijidousha->value,
         ]);
         return $car;
     }
@@ -66,7 +67,7 @@ class UserVehicleFactory extends Factory
 
         $car = array_merge(fake()->randomElement([$car1, $car2, $car3]), [
             'car_number' => $this->randomCarNumber(),
-            'car_class' => 2,
+            'car_class' => CarClassEnum::KogataJouyousha->value,
         ]);
         return $car;
     }
@@ -89,7 +90,7 @@ class UserVehicleFactory extends Factory
 
         $car = array_merge(fake()->randomElement([$car1, $car2, $car3]), [
             'car_number' => $this->randomCarNumber(),
-            'car_class' => 5,
+            'car_class' => CarClassEnum::OogataJouyousha2_5T->value,
         ]);
         return $car;
     }
