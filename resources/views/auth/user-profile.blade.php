@@ -14,9 +14,14 @@
 <x-text.custom-text text="ログイン情報" class="mt-6 mb-2 bg-gray-text" />
 <!-- Login ID -->
 <div id="container-loginid" class="mt-4">
-    <x-text.custom-input-label text="ログインID" class="mb-2" option="必須" />
-    <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid') ?? ($user ? $user->loginid : null)" required
-        autofocus />
+    @if (\App\Enums\FormTypeEnum::USER_REGISTER->value === $formType)
+        <x-text.custom-input-label text="ログインID" class="mb-2" option="必須" />
+        <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid') ?? ($user ? $user->loginid : null)" required
+            autofocus />
+    @else
+        <x-text.custom-input-label text="ログインID" class="mb-2" />
+        <x-text.custom-input-label text="{{ $user->loginid }}" class="mt-1" />
+    @endif
     @if ($formType !== \App\Enums\FormTypeEnum::ADMIN_UPDATE->value)
         <x-text.custom-input-label text="※半角英数字 4文字以上で入力してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
     @endif
@@ -25,7 +30,7 @@
 </div>
 
 @php
-    $requiredPassword = \App\Enums\FormTypeEnum::ADMIN_UPDATE->value !== $formType;
+    $requiredPassword = \App\Enums\FormTypeEnum::USER_REGISTER->value === $formType;
 @endphp
 <!-- Password -->
 <div id="container-password" class="mt-4">
@@ -48,6 +53,25 @@
     @endif
     <x-ajax-input-error id="error-password_confirmation" class="mt-2" />
     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+</div>
+
+<!-- Person Type -->
+{{-- $user->person_type->value since User Model `casts` person_type is using ENUM --}}
+<div id="container-person_type" class="mt-4">
+    <x-text.custom-input-label text="法人／個人" class="mb-2" option="必須" />
+    <div class="flex flex-col gap-2 justify-center items-start">
+        @foreach (\App\Enums\PersonTypeEnum::cases() as $person_type)
+            <div class="my-1 flex items-center gap-3">
+                <x-text-input id="person_type-{{ $person_type->value }}" type="radio" name="person_type"
+                    :value="$person_type->value" :checked="(old('person_type') ??
+                        ($user && isset($user->person_type) ? $user->person_type->value : null)) ==
+                        $person_type->value" />
+                <x-input-label for="person_type-{{ $person_type->value }}" :value="__($person_type->getLabel())" />
+            </div>
+        @endforeach
+    </div>
+    <x-ajax-input-error id="error-person_type" class="mt-2" />
+    <x-input-error :messages="$errors->get('person_type')" class="mt-2" />
 </div>
 
 <x-text.custom-text text="基本情報" class="mt-6 mb-2 bg-gray-text" />
@@ -205,24 +229,24 @@
     $userVehicles = $user && count($user->userVehicles) > 0 ? $user->userVehicles : [];
 @endphp
 <div class="divide-y divide-red-400">
-    <div class="pt-4 flex flex-col" x-data="{ car_show_1: true, height: 0 }" x-init="$nextTick(() => height = $refs.containerCarShow_1.scrollHeight)">
-        @include('auth.car-profile', [
-            'sequence_no' => 1,
-            'userVehicle' => $userVehicles[0] ?? null,
-        ])
-    </div>
-    <div class="mt-4 pt-4 flex flex-col" x-data="{ car_show_2: false, height: 0 }" x-init="$nextTick(() => height = $refs.containerCarShow_2.scrollHeight)">
-        @include('auth.car-profile', [
-            'sequence_no' => 2,
-            'userVehicle' => $userVehicles[1] ?? null,
-        ])
-    </div>
-    <div class="mt-4 pt-4 flex flex-col" x-data="{ car_show_3: false, height: 0 }" x-init="$nextTick(() => height = $refs.containerCarShow_3.scrollHeight)">
-        @include('auth.car-profile', [
-            'sequence_no' => 3,
-            'userVehicle' => $userVehicles[2] ?? null,
-        ])
-    </div>
+    @for ($i = 0; $i < \App\Models\UserVehicle::MAX_NO_OF_CARS; $i++)
+        @php
+            $sequence_no = $i + 1;
+            $car_show =
+                $sequence_no === 1
+                    ? 'true' // 1st car always show
+                    : (isset($userVehicles[$i]) && !empty($userVehicles[$i]->car_name) // 2nd and 3rd car only show during update when user registered 2nd or 3rd car
+                        ? 'true'
+                        : 'false');
+        @endphp
+        <div :class="{ 'mt-4': '{{ $sequence_no > 1 }}' }" class="pt-4 flex flex-col" x-data="{ car_show_{{ $sequence_no }}: {{ $car_show }}, height: 0 }"
+            x-init="$nextTick(() => setTimeout(() => height = $refs.containerCarShow_{{ $sequence_no }}.scrollHeight, 100))">
+            @include('auth.car-profile', [
+                'sequence_no' => $sequence_no,
+                'userVehicle' => $userVehicles[$i] ?? null,
+            ])
+        </div>
+    @endfor
 </div>
 
 <!-- Newsletter Subscription -->

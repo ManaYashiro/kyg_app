@@ -15,19 +15,19 @@
         <a class="ml-6 text-lg font-bold text-gray-800 dark:text-gray-200" href="{{ route('admin.dashboard') }}">
             {{ \App\Helpers\Formats::title() }}
         </a>
-        <ul class="mt-4">
-            <li class="relative px-6 py-3">
-                <span class="absolute inset-y-0 left-0 w-1 bg-blue-600 rounded-tr-lg rounded-br-lg"
-                    aria-hidden="true"></span>
-                <a class="inline-flex items-center w-full text-sm font-semibold text-gray-800 transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200 dark:text-gray-100"
-                    href="{{ route('admin.dashboard') }}">
-                    <i class="fa-solid fa-house"></i>
-                    <span class="ml-4">Dashboard</span>
-                </a>
-            </li>
-        </ul>
         <ul>
             {{-- サイドバー --}}
+            <li class="relative px-6 py-3">
+                @if (request()->routeIs('admin.dashboard'))
+                    <span class="absolute inset-y-0 left-0 w-1 bg-blue-600 rounded-tr-lg rounded-br-lg"
+                        aria-hidden="true"></span>
+                @endif
+                <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
+                    href="{{ route('admin.dashboard') }}">
+                    <i class="fa-solid fa-house"></i>
+                    <span class="ml-4">ダッシュボード</span>
+                </a>
+            </li>
             <li class="relative px-6 py-3">
                 @if (request()->routeIs('admin.userList.index'))
                     <span class="absolute inset-y-0 left-0 w-1 bg-blue-600 rounded-tr-lg rounded-br-lg"
@@ -36,7 +36,7 @@
                 <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                     href="{{ route('admin.userList.index') }}">
                     <i class="fa-solid fa-user"></i>
-                    <span class="ml-4">User List</span>
+                    <span class="ml-4">会員一覧</span>
                 </a>
             </li>
             <li class="relative px-6 py-3">
@@ -47,29 +47,7 @@
                 <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
                     href="{{ route('admin.stores.index') }}">
                     <i class="fa-solid fa-store"></i>
-                    <span class="ml-4">店舗</span>
-                </a>
-            </li>
-            <li class="relative px-6 py-3">
-                @if (request()->routeIs('admin.ankets.index'))
-                    <span class="absolute inset-y-0 left-0 w-1 bg-blue-600 rounded-tr-lg rounded-br-lg"
-                        aria-hidden="true"></span>
-                @endif
-                <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    href="{{ route('admin.ankets.index') }}">
-                    <i class="fa-solid fa-clipboard-list"></i>
-                    <span class="ml-4">アンケート</span>
-                </a>
-            </li>
-            <li class="relative px-6 py-3">
-                @if (request()->routeIs('admin.notificationSetting.index'))
-                    <span class="absolute inset-y-0 left-0 w-1 bg-blue-600 rounded-tr-lg rounded-br-lg"
-                        aria-hidden="true"></span>
-                @endif
-                <a class="inline-flex items-center w-full text-sm font-semibold transition-colors duration-150 hover:text-gray-800 dark:hover:text-gray-200"
-                    href="{{ route('admin.notificationSetting.index') }}">
-                    <i class="fa-regular fa-envelope"></i>
-                    <span class="ml-4">User List</span>
+                    <span class="ml-4">予約一覧</span>
                 </a>
             </li>
         </ul>

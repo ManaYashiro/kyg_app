@@ -39,7 +39,7 @@ Route::middleware('auth', 'verified')->group(function () {
         })->name('dashboard');
 
         Route::resource('reservationList', ReservationListController::class);
-        Route::resource('userList', UserController::class)->only(['index', 'edit', 'destroy']);
+        Route::resource('userList', UserController::class);
         // multiple delete users
         Route::post('userList/delete-users', [UserController::class, 'deleteUsers'])->name('userList.deleteUsers');
         Route::get('userList/download-users-as-csv', [UserController::class, 'downloadUsersAsCSV'])->name('userList.downloadUsersAsCSV');

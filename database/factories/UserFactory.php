@@ -6,6 +6,7 @@ use App\Enums\CallTimeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
+use App\Enums\PersonTypeEnum;
 use App\Enums\PrefectureEnum;
 use App\Models\Anket;
 use App\Models\User;
@@ -64,8 +65,6 @@ class UserFactory extends Factory
             'prefecture' => PrefectureEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, PrefectureEnum::cases()))),
             'address1' => fake()->ward(),
             'address2' => fake()->secondaryAddress(),
-            'gender' => fake()->randomElement([GenderEnum::Male, GenderEnum::Female]), // 男性・女性
-            'birthday' => fake()->dateTimeBetween('1990-01-01', '2000-12-31'),
         ];
     }
 
@@ -80,8 +79,11 @@ class UserFactory extends Factory
             return [
                 'role' => User::ADMIN,
                 'call_time' => null,
-                'is_receive_newsletter' => IsNewsletterEnum::No,
-                'is_receive_notification' => IsNotificationEnum::No,
+                'is_receive_newsletter' => IsNewsletterEnum::No->value,
+                'is_receive_notification' => IsNotificationEnum::No->value,
+                'gender' => GenderEnum::Male->value,
+                'birthday' => '1990-01-01',
+                'person_type' => PersonTypeEnum::Private->value,
             ];
         });
     }
@@ -96,10 +98,13 @@ class UserFactory extends Factory
         return $this->state(function (array $attributes) {
             return [
                 'role' => User::USER,
-                'call_time' => CallTimeEnum::A_09_12,
+                'call_time' => CallTimeEnum::A_09_12->value,
                 'questionnaire' => [1, 2, 3],
-                'is_receive_newsletter' => IsNewsletterEnum::No,
-                'is_receive_notification' => IsNotificationEnum::No,
+                'is_receive_newsletter' => IsNewsletterEnum::No->value,
+                'is_receive_notification' => IsNotificationEnum::No->value,
+                'gender' => GenderEnum::Male->value,
+                'birthday' => '1990-01-01',
+                'person_type' => PersonTypeEnum::Private->value,
             ];
         });
     }
@@ -112,13 +117,15 @@ class UserFactory extends Factory
     public function randomUser()
     {
         return $this->state(function (array $attributes) {
-            $call_time = CallTimeEnum::cases();
             return [
                 'role' => User::USER,
-                'call_time' => fake()->randomElement($call_time),
+                'gender' => GenderEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, GenderEnum::cases()))),
+                'birthday' => fake()->dateTimeBetween('1990-01-01', '2000-12-31'),
+                'call_time' => CallTimeEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, CallTimeEnum::cases()))),
                 'questionnaire' => $this->fakeAnket(),
-                'is_receive_newsletter' => fake()->randomElement([IsNewsletterEnum::No, IsNewsletterEnum::Yes]),
-                'is_receive_notification' => fake()->randomElement([IsNotificationEnum::No, IsNotificationEnum::Yes]),
+                'person_type' => PersonTypeEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, PersonTypeEnum::cases()))),
+                'is_receive_newsletter' => IsNewsletterEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, IsNewsletterEnum::cases()))),
+                'is_receive_notification' => IsNotificationEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, IsNotificationEnum::cases()))),
             ];
         });
     }

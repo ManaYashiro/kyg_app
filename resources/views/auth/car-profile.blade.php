@@ -7,13 +7,15 @@
     $open = $sequence_no . '台目：開く';
     $close = $sequence_no . '台目：閉る';
 
+    // 例：car_show_1
     $car_show = 'car_show_' . $sequence_no;
 @endphp
 
-<button type="button" {{-- :class="{ 'bg-red-400': {{ $car_show }}, 'bg-red-200': !{{ $car_show }} }" --}}
-    class="max-w-[100px] bg-red-300 hover:bg-red-500 text-white text-sm font-sequence_normal p-2 rounded"
-    @click="{{ $car_show }} = !{{ $car_show }}"
-    x-text="{{ $car_show }} === true ? '{{ $close }}' : '{{ $open }}'"></button>
+<button type="button" x-bind:class="{ 'bg-red-400': {{ $car_show }}, 'bg-red-200': !{{ $car_show }} }"
+    class="max-w-[100px] hover:bg-red-500 text-white text-sm font-sequence_normal p-2 rounded"
+    @click="car_show_{{ $sequence_no }} = !car_show_{{ $sequence_no }}; height = $refs.containerCarShow_{{ $sequence_no }}.scrollHeight"
+    x-text="car_show_{{ $sequence_no }} ? '{{ $close }}' : '{{ $open }}'">
+</button>
 <div class="relative overflow-hidden duration-700" x-ref="containerCarShow_{{ $sequence_no }}"
     x-bind:class="{ 'max-h-0': !{{ $car_show }} }"
     x-bind:style="{{ $car_show }} == true ? 'max-height: ' + height + 'px' : ''" x-cloak
@@ -23,6 +25,7 @@
 
     <!-- Car Sequence {{ $sequence_no }} -->
     @php
+        // 例：sequence_no_1
         $key = 'sequence_no_' . $sequence_no;
         $errorKey = 'sequence_no_' . ($sequence_no - 1);
         $name = 'sequence_no[]';
@@ -32,6 +35,7 @@
 
     <!-- Car Name {{ $sequence_no }} -->
     @php
+        // 例：car_name_1
         $key = 'car_name_' . $sequence_no;
         $errorKey = 'car_name_' . ($sequence_no - 1);
         $name = 'car_name[]';
@@ -46,6 +50,7 @@
 
     <!-- Car Katashiki {{ $sequence_no }} -->
     @php
+        // 例：car_katashiki_1
         $key = 'car_katashiki_' . $sequence_no;
         $errorKey = 'car_katashiki_' . ($sequence_no - 1);
         $name = 'car_katashiki[]';
@@ -60,6 +65,7 @@
 
     <!-- Car Number {{ $sequence_no }} -->
     @php
+        // 例：car_number_1
         $key = 'car_number_' . $sequence_no;
         $errorKey = 'car_number_' . ($sequence_no - 1);
         $name = 'car_number[]';
@@ -74,6 +80,7 @@
 
     <!-- Car Class {{ $sequence_no }} -->
     @php
+        // 例：car_class_1
         $key = "car_class_$sequence_no";
         $errorKey = "car_class$sequence_no";
         $name = "car_class$sequence_no";
@@ -82,9 +89,12 @@
         <x-text.custom-input-label text="車種区分({{ $sequence_no }}台目)" class="mb-2" :option="$sequence_no !== 1 ? '任意' : '任意'" />
         @foreach (\App\Enums\CarClassEnum::cases() as $carClass)
             <div class="mt-4 flex items-center gap-3 mb-3">
-                <x-text-input id="{{ $key }}" type="radio" name="{{ $name }}" :value="$carClass->value"
-                    :checked="(old($key) ?? ($userVehicle ? $userVehicle->car_class : null)) == $carClass->value" />
-                <x-input-label for="{{ $key }}" :value="$carClass->getLabel()" />
+                {{-- 例： car_class_1_index_1 --}}
+                {{-- "car_class_1"の「1」は車の順番（1台目、2台目、3台目）で、"index_1"の「1」は車種区分の順番です（軽自動車は「1」、小型乗用車(車両重量～1.0t)は「2」、など）です。 --}}
+                {{-- 3台の車すべてのcar classが一意になるように"index 番号"を追加しました --}}
+                <x-text-input id="{{ $key }}_index_{{ $loop->index + 1 }}" type="radio"
+                    name="{{ $name }}" :value="$carClass->value" :checked="(old($key) ?? ($userVehicle ? $userVehicle->car_class : null)) == $carClass->value" />
+                <x-input-label for="{{ $key }}_index_{{ $loop->index + 1 }}" :value="$carClass->getLabel()" />
             </div>
         @endforeach
         <x-ajax-input-error id="error-{{ $errorKey }}" class="mt-2" />

@@ -70,7 +70,7 @@ class UserVehicleRequest extends FormRequest
             $car_attributes["car_name.$i"] = "車名(" . ($i + 1) . "台目)";
             $car_attributes["car_katashiki.$i"] = "型式(" . ($i + 1) . "台目)";
             $car_attributes["car_number.$i"] = "ナンバー(" . ($i + 1) . "台目)";
-            $car_attributes["car_class.$i"] = "車種区分(" . ($i + 1) . "台目)";
+            $car_attributes["car_class$i"] = "車種区分(" . ($i + 1) . "台目)";
         }
         return array_merge([
             'user_id' => 'ユーザーID',

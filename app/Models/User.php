@@ -6,6 +6,7 @@ use App\Enums\CallTimeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
+use App\Enums\PersonTypeEnum;
 use App\Enums\PrefectureEnum;
 use App\Exceptions\SendEmailFailedException;
 use App\Helpers\Log;
@@ -36,6 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'loginid',
+        'person_type',
         'name',
         'name_furigana',
         'email',
@@ -79,6 +81,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'questionnaire' => 'array',
+            'person_type' => PersonTypeEnum::class,
             'gender' => GenderEnum::class,
             'call_time' => CallTimeEnum::class,
             'prefecture' => PrefectureEnum::class,
@@ -143,6 +146,37 @@ class User extends Authenticatable implements MustVerifyEmail
                 Log::info(self::TITLE . '保存が完了しました', $user->name, true);
             }
         });
+    }
+
+    public function createVehicles(array $userVehicles)
+    {
+        for ($i = 0; $i < UserVehicle::MAX_NO_OF_CARS; $i++) {
+            // 車名とナンバーはすでに検証されています
+            // 空の場合は、DB 挿入エラーを防ぐためにシーケンスをスキップするだけです
+            if (empty($userVehicles['car_name'][$i]) || empty($userVehicles['car_number'][$i])) {
+                continue;
+            }
+            $car_attributes["car_name.$i"] = "車名(" . ($i + 1) . "台目)";
+            $car_data = [
+                // sequence_no[]
+                'sequence_no' => $userVehicles['sequence_no'][$i] ?? null,
+                // car_name[]
+                'car_name' => $userVehicles['car_name'][$i] ?? null,
+                // car_katashiki[]
+                'car_katashiki' => $userVehicles['car_katashiki'][$i] ?? null,
+                // car_number[]
+                'car_number' => $userVehicles['car_number'][$i] ?? null,
+
+                // car_class パラメータは配列ではありません
+                // car_class1、car_class2、car_class3
+                'car_class' => $userVehicles["car_class" . ($i + 1)] ?? null,
+            ];
+            if ($car_data['sequence_no']) {
+                self::userVehicles()->where('user_id', $this->id)->where('sequence_no', $car_data['sequence_no'])->update($car_data);
+            } else {
+                self::userVehicles()->create($car_data);
+            }
+        }
     }
 
     public function userVehicles()

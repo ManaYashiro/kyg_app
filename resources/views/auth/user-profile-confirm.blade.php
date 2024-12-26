@@ -16,6 +16,15 @@
     <x-text.custom-text :text="''" id="confirm-password" class="mb-6" />
 </div>
 
+<!-- Person Type -->
+<div class="isConfirm mt-4 hidden">
+    <x-text.custom-input-label text="法人／個人" class="mb-2 left-border-text" />
+    @foreach (\App\Enums\PersonTypeEnum::cases() as $person_type)
+        <x-text.custom-text :text="$person_type->getLabel()" id="confirm-person_type-{{ $person_type->value }}"
+            class="mb-6 hidden isOption" />
+    @endforeach
+</div>
+
 <x-text.custom-text text="基本情報" class="mt-6 mb-2 bg-gray-text" />
 
 <!-- Name -->
@@ -89,9 +98,9 @@
     <x-text.custom-text :text="''" id="confirm-address2" class="mb-6" />
 </div>
 
-@include('auth.car-profile-confirm', ['no' => 1])
-@include('auth.car-profile-confirm', ['no' => 2])
-@include('auth.car-profile-confirm', ['no' => 3])
+@include('auth.car-profile-confirm', ['sequence_no' => 1])
+@include('auth.car-profile-confirm', ['sequence_no' => 2])
+@include('auth.car-profile-confirm', ['sequence_no' => 3])
 
 <!-- Newsletter Subscription -->
 <div class="isConfirm mt-4 hidden">

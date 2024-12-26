@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" x-data="navi()">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8">
@@ -51,7 +51,8 @@
 </head>
 
 <body class="wait-for-icons relative font-sans antialiased text-base">
-    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" :class="{ 'overflow-hidden': isSideMenuOpen }">
+    <div class="flex h-screen bg-gray-50 dark:bg-gray-900" x-data="navi()"
+        :class="{ 'overflow-hidden': isSideMenuOpen }">
         <!-- Desktop sidebar -->
         @include('includes.desktop-sidebar')
 
@@ -69,6 +70,7 @@
     @include('modules.loading-screen')
     @stack('modals')
     @stack('scripts')
+    <script src="{{ Vite::asset('resources/js/modules/admin/navi.js') }}"></script>
 </body>
 
 </html>

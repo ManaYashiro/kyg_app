@@ -7,6 +7,7 @@ use App\Enums\FormTypeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
+use App\Enums\PersonTypeEnum;
 use App\Enums\SubmitTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +35,7 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::USER_REGISTER->value:
                 $id = null;
                 $passwordRules = [
+                    'loginid' => 'required|string|min:4|max:15|unique:users,loginid,' . $id,
                     'password' => 'required|string|min:4|max:20|confirmed',
                     'password_confirmation' => 'required|string|min:4|max:20',
                 ];
@@ -41,13 +43,15 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::USER_UPDATE->value:
                 $id = Auth::user()->id;
                 $passwordRules = [
-                    'password' => 'required|string|min:4|max:20|confirmed',
-                    'password_confirmation' => 'required|string|min:4|max:20',
+                    // loginid not needed for user update
+                    'password' => 'nullable|string|min:4|max:20|confirmed',
+                    'password_confirmation' => 'nullable|string|min:4|max:20',
                 ];
                 break;
             case FormTypeEnum::ADMIN_UPDATE->value:
                 $id = $this->route('userList');
                 $passwordRules = [
+                    // loginid not needed when admin updates user data
                     'password' => 'nullable|string|min:4|max:20|confirmed',
                     'password_confirmation' => 'nullable|string|min:4|max:20',
                 ];
@@ -61,16 +65,14 @@ class RegisteredUserRequest extends FormRequest
         $userVehicleRules = $userVehicleRequest->rules();
         return
             array_merge(
-                [
-                    'loginid' => 'required|string|min:4|max:15|unique:users,loginid,' . $id,
-                    'name' => 'required|string',
-                    'name_furigana' => 'required|string',
-                    'email' => 'required|email|unique:users,email,' . $id,
-                ],
                 $passwordRules,
                 [
+                    'person_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, PersonTypeEnum::cases())),
+                    'name' => 'required|string',
+                    'name_furigana' => 'required|string',
                     'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),
                     'birthday' => 'required|date',
+                    'email' => 'required|email|unique:users,email,' . $id,
                     'phone_number' => 'required|string|min:10',
                     'address1' => 'required|string',
                     'address2' => 'nullable|string',
@@ -132,6 +134,7 @@ class RegisteredUserRequest extends FormRequest
         $userVehicleAttributes = $userVehicleRequest->attributes();
         return array_merge([
             'loginid' => 'ログインID',
+            'person_type' => '法人／個人',
             'call_time' => '電話希望時間',
             'is_receive_newsletter' => 'メルマガ配信',
             'is_receive_notification' => '店からのお知らせメール',
