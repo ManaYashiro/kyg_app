@@ -6,6 +6,7 @@ use App\Enums\CallTimeEnum;
 use App\Enums\GenderEnum;
 use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
+use App\Enums\PersonTypeEnum;
 use App\Enums\PrefectureEnum;
 use App\Exceptions\SendEmailFailedException;
 use App\Helpers\Log;
@@ -36,6 +37,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     protected $fillable = [
         'loginid',
+        'person_type',
         'name',
         'name_furigana',
         'email',
@@ -79,6 +81,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'questionnaire' => 'array',
+            'person_type' => PersonTypeEnum::class,
             'gender' => GenderEnum::class,
             'call_time' => CallTimeEnum::class,
             'prefecture' => PrefectureEnum::class,

@@ -50,6 +50,25 @@
     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
 </div>
 
+<!-- Person Type -->
+{{-- $user->person_type->value since User Model `casts` person_type is using ENUM --}}
+<div id="container-person_type" class="mt-4">
+    <x-text.custom-input-label text="法人／個人" class="mb-2" option="必須" />
+    <div class="flex flex-col gap-2 justify-center items-start">
+        @foreach (\App\Enums\PersonTypeEnum::cases() as $person_type)
+            <div class="my-1 flex items-center gap-3">
+                <x-text-input id="person_type-{{ $person_type->value }}" type="radio" name="person_type"
+                    :value="$person_type->value" :checked="(old('person_type') ??
+                        ($user && isset($user->person_type) ? $user->person_type->value : null)) ==
+                        $person_type->value" />
+                <x-input-label for="person_type-{{ $person_type->value }}" :value="__($person_type->getLabel())" />
+            </div>
+        @endforeach
+    </div>
+    <x-ajax-input-error id="error-person_type" class="mt-2" />
+    <x-input-error :messages="$errors->get('person_type')" class="mt-2" />
+</div>
+
 <x-text.custom-text text="基本情報" class="mt-6 mb-2 bg-gray-text" />
 <!-- Name -->
 <div id="container-name" class="mt-4">

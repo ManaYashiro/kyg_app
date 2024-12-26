@@ -74,7 +74,7 @@ class UserSeeder extends Seeder
             'address2' => fake()->secondaryAddress(),
             'call_time' => fake()->randomElement($call_time),
             'is_newsletter_subscription' => fake()->randomElement([true, false]),
-            'how_did_you_hear' => $userFactory->randomAnket(),
+            'how_did_you_hear' => $userFactory->fakeAnket(),
         ];
     }
 
