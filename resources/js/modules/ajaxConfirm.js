@@ -14,6 +14,10 @@ window.ajaxConfirm = function (
         contentType: false,
         beforeSend: function () {
             $errors.empty().addClass("hidden");
+            window.showLoading();
+        },
+        complete: function () {
+            window.hideLoading();
         },
         success: function (response) {
             // ready for submit

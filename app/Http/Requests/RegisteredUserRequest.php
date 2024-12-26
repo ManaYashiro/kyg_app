@@ -35,6 +35,7 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::USER_REGISTER->value:
                 $id = null;
                 $passwordRules = [
+                    'loginid' => 'required|string|min:4|max:15|unique:users,loginid,' . $id,
                     'password' => 'required|string|min:4|max:20|confirmed',
                     'password_confirmation' => 'required|string|min:4|max:20',
                 ];
@@ -42,6 +43,7 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::USER_UPDATE->value:
                 $id = Auth::user()->id;
                 $passwordRules = [
+                    // loginid not needed for user update
                     'password' => 'nullable|string|min:4|max:20|confirmed',
                     'password_confirmation' => 'nullable|string|min:4|max:20',
                 ];
@@ -49,6 +51,7 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::ADMIN_UPDATE->value:
                 $id = $this->route('userList');
                 $passwordRules = [
+                    // loginid not needed when admin updates user data
                     'password' => 'nullable|string|min:4|max:20|confirmed',
                     'password_confirmation' => 'nullable|string|min:4|max:20',
                 ];
@@ -62,12 +65,9 @@ class RegisteredUserRequest extends FormRequest
         $userVehicleRules = $userVehicleRequest->rules();
         return
             array_merge(
-                [
-                    'loginid' => 'required|string|min:4|max:15|unique:users,loginid,' . $id,
-                    'person_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, PersonTypeEnum::cases())),
-                ],
                 $passwordRules,
                 [
+                    'person_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, PersonTypeEnum::cases())),
                     'name' => 'required|string',
                     'name_furigana' => 'required|string',
                     'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),

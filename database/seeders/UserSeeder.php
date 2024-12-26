@@ -58,7 +58,6 @@ class UserSeeder extends Seeder
     public function registerUser(): object
     {
         $userFactory = new UserFactory();
-        $call_time = CallTimeEnum::cases();
         $startPhone = ['070', '080', '090'];
         $zipcode = ['5320011', '1000000', '4500001'];
         return (object) [
@@ -72,7 +71,7 @@ class UserSeeder extends Seeder
             'prefecture' => PrefectureEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, PrefectureEnum::cases()))),
             'address1' => fake()->ward(),
             'address2' => fake()->secondaryAddress(),
-            'call_time' => fake()->randomElement($call_time),
+            'call_time' => CallTimeEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, CallTimeEnum::cases()))),
             'is_newsletter_subscription' => fake()->randomElement([true, false]),
             'how_did_you_hear' => $userFactory->fakeAnket(),
         ];
