@@ -18,7 +18,7 @@ $(document).ready(function () {
             success: function (response) {
                 // 成功時の処理
                 // 一覧ページにリダイレクト
-                window.location.href = "/reservations";
+                window.location.href = "/mypage/reservations";
             },
             error: function (xhr, status, error) {
                 // エラー時の処理
