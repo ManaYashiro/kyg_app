@@ -41,8 +41,8 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::USER_UPDATE->value:
                 $id = Auth::user()->id;
                 $passwordRules = [
-                    'password' => 'required|string|min:4|max:20|confirmed',
-                    'password_confirmation' => 'required|string|min:4|max:20',
+                    'password' => 'nullable|string|min:4|max:20|confirmed',
+                    'password_confirmation' => 'nullable|string|min:4|max:20',
                 ];
                 break;
             case FormTypeEnum::ADMIN_UPDATE->value:

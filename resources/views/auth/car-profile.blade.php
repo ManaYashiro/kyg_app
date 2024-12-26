@@ -11,8 +11,8 @@
     $car_show = 'car_show_' . $sequence_no;
 @endphp
 
-<button type="button" {{-- :class="{ 'bg-red-400': {{ $car_show }}, 'bg-red-200': !{{ $car_show }} }" --}}
-    class="max-w-[100px] bg-red-300 hover:bg-red-500 text-white text-sm font-sequence_normal p-2 rounded"
+<button type="button" x-bind:class="{ 'bg-red-400': {{ $car_show }}, 'bg-red-200': !{{ $car_show }} }"
+    class="max-w-[100px] hover:bg-red-500 text-white text-sm font-sequence_normal p-2 rounded"
     @click="car_show_{{ $sequence_no }} = !car_show_{{ $sequence_no }}; height = $refs.containerCarShow_{{ $sequence_no }}.scrollHeight"
     x-text="car_show_{{ $sequence_no }} ? '{{ $close }}' : '{{ $open }}'">
 </button>
