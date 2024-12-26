@@ -123,7 +123,7 @@ class  AppointmentListController extends Controller
         $appointment->update($request->all());
 
         // 成功メッセージを表示してリストにリダイレクト
-        return redirect()->route('appointmentList.index');
+        return redirect()->route('reservations.index');
     }
 
     /**
