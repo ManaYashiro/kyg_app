@@ -13,13 +13,8 @@ use App\Http\Controllers\ConfirmationItemController;
 use App\Http\Controllers\ReservationListController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('/', function () {
-//     return view('top');
-// })->name('top');
-
 Route::get('/', [TopController::class, 'index'])->name('top');
 Route::get('/gettaskdata', [TopController::class, 'getTaskData'])->name('gettaskdata');
-
 
 Route::get('/support/categories', function () {
     return view('workCategories');
@@ -58,10 +53,10 @@ Route::middleware('auth', 'verified')->group(function () {
             return view('mypage');
         })->name('mypage');
 
-        Route::resource('/appointmentList', AppointmentListController::class);
-        Route::post('/appointmentList.confirm', [AppointmentListController::class, 'confirm'])->name('appointmentList.confirm');
-        Route::post('/appointmentDetails.store', [AppointmentListController::class, 'update'])->name('appointmentDetails.store');
-        Route::delete('/appointmentsList/{id}', [AppointmentListController::class, 'destroy'])->name('appointmentList.destroy');
+        Route::resource('/mypage/reservations', AppointmentListController::class);
+        Route::post('/mypage/reservations/confirm', [AppointmentListController::class, 'confirm'])->name('appointmentList.confirm');
+        Route::post('/reservations/update', [AppointmentListController::class, 'update'])->name('appointmentDetails.store');
+        Route::delete('/reservations/{id}', [AppointmentListController::class, 'destroy'])->name('appointmentList.destroy');
 
         Route::get('/appointment-confirmation', function () {
             return view('appointmentConfirmation');

@@ -14,7 +14,7 @@
             <div class="flex-1 my-3 mx-1 md:m-3 px-2 md:px-5">
                 <x-text.custom-text text="予約状況・履歴" class="mb-2 bg-gray-text" />
                 <div class="flex gap-2 justify-center items-center">
-                    <a href="{{ route('appointmentList.index') }}" class="button-container">
+                    <a href="{{ route('reservations.index') }}" class="button-container">
                         <div
                             class="flex flex-col justify-center items-center gap-2 border border-gray-400 hover:bg-gray-100 transition-colors duration-500 rounded-sm py-4 px-1">
                             <i class="fa-regular fa-calendar text-red-700 text-3xl"></i>

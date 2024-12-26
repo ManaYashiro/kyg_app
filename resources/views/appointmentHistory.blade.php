@@ -34,7 +34,7 @@
                         </thead>
 
                         @foreach ($filteredGroupedAppointments as $appointment)
-                            <tr onclick="window.location='{{ route('appointmentList.edit', $appointment->id) }}';"
+                            <tr onclick="window.location='{{ route('reservations.edit', $appointment->id) }}';"
                                 class="clickable-row" style="cursor: pointer;">
                                 {{-- 予約番号: --}}
                                 <td class="border px-4 py-2" style="font-size: 0.75rem;">
@@ -74,7 +74,7 @@
             </table>
         </div>
 
-        <form method="GET" action="{{ route('appointmentList.index') }}" class="mb-6">
+        <form method="GET" action="{{ route('reservations.index') }}" class="mb-6">
             <div class="flex items-center gap-4 mt-8">
                 <!-- 予約番号並び替え -->
                 <div>

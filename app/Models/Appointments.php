@@ -40,9 +40,14 @@ class Appointments extends Model
     protected static function boot()
     {
         parent::boot();
+        // 登録するとreservation_statusを 1
+        static::creating(function ($appointment) {
+            $appointment->reservation_status = 1;
+        });
 
+        //キャンセルするとreservation_status` を 0
         static::deleting(function ($appointment) {
-            // `reservation_status` を 0 に更新
+            // `reservation_status` を 0
             $appointment->update(['reservation_status' => 0]);
         });
     }

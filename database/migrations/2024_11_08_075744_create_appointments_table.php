@@ -28,7 +28,6 @@ return new class extends Migration
             $table->date('inspection_due_date')->comment('車検満了日');
             $table->string('past_service_history', 40)->comment('過去の利用履歴');
             $table->string('requirement')->nullable()->comment('予約ご要望');
-            $table->integer('reservation_count')->nullable()->comment('予約数');
             $table->text('remarks')->nullable()->comment('備考欄');
             $table->integer('reservation_status')->nullable()->comment('予約状況');
             $table->string('admin_notes', 128)->nullable()->comment('管理メモ');
