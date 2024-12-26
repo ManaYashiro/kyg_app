@@ -24,6 +24,9 @@ export default defineConfig({
                 "resources/js/modules/calendar.js",
                 "resources/js/modules/dashboard.js",
 
+                // admin
+                "resources/js/modules/admin/navi.js",
+
                 // auth
                 // - css
                 "resources/css/modules/auth/mypage.css",
