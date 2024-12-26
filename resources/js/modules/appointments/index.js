@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         // Ajax リクエストを送信
         $.ajax({
-            url: `/appointmentsList/${appointmentId}`,
+            url: `/reservations/${appointmentId}`,
             type: "POST",
             data: {
                 _method: "DELETE", // DELETE
@@ -18,7 +18,7 @@ $(document).ready(function () {
             success: function (response) {
                 // 成功時の処理
                 // 一覧ページにリダイレクト
-                window.location.href = "/appointmentList";
+                window.location.href = "/reservations";
             },
             error: function (xhr, status, error) {
                 // エラー時の処理
