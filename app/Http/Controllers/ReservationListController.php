@@ -12,9 +12,10 @@ class ReservationListController extends Controller
         $query = Appointments::query()
             //対応するIDを結合して、名前を取得
             ->join('users', 'appointments.user_id', '=', 'users.id')
-            ->select('appointments.*',
-            'users.name',
-        );
+            ->select(
+                'appointments.*',
+                'users.name',
+            );
 
         // 予約番号での検索
         if ($request->filled('appoint_number')) {
@@ -27,10 +28,10 @@ class ReservationListController extends Controller
         }
 
         // 絞り込んだユーザーを10件ずつページネートして取得
-        $reservationlists = $query->paginate(10);// ページごとに10件表示
+        $reservationlists = $query->paginate(10); // ページごとに10件表示
 
         //ビューに車検予約情報を渡す
-        return view('admin.reservationList.reservationList',compact('reservationlists'));
+        return view('admin.reservationList.reservationList', compact('reservationlists'));
     }
 
     /**
@@ -60,7 +61,7 @@ class ReservationListController extends Controller
         //JSON_UNESCAPED_UNICODEで保存
         $validatedData['additional_services'] = json_encode($validatedData['additional_services'], JSON_UNESCAPED_UNICODE);
         // 車検予約IDを取得
-        $appointment = Appointments::where('appointments.id',$id)->first();
+        $appointment = Appointments::where('appointments.id', $id)->first();
 
         //車検予約内容を更新
         $appointment->update($validatedData);
@@ -83,5 +84,4 @@ class ReservationListController extends Controller
         // 成功メッセージを表示してリストにリダイレクト
         return redirect()->route('admin.reservationList.index')->with('success', '車検予約を削除しました。');
     }
-
 }

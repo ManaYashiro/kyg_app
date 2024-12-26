@@ -14,7 +14,7 @@
             <div class="flex-1 my-3 mx-1 md:m-3 px-2 md:px-5">
                 <x-text.custom-text text="予約状況・履歴" class="mb-2 bg-gray-text" />
                 <div class="flex gap-2 justify-center items-center">
-                    <a href="{{ route('appointmentList.index') }}" class="button-container">
+                    <a href="{{ route('reservations.index') }}" class="button-container">
                         <div
                             class="flex flex-col justify-center items-center gap-2 border border-gray-400 hover:bg-gray-100 transition-colors duration-500 rounded-sm py-4 px-1">
                             <i class="fa-regular fa-calendar text-red-700 text-3xl"></i>
@@ -36,7 +36,6 @@
                 </div>
             </div>
         </div>
-
         <x-buttons.actionbutton :id="'login'" name="{{ __('ホームヘ') }}" type="button" class="mt-5 px-4 py-4"
             divClass="w-full sm:w-1/2 md:w-1/3 mx-auto" url="{{ route('top') }}" :buttonColor="'bg-gray-200 text-black'" />
     </div>

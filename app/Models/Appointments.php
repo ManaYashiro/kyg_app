@@ -4,12 +4,14 @@ namespace App\Models;
 
 use App\Helpers\Log;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
 
 class Appointments extends Model
 {
     use HasFactory;
+    use SoftDeletes;
 
     public const TITLE = '予約';
 
@@ -37,6 +39,22 @@ class Appointments extends Model
         'reservation_status',
         'admin_notes',
     ];
+
+    // モデルイベントを登録
+    protected static function boot()
+    {
+        parent::boot();
+        // 登録するとreservation_statusを 1
+        static::creating(function ($appointment) {
+            $appointment->reservation_status = 1;
+        });
+
+        //キャンセルするとreservation_status` を 0
+        static::deleting(function ($appointment) {
+            // `reservation_status` を 0
+            $appointment->update(['reservation_status' => 0]);
+        });
+    }
 
     public function user()
     {

@@ -34,7 +34,7 @@
                         </thead>
 
                         @foreach ($filteredGroupedAppointments as $appointment)
-                            <tr onclick="window.location='{{ route('appointmentList.edit', $appointment->id) }}';"
+                            <tr onclick="window.location='{{ route('reservations.edit', $appointment->id) }}';"
                                 class="clickable-row" style="cursor: pointer;">
                                 {{-- 予約番号: --}}
                                 <td class="border px-4 py-2" style="font-size: 0.75rem;">
@@ -74,7 +74,7 @@
             </table>
         </div>
 
-        <form method="GET" action="{{ route('appointmentList.index') }}" class="mb-6">
+        <form method="GET" action="{{ route('reservations.index') }}" class="mb-6">
             <div class="flex items-center gap-4 mt-8">
                 <!-- 予約番号並び替え -->
                 <div>
@@ -98,7 +98,7 @@
                     <tr>
                         <th class="px-4 py-2 text-left" style="width: 10%;">予約番号</th>
                         <th class="px-4 py-2 text-left" style="width: 18%;">予約日時</th>
-                        <th class="px-4 py-2 text-left" style="width: 8%;"">車両</th>
+                        <th class="px-4 py-2 text-left" style="width: 8%;">車両</th>
                         <th class="px-4 py-2 text-left" style="width: 10%;">希望店舗</th>
                         <th class="px-4 py-2 text-left" style="width: 20%;">作業カテゴリ</th>
                         <th class="px-4 py-2 text-left" style="width: 20%;">予約する作業</th>
@@ -145,5 +145,7 @@
         @else
             <div class="px-4 py-2 mb-6">予約履歴はありません</div>
         @endif
+        <x-buttons.actionbutton :id="'login'" name="{{ __('前の画面に戻る') }}" type="button" class="mt-5 px-4 py-4"
+        divClass="w-full sm:w-1/2 md:w-1/3 mx-auto" url="{{ route('mypage') }}" :buttonColor="'bg-gray-200 text-black'" />
     </div>
 </x-app-layout>

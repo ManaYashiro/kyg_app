@@ -77,7 +77,6 @@ class  AppointmentListController extends Controller
     {
         // Find the appointment by ID
         $appointment = Appointments::where('user_id', Auth::user()->id)->where('id', $id)->first();
-
         // reservation_datetimeを秒数を除いてフォーマット変更
         $appointment->reservation_datetime = Carbon::parse($appointment->reservation_datetime)->format('Y/m/d H:i');
 
@@ -86,18 +85,56 @@ class  AppointmentListController extends Controller
     }
 
     /**
+     * 予約確認
+     */
+
+    public function confirm(Request $request)
+    {
+        //バリデーション
+        $rules = [
+            'inspection_due_date' => 'required|date',
+        ];
+        // バリデーションエラーメッセージ
+        $errorMessages = [
+            'inspection_due_date' => '車検満期日をご入力ください。を入力してください。',
+        ];
+
+        // バリデーションの実行
+        $validatedData = $request->validate($rules, $errorMessages);
+
+        $appointment = $request->all();
+
+        session([
+            'inspection_due_date' => $request->input('inspection_due_date'),
+        ]);
+
+        // 確認画面に必要なデータを渡す
+        return view('appointmentDetailsConfirm', compact('appointment'));
+    }
+
+    /**
+     * 予約確定
+     */
+    public function update(Request $request)
+    {
+        $id = $request->input('id');
+        // 指定されたIDのユーザーを取得
+        $appointment = Appointments::where('appointments.id', $id)->first();
+        $appointment->update($request->all());
+
+        // 成功メッセージを表示してリストにリダイレクト
+        return redirect()->route('appointmentList.index');
+    }
+
+    /**
      * 予約削除
      */
     public function destroy($id)
     {
         // 指定されたIDのユーザーを取得
-        $Appointment = Appointments::findOrFail($id);
-
-        // ユーザー削除
-        $Appointment->delete();
-
-        // 成功メッセージを表示してリストにリダイレクト
-        return redirect()->route('appointmentList.index')->with('success', '予約をキャンセルしました。');
+        $appointment = Appointments::findOrFail($id);
+        //論理削除
+        $appointment->delete();
     }
 
     public function events(Request $request)
