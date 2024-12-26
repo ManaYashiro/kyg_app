@@ -133,7 +133,7 @@ window.confirmFormData = function (formData) {
                 }
                 questionnaireText += window.findObjectByKeyValue(
                     questionnaireList,
-                    "id",
+                    "name",
                     val
                 ).name;
             }

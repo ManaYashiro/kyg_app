@@ -8,7 +8,6 @@ use App\Helpers\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisteredUserRequest;
 use App\Http\Requests\UserVehicleRequest;
-use App\Models\Anket;
 use App\Models\User;
 use App\Models\UserVehicle;
 use Illuminate\Auth\Events\Registered;
@@ -27,9 +26,7 @@ class RegisteredUserController extends Controller
     {
         $formType = FormTypeEnum::USER_REGISTER->value;
         $submitType = SubmitTypeEnum::CONFIRM->value;
-        // これを実際の アンケートリストに変更します (DB から)
-        $questionnaire = Anket::get();
-        return view('auth.profile', compact('formType', 'submitType', 'questionnaire'));
+        return view('auth.profile', compact('formType', 'submitType'));
     }
 
     /**

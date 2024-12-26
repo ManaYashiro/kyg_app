@@ -8,7 +8,6 @@ use App\Helpers\Log;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Requests\RegisteredUserRequest;
 use App\Http\Requests\UserVehicleRequest;
-use App\Models\Anket;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -29,9 +28,7 @@ class ProfileController extends Controller
         $submitType = SubmitTypeEnum::CONFIRM->value;
         $route = route('profile.update');
         $user = User::where('id', Auth::user()->id)->with('userVehicles')->first();
-        // これを実際の アンケートリストに変更します (DB から)
-        $questionnaire = Anket::get();
-        return view('auth.profile', compact('user', 'route', 'formType', 'submitType', 'questionnaire'));
+        return view('auth.profile', compact('user', 'route', 'formType', 'submitType'));
     }
 
     /**
