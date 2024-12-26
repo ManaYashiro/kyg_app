@@ -233,14 +233,17 @@
         @php
             $sequence_no = $i + 1;
             $car_show =
-                $sequence_no === 1
-                    ? 'true' // 1st car always show
+                $sequence_no === 1 // 1st car always show
+                    ? 'true'
                     : (isset($userVehicles[$i]) && !empty($userVehicles[$i]->car_name) // 2nd and 3rd car only show during update when user registered 2nd or 3rd car
                         ? 'true'
                         : 'false');
         @endphp
-        <div :class="{ 'mt-4': '{{ $sequence_no > 1 }}' }" class="pt-4 flex flex-col" x-data="{ car_show_{{ $sequence_no }}: {{ $car_show }}, height: 0 }"
-            x-init="$nextTick(() => setTimeout(() => height = $refs.containerCarShow_{{ $sequence_no }}.scrollHeight, 100))">
+        <div class="mb-4 pt-4 flex flex-col" x-data="{
+            car_show_{{ $sequence_no }}: {{ $car_show }},
+            height: 0
+        }" x-init="$nextTick(() => setTimeout(() =>
+            height = $refs.containerCarShow_{{ $sequence_no }}.scrollHeight, 100))">
             @include('auth.car-profile', [
                 'sequence_no' => $sequence_no,
                 'userVehicle' => $userVehicles[$i] ?? null,

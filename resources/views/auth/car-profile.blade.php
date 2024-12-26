@@ -6,19 +6,26 @@
 @php
     $open = $sequence_no . '台目：開く';
     $close = $sequence_no . '台目：閉る';
-
-    // 例：car_show_1
-    $car_show = 'car_show_' . $sequence_no;
 @endphp
 
-<button type="button" x-bind:class="{ 'bg-red-400': {{ $car_show }}, 'bg-red-200': !{{ $car_show }} }"
+{{-- car_show_{{ $sequence_no }} --}}
+{{-- 例：car_show_1 --}}
+{{-- alpinejsのvariable --}}
+<button type="button"
+    x-bind:class="{
+        'bg-red-400': car_show_{{ $sequence_no }},
+        'bg-red-200': !car_show_{{ $sequence_no }}
+    }"
     class="max-w-[100px] hover:bg-red-500 text-white text-sm font-sequence_normal p-2 rounded"
-    @click="car_show_{{ $sequence_no }} = !car_show_{{ $sequence_no }}; height = $refs.containerCarShow_{{ $sequence_no }}.scrollHeight"
+    @click="
+        car_show_{{ $sequence_no }} = !car_show_{{ $sequence_no }};
+        height = $refs.containerCarShow_{{ $sequence_no }}.scrollHeight;
+    "
     x-text="car_show_{{ $sequence_no }} ? '{{ $close }}' : '{{ $open }}'">
 </button>
 <div class="relative overflow-hidden duration-700" x-ref="containerCarShow_{{ $sequence_no }}"
-    x-bind:class="{ 'max-h-0': !{{ $car_show }} }"
-    x-bind:style="{{ $car_show }} == true ? 'max-height: ' + height + 'px' : ''" x-cloak
+    x-bind:class="{ 'max-h-0': !car_show_{{ $sequence_no }} }"
+    x-bind:style="car_show_{{ $sequence_no }} == true ? 'max-height: ' + height + 'px' : ''" x-cloak
     x-transition:enter="transition-all ease-in duration-300" x-transition:enter-start="opacity-0 max-h-0"
     x-transition:enter-end="opacity-100 max-h-screen" x-transition:leave="transition-all ease-out duration-300"
     x-transition:leave-start="opacity-100 max-h-screen" x-transition:leave-end="opacity-0 max-h-0">
