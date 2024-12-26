@@ -40,22 +40,6 @@ class Appointments extends Model
         'admin_notes',
     ];
 
-    // モデルイベントを登録
-    protected static function boot()
-    {
-        parent::boot();
-        // 登録するとreservation_statusを 1
-        static::creating(function ($appointment) {
-            $appointment->reservation_status = 1;
-        });
-
-        //キャンセルするとreservation_status` を 0
-        static::deleting(function ($appointment) {
-            // `reservation_status` を 0
-            $appointment->update(['reservation_status' => 0]);
-        });
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -78,10 +62,22 @@ class Appointments extends Model
                 Log::info(self::TITLE . '登録中', $appointment);
             }
 
+            // 登録するとreservation_status を 1
+            $appointment->reservation_status = 1;
+
             if (!$appointment->reservation_number) {
                 $lastReservationNumber = DB::table('appointments')->max('reservation_number');
                 $appointment->reservation_number = $lastReservationNumber ? $lastReservationNumber + 1 : config('database.starting_reservation_no');
             }
+        });
+
+        static::deleting(function ($appointment) {
+            if (config('app.env') !== 'testing') {
+                Log::info(self::TITLE . 'キャンセル中', $appointment);
+            }
+
+            //キャンセルするとreservation_status` を 0
+            $appointment->update(['reservation_status' => 0]);
         });
     }
 }
