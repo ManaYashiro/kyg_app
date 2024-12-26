@@ -1,0 +1,96 @@
+.fc-day-sun {
+    color: #ff7153; /* 文字色を赤 */
+}
+.fc-day-sat {
+    color: #08ade7; /* 文字色を青 */
+}
+.fc-event-title {
+    /* 〇を中央に寄せる */
+    @apply flex justify-center items-center h-full;
+}
+.fc-event-time {
+    display: none;
+}
+/* slot display start */
+.fc .fc-timegrid-slot {
+    height: 2.5rem;
+}
+.fc-timegrid-event,
+.fc-timegrid-more-link {
+    font-size: 1.5rem;
+}
+.fc-direction-ltr .fc-timegrid-col-events {
+    margin: 0;
+}
+/* .fc-timegrid-event-harness-inset .fc-timegrid-event,
+.fc-timegrid-event.fc-event-mirror,
+.fc-timegrid-more-link  */
+.fc-timegrid-event-harness-inset .fc-timegrid-event {
+    height: 2.5rem;
+    background-color: unset;
+    box-shadow: none;
+    border: 1px dotted #dfcccc;
+    border-radius: 0;
+}
+.fc-timegrid-event-harness-inset .fc-timegrid-event.unreserved {
+    /* background-color: #ffffff; */
+    @apply cursor-pointer hover:bg-red-50;
+}
+.fc-timegrid-event-harness-inset .fc-timegrid-event.reserved {
+    background-color: #e0e0e0;
+}
+.fc-timegrid-event-harness-inset .fc-timegrid-event.break {
+    background-image: url("../../img/modules/calendar/calendar-none.gif");
+}
+/* slot display end */
+.fc .fc-daygrid-body-unbalanced .fc-daygrid-day-events {
+    min-height: unset; /* min-height をリセット */
+}
+.fc .fc-daygrid-day-frame {
+    cursor: pointer;
+}
+button.fc-button-primary {
+    color: gray !important;
+    background-color: #fff !important;
+    padding: 0.2em 0.45em !important;
+    font-size: 0.85em !important;
+}
+/* Before AND After pseudo-element */
+/* 無効 */
+button.fc-button-primary:disabled {
+    color: #000 !important;
+    background-color: #999999 !important;
+}
+button.fc-button-primary::before,
+button.fc-button-primary::after {
+    @apply mx-1;
+}
+button.fc-prevMonth-button::before {
+    content: "\f100";
+    font-family: FontAwesome, "Font Awesome", "Font Awesome 6 Free", sans-serif !important;
+}
+button.fc-prevWeek-button::before {
+    content: "\f104";
+    font-family: FontAwesome, "Font Awesome", "Font Awesome 6 Free", sans-serif !important;
+}
+button.fc-nextWeek-button::after {
+    content: "\f105";
+    font-family: FontAwesome, "Font Awesome", "Font Awesome 6 Free", sans-serif !important;
+}
+button.fc-nextMonth-button::after {
+    content: "\f101";
+    font-family: FontAwesome, "Font Awesome", "Font Awesome 6 Free", sans-serif !important;
+}
+button.fc-openCalendar-button::after {
+    content: "\f073";
+    font-family: FontAwesome, "Font Awesome", "Font Awesome 6 Free", sans-serif !important;
+}
+/* Before AND After pseudo-element */
+/* モーダルの背景（バックドロップ）の z-index を設定 */
+.modal-backdrop {
+    z-index: 1040 !important;
+}
+/* モーダルの z-index を設定 */
+#storeModal {
+    z-index: 1050 !important; /* これを FullCalendar より高く設定 */
+}

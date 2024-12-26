@@ -26,7 +26,6 @@ class ProfileController extends Controller
         $submitType = SubmitTypeEnum::CONFIRM->value;
         $route = route('profile.update');
         $user = User::where('id', Auth::user()->id)->with('userVehicles')->first();
-        \Log::info($user);
         // これを実際の アンケートリストに変更します (DB から)
         $questionnaire = Anket::get();
         return view('auth.profile', compact('user', 'route', 'formType', 'submitType', 'questionnaire'));

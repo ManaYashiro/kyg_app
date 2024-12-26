@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             StoreSeeder::class,
             Task_categorySeeder::class,
             Task_reservationSeeder::class,
+            AppointmentsSeeder::class,
         ]);
     }
 }

@@ -6,7 +6,7 @@
     </x-slot>
 
     <div class="bg-white h-full overflow-hidden shadow-sm border border-gray-800 border-r-0 border-b-0">
-        <div class="h-full overflow-y-auto p-6 text-gray-900">
+        <div class="h-full overflow-y-auto p-2 md:p-6 text-gray-900">
             <h2 class="text-base/7 font-semibold text-gray-900">アンケート変更</h2>
 
             <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
@@ -32,6 +32,8 @@
     </div>
     @section('styles')
     @endsection
+    @push('modals')
+    @endpush
     @push('scripts')
     @endpush
 </x-admin-app-layout>

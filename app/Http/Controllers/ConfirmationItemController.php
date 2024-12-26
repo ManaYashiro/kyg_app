@@ -83,8 +83,7 @@ class  ConfirmationItemController extends Controller
         $formattedBirthday = date('Y/m/d', strtotime($birthday));
 
         // 新しい予約番号を動的に生成
-        $lastAppointment = Appointments::orderBy('reservation_number', 'desc')->first();
-        $appointmentNumber = $lastAppointment ? $lastAppointment->reservation_number + 1 : 10001;
+        // reservation_numberはAppointments modelに移動する
 
         //最終内容確認へ渡すために代入
         $finalcheck = [

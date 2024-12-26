@@ -2,6 +2,9 @@ import { defineConfig } from "vite";
 import laravel from "laravel-vite-plugin";
 
 export default defineConfig({
+    define: {
+        "process.env": process.env,
+    },
     plugins: [
         laravel({
             input: [
@@ -12,14 +15,15 @@ export default defineConfig({
                 "resources/js/app.js",
 
                 // custom
-                "resources/css/modules/calender.css",
+                "resources/css/modules/calendar.css",
 
                 "resources/js/modules/ajaxConfirm.js",
                 "resources/js/modules/base.js",
                 "resources/js/modules/datepicker.js",
                 "resources/js/modules/page-navi-buttons.js",
-                "resources/js/modules/calender.js",
+                "resources/js/modules/calendar.js",
                 "resources/js/modules/dashboard.js",
+
                 // auth
                 // - css
                 "resources/css/modules/auth/mypage.css",
@@ -43,8 +47,9 @@ export default defineConfig({
                 "resources/img/top/vmaintenance.png",
                 "resources/img/top/estimate.png",
                 "resources/img/top/top.png",
-                "resources/img/top/top2.png",
                 "resources/img/top/scroll.png",
+                // - top calendar
+                "resources/img/modules/calendar/calendar-none.gif",
             ],
             refresh: true,
         }),
