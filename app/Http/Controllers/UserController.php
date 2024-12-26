@@ -7,9 +7,7 @@ use App\Enums\SubmitTypeEnum;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Requests\RegisteredUserRequest;
 use App\Http\Requests\UserVehicleRequest;
-use App\Models\Anket;
 use App\Models\User;
-use App\Models\UserVehicle;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -46,9 +44,7 @@ class UserController extends Controller
         $submitType = SubmitTypeEnum::SUBMIT->value;
         $route = route('admin.userList.store');
         $method = "POST";
-        // これを実際の アンケートリストに変更します (DB から)
-        $questionnaire = Anket::get();
-        return view('admin.userLists.userCreate', compact('route', 'method', 'formType', 'submitType', 'questionnaire')); // 編集ページにユーザー情報を渡す
+        return view('admin.userLists.userCreate', compact('route', 'method', 'formType', 'submitType')); // 編集ページにユーザー情報を渡す
     }
 
     /**
@@ -70,9 +66,7 @@ class UserController extends Controller
         $route = route('admin.userList.update', ['userList' => $id]);
         $user = User::where('id', $id)->with('userVehicles')->first();
         $method = "PATCH";
-        // これを実際の アンケートリストに変更します (DB から)
-        $questionnaire = Anket::get();
-        return view('admin.userLists.userEdit', compact('user', 'route', 'method', 'formType', 'submitType', 'questionnaire')); // 編集ページにユーザー情報を渡す
+        return view('admin.userLists.userEdit', compact('user', 'route', 'method', 'formType', 'submitType')); // 編集ページにユーザー情報を渡す
     }
 
     /**

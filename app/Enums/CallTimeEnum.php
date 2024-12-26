@@ -2,7 +2,6 @@
 
 namespace App\Enums;
 
-// Transfer to store in DB later
 enum CallTimeEnum: string
 {
     case A_09_12 = '09-12';

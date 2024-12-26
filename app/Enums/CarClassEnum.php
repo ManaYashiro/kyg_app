@@ -2,7 +2,6 @@
 
 namespace App\Enums;
 
-// Transfer to store in DB later
 enum CarClassEnum: int
 {
     case Keijidousha = 1;

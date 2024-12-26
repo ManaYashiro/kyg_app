@@ -115,14 +115,15 @@
 <div class="isConfirm mt-4 hidden">
     <x-text.custom-input-label text="【アンケート】弊社の車検を何でお知りになりましたか" class="mb-2 left-border-text" />
     @php
-        $anketList = [];
+        $questionList = [];
     @endphp
-    @foreach ($questionnaire as $anket)
+    @foreach (\App\Enums\QuestionnaireEnum::cases() as $question)
         @php
-            array_push($anketList, ['id' => $anket->id, 'name' => $anket->name]);
+            array_push($questionList, ['id' => $loop->index + 1, 'name' => $question->value]);
         @endphp
     @endforeach
-    <input type="hidden" id="confirm-questionnaire-list" data-list="{{ json_encode($anketList, JSON_PRETTY_PRINT) }}">
+    <input type="hidden" id="confirm-questionnaire-list"
+        data-list="{{ json_encode($questionList, JSON_PRETTY_PRINT) }}">
     <x-text.custom-text :text="''" id="confirm-questionnaire" class="mb-6 w-full overflow-hidden"
         textClass="block break-words" />
 </div>

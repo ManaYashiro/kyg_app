@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 use App\Enums\CallTimeEnum;
+use App\Enums\IsNewsletterEnum;
+use App\Enums\IsNotificationEnum;
+use App\Enums\PersonTypeEnum;
 use App\Enums\PrefectureEnum;
 use App\Models\User;
 use App\Models\UserVehicle;
@@ -72,8 +75,10 @@ class UserSeeder extends Seeder
             'address1' => fake()->ward(),
             'address2' => fake()->secondaryAddress(),
             'call_time' => CallTimeEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, CallTimeEnum::cases()))),
-            'is_newsletter_subscription' => fake()->randomElement([true, false]),
-            'how_did_you_hear' => $userFactory->fakeAnket(),
+            'person_type' => PersonTypeEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, PersonTypeEnum::cases()))),
+            'is_receive_newsletter' => IsNewsletterEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, IsNewsletterEnum::cases()))),
+            'is_receive_notification' => IsNotificationEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, IsNotificationEnum::cases()))),
+            'questionnaire' => $userFactory->fakeQuestionnaire(),
         ];
     }
 

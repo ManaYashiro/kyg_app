@@ -233,14 +233,17 @@
         @php
             $sequence_no = $i + 1;
             $car_show =
-                $sequence_no === 1
-                    ? 'true' // 1st car always show
+                $sequence_no === 1 // 1st car always show
+                    ? 'true'
                     : (isset($userVehicles[$i]) && !empty($userVehicles[$i]->car_name) // 2nd and 3rd car only show during update when user registered 2nd or 3rd car
                         ? 'true'
                         : 'false');
         @endphp
-        <div :class="{ 'mt-4': '{{ $sequence_no > 1 }}' }" class="pt-4 flex flex-col" x-data="{ car_show_{{ $sequence_no }}: {{ $car_show }}, height: 0 }"
-            x-init="$nextTick(() => setTimeout(() => height = $refs.containerCarShow_{{ $sequence_no }}.scrollHeight, 100))">
+        <div class="mb-4 pt-4 flex flex-col" x-data="{
+            car_show_{{ $sequence_no }}: {{ $car_show }},
+            height: 0
+        }" x-init="$nextTick(() => setTimeout(() =>
+            height = $refs.containerCarShow_{{ $sequence_no }}.scrollHeight, 100))">
             @include('auth.car-profile', [
                 'sequence_no' => $sequence_no,
                 'userVehicle' => $userVehicles[$i] ?? null,
@@ -271,14 +274,15 @@
 <!-- How did you hear -->
 <div id="container-questionnaire" class="mt-4">
     <x-text.custom-input-label text="【アンケート】弊社の車検を何でお知りになりましたか（複数回答3つまで）" class="mb-2" option="必須" />
-    @foreach ($questionnaire as $anket)
+    @foreach (\App\Enums\QuestionnaireEnum::cases() as $question)
         <div class="mt-4 flex items-center gap-3 mb-3">
-            <x-text-input id="anket-{{ $anket->id }}" type="checkbox" name="questionnaire[]" :value="$anket->id"
-                :checked="in_array(
-                    $anket->id,
+            {{-- 例： question-1 --}}
+            <x-text-input id="question-{{ $loop->index + 1 }}" type="checkbox" name="questionnaire[]"
+                :value="$question->value" :checked="in_array(
+                    $question->value,
                     old('questionnaire') ?? ($user && $user->questionnaire ? $user->questionnaire : []),
                 )" />
-            <x-input-label for="anket-{{ $anket->id }}" :value="$anket->name" />
+            <x-input-label for="question-{{ $loop->index + 1 }}" :value="$question->getLabel()" />
         </div>
     @endforeach
     <x-ajax-input-error id="error-questionnaire" class="mt-2" />

@@ -8,7 +8,7 @@ use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
 use App\Enums\PersonTypeEnum;
 use App\Enums\PrefectureEnum;
-use App\Models\Anket;
+use App\Enums\QuestionnaireEnum;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -99,7 +99,7 @@ class UserFactory extends Factory
             return [
                 'role' => User::USER,
                 'call_time' => CallTimeEnum::A_09_12->value,
-                'questionnaire' => [1, 2, 3],
+                'questionnaire' => $this->fakeQuestionnaire(),
                 'is_receive_newsletter' => IsNewsletterEnum::No->value,
                 'is_receive_notification' => IsNotificationEnum::No->value,
                 'gender' => GenderEnum::Male->value,
@@ -122,7 +122,7 @@ class UserFactory extends Factory
                 'gender' => GenderEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, GenderEnum::cases()))),
                 'birthday' => fake()->dateTimeBetween('1990-01-01', '2000-12-31'),
                 'call_time' => CallTimeEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, CallTimeEnum::cases()))),
-                'questionnaire' => $this->fakeAnket(),
+                'questionnaire' => $this->fakeQuestionnaire(),
                 'person_type' => PersonTypeEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, PersonTypeEnum::cases()))),
                 'is_receive_newsletter' => IsNewsletterEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, IsNewsletterEnum::cases()))),
                 'is_receive_notification' => IsNotificationEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, IsNotificationEnum::cases()))),
@@ -130,18 +130,10 @@ class UserFactory extends Factory
         });
     }
 
-    public function fakeAnket(): array
+    public function fakeQuestionnaire(): array
     {
-
-        $questionnaire = Anket::get()->pluck('id')->toArray();
-
-        // Get a random quantity from 0 to 3
-        $quantity = rand(1, 3);
-
-        // Shuffle the array to randomize the order
-        shuffle($questionnaire);
-
-        // Slice the array to get the desired quantity
-        return array_slice($questionnaire, 0, $quantity);
+        return collect(QuestionnaireEnum::cases())
+            ->map(fn($case) => $case->value)
+            ->random(rand(1, 3))->toArray();
     }
 }
