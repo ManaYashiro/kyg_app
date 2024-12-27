@@ -4,3 +4,4 @@
 composer install --no-dev --optimize-autoloader && npm install --omit-dev
 npm run build
 php artisan optimize
+composer dump-autoload
