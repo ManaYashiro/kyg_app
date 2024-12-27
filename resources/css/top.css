@@ -1,3 +1,29 @@
+/* 全体設定 */
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* バナーセクション */
+.banner {
+    font-family: var(--unnamed-font-family-almarai);
+    font-style: var(--unnamed-font-style-normal);
+    font-weight: var(--unnamed-font-weight-bold);
+    font-size: var(--unnamed-font-size-11);
+    line-height: var(--unnamed-line-spacing-12);
+    letter-spacing: var(--unnamed-character-spacing-0-55);
+    color: var(--unnamed-color-1d1d1d);
+
+    position: relative;
+    width: 100%;
+    background-color: #c4221c; /* 赤い背景色 */
+    color: #fff;
+    overflow: hidden;
+}
+
+.image-content img {
+    clip-path: polygon(35% 0, 100% 0, 100% 100%, 0 100%);
+}
+
 /* 店舗 */
 /* 隠されたラジオボタン */
 .hidden-radio {
@@ -160,57 +186,6 @@
 
 .hidden-task {
     display: none;
-}
-
-/* リセット */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* 全体設定 */
-body {
-    font-family: Arial, sans-serif;
-}
-
-/* バナーセクション */
-.banner {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    background-color: #c4221c; /* 赤い背景色 */
-    color: #fff;
-    overflow: hidden;
-}
-
-.image-content img {
-    clip-path: polygon(25% 0, 100% 0, 100% 100%, 0 100%);
-}
-
-.top-image {
-    width: 100%;
-}
-
-/* テキストコンテンツ */
-.text-content {
-    flex: 1;
-    margin: 30px;
-    padding: 20px;
-    z-index: 2; /* テキストを画像の上に配置 */
-}
-
-.text-content h1 {
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-    font-weight: bold;
-}
-
-.text-content p {
-    font-size: 1.2rem;
-    margin-bottom: 50px;
 }
 
 /* デフォルトのチェックボックスを非表示にする */

@@ -56,17 +56,21 @@
     <div class="min-h-screen flex flex-col">
         @include('layouts.navigation')
         @if (Route::current()->getName() === 'top')
-            <section class="banner">
-                <div class="text-content w-2/5">
-                    <h1>KIMURA UNITY GROUP</h1>
-                    <p>キムラユニティーグループのWEB予約ページへようこそ。</p>
-                    <div class="scroll-indicator">
-                        <img src="{{ Vite::asset('resources/img/top/scroll.png') }}" alt="スクロール" id="scrollbar"
-                            class="scroll">
+            <section class="banner flex h-full items-stretch">
+                <div class="text-content w-2/6 relative">
+                    <div
+                        class="text-container m-0 w-[150%] absolute top-1/2 left-[85%] transform -translate-x-1/2 -translate-y-1/2">
+                        <h1 class="text-5xl mb-6">KIMURA UNITY GROUP</h1>
+                        <h4 class="text-lg mb-8">キムラユニティーグループのWEB予約ページへようこそ。</h4>
+                        <div class="scroll-indicator">
+                            <img src="{{ Vite::asset('resources/img/top/scroll.png') }}" alt="スクロール" id="scrollbar"
+                                class="scroll">
+                        </div>
                     </div>
                 </div>
-                <div class="image-content w-3/5">
-                    <img src="{{ Vite::asset('resources/img/top/top.png') }}" alt="タイトル" class="top-image">
+                <div class="image-content w-4/6">
+                    <img src="{{ Vite::asset('resources/img/top/top.png') }}" alt="タイトル"
+                        class="top-image w-full h-full object-cover">
                 </div>
             </section>
         @endif
