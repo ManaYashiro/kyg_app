@@ -38,7 +38,7 @@ Route::middleware('auth', 'verified')->group(function () {
             return view('admin.dashboard');
         })->name('dashboard');
 
-        Route::resource('reservationList', ReservationListController::class)->only(['index', 'create', 'edit', 'destroy']);
+        Route::resource('reservationList', ReservationListController::class)->only(['index', 'edit', 'destroy']);
         Route::get('reservationList/download-reservations-as-csv', [ReservationListController::class, 'downloadReservationsAsCSV'])->name('reservationList.downloadReservationsAsCSV');
         Route::resource('userList', UserController::class)->except(['show']);
 

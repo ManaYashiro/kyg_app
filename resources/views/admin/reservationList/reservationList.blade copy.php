@@ -8,9 +8,9 @@
     <div class="bg-white h-full overflow-hidden shadow-sm border border-gray-800 border-r-0 border-b-0">
         <div class="h-full overflow-y-auto p-2 md:p-6 text-gray-900">
             @if (session('success'))
-                <div class="bg-green-200 text-green-700 p-2 rounded mb-4" id="success-message">
-                    {{ session('success') }}
-                </div>
+            <div class="bg-green-200 text-green-700 p-2 rounded mb-4" id="success-message">
+                {{ session('success') }}
+            </div>
             @endif
 
             <form method="GET" action="{{ route('admin.reservationList.index') }}" class="mb-4">
@@ -47,12 +47,12 @@
                 <!-- ボディ部分 -->
                 <tbody>
                     @foreach ($reservationlists as $reservationlist)
-                        <tr onclick="window.location='{{ route('admin.reservationList.edit', $reservationlist->id) }}'"
-                            class="clickable-row" style="cursor: pointer;">
-                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->appoint_number }}</td>
-                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_datetime }}</td>
-                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->name }}</td>
-                        </tr>
+                    <tr onclick="window.location='{{ route('reservationList.edit', $reservationlist->id) }}'"
+                        class="clickable-row" style="cursor: pointer;">
+                        <td class="border px-4 py-2 text-xs">{{ $reservationlist->appoint_number }}</td>
+                        <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_datetime }}</td>
+                        <td class="border px-4 py-2 text-xs">{{ $reservationlist->name }}</td>
+                    </tr>
                     @endforeach
                 </tbody>
             </table>

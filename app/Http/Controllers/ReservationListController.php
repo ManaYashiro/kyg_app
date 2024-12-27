@@ -57,16 +57,16 @@ class ReservationListController extends Controller
     }
 
     /**
-     * 車検予約編集
+     * 予約編集
      */
     public function edit($id)
     {
-        $appointment = Appointments::findOrFail($id); // 車検予約IDを取得
-        return view('admin.reservationList.reservationListEdit', compact('appointment')); // 編集ページに車検予約を渡す
+        $reservationlists = Appointments::findOrFail($id); // 車検予約IDを取得
+        return view('admin.reservationList.reservationListEdit', compact('reservationlists')); // 編集ページに車検予約を渡す
     }
 
     /**
-     * 車検予約更新
+     * 予約更新
      */
     public function update(Request $request, $id)
     {
