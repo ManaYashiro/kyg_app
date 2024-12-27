@@ -265,11 +265,8 @@ $(document).ready(function () {
                 const taskId = $(this).data("task-id"); // 修正した data-task-id 属性を取得
                 const task = taskinfo[taskId]; // taskId で taskinfo オブジェクトを参照
                 if (task) {
-                    console.log(task);
                     $("#modalTitle2").empty().text(`${task.name} `);
-                    console.log(`${task.name} `);
                     $("#modalContent2").html(task.details);
-                    console.log(task.details);
                     $("#reservationModal").removeClass("hidden");
                 }
             });
@@ -380,7 +377,6 @@ $(document).ready(function () {
     // 詳細ボタンのクリックイベント
     $(".details-button").on("click", function () {
         const storeId = $(this).data("store-id"); // 店舗IDを取得
-        console.log(storeId);
         const store = storeInfo[storeId]; // 店舗情報を取得
 
         if (store) {

@@ -144,7 +144,6 @@ fontAwesomeLoaded().then(() => {
                     window.hideLoading();
                 },
                 success: function (response) {
-                    console.log(response);
                     successCallback(response);
                 },
                 error: function (error) {
