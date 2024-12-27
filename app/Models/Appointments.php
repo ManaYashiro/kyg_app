@@ -40,6 +40,24 @@ class Appointments extends Model
         'admin_notes',
     ];
 
+    // ステータスの定数を定義
+    const STATUS_CANCELLED = 0;
+    const STATUS_TEMPORARY = 1;
+    const STATUS_CONFIRMED = 2;
+
+    // ステータスと表示テキストの対応を定義
+    const STATUS_TEXTS = [
+        self::STATUS_CANCELLED => '予約取り消し/キャンセル',
+        self::STATUS_TEMPORARY => '仮予約',
+        self::STATUS_CONFIRMED => '本予約'
+    ];
+
+    // ステータステキストを取得するアクセサ
+    public function getStatusTextAttribute()
+    {
+        return self::STATUS_TEXTS[$this->reservation_status] ?? '不明';
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

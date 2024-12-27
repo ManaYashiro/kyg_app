@@ -35,6 +35,7 @@ export default defineConfig({
 
                 // appointments
                 "resources/js/modules/appointments/index.js",
+                "resources/js/modules/appointments/button.js",
 
                 // images
                 // - main

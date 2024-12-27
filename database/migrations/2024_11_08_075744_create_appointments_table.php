@@ -29,6 +29,7 @@ return new class extends Migration
             $table->string('past_service_history', 40)->comment('過去の利用履歴');
             $table->string('requirement')->nullable()->comment('予約ご要望');
             $table->text('remarks')->nullable()->comment('備考欄');
+            $table->text('reservation_count')->nullable()->comment('予約数');
             $table->integer('reservation_status')->nullable()->comment('予約状況');
             $table->string('admin_notes', 128)->nullable()->comment('管理メモ');
             $table->dateTime('created_at')->nullable()->useCurrent();
