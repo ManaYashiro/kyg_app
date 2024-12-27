@@ -20,10 +20,6 @@ body {
     overflow: hidden;
 }
 
-.image-content img {
-    clip-path: polygon(35% 0, 100% 0, 100% 100%, 0 100%);
-}
-
 /* 店舗 */
 /* 隠されたラジオボタン */
 .hidden-radio {

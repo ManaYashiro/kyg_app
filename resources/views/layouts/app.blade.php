@@ -56,21 +56,28 @@
     <div class="min-h-screen flex flex-col">
         @include('layouts.navigation')
         @if (Route::current()->getName() === 'top')
-            <section class="banner flex h-full items-stretch">
-                <div class="text-content w-2/6 relative">
-                    <div
-                        class="text-container m-0 w-[150%] absolute top-1/2 left-[85%] transform -translate-x-1/2 -translate-y-1/2">
-                        <h1 class="text-5xl mb-6">KIMURA UNITY GROUP</h1>
-                        <h4 class="text-lg mb-8">キムラユニティーグループのWEB予約ページへようこそ。</h4>
-                        <div class="scroll-indicator">
+            <section class="banner flex flex-col md:flex-row h-[300px] max-h-[300px]">
+                <div class="text-content w-full md:w-2/6 h-1/5 md:h-auto relative">
+                    <div class="text-container mobi-container md:desktop-container">
+                        <h1 class="text-base sm:text-xl md:text-5xl md:mb-6">KIMURA UNITY GROUP</h1>
+                        <div class="w-[85%]">
+                            <div class="flex flex-col mt-3 md:mt-0 md:hidden text-xxs xsm:text-xs">
+                                <span class="">キムラユニティーグループの</span>
+                                <span class="">WEB予約ページへようこそ。</span>
+                            </div>
+                            <div class="hidden md:block text-lg mb-[10%]">
+                                <span class="">キムラユニティーグループのWEB予約ページへようこそ。</span>
+                            </div>
+                        </div>
+                        <div class="scroll-indicator hidden md:block">
                             <img src="{{ Vite::asset('resources/img/top/scroll.png') }}" alt="スクロール" id="scrollbar"
                                 class="scroll">
                         </div>
                     </div>
                 </div>
-                <div class="image-content w-4/6">
+                <div class="image-content w-full md:w-4/6 h-4/5 md:h-auto">
                     <img src="{{ Vite::asset('resources/img/top/top.png') }}" alt="タイトル"
-                        class="top-image w-full h-full object-cover">
+                        class="mobi-polygon md:desktop-polygon w-full h-full object-cover object-center">
                 </div>
             </section>
         @endif
