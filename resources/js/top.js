@@ -293,10 +293,10 @@ $(document).ready(function () {
 $(document).ready(function () {
     // スクロールアイコン（#scrollbar）がクリックされたとき
     $("#scrollbar").on("click", function () {
-        // #stepの位置にスムーズにスクロールする
+        // #step01の位置にスムーズにスクロールする
         $("html, body").animate(
             {
-                scrollTop: $("#step").offset().top,
+                scrollTop: $("#step01").offset().top,
             },
             800
         ); // 800はスクロールの所要時間（ミリ秒）
