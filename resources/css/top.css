@@ -72,10 +72,7 @@ body {
 /* ホバー時のスタイル */
 .step01-button:hover,
 .step02-button:hover,
-.step03-button:hover {
-    background-color: #f5c6c6; /* ホバー時に背景色を少し濃く */
-}
-
+.step03-button:hover,
 /* ラジオボタンが選択されたときのスタイル */
 .hidden-radio:checked + .step01-button,
 .hidden-radio:checked + .step02-button,
@@ -97,6 +94,22 @@ body {
     top: 5%; /* 上に移動 */
     left: 8%;
     transform: translateX(-50%); /* 水平位置を中央に調整 */
+}
+
+/* 選択時にアイコン画像を変更する */
+.hidden-radio + .step02-button img.inactive-icon {
+    display: block;
+}
+.hidden-radio + .step02-button img.active-icon {
+    display: none;
+}
+.hidden-radio:hover + .step02-button img.inactive-icon,
+.hidden-radio:checked + .step02-button img.inactive-icon {
+    display: none;
+}
+.hidden-radio:hover + .step02-button img.active-icon,
+.hidden-radio:checked + .step02-button img.active-icon {
+    display: block;
 }
 
 .checkbox {

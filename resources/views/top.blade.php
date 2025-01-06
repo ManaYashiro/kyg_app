@@ -19,7 +19,7 @@
                 <x-text.custom-text text="車検やオイル交換、タイヤ交換などの予約ができます。" class="text-xl font-bold" />
                 <x-text.custom-text text="ご利用方法は右上「MENU」内ご利用ガイドをご覧ください。" class="mt-4 text-sm font-bold" />
             </div>
-            <hr class="my-10 border-1 border-gray-300  -mx-14">
+            <hr class="my-10 border-1 border-gray-300 -mx-4 md:-mx-14">
             <div class="mt-2 flex items-start">
                 <div class="text-white rounded-full bg-red-600 px-6 py-1 text-sm">お知らせ</div>
                 <div class="ml-4 flex flex-col sm:flex-row">
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <hr class="my-10 border-1 border-gray-300  -mx-14">
+            <hr class="my-10 border-1 border-gray-300 -mx-4 md:-mx-14">
             <div class="text-gray-800">
                 <div class="flex justify-start items-center gap-2">
                     <x-text.custom-text text="●" class="font-bold text-xl text-red-600" />
@@ -89,8 +89,8 @@
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
                 <x-text.custom-text text="ご希望の店舗をお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
             </div>
-            <hr class="my-3 border-2 border-red-600 -mx-14">
-            <div id="stores" class="flex space-x-4 mt-8 items-center">
+            <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
+            <div id="stores" class="flex gap-4 mt-8 items-center">
                 <label class="custom-radio-button">
                     <input type="radio" name="store" value="稲沢本店" class="hidden-radio rounded-md">
                     <span class="step01-button">
@@ -102,7 +102,7 @@
                     data-store-id="1">さらに詳しく</div>
             </div>
             <hr class="my-3 border-1 border-red-600">
-            <div class="flex space-x-4  items-center">
+            <div class="flex gap-4 items-center">
                 <label class="custom-radio-button">
                     <input type="radio" name="store" value="名古屋北店" class="hidden-radio rounded-md">
                     <span class="step01-button">
@@ -115,7 +115,7 @@
                     data-store-id="2">さらに詳しく</div>
             </div>
             <hr class="my-3 border-1 border-red-600  ">
-            <div class="flex space-x-4 items-center">
+            <div class="flex gap-4 items-center">
                 <label class="custom-radio-button">
                     <input type="radio" name="store" value="刈谷店" class="hidden-radio rounded-md">
                     <span class="step01-button">
@@ -130,7 +130,7 @@
                 </div>
             </div>
             <hr class="my-3 border-1 border-red-600  ">
-            <div class="flex space-x-4  items-center">
+            <div class="flex gap-4 items-center">
                 <label class="custom-radio-button">
                     <input type="radio" name="store" value="錦店" class="hidden-radio rounded-md">
                     <span class="step01-button">
@@ -142,7 +142,7 @@
                     data-store-id="4">さらに詳しく</div>
             </div>
             <hr class="my-3 border-1 border-red-600  ">
-            <div class="flex space-x-4  items-center">
+            <div class="flex gap-4 items-center">
                 <label class="custom-radio-button">
                     <input type="radio" name="store" value="豊田上郷店" class="hidden-radio rounded-md">
                     <span class="step01-button">
@@ -155,7 +155,7 @@
                     data-store-id="5">さらに詳しく</div>
             </div>
             <hr class="my-3 border-1 border-red-600">
-            <div class="flex space-x-4  items-center">
+            <div class="flex gap-4 items-center">
                 <label class="custom-radio-button">
                     <input type="radio" name="store" value="錦店" class="hidden-radio rounded-md">
                     <span class="step01-button">
@@ -171,16 +171,18 @@
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
                 <x-text.custom-text text="作業カテゴリをお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
             </div>
-            <hr class="my-3 border-2 border-red-600 -mx-14">
-            <div id="taskCategories" class="flex space-x-4 items-center mt-8">
+            <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
+            <div id="taskCategories" class="flex flex-wrap gap-4 items-center mt-8">
                 <!-- 初期表示 -->
                 <label id="task-category-label-1" class="custom-radio-button">
                     <input type="radio" name="taskcategory" value="" id="task-category-input-1"
                         class="hidden-radio rounded-md">
                     <span class="step02-button flex flex-col">
-                        <div class="flex gap-2">
-                            <img src="{{ Vite::asset('resources/img/top/maintenance.png') }}" alt="車検"
-                                class="button-icon">
+                        <div class="flex gap-2 w-[45%] items-center justify-center btn-img-container">
+                            <img src="{{ Vite::asset('resources/img/top/inactive_maintenance.png') }}" alt="車検"
+                                class="w-[50%] inactive-icon">
+                            <img src="{{ Vite::asset('resources/img/top/active_maintenance.png') }}" alt="車検"
+                                class="w-[50%] active-icon">
                         </div>
                         <span class="check-icon">✓</span><span id="task-category-span-1">車検（00分開始）</span>
                     </span>
@@ -189,9 +191,11 @@
                     <input type="radio" name="taskcategory" value="" id="task-category-input-2"
                         class="hidden-radio rounded-md">
                     <span class="step02-button flex flex-col">
-                        <div class="flex gap-2">
-                            <img src="{{ Vite::asset('resources/img/top/maintenance.png') }}" alt="車検"
-                                class="button-icon">
+                        <div class="flex gap-2 w-[45%] items-center justify-center btn-img-container">
+                            <img src="{{ Vite::asset('resources/img/top/inactive_maintenance.png') }}" alt="車検"
+                                class="w-[50%] inactive-icon">
+                            <img src="{{ Vite::asset('resources/img/top/active_maintenance.png') }}" alt="車検"
+                                class="w-[50%] active-icon">
                         </div>
                         <span class="check-icon">✓</span><span id="task-category-span-2">車検（30分開始）</span>
                     </span>
@@ -200,11 +204,15 @@
                     <input type="radio" name="taskcategory" value="" id="task-category-input-3"
                         class="hidden-radio rounded-md">
                     <span class="step02-button flex flex-col">
-                        <div class="flex gap-2">
-                            <img src="{{ Vite::asset('resources/img/top/estimate.png') }}" alt="車検"
-                                class="button-icon">
-                            <img src="{{ Vite::asset('resources/img/top/vmaintenance.png') }}" alt="車検"
-                                class="button-icon">
+                        <div class="flex gap-2 w-[45%] items-center justify-center btn-img-container">
+                            <img src="{{ Vite::asset('resources/img/top/inactive_estimate.png') }}" alt="車検"
+                                class="w-[50%] inactive-icon">
+                            <img src="{{ Vite::asset('resources/img/top/inactive_tool.png') }}" alt="車検"
+                                class="w-[50%] inactive-icon">
+                            <img src="{{ Vite::asset('resources/img/top/active_estimate.png') }}" alt="車検"
+                                class="w-[50%] active-icon">
+                            <img src="{{ Vite::asset('resources/img/top/active_tool.png') }}" alt="車検"
+                                class="w-[50%] active-icon">
                         </div>
                         <span class="check-icon">✓</span><span id="task-category-span-3">点検整備・見積もり</span>
                     </span>
@@ -215,8 +223,8 @@
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
                 <x-text.custom-text text="個人・法人をお選びください。" class="font-bold text-xl"></x-text.custom-text>
             </div>
-            <hr class="my-3 border-2 border-red-600 -mx-14">
-            <div id="customers" class="flex space-x-4 items-center">
+            <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
+            <div id="customers" class="flex flex-wrap gap-4 items-center">
                 <label class="custom-radio-button">
                     <input type="radio" name="customer" value="個人" class="hidden-radio rounded-md">
                     <span class="step03-button">
@@ -235,9 +243,9 @@
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
                 <x-text.custom-text text="予約する作業をお選びください。" class="font-bold text-xl"></x-text.custom-text>
             </div>
-            <hr class="my-3 border-2 border-red-600 -mx-14">
+            <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
             <div id="reservationTasks">
-                <div class="reservation-task flex space-x-4 mt-4 items-center text-xs font-bold">
+                <div class="reservation-task flex gap-4 mt-4 items-center text-xs font-bold">
                     <!-- 初期表示 -->
                     <label class="custom-checkbox">
                         <input type="checkbox" name="reservationtask" value="★個人★車検ラビット４５（00分開始）（60分）">
@@ -248,7 +256,7 @@
                     </div>
                 </div>
                 <hr class="my-3 border-1 border-red-600">
-                <div class="reservation-task flex space-x-4 mt-4 items-center text-xs font-bold">
+                <div class="reservation-task flex gap-4 mt-4 items-center text-xs font-bold">
                     <label class="custom-checkbox">
                         <input type="checkbox" name="reservationtask" value="☆法人☆ご来店型クイック車検（00分開始）（60分）">
                         <span>☆法人☆ご来店型クイック車検（00分開始）（60分）</span>
@@ -264,7 +272,7 @@
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
                 <x-text.custom-text text="予約する日時をお選びください。" class="font-bold text-xl"></x-text.custom-text>
             </div>
-            <hr class="my-3 border-2 border-red-600 -mx-14">
+            <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
             <div id="calendar-container">
                 <x-text.custom-text text="予約日時を選択" class="mb-3 bottom-border-text font-bold" />
                 <div id='calendar'></div>
