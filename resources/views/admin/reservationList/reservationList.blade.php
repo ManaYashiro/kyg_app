@@ -128,6 +128,8 @@
                 </thead>
                 <tbody>
                     @foreach ($reservationlists as $reservationlist)
+                    {{-- <tr onclick="window.location='{{ route('admin.reservationList.edit', $reservationlist->id) }}';"
+                        class="clickable-row" style="cursor: pointer;"> --}}
                         <tr class="clickable-row" style="cursor: pointer;">
                             <td class="border px-4 py-2 text-xs">
                                 <input type="checkbox" class="user-checkbox" data-id="{{ $reservationlist->id }}">

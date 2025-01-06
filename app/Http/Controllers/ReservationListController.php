@@ -61,8 +61,8 @@ class ReservationListController extends Controller
      */
     public function edit($id)
     {
-        $reservationlists = Appointments::findOrFail($id); // 車検予約IDを取得
-        return view('admin.reservationList.reservationListEdit', compact('reservationlists')); // 編集ページに車検予約を渡す
+        $appointment = Appointments::findOrFail($id); // 車検予約IDを取得
+        return view('admin.reservationList.reservationListEdit', compact('appointment')); // 編集ページに車検予約を渡す
     }
 
     /**
@@ -73,15 +73,12 @@ class ReservationListController extends Controller
         //バリデーション
         $validatedData = $request->validate([
             'reservation_datetime' => 'nullable|date',
-            'vehicle_name' => 'required|string',
-            'registration_number' => 'required|string',
-            'vehicle_type' => 'required|string',
-            'inspection_due_date' => 'required|date',
-            'additional_services' => 'array',
+            'taskcategory' => 'required|string',
+            'store' => 'required|string',
+            'reservationtask' => 'required|string',
+            'reservation_status' => 'required|string',
         ]);
 
-        //JSON_UNESCAPED_UNICODEで保存
-        $validatedData['additional_services'] = json_encode($validatedData['additional_services'], JSON_UNESCAPED_UNICODE);
         // 車検予約IDを取得
         $appointment = Appointments::where('appointments.id', $id)->first();
 
@@ -90,21 +87,6 @@ class ReservationListController extends Controller
 
         // 成功メッセージを表示してリストにリダイレクト
         return redirect()->route('admin.reservationList.index')->with('success', '車検予約を更新しました。');
-    }
-
-    /**
-     * 車検予約削除
-     */
-    public function destroy($id)
-    {
-        // 指定された車検IDを取得
-        $appointment = Appointments::findOrFail($id);
-
-        // 車検予約削除
-        $appointment->delete();
-
-        // 成功メッセージを表示してリストにリダイレクト
-        return redirect()->route('admin.reservationList.index')->with('success', '車検予約を削除しました。');
     }
 
     /**

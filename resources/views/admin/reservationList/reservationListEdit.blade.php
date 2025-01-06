@@ -8,7 +8,15 @@
     <div class="bg-white h-full overflow-hidden shadow-sm border border-gray-800 border-r-0 border-b-0">
         <div class="h-full overflow-y-auto p-2 md:p-6 text-gray-900">
             <div class="container mx-auto p-4">
-                <h2 class="text-xl font-semibold mb-4">車検予約編集</h2>
+                <!-- 登録日 -->
+                <div class="mb-8">
+                    <x-text.custom-input-label
+                        text="新規登録{{ str_repeat('　', 5) }}{{ $appointment->created_at }}{{ str_repeat('　', 10) }}最終更新{{ str_repeat('　', 5) }}{{ $appointment->updated_at }}"
+                        class="mt-1 tracking-wider"
+                    />
+                </div>
+
+                <h2 class="text-xl font-semibold mb-4">予約詳細</h2>
 
                 @if (session('success'))
                     <div class="bg-green-200 text-green-700 p-2 rounded mb-4" id="success-message">
@@ -20,85 +28,94 @@
                     @csrf
                     @method('PUT')
 
+                    <!-- 予約番号 -->
+                    <div class="mb-4">
+                        <x-input-label for="reservation_number" :value="__('予約番号')" />
+                        <x-text.custom-input-label text="{{ $appointment->reservation_number }}" class="mt-1" />
+                    </div>
+
                     <!-- 予約日時 -->
                     <div class="mb-4">
-                        <x-input-label for="reservation_datetime" :value="__('予約日時')" />
-                        <x-text-input id="reservation_datetime" class="block mt-1 w-full" type="text" name="name"
+                        <x-input-label for="reservation_datetime" :value="__('予約日時')"/>
+                        <x-text-input id="reservation_datetime" class="block mt-1 w-1/2" type="text" name="reservation_datetime"
                             :value="old('reservation_datetime', $appointment->reservation_datetime ?? '')" />
                         <x-input-error :messages="$errors->get('reservation_datetime')" class="mt-2" />
                     </div>
 
-                    <!-- 車両名 -->
+                    <!-- 顧客名 -->
                     <div class="mb-4">
-                        <x-input-label for="vehicle_name" :value="__('車両名')" />
-                        <x-text-input id="vehicle_name" class="block mt-1 w-full" type="text" name="vehicle_name"
-                            :value="old('vehicle_name', $appointment->vehicle_name ?? '')" required />
-                        <x-input-error :messages="$errors->get('vehicle_name')" class="mt-2" />
+                        <x-input-label for="customer_name" :value="__('顧客名')" />
+                        <x-text.custom-input-label text="{{ $appointment->customer_name }}" class="mt-1" />
                     </div>
 
-                    <!-- 車両番号登録 -->
+                    <!-- 店舗 -->
                     <div class="mb-4">
-                        <x-input-label for="registration_number" :value="__('車両番号登録')" />
-                        <x-text-input id="registration_number" class="block mt-1 w-full" type="text"
-                            name="registration_number" :value="old('registration_number', $appointment->registration_number ?? '')" required />
-                        <x-input-error :messages="$errors->get('registration_number')" class="mt-2" />
+                        <x-input-label for="store" :value="__('店舗')" />
+                        <x-text-input id="store" class="block mt-1 w-1/2" type="text" name="store"
+                            :value="old('store', $appointment->store ?? '')" />
+                       <x-input-error :messages="$errors->get('store')" class="mt-2" />
+
                     </div>
 
-                    <!-- 車両タイプ -->
+                    <!-- 作業カテゴリ -->
                     <div class="mb-4">
-                        <x-input-label for="vehicle_type" :value="__('車両タイプ')" />
-                        <x-select id="vehicle_type" class="block mt-1 w-full" name="vehicle_type">
-                            <option value="" {{ is_null($appointment->vehicle_type) ? 'selected' : '' }}>
-                                選択してください
+                        <x-input-label for="taskcategory" :value="__('作業カテゴリ')" />
+                        <x-text-input id="taskcategory" class="block mt-1 w-1/2" type="text" name="taskcategory"
+                             :value="old('taskcategory', $appointment->taskcategory ?? '')" />
+                        <x-input-error :messages="$errors->get('taskcategory')" class="mt-2" />
+                    </div>
+
+                    <!-- 個人・法人 -->
+                    <div class="mb-4">
+                        <x-input-label for="customer_name" :value="__('個人・法人')" />
+                        <x-text.custom-input-label text="{{ $appointment->customer_name }}" class="mt-1" />
+                    </div>
+
+                    <!-- 予約する作業 -->
+                    <div class="mb-4">
+                        <x-input-label for="reservationtask" :value="__('予約する作業')" />
+                        <x-text-input id="reservationtask" class="block mt-1 w-1/2" type="text" name="reservationtask"
+                            :value="old('reservationtask', $appointment->reservationtask ?? '')" />
+                       <x-input-error :messages="$errors->get('reservationtask')" class="mt-2" />
+                    </div>
+
+                    <!-- 備考欄 -->
+                    <div class="mb-4" >
+                        <x-input-label for="remarks" :value="__('備考欄')"/>
+                        <x-textarea id="remarks" class="block mt-1 w-full" type="text"
+                            name="remarks" :value="old('remarks', $appointment->remarks ?? '')" />
+                    </div>
+
+                    <!-- 予約状態 -->
+                    <div class="mb-4">
+                        <x-input-label for="reservation_status" :value="__('予約状態')" />
+                        <x-select id="reservation_status" class="block mt-1 w-1/2" name="reservation_status">
+                            <option value="1" {{ $appointment->reservation_status == '1' ? 'selected' : '' }}>仮予約
                             </option>
-                            <option value="sedan" {{ $appointment->vehicle_type == 'sedan' ? 'selected' : '' }}>セダン
+                            <option value="2" {{ $appointment->reservation_status == '2' ? 'selected' : '' }}>本予約
                             </option>
-                            <option value="suv" {{ $appointment->vehicle_type == 'suv' ? 'selected' : '' }}>SUV
-                            </option>
-                            <option value="wagon" {{ $appointment->vehicle_type == 'wagon' ? 'selected' : '' }}>ワゴン
-                            </option>
-                            <option value="track" {{ $appointment->vehicle_type == 'track' ? 'selected' : '' }}>
-                                トラック</option>
-                            <option value="other" {{ $appointment->vehicle_type == 'other' ? 'selected' : '' }}>その他
+                            <option value="0" {{ $appointment->reservation_status == '0' ? 'selected' : '' }}>予約取り消し/キャンセル
                             </option>
                         </x-select>
-                        <x-input-error :messages="$errors->get('call_time')" class="mt-2" />
+                        <x-input-error :messages="$errors->get('reservation_status')" class="mt-2" />
                     </div>
 
-                    <!-- 車両満了日 -->
+                    <!-- 管理メモ -->
                     <div class="mb-4">
-                        <x-input-label for="inspection_due_date" :value="__('車両満了日')" />
-                        <x-text-input id="inspection_due_date" class="block mt-1 w-full" type="date"
-                            name="inspection_due_date" :value="old('inspection_due_date', $appointment->inspection_due_date ?? '')" required />
-                        <x-input-error :messages="$errors->get('inspection_due_date')" class="mt-2" />
+                        <x-input-label for="admin_notes" :value="__('管理メモ')" class="whitespace-nowrap"/>
+                        <x-textarea id="admin_notes" class="block mt-1 w-full" type="text"
+                            name="admin_notes" :value="old('admin_notes', $appointment->admin_notes ?? '')"/>
                     </div>
 
-                    <!-- 追加装備 -->
-                    <div class="mt-4">
-                        <x-input-label for="additional_services" :value="__('追加装備')" />
-                        <x-checkbox name="additional_services[]" value="エンジンオイル交換" label="エンジンオイル交換" :checked="old('additional_services', false)"
-                            :disabled="false" class="mt-2" />
-                        <x-checkbox name="additional_services[]" value="タイヤローテション[前⇔後]" label="タイヤローテション[前⇔後]"
-                            :checked="old('additional_services', false)" :disabled="false" class="mt-2" />
-                        <x-checkbox name="additional_services[]" value="タイヤ付替[夏⇔冬シーズンチェンジ" label="タイヤ付替[夏⇔冬シーズンチェンジ"
-                            :checked="old('additional_services', false)" :disabled="false" class="mt-2" />
-                    </div>
-                    <!-- 更新ボタン -->
                     <div class="mb-4 flex justify-end">
+                    <!-- 前の画面に戻るボタン -->
+                    <button onclick="window.history.back()"
+                    class="ms-3 bg-gray-500 inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-800 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                    前の画面に戻る
+                    </button>
+
                         <!-- 更新ボタン -->
-                        <x-primary-button class="ms-3">更新</x-primary-button>
-                    </div>
-                </form>
-                <!-- 削除ボタン -->
-                <form action="{{ route('admin.reservationList.destroy', $appointment->id) }}" method="POST"
-                    onsubmit="return confirm('本当に削除しますか？');">
-                    @csrf
-                    @method('DELETE')
-                    <div class="mb-4 flex justify-end">
-                        <button type="submit"
-                            class="ms-3 bg-red-500 inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-700 focus:bg-red-800 active:bg-red-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                            削除
-                        </button>
+                        <x-primary-button class="ms-3 !bg-blue-500 !hover:bg-blue-600 !focus:bg-blue-700">登録する</x-primary-button>
                     </div>
                 </form>
             </div>
