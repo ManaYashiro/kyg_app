@@ -38,7 +38,7 @@
                     <div class="mb-4">
                         <x-input-label for="reservation_datetime" :value="__('予約日時')"/>
                         <x-text-input id="reservation_datetime" class="block mt-1 w-1/2" type="text" name="reservation_datetime"
-                            :value="old('reservation_datetime', $appointment->reservation_datetime ?? '')" />
+                            :value="old('reservation_datetime', $appointment->reservation_datetime ?? '')" required/>
                         <x-input-error :messages="$errors->get('reservation_datetime')" class="mt-2" />
                     </div>
 
@@ -52,7 +52,7 @@
                     <div class="mb-4">
                         <x-input-label for="store" :value="__('店舗')" />
                         <x-text-input id="store" class="block mt-1 w-1/2" type="text" name="store"
-                            :value="old('store', $appointment->store ?? '')" />
+                            :value="old('store', $appointment->store ?? '')" required/>
                        <x-input-error :messages="$errors->get('store')" class="mt-2" />
 
                     </div>
@@ -61,21 +61,21 @@
                     <div class="mb-4">
                         <x-input-label for="taskcategory" :value="__('作業カテゴリ')" />
                         <x-text-input id="taskcategory" class="block mt-1 w-1/2" type="text" name="taskcategory"
-                             :value="old('taskcategory', $appointment->taskcategory ?? '')" />
+                             :value="old('taskcategory', $appointment->taskcategory ?? '')" required/>
                         <x-input-error :messages="$errors->get('taskcategory')" class="mt-2" />
                     </div>
 
                     <!-- 個人・法人 -->
                     <div class="mb-4">
                         <x-input-label for="customer_name" :value="__('個人・法人')" />
-                        <x-text.custom-input-label text="{{ $appointment->customer_name }}" class="mt-1" />
+                        <x-text.custom-input-label text="{{ $appointment->person_type == 1 ? '個人' : ($appointment->person_type == 2 ? '法人' : '不明') }}" class="mt-1" />
                     </div>
 
                     <!-- 予約する作業 -->
                     <div class="mb-4">
                         <x-input-label for="reservationtask" :value="__('予約する作業')" />
                         <x-text-input id="reservationtask" class="block mt-1 w-1/2" type="text" name="reservationtask"
-                            :value="old('reservationtask', $appointment->reservationtask ?? '')" />
+                            :value="old('reservationtask', $appointment->reservationtask ?? '')" required/>
                        <x-input-error :messages="$errors->get('reservationtask')" class="mt-2" />
                     </div>
 
@@ -89,7 +89,7 @@
                     <!-- 予約状態 -->
                     <div class="mb-4">
                         <x-input-label for="reservation_status" :value="__('予約状態')" />
-                        <x-select id="reservation_status" class="block mt-1 w-1/2" name="reservation_status">
+                        <x-select id="reservation_status" class="block mt-1 w-1/2" name="reservation_status" >
                             <option value="1" {{ $appointment->reservation_status == '1' ? 'selected' : '' }}>仮予約
                             </option>
                             <option value="2" {{ $appointment->reservation_status == '2' ? 'selected' : '' }}>本予約

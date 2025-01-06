@@ -61,7 +61,10 @@ class ReservationListController extends Controller
      */
     public function edit($id)
     {
-        $appointment = Appointments::findOrFail($id); // 車検予約IDを取得
+        $appointment = Appointments::join('users', 'appointments.user_id', '=', 'users.id')
+            ->select('appointments.*', 'users.person_type') // person_typeを取得
+            ->where('appointments.id', $id)
+            ->firstOrFail();
         return view('admin.reservationList.reservationListEdit', compact('appointment')); // 編集ページに車検予約を渡す
     }
 
