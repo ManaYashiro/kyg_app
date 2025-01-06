@@ -182,6 +182,34 @@ fontAwesomeLoaded().then(() => {
                 default:
                     break;
             }
+            // Select all buttons with the class "fc-button"
+            const buttons = document.querySelectorAll(".fc-button");
+
+            // Loop through each button
+            buttons.forEach((button) => {
+                // Get the text content inside the button
+                const text = button.textContent;
+
+                // Create a span element with class "fc-button-text"
+                const span = document.createElement("span");
+                span.classList.add("fc-button-text");
+
+                // Check if the button has a title attribute with value "exclude"
+                if (
+                    button.hasAttribute("title") &&
+                    button.getAttribute("title") === "直近の状況"
+                ) {
+                    // Add the class "fb-button-exclude" to the span
+                    span.classList.add("fb-button-exclude");
+                }
+
+                // Set the text content of the span to be the text inside the button
+                span.textContent = text;
+
+                // Clear the button's content and append the span
+                button.textContent = ""; // Clear the button text
+                button.appendChild(span); // Append the span with the text
+            });
         },
 
         eventClick: function (info) {

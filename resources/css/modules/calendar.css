@@ -49,6 +49,14 @@
 .fc .fc-daygrid-day-frame {
     cursor: pointer;
 }
+
+.fc .fc-col-header-cell-cushion {
+    font-size: 9px;
+    font-weight: 300;
+    word-break: break-all;
+
+    @apply xsm:text-xs sm:text-base sm:font-bold;
+}
 button.fc-button-primary {
     color: gray !important;
     background-color: #fff !important;
@@ -64,6 +72,18 @@ button.fc-button-primary:disabled {
 button.fc-button-primary::before,
 button.fc-button-primary::after {
     @apply mx-1;
+}
+.fc-toolbar-chunk {
+    @apply flex gap-1;
+}
+button.fc-button {
+    @apply !m-0 !flex;
+}
+button.fc-button .fc-button-text {
+    @apply hidden xsm:block;
+}
+button.fc-button .fc-button-text.fb-button-exclude {
+    @apply block;
 }
 button.fc-prevMonth-button::before {
     content: "\f100";
