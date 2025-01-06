@@ -161,7 +161,7 @@ $(document).ready(function () {
                     .filter((task) => taskIds.includes(task.id))
                     .forEach((task) => {
                         const taskHTML = `
-                            <div class="flex space-x-4 mt-4 items-center text-xs font-bold mx-10 task-item">
+                            <div class="reservation-task flex gap-4 mt-4 items-center text-xs font-bold">
                                 <label class="custom-checkbox">
                                     <input type="checkbox" name="reservationtask" value="${task.reservation_name}">
                                     <span>${task.reservation_name}</span>
