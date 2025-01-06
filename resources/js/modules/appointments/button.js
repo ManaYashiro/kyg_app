@@ -29,3 +29,17 @@ $(document).ready(function () {
         window.location.href = window.location.pathname;
     });
 });
+
+$(".clickable-row-reservation").on("click", function (e) {
+    // チェックボックスのクリックの場合は遷移しない
+    if ($(e.target).is('input[type="checkbox"]')) {
+        return; // チェックボックスがクリックされた場合は何もしない
+    }
+
+    // ユーザーIDを取得
+    var Id = $(this).find(".user-checkbox").data("id");
+    console.log(Id);
+    // 編集画面に遷移（Bladeテンプレート内のURLを正しく展開するために、JavaScript内でURLを直接生成）
+    var url = "/admin/reservationList/" + Id + "/edit/";
+    window.location = url;
+});

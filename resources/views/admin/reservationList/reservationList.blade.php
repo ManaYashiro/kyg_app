@@ -98,7 +98,7 @@
                 class="my-3 pb-2 border border-t-0 border-l-0 border-r-0 border-b-gray-400 flex justify-between items-center">
                 <span class="font-bold">予約一覧</span>
                 <div class="flex gap-2 justify-center items-center w-[250px]">
-                    <x-buttons.actionbutton name="CSVでダウンロード" type="button" class="text-sm p-2" divClass="grow-[2]"
+                    <x-buttons.actionbutton id="download-csv-btn" name="CSVでダウンロード" type="button" class="text-sm p-2" divClass="grow-[2]"
                         url="{{ route('admin.reservationList.downloadReservationsAsCSV', request()->query()) }}" />
                 </div>
             </div>
@@ -128,11 +128,9 @@
                 </thead>
                 <tbody>
                     @foreach ($reservationlists as $reservationlist)
-                    {{-- <tr onclick="window.location='{{ route('admin.reservationList.edit', $reservationlist->id) }}';"
-                        class="clickable-row" style="cursor: pointer;"> --}}
-                        <tr class="clickable-row" style="cursor: pointer;">
+                        <tr id="click" class="clickable-row-reservation" style="cursor: pointer;">
                             <td class="border px-4 py-2 text-xs">
-                                <input type="checkbox" class="user-checkbox" data-id="{{ $reservationlist->id }}">
+                                <input type="checkbox" id="checkbox-id" class="user-checkbox" data-id="{{ $reservationlist->id }}">
                             </td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_number }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_datetime }}</td>
