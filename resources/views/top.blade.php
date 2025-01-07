@@ -20,10 +20,12 @@
                 <x-text.custom-text text="ご利用方法は右上「MENU」内ご利用ガイドをご覧ください。" class="mt-4 text-sm font-bold" />
             </div>
             <hr class="my-10 border-1 border-gray-300 -mx-4 md:-mx-14">
-            <div class="mt-2 flex items-start">
-                <div class="text-white rounded-full bg-red-600 px-6 py-1 text-sm">お知らせ</div>
-                <div class="ml-4 flex flex-col sm:flex-row">
-                    <x-text.custom-text text="2024/11/11" class="text-gray-500 text-sm sm:mr-4" />
+            <div class="mt-2 flex flex-col gap-4 sm:flex-row sm:gap-8">
+                <div class="flex gap-4 items-center sm:items-start">
+                    <span class="text-white rounded-full bg-red-600 px-6 py-1 text-sm ">お知らせ</span>
+                    <x-text.custom-text text="2024/11/11" class="col-span-1 text-gray-500 text-sm" />
+                </div>
+                <div class="flex-grow md:flex-grow-0">
                     <div class="text-sm font-bold">
                         <x-text.custom-text text="スーパージャンボ【中川店専用予約ページ】を開設しました。" class="text-sm font-bold" />
                         中川店へのご予約はこちら>>
