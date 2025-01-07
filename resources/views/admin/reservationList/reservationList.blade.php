@@ -23,7 +23,7 @@
                             <div class="flex items-center">
                                 <label for="name" class="text-sm w-24">キーワード</label>
                                 <input type="text" name="name" id="name"
-                                    placeholder="カテゴリ、メインメニュー、予約番号、お名前(カナ)、メールアドレス、電話番号、管理メモを入力"
+                                    placeholder="作業カテゴリ、予約する作業、予約番号、お名前(カナ)、管理メモを入力"
                                     class="flex-1 border border-gray-300 p-1 text-sm"
                                     value="{{ request('name') }}">
                             </div>
@@ -118,10 +118,9 @@
                         <th class="px-4 py-2 text-left text-xs" style="width: 8%;">予約番号</th>
                         <th class="px-4 py-2 text-left text-xs" style="width: 15%;">予約日時</th>
                         <th class="px-4 py-2 text-left text-xs" style="width: 10%;">顧客名</th>
-                        <th class="px-4 py-2 text-left text-xs" style="width: 10%;">メインメニュー</th>
-                        <th class="px-4 py-2 text-left text-xs" style="width: 10%;">サブメニュー</th>
+                        <th class="px-4 py-2 text-left text-xs" style="width: 10%;">作業カテゴリ</th>
+                        <th class="px-4 py-2 text-left text-xs" style="width: 10%;">予約する作業</th>
                         <th class="px-4 py-2 text-left text-xs" style="width: 10%;">備考欄</th>
-                        <th class="px-4 py-2 text-left text-xs" style="width: 10%;">予約数</th>
                         <th class="px-4 py-2 text-left text-xs" style="width: 10%;">予約状態</th>
                         <th class="px-4 py-2 text-left text-xs" style="width: 20%;">管理メモ</th>
                     </tr>
@@ -130,15 +129,14 @@
                     @foreach ($reservationlists as $reservationlist)
                         <tr id="click" class="clickable-row-reservation" style="cursor: pointer;">
                             <td class="border px-4 py-2 text-xs">
-                                <input type="checkbox" id="checkbox-id" class="user-checkbox" data-id="{{ $reservationlist->id }}">
+                                <input type="checkbox" id="checkbox-id" class="id-checkbox" data-id="{{ $reservationlist->id }}">
                             </td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_number }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_datetime }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->customer_name }}</td>
-                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->main_menu }}</td>
-                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->sub_menu }}</td>
+                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->taskcategory }}</td>
+                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservationtask }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->remarks }}</td>
-                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_count }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->status_text }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->admin_notes }}</td>
                         </tr>
