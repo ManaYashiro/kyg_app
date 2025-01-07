@@ -35,7 +35,7 @@
                         </button>
                     </x-slot>
 
-                    {{-- burgermenu content --}}
+                    {{-- PC BURGER MENU --}}
                     <x-slot name="content">
                         <x-dropdown-link :href="route('categories')">
                             {{ __('作業カテゴリ一覧') }}
@@ -83,35 +83,20 @@
         </div>
     </div>
 
-    <!-- Responsive Navigation Menu -->
+    {{-- SP BURGER MENU --}}
     <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('mypage')" :active="request()->routeIs('mypage')">
-                {{ __('mypage') }}
-            </x-responsive-nav-link>
-        </div>
-
-        <!-- Responsive Settings Options -->
-        <div class="pt-4 pb-1 border-t border-gray-200">
-            <div class="px-4">
-            </div>
-
-            <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
-                </x-responsive-nav-link>
-
-                <!-- Authentication -->
-                <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-
-                    <x-responsive-nav-link :href="route('logout')"
-                        onclick="event.preventDefault();
-                                        this.closest('form').submit();">
-                        {{ __('Log Out') }}
-                    </x-responsive-nav-link>
-                </form>
-            </div>
-        </div>
+        <x-dropdown-link :href="route('categories')">
+            {{ __('作業カテゴリ一覧') }}
+        </x-dropdown-link>
+        <x-dropdown-link :href="route('stores')">
+            {{ __('店舗介') }}
+        </x-dropdown-link>
+        <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
+        <x-dropdown-link :href="route('guide')">
+            <i class="fa-solid fa-info"></i> {{ __('ご利用ガイド') }}
+        </x-dropdown-link>
+        <x-dropdown-link :href="route('faq')">
+            <i class="fa-solid fa-question"></i> {{ __('よくある質問') }}
+        </x-dropdown-link>
     </div>
 </nav>

@@ -160,19 +160,33 @@ $(document).ready(function () {
                 taskReservationData
                     .filter((task) => taskIds.includes(task.id))
                     .forEach((task) => {
+                        // clone learn-more image
+                        const learn_more = $("#learn-more").clone();
+
+                        // add task-id and remove !hidden class to display element
+                        learn_more
+                            .attr("data-task-id", task.reservation_name)
+                            .removeClass("!hidden");
                         const taskHTML = `
-                            <div class="flex space-x-4 mt-4 items-center text-xs font-bold mx-10 task-item">
-                                <label class="custom-checkbox">
+                            <div class="reservation-task grid grid-cols-4 grid-rows-1 gap-4 mt-4 items-center text-xs font-bold">
+                                <!-- 初期表示 -->
+                                <label class="custom-checkbox col-span-3 flex items-center justify-start">
                                     <input type="checkbox" name="reservationtask" value="${task.reservation_name}">
-                                    <span>${task.reservation_name}</span>
+                                    <span class="text-clip">${task.reservation_name}</span>
                                 </label>
-                                <div class="font-bold p-4 text-xs text-left grow"></div>
-                                <div class="details-button2 text-red-600 font-bold px-2 text-right inline-block border-b border-red-600 cursor-pointer"
-                                data-task-id="${task.reservation_name}" id="showDetailsBtn">さらに詳しく</div>
+                                <div class="col-start-4 text-red-600 font-bold px-2 text-right inline-block">
+                                    <span class="step04-details hidden sm:inline-block border-b border-red-600"
+                                        data-task-id="${task.reservation_name}">さらに詳しく</span>
+                                </div>
                             </div>
-                            <hr class="my-3 border-1 border-red-300 mx-10 task-divider">
+                            <hr class="my-3 border-1 border-red-600">
                         `;
                         $("#reservationTasks").append(taskHTML);
+
+                        // insert learn_more after span (さらに詳しく)
+                        $(
+                            "#reservationTasks .reservation-task:last span.step04-details"
+                        ).after(learn_more);
                     });
             }
 
@@ -261,22 +275,21 @@ $(document).ready(function () {
                     }
                 });
             });
-            $(document).on("click", ".details-button2", function () {
+            $(document).on("click", ".step04-details", function () {
                 const taskId = $(this).data("task-id"); // 修正した data-task-id 属性を取得
                 const task = taskinfo[taskId]; // taskId で taskinfo オブジェクトを参照
                 if (task) {
-                    console.log(task);
                     $("#modalTitle2").empty().text(`${task.name} `);
-                    console.log(`${task.name} `);
                     $("#modalContent2").html(task.details);
-                    console.log(task.details);
                     $("#reservationModal").removeClass("hidden");
+                    hideCalendar();
                 }
             });
 
             // モーダルを閉じる
             $(document).on("click", "#closeModal", function () {
                 $("#reservationModal").addClass("hidden");
+                showCalendar();
             });
         },
         error: function (error) {
@@ -296,10 +309,10 @@ $(document).ready(function () {
 $(document).ready(function () {
     // スクロールアイコン（#scrollbar）がクリックされたとき
     $("#scrollbar").on("click", function () {
-        // #stepの位置にスムーズにスクロールする
+        // #step01の位置にスムーズにスクロールする
         $("html, body").animate(
             {
-                scrollTop: $("#step").offset().top,
+                scrollTop: $("#step01").offset().top,
             },
             800
         ); // 800はスクロールの所要時間（ミリ秒）
@@ -378,20 +391,29 @@ $(document).ready(function () {
     };
 
     // 詳細ボタンのクリックイベント
-    $(".details-button").on("click", function () {
+    $(".step01-details").on("click", function () {
         const storeId = $(this).data("store-id"); // 店舗IDを取得
-        console.log(storeId);
         const store = storeInfo[storeId]; // 店舗情報を取得
 
         if (store) {
             $("#modalTitle").text(`${store.name} の店舗情報`);
             $("#modalContent").html(store.details);
             $("#storeModal").removeClass("hidden");
+            hideCalendar();
         }
     });
 
     // モーダルを閉じる
     $("#closeModal").on("click", function () {
         $("#storeModal").addClass("hidden");
+        showCalendar();
     });
 });
+
+function hideCalendar() {
+    $("#calendar-container").find(".fc-view-harness").css("z-index", "0");
+}
+
+function showCalendar() {
+    $("#calendar-container").find(".fc-view-harness").css("z-index", "unset");
+}
