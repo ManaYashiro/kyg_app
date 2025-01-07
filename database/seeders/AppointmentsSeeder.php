@@ -68,10 +68,15 @@ class AppointmentsSeeder extends Seeder
                     Appointments::factory()->create([
                         'user_id' => $user->id,
                         'user_vehicle_id' => $user->userVehicles[0]->id,
+                        'store' => '稲沢本店',
                         'customer_name' => $user->name,
                         'reservation_datetime' => $start,
                         'inspection_due_date' => $currentDate->format('Y-m-d'),
                         'past_service_history' => "false",
+                        'inspection_type' => '車検',
+                        'work_type' => 'ラビット車検',
+                        'customer_type' => '個人',
+                        'reservation_task_id' => 1,
                     ]);
                 }
             }

@@ -2,22 +2,42 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Helpers\Log;
 use App\Models\Appointments;
 use App\Models\UserVehicle;
-use App\Models\Anket;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Str;
 
 class  ConfirmationItemController extends Controller
 {
-    public function index(Request $request)
+
+    // process (トップ画面からのデータをentryに渡す)
+    public function process(Request $request)
     {
+
+        $processData = $request->all();
+        $process_id = Str::random(10);
+        Session::put($process_id, $processData);
+
+        return response()->json([
+            'process_id' => $process_id,
+        ]);
+    }
+
+    // entry
+    public function index(Request $request, $process_id)
+    {
+        $processData = Session::get($process_id);
+        Session::put('current_process_data', $processData);
         $appointment = Appointments::all();
         return view('confirmationItems', compact('appointment'));
     }
 
     public function confirm(Request $request)
     {
+        $processData = Session::get('current_process_data');
         // userからIDを受け取る
         $user = Auth::user();
         //バリデーション
@@ -37,9 +57,6 @@ class  ConfirmationItemController extends Controller
         // バリデーションの実行
         $validatedData = $request->validate($rules, $errorMessages);
 
-        // ユーザーに関連付けられた車両データを取得
-        $userVehicle = UserVehicle::where('user_id', $user->id)->first();
-
         // 性別値を取得
         $genderValue = $user->gender->value;
         $gender = ($genderValue === 0) ? '男' : (($genderValue === 1) ? '女' : null); //値から文字変換
@@ -48,11 +65,13 @@ class  ConfirmationItemController extends Controller
         $newsletter = $user->gender->value;
         $is_receive_newsletter = ($newsletter === 0) ? '配信を希望しない' : (($newsletter === 1) ? '配信を希望する' : null); //値から文字変換
 
-        //アンケート値を取得
-        $anket = $user->questionnaire;
-        $anketnames = Anket::whereIn('id', $anket)->pluck('name', 'id'); //IDから名前取得
+        //2022-1-1から2022/1/1に変換
+        $birthday = $user->birthday;
+        $formattedBirthday = date('Y/m/d', strtotime($birthday));
 
-        //車種区分
+        // 新しい予約番号を動的に生成
+        // reservation_numberはAppointments modelに移動する
+
         function getCarClass($car_class)
         {
             switch ($car_class) {
@@ -73,17 +92,21 @@ class  ConfirmationItemController extends Controller
             }
         }
 
-        // 車の分類を取得
-        $car1_class = getCarClass($userVehicle->car1_class);
-        $car2_class = getCarClass($userVehicle->car2_class);
-        $car3_class = getCarClass($userVehicle->car3_class);
-
-        //2022-1-1から2022/1/1に変換
-        $birthday = $user->birthday;
-        $formattedBirthday = date('Y/m/d', strtotime($birthday));
-
-        // 新しい予約番号を動的に生成
-        // reservation_numberはAppointments modelに移動する
+        // ユーザーに関連付けられた車両データを取得
+        $userVehicle = UserVehicle::where('user_id', $user->id)->get();
+        //車両情報を格納するための配列
+        $vehicles = [];
+        foreach ($userVehicle as $vehicle) {
+            // 車両データが空でない場合のみ追加
+            if (!empty($vehicle->car_name) || !empty($vehicle->car_katashiki) || !empty($vehicle->car_number) || !empty($vehicle->car_class)) {
+                $vehicles[] = [
+                    'car_name' => $vehicle->car_name,
+                    'car_katashiki' => $vehicle->car_katashiki,
+                    'car_number' => $vehicle->car_number,
+                    'car_class' => getCarClass($vehicle->car_class),
+                ];
+            }
+        }
 
         //最終内容確認へ渡すために代入
         $finalcheck = [
@@ -91,6 +114,7 @@ class  ConfirmationItemController extends Controller
             'additional_services' => $validatedData['additional_services'] ?? [],  // 空の場合は空の配列
             'inspection_due_date' => $validatedData['inspection_due_date'],
             'past_service_history' => $validatedData['past_service_history'],
+            //顧客
             'user' => [
                 'name' => $user->name,
                 'name_furigana' => $user->name_furigana,
@@ -104,24 +128,20 @@ class  ConfirmationItemController extends Controller
                 'address1' => $user->address1,
                 'address2' => $user->address2,
                 'is_receive_newsletter' => $is_receive_newsletter,
-                'questionnaire' => $anketnames,
+                'questionnaire' => $user->questionnaire,
                 'manager' => $user->manager,
                 'department' => $user->department,
             ],
-            'vehicles' => [
-                'car1_name' => $userVehicle->car1_name,
-                'car1_katashiki' => $userVehicle->car1_katashiki,
-                'car1_number' => $userVehicle->car1_number,
-                'car1_class' => $car1_class,
-                'car2_name' => $userVehicle->car2_name,
-                'car2_katashiki' => $userVehicle->car2_katashiki,
-                'car2_number' => $userVehicle->car2_number,
-                'car2_class' => $car2_class,
-                'car3_name' => $userVehicle->car3_name,
-                'car3_katashiki' => $userVehicle->car3_katashiki,
-                'car3_number' => $userVehicle->car3_number,
-                'car3_class' => $car3_class,
-            ],
+            //車両
+            'vehicles' => $vehicles,
+            //予約
+            'reservation' => [
+                'store' => $processData['store'] ?? null,
+                'taskCategory' => $processData['taskCategory'] ?? null,
+                'customerType' => $processData['customerType'] ?? null,
+                'reservationTask' => $processData['reservationTask'] ?? null,
+                'appointmentDateTime' => $processData['appointmentDateTime'] ?? null,
+            ]
         ];
         session([
             'user_vehicle_id' => $request->input('user_vehicle_id'),
@@ -131,27 +151,65 @@ class  ConfirmationItemController extends Controller
         ]);
 
         // 確認画面に必要なデータを渡す
-        return view('appointmentsConfirm', compact('finalcheck', 'anketnames', 'anket', 'appointmentNumber'));
+        return view('appointmentsConfirm', compact('finalcheck'));
     }
 
     public function store(Request $request)
     {
+        //仮消す予定
+        function getReservationTaskId($taskName)
+        {
+            $taskMapping = [
+                '★個人★車検ラビット４５（00分開始）（60分）' => 1,
+                '☆法人☆ご来店型クイック車検（00分開始）（60分）' => 2,
+                '★個人★車検ラビット４５（30分開始）（60分）' => 3,
+                '☆法人☆ご来店型クイック車検（30分開始）（60分）' => 4,
+                '★個人★車検ラビット４５（60分）' => 5,
+                '☆法人☆ご来店型クイック車検（60分）' => 6,
+                '★個人★車検見積り（30分）' => 7,
+                '☆法人☆スケジュール点検（30分）' => 8,
+                '☆法人☆ユニカー点検（30分）' => 9,
+                '☆法人☆スケジュール点検＋タイヤ付替え（60分）' => 10,
+                '★個人★12ヶ月点検（60分）' => 11,
+                '☆法人☆12ヶ月点検（60分）' => 12,
+                '☆法人☆6ヶ月点検（60分）' => 13,
+                '★個人★タイヤ付替え[ホイール付](30分)' => 14,
+                '★法人★タイヤ付替え[ホイール付](30分)' => 15,
+                '★個人★タイヤ付替え[タイヤのみ](60分)' => 16,
+                '★個人★エンジンオイル交換（30分）' => 17,
+                '☆法人☆エンジンオイル交換（30分）' => 18,
+                'メンテパック6ヶ月点検（30分）' => 19,
+                'メンテパック12ヶ月点検（60分）' => 20,
+                'メンテパック18ヶ月点検（30分）' => 21,
+                'メンテパック24ヶ月点検（60分）' => 22,
+                'メンテパック30ヶ月点検（30分）' => 23,
+            ];
+
+            return $taskMapping[$taskName] ?? null;
+        }
+
         // 新しい予約番号を受け取る
         $appointmentNumber = $request->input('appointmentNumber');
+
+        // 作業詳細の文字列をIDに変換
+        $reservationTaskId = getReservationTaskId($request->input('reservationTask'));
+
         // 新しい予約を保存
         $appointment = new Appointments();
         $appointment->user_id = Auth::id(); //ユーザーID
         $appointment->reservation_number = $appointmentNumber; //予約番号
-        $appointment->reservation_datetime = $request->input('inspection_due_date'); //予約日時
+        $appointment->reservation_datetime = $request->input('appointmentDateTime'); //予約日時
         $appointment->customer_name = $request->input('user'); //顧客名
-        $appointment->store = $request->input('user'); //ご希望の店舗(仮)
-        $appointment->taskcategory = $request->input('user'); //作業カテゴリ(仮)
-        $appointment->reservationtask = $request->input('user'); //予約する作業(仮)
+        $appointment->store = $request->input('store'); //ご希望の店舗
+        $appointment->inspection_type = $request->input('taskCategory'); //作業カテゴリ
+        // $appointment->work_type = $request->input('work_type'); //作業種別
+        $appointment->reservation_task_id = $reservationTaskId; //作業詳細
+        $appointment->customer_type = $request->input('customerType'); //個人/法人区分
         $appointment->user_vehicle_id = $request->input('user_vehicle_id'); //車両台数
         $appointment->additional_services = $request->input('additional_services'); //追加整備
         $appointment->inspection_due_date = $request->input('inspection_due_date'); //	車検満了日
         $appointment->past_service_history = $request->input('past_service_history'); //過去の利用履歴
-        $appointment->requirement = $request->input('requirement'); //予約ご要望
+        $appointment->remarks = $request->input('remarks'); //備考欄
         $appointment->save();
 
         return redirect()->route('top');

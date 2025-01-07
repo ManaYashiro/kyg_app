@@ -418,3 +418,26 @@ function hideCalendar() {
 function showCalendar() {
     $("#calendar-container").find(".fc-view-harness").css("z-index", "unset");
 }
+$(document).ready(function () {
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    // ラジオボタンが選択された時
+    $('input[name="store"]').on("change", function () {
+        var selectedStoreValue = $(this).val();
+        $("#selectedStore").val(selectedStoreValue); // 隠しフィールドに選択された値を設定
+    });
+    // ラジオボタンが選択された時
+    $('input[name="taskcategory"]').on("change", function () {
+        var selectedcategoryValue = $(this).val();
+        $("#selectedtaskcategory").val(selectedcategoryValue); // 隠しフィールドに選択された値を設定
+    });
+    // チェックボックスが選択された時
+    $(document).on("click", 'input[name="reservationtask"]', function () {
+        var selectedreservationtaskValue = $(this).val();
+        $("#selectedreservationtask").val(selectedreservationtaskValue); // 隠しフィールドに選択された値を設定
+    });
+});

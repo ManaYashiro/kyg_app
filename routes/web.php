@@ -74,7 +74,8 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::patch('/change-account-information', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/change-account-information', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::get('/reservation/entry', [ConfirmationItemController::class, 'index'])->name('confirmationItems.index'); //確認事項　未ログインユーザーでも遷移できるよう移動しました
+Route::post('/reservation/process', [ConfirmationItemController::class, 'process'])->name('confirmationItems.process'); //セッションID
+Route::get('/reservation/entry/{process_id}', [ConfirmationItemController::class, 'index'])->name('confirmationItems.index'); //確認事項　未ログインユーザーでも遷移できるので移動しました
 Route::get('appointmentList/events', [AppointmentListController::class, 'events'])->withoutMiddleware('auth')->name('appointmentList.events');
 Route::get('appointmentList/go-to/unreserved', [AppointmentListController::class, 'gotoNearestUnreserved'])->withoutMiddleware('auth')->name('appointmentList.goto.NearestUnreserved');
 
