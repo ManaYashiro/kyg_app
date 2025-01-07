@@ -86,7 +86,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="flex justify-start items-center gap-3 mt-7">
+            <div class="flex flex-col justify-start items-start gap-1 mt-7 md:flex-row md:items-center md:gap-3">
                 <x-text.custom-text text="STEP 01" id="step01"
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
                 <x-text.custom-text text="ご希望の店舗をお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
@@ -123,7 +123,7 @@
                 'address' => '〒484-0912 愛知県刈犬山市字舟田10　9:00-18:00 水曜定休',
             ])
 
-            <div class="flex justify-start items-center gap-3 mt-7">
+            <div class="flex flex-col justify-start items-start gap-1 mt-7 md:flex-row md:items-center md:gap-3">
                 <x-text.custom-text text="STEP 02" id="step02"
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
                 <x-text.custom-text text="作業カテゴリをお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
@@ -175,7 +175,7 @@
                     </span>
                 </label>
             </div>
-            <div class="flex justify-start items-center gap-3 mt-7">
+            <div class="flex flex-col justify-start items-start gap-1 mt-7 md:flex-row md:items-center md:gap-3">
                 <x-text.custom-text text="STEP 03" id="step03"
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
                 <x-text.custom-text text="個人・法人をお選びください。" class="font-bold text-xl"></x-text.custom-text>
@@ -195,7 +195,7 @@
                     </span>
                 </label>
             </div>
-            <div class="flex justify-start items-center gap-3 mt-7">
+            <div class="flex flex-col justify-start items-start gap-1 mt-7 md:flex-row md:items-center md:gap-3">
                 <x-text.custom-text text="STEP 04" id="step04"
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
                 <x-text.custom-text text="予約する作業をお選びください。" class="font-bold text-xl"></x-text.custom-text>
@@ -204,7 +204,7 @@
             <div id="reservationTasks">
             </div>
             @include('components.top.step04-image')
-            <div class="flex justify-start items-center gap-3 mt-7">
+            <div class="flex flex-col justify-start items-start gap-1 mt-7 md:flex-row md:items-center md:gap-3">
                 <x-text.custom-text text="STEP 05" id="step05"
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
                 <x-text.custom-text text="予約する日時をお選びください。" class="font-bold text-xl"></x-text.custom-text>
