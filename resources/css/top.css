@@ -156,6 +156,7 @@ body {
     content: "\2713"; /* チェックマークの Unicode */
     position: absolute;
     left: 2px;
+    top: 0%;
 
     font-size: 18px;
     color: red; /* チェックマークの色（赤） */

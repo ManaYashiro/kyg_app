@@ -45,6 +45,7 @@ export default defineConfig({
 
                 // - top
                 "resources/img/top/warning.png",
+                "resources/img/top/learn_more.png",
                 "resources/img/top/check.png",
                 "resources/img/top/active_maintenance.png",
                 "resources/img/top/inactive_maintenance.png",

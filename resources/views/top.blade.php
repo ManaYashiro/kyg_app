@@ -95,37 +95,31 @@
                 'store_id' => 1,
                 'address' => '〒492-8224 愛知県稲沢市奥田大沢町3-1　9:00-19:00 水曜定休',
             ])
-            <hr class="my-3 border-1 border-red-600">
             @include('components.top.step01-button', [
                 'name' => '名古屋北店',
                 'store_id' => 2,
                 'address' => '〒462-0034 愛知県名古屋市北区天道町5丁目21　9:00-18:00 日・祝日定休',
             ])
-            <hr class="my-3 border-1 border-red-600">
             @include('components.top.step01-button', [
                 'name' => '刈谷店',
                 'store_id' => 3,
                 'address' => '〒448-0006 愛知県刈谷市西境町治右田140　9:00-19:00 日祝日 9:00-17:00 水曜定休',
             ])
-            <hr class="my-3 border-1 border-red-600">
             @include('components.top.step01-button', [
                 'name' => '錦店',
                 'store_id' => 4,
                 'address' => '〒460-0003 愛知県名古屋市錦3-8-32　9:00-18:00 日・祝日定休',
             ])
-            <hr class="my-3 border-1 border-red-600">
             @include('components.top.step01-button', [
                 'name' => '豊田上郷店',
                 'store_id' => 5,
                 'address' => '〒470-1213 愛知県稲沢市奥田大沢町3-1　9:00-18:00 日祝日 9:00-17:00 水曜定休',
             ])
-            <hr class="my-3 border-1 border-red-600">
             @include('components.top.step01-button', [
                 'name' => '犬山店',
                 'store_id' => 6,
                 'address' => '〒484-0912 愛知県刈犬山市字舟田10　9:00-18:00 水曜定休',
             ])
-            <hr class="my-3 border-1 border-red-600">
 
             <div class="flex justify-start items-center gap-3 mt-7">
                 <x-text.custom-text text="STEP 02" id="step02"
@@ -206,28 +200,8 @@
             </div>
             <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
             <div id="reservationTasks">
-                <div class="reservation-task flex gap-4 mt-4 items-center text-xs font-bold">
-                    <!-- 初期表示 -->
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="reservationtask" value="★個人★車検ラビット４５（00分開始）（60分）">
-                        <span>★個人★車検ラビット４５（00分開始）（60分）</span>
-                    </label>
-                    <div class="font-bold p-4 text-xs text-left grow"></div>
-                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく
-                    </div>
-                </div>
-                <hr class="my-3 border-1 border-red-600">
-                <div class="reservation-task flex gap-4 mt-4 items-center text-xs font-bold">
-                    <label class="custom-checkbox">
-                        <input type="checkbox" name="reservationtask" value="☆法人☆ご来店型クイック車検（00分開始）（60分）">
-                        <span>☆法人☆ご来店型クイック車検（00分開始）（60分）</span>
-                    </label>
-                    <div class="font-bold p-4 text-xs text-left grow"></div>
-                    <div class="text-red-600 font-bold px-2 text-right inline-block border-b border-red-600">さらに詳しく
-                    </div>
-                </div>
-                <hr class="my-3 border-1 border-red-600">
             </div>
+            @include('components.top.step04-image')
             <div class="flex justify-start items-center gap-3 mt-7">
                 <x-text.custom-text text="STEP 05" id="step05"
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
