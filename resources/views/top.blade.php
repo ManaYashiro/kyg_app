@@ -211,7 +211,6 @@
             </div>
             <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
             <div id="calendar-container">
-                <x-text.custom-text text="予約日時を選択" class="mb-3 bottom-border-text font-bold" />
                 <div id='calendar'></div>
                 <label>〇受付中</label>
                 <label>✖受付終了</label>
