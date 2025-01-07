@@ -61,7 +61,11 @@ button.fc-button-primary {
     color: gray !important;
     background-color: #fff !important;
     padding: 0.2em 0.45em !important;
-    font-size: 0.85em !important;
+    @apply !text-[0px] sm:!text-[0.85rem] !rounded-md;
+}
+
+button.fc-button-primary.fc-chokkinNoJoukyo-button {
+    @apply !text-[0.85rem];
 }
 /* Before AND After pseudo-element */
 /* 無効 */
@@ -85,25 +89,25 @@ button.fc-button .fc-button-text {
 button.fc-button .fc-button-text.fb-button-exclude {
     @apply block;
 }
+
+button.fc-button::before {
+    font-family: FontAwesome, "Font Awesome", "Font Awesome 6 Free", sans-serif !important;
+    @apply !text-[0.85rem] !py-[0.2rem] !px-[0.45rem] sm:!p-0;
+}
 button.fc-prevMonth-button::before {
     content: "\f100";
-    font-family: FontAwesome, "Font Awesome", "Font Awesome 6 Free", sans-serif !important;
 }
 button.fc-prevWeek-button::before {
     content: "\f104";
-    font-family: FontAwesome, "Font Awesome", "Font Awesome 6 Free", sans-serif !important;
 }
-button.fc-nextWeek-button::after {
+button.fc-nextWeek-button::before {
     content: "\f105";
-    font-family: FontAwesome, "Font Awesome", "Font Awesome 6 Free", sans-serif !important;
 }
-button.fc-nextMonth-button::after {
+button.fc-nextMonth-button::before {
     content: "\f101";
-    font-family: FontAwesome, "Font Awesome", "Font Awesome 6 Free", sans-serif !important;
 }
-button.fc-openCalendar-button::after {
+button.fc-openCalendar-button::before {
     content: "\f073";
-    font-family: FontAwesome, "Font Awesome", "Font Awesome 6 Free", sans-serif !important;
 }
 /* Before AND After pseudo-element */
 /* モーダルの背景（バックドロップ）の z-index を設定 */
