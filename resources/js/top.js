@@ -175,7 +175,7 @@ $(document).ready(function () {
                                     <span class="text-clip">${task.reservation_name}</span>
                                 </label>
                                 <div class="col-start-4 text-red-600 font-bold px-2 text-right inline-block">
-                                    <span class="step04-details hidden sm:inline-block border-b border-red-600"
+                                    <span class="step04-details hidden sm:inline-block border-b border-red-600 cursor-pointer"
                                         data-task-id="${task.reservation_name}">さらに詳しく</span>
                                 </div>
                             </div>

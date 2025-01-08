@@ -55,7 +55,7 @@ export default {
                     clipPath: "polygon(55% 0, 100% 0, 100% 100%, 0 100%)",
                 },
                 ".mobi-container": {
-                    margin: "20px",
+                    padding: "17px",
                 },
                 ".desktop-container": {
                     margin: "0",
