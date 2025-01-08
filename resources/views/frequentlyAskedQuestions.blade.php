@@ -28,7 +28,7 @@
             （送信先アドレス）kuc_app@kimura-unity.com
         </span>
 
-        <div class="border border-dotted my-4 "></div>
+        <div class="border border-dotted my-4"></div>
 
         <div id="" class="left-border-text">
             <span class="text-red-1000">
@@ -40,7 +40,7 @@
             ログインの後、マイページからお客様の情報（ID、パスワード、メールアドレスなど）やお車の情報を更新いただけます。お車は最大3台まで登録できます。
         </span>
 
-        <div class="border border-dotted my-4 "></div>
+        <div class="border border-dotted my-4"></div>
 
         <div id="" class="left-border-text">
             <span class="text-red-1000">
@@ -67,7 +67,7 @@
             法人様でＩＤを共有されている場合、ＩＤに登録されているメールアドレスにのみ送信されます。必ずしも、ご予約者ご本人にメールが行きませんのでご了承下さい。ご予約の確認は、マイページの予約の確認から行えます。<br>
         </span>
 
-        <div class="border border-dotted my-4 "></div>
+        <div class="border border-dotted my-4"></div>
 
         <div id="" class="left-border-text">
             <span class="text-red-1000">
@@ -80,7 +80,7 @@
             また予約日の6日前を過ぎている場合は、お電話にて直接店舗へ変更希望日時をお伝えください。 </span>
         </span>
 
-        <div class="border border-dotted my-4 "></div>
+        <div class="border border-dotted my-4"></div>
 
         <div id="" class="left-border-text">
             <span class="text-red-1000">
@@ -93,7 +93,7 @@
             （法人予約センター）<a href="kuc_app@kimura-unity.com">kuc_app@kimura-unity.com</a>
         </span>
 
-        <div class="border border-dotted my-4 "></div>
+        <div class="border border-dotted my-4"></div>
 
         <div id="" class="left-border-text">
             <span class="text-red-1000">

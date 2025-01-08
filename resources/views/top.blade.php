@@ -22,7 +22,7 @@
             <hr class="my-10 border-1 border-gray-300 -mx-4 md:-mx-14">
             <div class="mt-2 flex flex-col gap-4 sm:flex-row sm:gap-8">
                 <div class="flex gap-4 items-center sm:items-start">
-                    <span class="text-white rounded-full bg-red-600 px-6 py-1 text-sm ">お知らせ</span>
+                    <span class="text-white rounded-full bg-red-600 px-6 py-1 text-sm">お知らせ</span>
                     <x-text.custom-text text="2024/11/11" class="col-span-1 text-gray-500 text-sm" />
                 </div>
                 <div class="flex-grow md:flex-grow-0">
@@ -43,7 +43,7 @@
                 <ul class="list-disc ml-6 mt-2 text-base font-bold">
                     <li>・まずはじめに【会員登録】をお願いします。登録完了後にご登録いただいたIDパスワードにてログインください。<br></li>
                     <li>※ログイン後に全ての店舗やメニューが表示されるようになります。</li>
-                    <div class="flex justify-start items-center gap-1  mt-7">
+                    <div class="flex justify-start items-center gap-1 mt-7">
                         <x-text.custom-text text="■" class="font-bold text-xs text-red-600"></x-text.custom-text>
                         <x-text.custom-text text="受付は希望日の3ヶ月前～3日前まで" class="font-bold text-xl"></x-text.custom-text>
                     </div>
@@ -52,7 +52,7 @@
                         <li>・予約を変更したい場合は一旦キャンセルしてから再度ご予約下さい。</li>
                         <li>・車検は満期日の３０日前から受けられます。</li>
                     </ul>
-                    <div class="flex justify-start items-center gap-1  mt-7">
+                    <div class="flex justify-start items-center gap-1 mt-7">
                         <x-text.custom-text text="■" class="font-bold text-xs text-red-600"></x-text.custom-text>
                         <x-text.custom-text text="★ 個人／☆法人 メニューにご注意下さい" class="font-bold text-xl"></x-text.custom-text>
                     </div>
@@ -60,7 +60,7 @@
                         <li>・店舗によりリースメンテ契約車両のメニュー（☆法人）がございます。</li>
                         <li>・一般の方は★個人のメニューからお選びください。</li>
                     </ul>
-                    <div class="flex justify-start items-center gap-1  mt-4">
+                    <div class="flex justify-start items-center gap-1 mt-4">
                         <x-text.custom-text text="■" class="font-bold text-xs text-red-600"></x-text.custom-text>
                         <x-text.custom-text text="車検切れ車両のご予約を行う場合は、必ず別途 電話にてご連絡ください"
                             class="font-bold text-xl"></x-text.custom-text>
@@ -69,7 +69,7 @@
                 <div class="flex justify-start items-center gap-2 mt-4">
                     <img src="{{ Vite::asset('resources/img/top/warning.png') }}" alt="注意">
                     <x-text.custom-text text="ご利用に際して予めご了承ください"
-                        class="text-xl text-red-600 font-bold  inline-block border-b border-red-600" />
+                        class="text-xl text-red-600 font-bold inline-block border-b border-red-600" />
                 </div>
                 <ul class="list-none ml-6 mt-2 text-base font-bold">
                     <li class="flex items-center">

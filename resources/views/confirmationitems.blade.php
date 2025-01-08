@@ -25,7 +25,8 @@
                             <x-text.custom-input-label text="【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。"
                                 class="mb-2" option="必須" />
                         </h5>
-                        <x-select id="user_vehicle_id" class="block mt-1 w-[120px] h-[38px] rounded-none" name="user_vehicle_id">
+                        <x-select id="user_vehicle_id" class="block mt-1 w-[120px] h-[38px] rounded-none"
+                            name="user_vehicle_id">
                             <option value="" {{ old('user_vehicle_id') == '' ? 'selected' : '' }}>
                             </option>
                             <option value="1" {{ old('user_vehicle_id') == '1台目' ? 'selected' : '' }}>
@@ -101,6 +102,6 @@
         </div>
     </div>
     @section('styles')
-    @vite(['resources/css/confirmationitems.css'])
+        @vite(['resources/css/confirmationitems.css'])
     @endsection
 </x-app-layout>
