@@ -55,7 +55,7 @@
         @include('layouts.navigation')
 
         <!-- Page Content -->
-        <div class="min-h-full h-full w-full max-w-7xl mx-auto lg:px-8 flex-1 relative">
+        <div class="min-h-full h-full w-full max-w-7xl mx-auto flex-1 relative">
             <div class="w-full mx-auto px-4 pt-2 pb-8 bg-white shadow-md">
                 {{ $slot }}
             </div>
