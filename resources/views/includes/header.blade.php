@@ -27,7 +27,7 @@
                 <button class="align-middle rounded-full focus:shadow-outline-blue focus:outline-none"
                     @click="toggleProfileMenu" @keydown.escape="closeProfileMenu" aria-label="Account"
                     aria-haspopup="true">
-                    <i class="fa-regular fa-user rounded-full w-4 h-4 mr-3 "></i>
+                    <i class="fa-regular fa-user rounded-full w-4 h-4 mr-3"></i>
                 </button>
                 <template x-if="isProfileMenuOpen">
                     <ul x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"

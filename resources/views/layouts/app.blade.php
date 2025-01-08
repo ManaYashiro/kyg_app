@@ -55,35 +55,10 @@
 <body class="wait-for-icons relative bg-customgray-200 font-sans antialiased text-base">
     <div class="min-h-screen flex flex-col">
         @include('layouts.navigation')
-        @if (Route::current()->getName() === 'top')
-            <section class="banner flex flex-col md:flex-row h-[300px] max-h-[300px]">
-                <div class="text-content w-full md:w-2/6 h-1/5 md:h-auto relative">
-                    <div class="text-container mobi-container md:desktop-container">
-                        <h1 class="text-base sm:text-xl md:text-5xl md:mb-6">KIMURA UNITY GROUP</h1>
-                        <div class="w-[85%]">
-                            <div class="flex flex-col mt-3 md:mt-0 md:hidden text-xxs xsm:text-xs">
-                                <span class="">キムラユニティーグループの</span>
-                                <span class="">WEB予約ページへようこそ。</span>
-                            </div>
-                            <div class="hidden md:block text-lg mb-[10%]">
-                                <span class="">キムラユニティーグループのWEB予約ページへようこそ。</span>
-                            </div>
-                        </div>
-                        <div class="scroll-indicator hidden md:block">
-                            <img src="{{ Vite::asset('resources/img/top/scroll.png') }}" alt="スクロール" id="scrollbar"
-                                class="scroll">
-                        </div>
-                    </div>
-                </div>
-                <div class="image-content w-full md:w-4/6 h-4/5 md:h-auto">
-                    <img src="{{ Vite::asset('resources/img/top/top.png') }}" alt="タイトル"
-                        class="mobi-polygon md:desktop-polygon w-full h-full object-cover object-center">
-                </div>
-            </section>
-        @endif
+        @include('components.banner.banner')
         <!-- Page Content -->
-        <div class="min-h-full h-full w-full max-w-7xl mx-auto lg:px-8 flex-1 relative">
-            <div class="w-full mx-auto px-4 pt-2 pb-8 bg-white shadow-md ">
+        <div class="min-h-full h-full w-full max-w-7xl mx-auto flex-1 relative">
+            <div class="w-full mx-auto px-4 pt-2 pb-8 bg-white shadow-md">
                 {{ $slot }}
             </div>
         </div>

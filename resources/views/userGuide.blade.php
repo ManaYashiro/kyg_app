@@ -28,7 +28,7 @@
             <a href="https://www.carmanagementservice.com/syaken/">https://www.carmanagementservice.com/syaken/</a>
         </span>
 
-        <div class="border border-dotted my-4 "></div>
+        <div class="border border-dotted my-4"></div>
 
         <div id="" class="left-border-text">
             <span class="text-red-1000">ログインIDとパスワードについて</span>
@@ -57,7 +57,7 @@
             </ul>
         </span>
 
-        <div class="border border-dotted my-4 "></div>
+        <div class="border border-dotted my-4"></div>
 
         <div id="" class="left-border-text">
             <span class="text-red-1000">ご予約から作業当日までの流れ</span>
@@ -89,7 +89,7 @@
             </ul>
         </span>
 
-        <div class="border border-dotted my-4 "></div>
+        <div class="border border-dotted my-4"></div>
 
         <div id="" class="left-border-text">
             <span class="text-red-1000">料金について</span>
@@ -101,7 +101,7 @@
             ※車検整備料・点検料等については、各種クレジットカードでのお支払が可能です。<br>
         </span>
 
-        <div class="border border-dotted my-4 "></div>
+        <div class="border border-dotted my-4"></div>
 
         <div id="" class="left-border-text">
             <span class="text-red-1000">キャンセルについて</span>
@@ -117,7 +117,7 @@
                 href="https://www.carlife-service.com/store.html">https://www.carlife-service.com/store.html</a>
         </span>
 
-        <div class="border border-dotted my-4 "></div>
+        <div class="border border-dotted my-4"></div>
 
         <div id="" class="left-border-text">
             <span class="text-red-1000">

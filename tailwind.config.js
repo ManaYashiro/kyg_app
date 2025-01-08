@@ -44,6 +44,10 @@ export default {
         forms,
         function ({ addComponents, theme }) {
             addComponents({
+                ".banner-aspect": {
+                    aspectRatio: "3/1",
+                    objectFit: "cover",
+                },
                 ".mobi-polygon": {
                     clipPath: "polygon(0 50%, 100% 0, 100% 100%, 0% 100%)",
                 },
@@ -51,7 +55,7 @@ export default {
                     clipPath: "polygon(55% 0, 100% 0, 100% 100%, 0 100%)",
                 },
                 ".mobi-container": {
-                    margin: "20px",
+                    padding: "17px",
                 },
                 ".desktop-container": {
                     margin: "0",
