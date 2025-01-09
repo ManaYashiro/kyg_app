@@ -392,21 +392,22 @@ $(document).ready(function () {
 
     // 詳細ボタンのクリックイベント
     $(".step01-details").on("click", function () {
-        const storeId = $(this).data("store-id"); // 店舗IDを取得
-        const store = storeInfo[storeId]; // 店舗情報を取得
+        const storeId = $(this).data("store-id");
+        const store = storeInfo[storeId];
 
         if (store) {
-            $("#modalTitle").text(`${store.name} の店舗情報`);
-            $("#modalContent").html(store.details);
-            $("#storeModal").removeClass("hidden");
+            // store_idに応じた特定のモーダルを表示
+            $(`#modalTitle${storeId}`).text(`${store.name} の店舗情報`);
+            $(`#modalContent${storeId}`).html(store.details);
+            $(`#storeModal${storeId}`).removeClass("hidden");
             hideCalendar();
         }
     });
 
-    // モーダルを閉じる
-    $("#closeModal").on("click", function () {
-        $("#storeModal").addClass("hidden");
-        showCalendar();
+    // 各モーダルの閉じるボタンのイベント
+    $("[id^=closeModal]").on("click", function () {
+        const modalId = $(this).closest("[id^=storeModal]").attr("id");
+        $(`#${modalId}`).addClass("hidden");
     });
 });
 
