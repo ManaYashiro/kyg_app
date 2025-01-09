@@ -56,6 +56,12 @@ export default defineConfig({
                 "resources/img/top/top.png",
                 "resources/img/top/top2.png", // TODO delete
                 "resources/img/top/scroll.png",
+                "resources/img/top/inazawa.jpg",
+                "resources/img/top/nagoyakita.jpg",
+                "resources/img/top/kariya.jpg",
+                "resources/img/top/nishiki.jpg",
+                "resources/img/top/toyota.jpg",
+                "resources/img/top/imuyama.jpg",
                 // - top calendar
                 "resources/img/modules/calendar/calendar-none.gif",
             ],
