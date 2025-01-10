@@ -40,22 +40,34 @@
                 <x-data-display :value="$appointment['store']" />
             </div>
 
-            <!-- 作業カテゴリー -->
+            <!-- 作業カテゴリ -->
             <div class="mb-4">
-                <x-input-label for="taskcategory" :value="__('作業カテゴリー')" />
-                <x-data-display :value="$appointment['taskcategory']" />
+                <x-input-label for="inspection_type" :value="__('作業カテゴリ')" />
+                <x-data-display :value="$appointment['inspection_type']" />
+            </div>
+
+            <!-- 作業種別 -->
+            <div class="mb-4">
+                <x-input-label for="work_type" :value="__('作業種別')" />
+                <x-data-display :value="$appointment['work_type']" />
+            </div>
+
+            <!-- 個人・法人 -->
+            <div class="mb-4">
+                <x-input-label for="customer_type" :value="__('個人・法人')" />
+                <x-data-display :value="$appointment['customer_type']" />
             </div>
 
             <!-- 予約する作業 -->
             <div class="mb-4">
-                <x-input-label for="reservationtask" :value="__('予約する作業')" />
-                <x-data-display :value="$appointment['reservationtask']" />
+                <x-input-label for="reservation_task_id" :value="__('予約する作業')" />
+                <x-data-display :value="$appointment['reservation_task_id']" />
             </div>
 
             <!-- 車両 -->
             <div class="mb-4">
                 <x-text.custom-input-label text="【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。" class="mb-2"/>
-                <x-data-display :value="$appointment['user_vehicle_id'] . '台目'" />
+                <x-data-display :value="$appointment['user_vehicle_id'] == 4 ? '未登録車' : $appointment['user_vehicle_id'] . '台目'" />
                 <input type="hidden" name="user_vehicle_id" value="{{ $appointment['user_vehicle_id'] }}" />
             </div>
 
