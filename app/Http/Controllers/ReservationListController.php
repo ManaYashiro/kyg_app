@@ -24,8 +24,6 @@ class ReservationListController extends Controller
             $query->where(function ($q) use ($searchTerm) {
                 $q->where('appointments.customer_name', 'like', $searchTerm)
                     ->orWhere('appointments.reservation_number', 'like', $searchTerm)
-                    ->orWhere('appointments.main_menu', 'like', $searchTerm)
-                    ->orWhere('appointments.sub_menu', 'like', $searchTerm)
                     ->orWhere('appointments.remarks', 'like', $searchTerm)
                     ->orWhere('appointments.reservation_status', 'like', $searchTerm)
                     ->orWhere('appointments.admin_notes', 'like', $searchTerm);
@@ -76,6 +74,8 @@ class ReservationListController extends Controller
         //バリデーション
         $validatedData = $request->validate([
             'reservation_status' => 'required|string',
+            'remarks' => 'nullable|string',
+            'admin_notes' => 'nullable|string',
         ]);
 
         // 車検予約IDを取得
@@ -103,8 +103,6 @@ class ReservationListController extends Controller
             $query->where(function ($q) use ($searchTerm) {
                 $q->where('appointments.customer_name', 'like', $searchTerm)
                     ->orWhere('appointments.reservation_number', 'like', $searchTerm)
-                    ->orWhere('appointments.main_menu', 'like', $searchTerm)
-                    ->orWhere('appointments.sub_menu', 'like', $searchTerm)
                     ->orWhere('appointments.remarks', 'like', $searchTerm)
                     ->orWhere('appointments.reservation_status', 'like', $searchTerm)
                     ->orWhere('appointments.admin_notes', 'like', $searchTerm);
