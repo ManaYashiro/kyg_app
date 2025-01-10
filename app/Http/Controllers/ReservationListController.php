@@ -75,10 +75,6 @@ class ReservationListController extends Controller
     {
         //バリデーション
         $validatedData = $request->validate([
-            'reservation_datetime' => 'nullable|date',
-            'taskcategory' => 'required|string',
-            'store' => 'required|string',
-            'reservationtask' => 'required|string',
             'reservation_status' => 'required|string',
         ]);
 
