@@ -69,7 +69,6 @@ $nextButton.on("click", function (e) {
 
 $submitButton.on("click", function (e) {
     e.preventDefault();
-    console.log("Form Submitted!");
 });
 
 // Initialize form to show the first page

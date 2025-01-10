@@ -45,7 +45,8 @@ class UserVehicleRequest extends FormRequest
 
             // car_class パラメータは配列ではありません
             // car_class1、car_class2、car_class3
-            $car_class_rules["car_class$i"] = 'max:30|in:' . implode(',', array_map(fn($case) => $case->value, CarClassEnum::cases()));
+            $carClassSequence = $i + 1;
+            $car_class_rules["car_class$carClassSequence"] = 'max:30|in:' . implode(',', array_map(fn($case) => $case->value, CarClassEnum::cases()));
         }
 
         return array_merge([
@@ -67,10 +68,11 @@ class UserVehicleRequest extends FormRequest
     {
         $car_attributes = [];
         for ($i = 0; $i < UserVehicle::MAX_NO_OF_CARS; $i++) {
+            $carClassSequence = $i + 1;
             $car_attributes["car_name.$i"] = "車名(" . ($i + 1) . "台目)";
             $car_attributes["car_katashiki.$i"] = "型式(" . ($i + 1) . "台目)";
             $car_attributes["car_number.$i"] = "ナンバー(" . ($i + 1) . "台目)";
-            $car_attributes["car_class$i"] = "車種区分(" . ($i + 1) . "台目)";
+            $car_attributes["car_class$carClassSequence"] = "車種区分(" . ($i + 1) . "台目)";
         }
         return array_merge([
             'user_id' => 'ユーザーID',

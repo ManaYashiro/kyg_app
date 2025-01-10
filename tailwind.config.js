@@ -7,10 +7,14 @@ export default {
         "./vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php",
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
+        "./resources/js/**/*.js",
     ],
 
     theme: {
         extend: {
+            screens: {
+                xsm: "425px",
+            },
             fontFamily: {
                 sans: ["Figtree", ...defaultTheme.fontFamily.sans],
             },
@@ -36,5 +40,33 @@ export default {
         },
     },
 
-    plugins: [forms],
+    plugins: [
+        forms,
+        function ({ addComponents, theme }) {
+            addComponents({
+                ".banner-aspect": {
+                    aspectRatio: "3/1",
+                    objectFit: "cover",
+                },
+                ".mobi-polygon": {
+                    clipPath: "polygon(0 50%, 100% 0, 100% 100%, 0% 100%)",
+                },
+                ".desktop-polygon": {
+                    clipPath: "polygon(55% 0, 100% 0, 100% 100%, 0 100%)",
+                },
+                ".mobi-container": {
+                    padding: "17px",
+                },
+                ".desktop-container": {
+                    margin: "0",
+                    width: "140%",
+                    position: "absolute",
+                    top: "50%",
+                    left: "85%",
+                    transform: "translate(-50%, -50%)",
+                },
+            });
+        },
+        {},
+    ],
 };

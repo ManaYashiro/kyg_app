@@ -144,7 +144,6 @@ fontAwesomeLoaded().then(() => {
                     window.hideLoading();
                 },
                 success: function (response) {
-                    console.log(response);
                     successCallback(response);
                 },
                 error: function (error) {
@@ -201,10 +200,52 @@ fontAwesomeLoaded().then(() => {
                 alert("過去の時間ので予約できません。");
                 return;
             }
+            const selectedStore =
+                document.querySelector('input[name="store"]:checked')?.value ||
+                "";
+            const selectedTaskCategory =
+                document.querySelector('input[name="taskcategory"]:checked')
+                    ?.value || "";
+            const selectedCustomer =
+                document.querySelector('input[name="customer"]:checked')
+                    ?.value || "";
+            const selectedReservationTask =
+                document.querySelector('input[name="reservationtask"]:checked')
+                    ?.value || "";
+            const selectedDateTime = info.event.start;
+            const japanTime = moment(selectedDateTime).format(
+                "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
+            );
 
-            // リダイレクト
-            window.location.href =
-                window.location.href.replace(/\/$/, "") + "/reservation/entry"; // 遷移先URL
+            const formData = new FormData();
+            formData.append("store", selectedStore);
+            formData.append("taskCategory", selectedTaskCategory);
+            formData.append("customerType", selectedCustomer);
+            formData.append("reservationTask", selectedReservationTask);
+            formData.append("appointmentDateTime", japanTime);
+
+            $.ajax({
+                url: "/reservation/process",
+                type: "POST",
+                dataType: "json",
+                data: formData,
+                processData: false,
+                contentType: false,
+                beforeSend: function () {
+                    window.showLoading();
+                },
+                complete: function () {
+                    window.hideLoading();
+                },
+                success: function (response) {
+                    // リダイレクト
+                    window.location.href =
+                        window.location.href.replace(/\/$/, "") +
+                        "/reservation/entry/" +
+                        response.process_id; // 遷移先URL
+                },
+                error: function (xhr, status, error) {},
+            });
         },
 
         eventMouseEnter: function (info) {

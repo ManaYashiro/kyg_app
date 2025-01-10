@@ -55,24 +55,10 @@
 <body class="wait-for-icons relative bg-customgray-200 font-sans antialiased text-base">
     <div class="min-h-screen flex flex-col">
         @include('layouts.navigation')
-        @if (Route::current()->getName() === 'top')
-            <section class="banner">
-                <div class="text-content w-2/5">
-                    <h1>KIMURA UNITY GROUP</h1>
-                    <p>キムラユニティーグループのWEB予約ページへようこそ。</p>
-                    <div class="scroll-indicator">
-                        <img src="{{ Vite::asset('resources/img/top/scroll.png') }}" alt="スクロール" id="scrollbar"
-                            class="scroll">
-                    </div>
-                </div>
-                <div class="image-content w-3/5">
-                    <img src="{{ Vite::asset('resources/img/top/top.png') }}" alt="タイトル" class="top-image">
-                </div>
-            </section>
-        @endif
+        @include('components.banner.banner')
         <!-- Page Content -->
-        <div class="min-h-full h-full w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 relative">
-            <div class="w-full mx-auto px-4 pt-2 pb-8 bg-white shadow-md ">
+        <div class="min-h-full h-full w-full max-w-7xl mx-auto flex-1 relative">
+            <div class="w-full mx-auto px-4 pt-2 pb-8 bg-white shadow-md">
                 {{ $slot }}
             </div>
         </div>

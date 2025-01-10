@@ -42,10 +42,13 @@
         integrity="sha512-m4zOGknNg3h+mK09EizkXi9Nf7B3zwsN9ow+YkYIPZoA6iX2vSzLezg4FnW0Q6Z1CPaJdwgUFQ3WSAUC4E/5Hg=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+    {{-- Full Calendar --}}
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js'></script>
+
     @yield('styles')
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js'])
+    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/css/hamburger.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js', 'resources/css/top.css'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 
 </head>
@@ -53,9 +56,9 @@
 <body class="wait-for-icons relative bg-customgray-200 font-sans antialiased text-base">
     <div class="min-h-screen flex flex-col">
         @include('layouts.navigation')
-
+        @include('components.banner.banner')
         <!-- Page Content -->
-        <div class="min-h-full h-full w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 flex-1 relative">
+        <div class="min-h-full h-full w-full max-w-7xl mx-auto flex-1 relative">
             <div class="w-full mx-auto px-4 pt-2 pb-8 bg-white shadow-md">
                 {{ $slot }}
             </div>

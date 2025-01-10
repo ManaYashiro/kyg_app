@@ -160,19 +160,33 @@ $(document).ready(function () {
                 taskReservationData
                     .filter((task) => taskIds.includes(task.id))
                     .forEach((task) => {
+                        // clone learn-more image
+                        const learn_more = $("#learn-more").clone();
+
+                        // add task-id and remove !hidden class to display element
+                        learn_more
+                            .attr("data-task-id", task.reservation_name)
+                            .removeClass("!hidden");
                         const taskHTML = `
-                            <div class="flex space-x-4 mt-4 items-center text-xs font-bold mx-10 task-item">
-                                <label class="custom-checkbox">
+                            <div class="reservation-task grid grid-cols-4 grid-rows-1 gap-4 mt-4 items-center text-xs font-bold">
+                                <!-- 初期表示 -->
+                                <label class="custom-checkbox col-span-3 flex items-center justify-start">
                                     <input type="checkbox" name="reservationtask" value="${task.reservation_name}">
-                                    <span>${task.reservation_name}</span>
+                                    <span class="text-clip">${task.reservation_name}</span>
                                 </label>
-                                <div class="font-bold p-4 text-xs text-left grow"></div>
-                                <div class="details-button2 text-red-600 font-bold px-2 text-right inline-block border-b border-red-600 cursor-pointer"
-                                data-task-id="${task.reservation_name}" id="showDetailsBtn">さらに詳しく</div>
+                                <div class="col-start-4 text-red-600 font-bold px-2 text-right inline-block">
+                                    <span class="step04-details hidden sm:inline-block border-b border-red-600 cursor-pointer"
+                                        data-task-id="${task.reservation_name}">さらに詳しく</span>
+                                </div>
                             </div>
-                            <hr class="my-3 border-1 border-red-300 mx-10 task-divider">
+                            <hr class="my-3 border-1 border-red-600">
                         `;
                         $("#reservationTasks").append(taskHTML);
+
+                        // insert learn_more after span (さらに詳しく)
+                        $(
+                            "#reservationTasks .reservation-task:last span.step04-details"
+                        ).after(learn_more);
                     });
             }
 
@@ -261,22 +275,21 @@ $(document).ready(function () {
                     }
                 });
             });
-            $(document).on("click", ".details-button2", function () {
+            $(document).on("click", ".step04-details", function () {
                 const taskId = $(this).data("task-id"); // 修正した data-task-id 属性を取得
                 const task = taskinfo[taskId]; // taskId で taskinfo オブジェクトを参照
                 if (task) {
-                    console.log(task);
                     $("#modalTitle2").empty().text(`${task.name} `);
-                    console.log(`${task.name} `);
                     $("#modalContent2").html(task.details);
-                    console.log(task.details);
                     $("#reservationModal").removeClass("hidden");
+                    hideCalendar();
                 }
             });
 
             // モーダルを閉じる
             $(document).on("click", "#closeModal", function () {
                 $("#reservationModal").addClass("hidden");
+                showCalendar();
             });
         },
         error: function (error) {
@@ -296,10 +309,10 @@ $(document).ready(function () {
 $(document).ready(function () {
     // スクロールアイコン（#scrollbar）がクリックされたとき
     $("#scrollbar").on("click", function () {
-        // #stepの位置にスムーズにスクロールする
+        // #step01の位置にスムーズにスクロールする
         $("html, body").animate(
             {
-                scrollTop: $("#step").offset().top,
+                scrollTop: $("#step01").offset().top,
             },
             800
         ); // 800はスクロールの所要時間（ミリ秒）
@@ -319,7 +332,7 @@ $(document).ready(function () {
                 愛知県稲沢市にある車検・整備・カー用品の専門店です。<br>
                 車検・整備・鈑金塗装・ボディーコーティング・タイヤ・ナビオーディオ等の取付ピットは60基以上！
                 自動車販売や保険も含めたトータルカーサービスで地域の皆様のカーライフをサポートいたします。<br>
-                <a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">詳細はこちら</a>
+                [詳細URL]<a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">http://carlife-service.com/store.html</a>
             `,
         },
         2: {
@@ -332,7 +345,7 @@ $(document).ready(function () {
                 名古屋市北区・西区での車検ならオートプラザラビット名古屋北店にお任せください。<br>
                 車検・整備・ポリマー加工・自動車保険・板金塗装にいたるまで、一級整備士を含む国家資格整備士が多数在籍していますので、安心してお車をお任せいただけます。
                 ハイブリットカーの整備もお任せください。<br>
-                <a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">詳細はこちら</a>
+                [詳細URL]<a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">http://carlife-service.com/store.html</a>
             `,
         },
         3: {
@@ -342,7 +355,7 @@ $(document).ready(function () {
                 【定休日】水曜日<br>
                 【所在地】〒448-0006　愛知県刈谷市西境町治右田140<br>
                 【TEL】0120-41-4507<br>
-                <a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">詳細はこちら</a>
+                [詳細URL]<a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">http://carlife-service.com/store.html</a>
             `,
         },
         4: {
@@ -352,7 +365,7 @@ $(document).ready(function () {
                 【定休日】日曜・祝日<br>
                 【所在地】〒460-0003　愛知県名古屋市錦3-8-32<br>
                 【TEL】0120-74-0045<br>
-                <a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">詳細はこちら</a>
+                [詳細URL]<a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">http://carlife-service.com/store.html</a>
             `,
         },
         5: {
@@ -362,7 +375,7 @@ $(document).ready(function () {
                 【定休日】水曜日<br>
                 【所在地】〒470-1213 愛知県豊田市桝塚西町南小畔52-1<br>
                 【TEL】0120-74-0045<br>
-                <a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">詳細はこちら</a>
+                [詳細URL]<a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">http://carlife-service.com/store.html</a>
             `,
         },
         6: {
@@ -372,26 +385,59 @@ $(document).ready(function () {
                 【定休日】水曜日<br>
                 【所在地】〒470-1213 愛知県刈犬山市字舟田10<br>
                 【TEL】0120-83-2244<br>
-                <a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">詳細はこちら</a>
+                [詳細URL]<a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">http://carlife-service.com/store.html</a>
             `,
         },
     };
 
     // 詳細ボタンのクリックイベント
-    $(".details-button").on("click", function () {
-        const storeId = $(this).data("store-id"); // 店舗IDを取得
-        console.log(storeId);
-        const store = storeInfo[storeId]; // 店舗情報を取得
+    $(".step01-details").on("click", function () {
+        const storeId = $(this).data("store-id");
+        const store = storeInfo[storeId];
 
         if (store) {
-            $("#modalTitle").text(`${store.name} の店舗情報`);
-            $("#modalContent").html(store.details);
-            $("#storeModal").removeClass("hidden");
+            // store_idに応じた特定のモーダルを表示
+            $(`#modalTitle${storeId}`).text(`${store.name} の店舗情報`);
+            $(`#modalContent${storeId}`).html(store.details);
+            $(`#storeModal${storeId}`).removeClass("hidden");
+            hideCalendar();
         }
     });
 
-    // モーダルを閉じる
-    $("#closeModal").on("click", function () {
-        $("#storeModal").addClass("hidden");
+    // 各モーダルの閉じるボタンのイベント
+    $("[id^=closeModal]").on("click", function () {
+        const modalId = $(this).closest("[id^=storeModal]").attr("id");
+        $(`#${modalId}`).addClass("hidden");
+    });
+});
+
+function hideCalendar() {
+    $("#calendar-container").find(".fc-view-harness").css("z-index", "0");
+}
+
+function showCalendar() {
+    $("#calendar-container").find(".fc-view-harness").css("z-index", "unset");
+}
+$(document).ready(function () {
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    // ラジオボタンが選択された時
+    $('input[name="store"]').on("change", function () {
+        var selectedStoreValue = $(this).val();
+        $("#selectedStore").val(selectedStoreValue); // 隠しフィールドに選択された値を設定
+    });
+    // ラジオボタンが選択された時
+    $('input[name="taskcategory"]').on("change", function () {
+        var selectedcategoryValue = $(this).val();
+        $("#selectedtaskcategory").val(selectedcategoryValue); // 隠しフィールドに選択された値を設定
+    });
+    // チェックボックスが選択された時
+    $(document).on("click", 'input[name="reservationtask"]', function () {
+        var selectedreservationtaskValue = $(this).val();
+        $("#selectedreservationtask").val(selectedreservationtaskValue); // 隠しフィールドに選択された値を設定
     });
 });

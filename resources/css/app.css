@@ -2,6 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    /* Colors: */
+    --unnamed-color-1d1d1d: #1d1d1d;
+    --unnamed-color-707070: #707070;
+    --unnamed-color-f2bf48: #f2bf48;
+    --unnamed-color-c4221c: #c4221c;
+    --unnamed-color-ffffff: #ffffff;
+
+    /* Font/text values */
+    --unnamed-font-family-almarai: Almarai;
+    --unnamed-font-family-outfit: Outfit;
+    --unnamed-font-style-normal: normal;
+    --unnamed-font-weight-bold: bold;
+    --unnamed-font-weight-normal: normal;
+    --unnamed-font-size-11: 11px;
+    --unnamed-font-size-18: 18px;
+    --unnamed-font-size-50: 50px;
+    --unnamed-character-spacing-0: 0px;
+    --unnamed-character-spacing-0-55: 0.55px;
+    --unnamed-character-spacing-0-9: 0.9px;
+    --unnamed-line-spacing-12: 12px;
+    --unnamed-line-spacing-20: 20px;
+    --unnamed-line-spacing-63: 63px;
+}
+
+/* リセット */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 .wait-for-icons {
     display: none;
 }

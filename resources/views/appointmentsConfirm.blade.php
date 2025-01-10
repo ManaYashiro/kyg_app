@@ -20,62 +20,74 @@
                     <div class="mt-4">
                         <x-text.custom-text text="予約内容" class="mt-6 mb-2 bg-gray-text" />
                     </div>
-                    <input type="hidden" name="appointmentNumber" value="{{ $appointmentNumber }}">
                     <!-- 予約日 -->
                     <div class="mt-4">
                         <x-text.custom-input-label text="予約日" class="mb-2 left-border-text" />
-                        <!-- 仮 -->
-                        <label>{{ $finalcheck['user_vehicle_id'] }}</label>
-                        <input type="hidden" name="user_vehicle_id" value="{{ $finalcheck['user_vehicle_id'] }}">
+                        <label>{{ \Carbon\Carbon::parse($finalcheck['reservation']['appointmentDateTime'])->format('Y-m-d') }}</label>
+                        <input type="hidden" name="appointmentDateTime" value="{{ \Carbon\Carbon::parse($finalcheck['reservation']['appointmentDateTime'])->format('Y-m-d H:i') }}">
                     </div>
                     <!-- 時間 -->
                     <div class="mt-4">
-                        <x-text.custom-input-label text="時間" class="mb-2 left-border-text" />
-                        <!-- 仮 -->
-                        <label>{{ $finalcheck['user_vehicle_id'] }}</label>
-                        <input type="hidden" name="user_vehicle_id" value="{{ $finalcheck['user_vehicle_id'] }}">
+                        <x-text.custom-input-label text="時間" class="mb-2 left-border-text"/>
+                        <label>{{ \Carbon\Carbon::parse($finalcheck['reservation']['appointmentDateTime'])->format('H:i') }}</label>
                     </div>
                     <!-- ご希望の店舗 -->
                     <div class="mt-4">
-                        <x-text.custom-input-label text="ご希望の店舗" class="mb-2 left-border-text" />
-                        <!-- 仮 -->
-                        <label>{{ $finalcheck['user_vehicle_id'] }}</label>
-                        <input type="hidden" name="user_vehicle_id" value="{{ $finalcheck['user_vehicle_id'] }}">
+                        <x-text.custom-input-label text="ご希望の店舗" class="mb-2 left-border-text"/>
+                        <label>{{ $finalcheck['reservation']['store'] }}</label>
+                        <input type="hidden" name="store" value="{{ $finalcheck['reservation']['store'] }}">
                     </div>
                     <!-- 作業カテゴリ -->
                     <div class="mt-4">
-                        <x-text.custom-input-label text="作業カテゴリ" class="mb-2 left-border-text" />
-                        <!-- 仮 -->
-                        <label>{{ $finalcheck['user_vehicle_id'] }}</label>
-                        <input type="hidden" name="user_vehicle_id" value="{{ $finalcheck['user_vehicle_id'] }}">
+                        <x-text.custom-input-label text="作業カテゴリ" class="mb-2 left-border-text"/>
+                        <label>{{ $finalcheck['reservation']['taskCategory'] }}</label>
+                        <input type="hidden" name="taskCategory" value="{{ $finalcheck['reservation']['taskCategory'] }}">
+                    </div>
+                    <!-- 作業種別 -->
+                    <div class="mt-4">
+                        <x-text.custom-input-label text="作業種別" class="mb-2 left-border-text"/>
+                        {{-- <label>{{ $finalcheck['reservation']['work_type'] }}</label>
+                        <input type="hidden" name="work_type" value="{{ $finalcheck['reservation']['work_type'] }}"> --}}
+                    </div>
+                    <!-- 個人・法人 -->
+                    <div class="mt-4">
+                        <x-text.custom-input-label text="個人・法人" class="mb-2 left-border-text"/>
+                        <label>{{ $finalcheck['reservation']['customerType'] }}</label>
+                        <input type="hidden" name="customerType" value="{{ $finalcheck['reservation']['customerType'] }}">
                     </div>
                     <!-- 予約する作業 -->
                     <div class="mt-4">
-                        <x-text.custom-input-label text="予約する作業" class="mb-2 left-border-text" />
-                        <!-- 仮 -->
-                        <label>{{ $finalcheck['user_vehicle_id'] }}</label>
-                        <input type="hidden" name="user_vehicle_id" value="{{ $finalcheck['user_vehicle_id'] }}">
+                        <x-text.custom-input-label text="予約する作業" class="mb-2 left-border-text"/>
+                        <label>{{ $finalcheck['reservation']['reservationTask'] }}</label>
+                        <input type="hidden" name="reservationTask" value="{{ $finalcheck['reservation']['reservationTask'] }}">
                     </div>
                     <div class="mt-4">
-                        <x-text.custom-text text="確認事項" class="mt-6 mb-2 bg-gray-text" />
+                        <x-text.custom-text text="確認事項" class="mt-6 mb-2 bg-gray-text"/>
                     </div>
                     <!-- 車両選択 -->
                     <div class="mt-4">
-                        <x-text.custom-input-label text="【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。"
-                            class="mb-2 left-border-text" />
-                        <label>{{ $finalcheck['user_vehicle_id'] }}</label>
+                        <x-text.custom-input-label text="【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。" class="mb-2 left-border-text" />
+                        <label>
+                            @if(in_array($finalcheck['user_vehicle_id'], [1, 2, 3]))
+                                {{ $finalcheck['user_vehicle_id'] }}台目
+                            @else
+                                {{ $finalcheck['user_vehicle_id'] == 4}}未登録の車
+                            @endif
+                        </label>
                         <input type="hidden" name="user_vehicle_id" value="{{ $finalcheck['user_vehicle_id'] }}">
                     </div>
                     <!-- 追加整備 -->
+                    @if (!empty($finalcheck['additional_services']))
                     <div class="mt-4">
                         <x-text.custom-input-label text="【追加整備】本作業とあわせて追加作業を依頼したい場合にお選びください。"
                             class="mb-2 left-border-text" />
                         @foreach ($finalcheck['additional_services'] as $service)
-                            <label>{{ $service }}</label>
+                            <label>{{ $service }}</label><br>
                         @endforeach
                         <input type="hidden" name="additional_services"
                             value="{{ implode(', ', $finalcheck['additional_services']) }}">
                     </div>
+                    @endif
                     <!-- 車検満期日 -->
                     <div class="mt-4">
                         <x-text.custom-input-label text="車検満期日をご入力ください。" class="mb-2 left-border-text" />
@@ -153,91 +165,42 @@
                             <label>{{ $finalcheck['user']['address2'] }}</label>
                         </div>
                     @endif
-                    <!-- 車名(1台目) -->
-                    <div class="mt-4">
-                        <x-text.custom-input-label text="車名(1台目)" class="mb-2 left-border-text" />
 
-                        <label>{{ $finalcheck['vehicles']['car1_name'] }}</label>
-                    </div>
-                    <!-- 型式(1台目) -->
-                    @if (!empty($finalcheck['vehicles']['car1_katashiki']))
+                    <!-- 車両 -->
+                    @foreach ($finalcheck['vehicles'] as $index => $vehicle)
+                        <!-- 車名 -->
+                        @if (!empty($vehicle['car_name']))
                         <div class="mt-4">
-                            <x-text.custom-input-label text="型式(1台目)" class="mb-2 left-border-text" />
+                            <x-text.custom-input-label text="車名({{ $index + 1 }}台目)" class="mb-2 left-border-text" />
+                            <label>{{ $vehicle['car_name'] }}</label>
+                        </div>
+                        @endif
 
-                            <label>{{ $finalcheck['vehicles']['car1_katashiki'] }}</label>
+                        <!-- 型式 -->
+                        @if (!empty($vehicle['car_katashiki']))
+                        <div class="mt-4">
+                            <x-text.custom-input-label text="型式({{ $index + 1 }}台目)" class="mb-2 left-border-text" />
+                            <label>{{ $vehicle['car_katashiki'] }}</label>
                         </div>
-                    @endif
-                    <!-- ナンバー(1台目) -->
-                    <div class="mt-4">
-                        <x-text.custom-input-label text="ナンバー(1台目)" class="mb-2 left-border-text" />
+                        @endif
 
-                        <label>{{ $finalcheck['vehicles']['car1_number'] }}</label>
-                    </div>
-                    <!-- 車種区分(1台目) -->
-                    @if (!empty($finalcheck['vehicles']['car1_class']))
+                        <!-- ナンバー -->
+                        @if (!empty($vehicle['car_number']))
                         <div class="mt-4">
-                            <x-text.custom-input-label text="車種区分(1台目)" class="mb-2 left-border-text" />
+                            <x-text.custom-input-label text="ナンバー({{ $index + 1 }}台目)" class="mb-2 left-border-text" />
+                            <label>{{ $vehicle['car_number'] }}</label>
+                        </div>
+                        @endif
 
-                            <label>{{ $finalcheck['vehicles']['car1_class'] }}</label>
-                        </div>
-                    @endif
-                    <!-- 車名(2台目) -->
-                    @if (!empty($finalcheck['vehicles']['car2_class']))
+                        <!-- 車種区分 -->
+                        @if (!empty($vehicle['car_class']))
                         <div class="mt-4">
-                            <x-text.custom-input-label text="車名(2台目)" class="mb-2 left-border-text" />
+                            <x-text.custom-input-label text="車種区分({{ $index + 1 }}台目)" class="mb-2 left-border-text" />
+                            <label>{{ $vehicle['car_class'] }}</label>
+                        </div>
+                        @endif
+                    @endforeach
 
-                            <label>{{ $finalcheck['vehicles']['car2_name'] }}</label>
-                        </div>
-                    @endif
-                    <!-- 型式(2台目) -->
-                    @if (!empty($finalcheck['vehicles']['car2_class']))
-                        <div class="mt-4">
-                            <x-text.custom-input-label text="型式(2台目)" class="mb-2 left-border-text" />
-                            <label>{{ $finalcheck['vehicles']['car2_katashiki'] }}</label>
-                        </div>
-                    @endif
-                    <!-- ナンバー(2台目) -->
-                    @if (!empty($finalcheck['vehicles']['car2_class']))
-                        <div class="mt-4">
-                            <x-text.custom-input-label text="ナンバー(2台目)" class="mb-2 left-border-text" />
-                            <label>{{ $finalcheck['vehicles']['car2_number'] }}</label>
-                        </div>
-                    @endif
-                    <!-- 車種区分(2台目) -->
-                    @if (!empty($finalcheck['vehicles']['car2_class']))
-                        <div class="mt-4">
-                            <x-text.custom-input-label text="車種区分(2台目)" class="mb-2 left-border-text" />
-                            <label>{{ $finalcheck['vehicles']['car2_class'] }}</label>
-                        </div>
-                    @endif
-                    <!-- 車名(3台目) -->
-                    @if (!empty($finalcheck['vehicles']['car3_class']))
-                        <div class="mt-4">
-                            <x-text.custom-input-label text="車名(3台目)" class="mb-2 left-border-text" />
-                            <label>{{ $finalcheck['vehicles']['car3_name'] }}</label>
-                        </div>
-                    @endif
-                    <!-- 型式(3台目) -->
-                    @if (!empty($finalcheck['vehicles']['car3_class']))
-                        <div class="mt-4">
-                            <x-text.custom-input-label text="型式(3台目)" class="mb-2 left-border-text" />
-                            <label>{{ $finalcheck['vehicles']['car3_katashiki'] }}</label>
-                        </div>
-                    @endif
-                    <!-- ナンバー(3台目) -->
-                    @if (!empty($finalcheck['vehicles']['car3_class']))
-                        <div class="mt-4">
-                            <x-text.custom-input-label text="ナンバー(3台目)" class="mb-2 left-border-text" />
-                            <label>{{ $finalcheck['vehicles']['car3_number'] }}</label>
-                        </div>
-                    @endif
-                    <!-- 車種区分(3台目) -->
-                    @if (!empty($finalcheck['vehicles']['car3_class']))
-                        <div class="mt-4">
-                            <x-text.custom-input-label text="車種区分(3台目)" class="mb-2 left-border-text" />
-                            <label>{{ $finalcheck['vehicles']['car3_class'] }}</label>
-                        </div>
-                    @endif
                     <!-- メルマガ -->
                     @if (!empty($finalcheck['user']['is_receive_newsletter']))
                         <div class="mt-4">
@@ -249,11 +212,9 @@
                     <div class="mt-4">
                         <x-text.custom-input-label text="[アンケート]弊社の車検を何でお知りになりましたか？(複数回答3つまで)"
                             class="mb-2 left-border-text" />
-                        <ul>
-                            @foreach ($anket as $answerId)
-                                <li>{{ $anketnames[$answerId] }}</li>
-                            @endforeach
-                        </ul>
+                        @foreach ($finalcheck['user']['questionnaire'] as $questionnaires)
+                        <label>{{$questionnaires}}</label><br>
+                        @endforeach
                     </div>
                     <!-- 担当者 -->
                     @if (!empty($finalcheck['user']['manager']))
@@ -273,7 +234,7 @@
                     <div class="box-type1 ns">
                         <x-text.custom-text text="予約についてのご要望などメッセージがございましたらご記入ください" class="mt-6 mb-2 bg-gray-text" />
                     </div>
-                    <textarea id='requirement' name="requirement" cols rows="7" class="w100"
+                    <textarea id='remarks' name="remarks" cols rows="7" class="w100"
                         style="width: 809px; height: 158px;"></textarea>
                     <!-- 確定ボタン -->
                     <div class="btn-area1">

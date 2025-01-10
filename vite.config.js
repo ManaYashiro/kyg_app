@@ -46,12 +46,23 @@ export default defineConfig({
 
                 // - top
                 "resources/img/top/warning.png",
+                "resources/img/top/learn_more.png",
                 "resources/img/top/check.png",
-                "resources/img/top/maintenance.png",
-                "resources/img/top/vmaintenance.png",
-                "resources/img/top/estimate.png",
+                "resources/img/top/active_maintenance.png",
+                "resources/img/top/inactive_maintenance.png",
+                "resources/img/top/active_estimate.png",
+                "resources/img/top/inactive_estimate.png",
+                "resources/img/top/active_tool.png",
+                "resources/img/top/inactive_tool.png",
                 "resources/img/top/top.png",
+                "resources/img/top/top2.png", // TODO delete
                 "resources/img/top/scroll.png",
+                "resources/img/top/inazawa.jpg",
+                "resources/img/top/nagoyakita.jpg",
+                "resources/img/top/kariya.jpg",
+                "resources/img/top/nishiki.jpg",
+                "resources/img/top/toyota.jpg",
+                "resources/img/top/imuyama.jpg",
                 // - top calendar
                 "resources/img/modules/calendar/calendar-none.gif",
             ],

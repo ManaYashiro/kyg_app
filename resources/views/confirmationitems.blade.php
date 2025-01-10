@@ -25,7 +25,7 @@
                             <x-text.custom-input-label text="【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。"
                                 class="mb-2" option="必須" />
                         </h5>
-                        <x-select id="user_vehicle_id" class="block mt-1 w-[120px] h-[38px] rounded-none" name="user_vehicle_id">
+                        <x-select id="user_vehicle_id" class="block mt-1 w-[130px] h-[38px] rounded-none" name="user_vehicle_id">
                             <option value="" {{ old('user_vehicle_id') == '' ? 'selected' : '' }}>
                             </option>
                             <option value="1" {{ old('user_vehicle_id') == '1台目' ? 'selected' : '' }}>
@@ -36,7 +36,7 @@
                             </option>
                             <option value="3" {{ old('user_vehicle_id') == '3台目' ? 'selected' : '' }}>
                                 3台目</option>
-                            <option value="未登録の車" {{ old('user_vehicle_id') == '未登録の車' ? 'selected' : '' }}>
+                            <option value="4" {{ old('user_vehicle_id') == '未登録の車' ? 'selected' : '' }}>
                                 未登録の車
                             </option>
                         </x-select>
@@ -92,7 +92,7 @@
                     </div>
                     <div class="btn-area1">
                         <input type="button" class="ml-4 btn-type1" value="前の画面に戻る"
-                            onclick="window.location.href='{{ route('confirmationItems.index') }}'">
+                            onclick="window.location.href='{{ route('top') }}'">
                         <input class="ml-4 btn-type2" type="submit" value="次へ進む">
                     </div>
                 </form>
@@ -101,6 +101,6 @@
         </div>
     </div>
     @section('styles')
-    @vite(['resources/css/confirmationitems.css'])
+        @vite(['resources/css/confirmationitems.css'])
     @endsection
 </x-app-layout>
