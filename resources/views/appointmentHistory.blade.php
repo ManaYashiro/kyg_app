@@ -25,10 +25,11 @@
                         <thead class="sticky top-0 z-10">
                             <tr>
                                 <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">予約番号</th>
-                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 18%;">予約日時</th>
-                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 8%;">車両</th>
+                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 15%;">予約日時</th>
                                 <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">希望店舗</th>
                                 <th class="px-4 py-2 text-left bg-gray-200" style="width: 20%;">作業カテゴリ</th>
+                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 20%;">作業種別</th>
+                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">個人・法人</th>
                                 <th class="px-4 py-2 text-left bg-gray-200" style="width: 20%;">予約する作業</th>
                             </tr>
                         </thead>
@@ -46,11 +47,6 @@
                                     {{ $appointment->reservation_datetime }}
                                 </td>
 
-                                {{-- 車両 --}}
-                                <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                    {{ $appointment->user_vehicle_id }}台目
-                                </td>
-
                                 {{-- 希望店舗 --}}
                                 <td class="border px-4 py-2" style="font-size: 0.75rem;">
                                     {{ $appointment->store }}
@@ -58,12 +54,22 @@
 
                                 {{-- 作業カテゴリ --}}
                                 <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                    {{ $appointment->taskcategory }}
+                                    {{ $appointment->inspection_type }}
+                                </td>
+
+                                {{-- 作業種別 --}}
+                                <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                    {{ $appointment->work_type }}
+                                </td>
+
+                                {{-- 個人/法人 --}}
+                                <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                    {{ $appointment->customer_type }}
                                 </td>
 
                                 {{-- 予約する作業 --}}
                                 <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                    {{ $appointment->reservationtask }}
+                                    {{ $appointment->reservation_task_id }}
                                 </td>
                             </tr>
                         @endforeach
@@ -97,10 +103,11 @@
                 <thead class="bg-gray-200 sticky top-0 z-10">
                     <tr>
                         <th class="px-4 py-2 text-left" style="width: 10%;">予約番号</th>
-                        <th class="px-4 py-2 text-left" style="width: 18%;">予約日時</th>
-                        <th class="px-4 py-2 text-left" style="width: 8%;">車両</th>
+                        <th class="px-4 py-2 text-left" style="width: 15%;">予約日時</th>
                         <th class="px-4 py-2 text-left" style="width: 10%;">希望店舗</th>
                         <th class="px-4 py-2 text-left" style="width: 20%;">作業カテゴリ</th>
+                        <th class="px-4 py-2 text-left" style="width: 20%;">作業種別</th>
+                        <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">個人・法人</th>
                         <th class="px-4 py-2 text-left" style="width: 20%;">予約する作業</th>
                     </tr>
                 </thead>
@@ -119,11 +126,6 @@
                                 {{ \Carbon\Carbon::parse($appointment->reservation_datetime)->format('Y-m-d H:i') }}
                             </td>
 
-                            <!-- 車両 -->
-                            <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                {{ $appointment->user_vehicle_id }}台目
-                            </td>
-
                             <!-- 希望店舗 -->
                             <td class="border px-4 py-2" style="font-size: 0.75rem;">
                                 {{ $appointment->store }}
@@ -131,12 +133,22 @@
 
                             <!-- 作業カテゴリ -->
                             <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                {{ $appointment->taskcategory }}
+                                {{ $appointment->inspection_type }}
+                            </td>
+
+                            <!-- 作業種別 -->
+                            <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                {{ $appointment->work_type }}
+                            </td>
+
+                            {{-- 個人/法人 --}}
+                            <td class="border px-4 py-2" style="font-size: 0.75rem;">
+                                {{ $appointment->customer_type }}
                             </td>
 
                             <!-- 予約する作業 -->
                             <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                {{ $appointment->reservationtask }}
+                                {{ $appointment->reservation_task_id }}
                             </td>
                         </tr>
                     @endforeach
