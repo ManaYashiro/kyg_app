@@ -46,7 +46,7 @@
                                 <x-input-label for="reservation_datetime" :value="__('予約日時')" />
                             </div>
                             <div>
-                                <x-text.custom-input-label text="{{ $appointment->reservation_datetime}}" />
+                                <x-text.custom-input-label text="{{ date('Y/m/d H:i:s', strtotime($appointment->reservation_datetime)) }}" />
                             </div>
                         </div>
 
