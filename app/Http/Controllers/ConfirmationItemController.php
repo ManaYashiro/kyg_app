@@ -202,7 +202,7 @@ class  ConfirmationItemController extends Controller
         $appointment->customer_name = $request->input('user'); //顧客名
         $appointment->store = $request->input('store'); //ご希望の店舗
         $appointment->inspection_type = $request->input('taskCategory'); //作業カテゴリ
-        // $appointment->work_type = $request->input('work_type'); //作業種別
+        $appointment->work_type = $request->input('work_type'); //作業種別
         $appointment->reservation_task_id = $reservationTaskId; //作業詳細
         $appointment->customer_type = $request->input('customerType'); //個人/法人区分
         $appointment->user_vehicle_id = $request->input('user_vehicle_id'); //車両台数

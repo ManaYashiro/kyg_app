@@ -27,8 +27,8 @@
                                 <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">予約番号</th>
                                 <th class="px-4 py-2 text-left bg-gray-200" style="width: 15%;">予約日時</th>
                                 <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">希望店舗</th>
-                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 20%;">作業カテゴリ</th>
-                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 20%;">作業種別</th>
+                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">作業カテゴリ</th>
+                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">作業種別</th>
                                 <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">個人・法人</th>
                                 <th class="px-4 py-2 text-left bg-gray-200" style="width: 20%;">予約する作業</th>
                             </tr>
@@ -69,7 +69,7 @@
 
                                 {{-- 予約する作業 --}}
                                 <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                    {{ $appointment->reservation_task_id }}
+                                    {{ $appointment->reservation_task_name }}
                                 </td>
                             </tr>
                         @endforeach
@@ -105,8 +105,8 @@
                         <th class="px-4 py-2 text-left" style="width: 10%;">予約番号</th>
                         <th class="px-4 py-2 text-left" style="width: 15%;">予約日時</th>
                         <th class="px-4 py-2 text-left" style="width: 10%;">希望店舗</th>
-                        <th class="px-4 py-2 text-left" style="width: 20%;">作業カテゴリ</th>
-                        <th class="px-4 py-2 text-left" style="width: 20%;">作業種別</th>
+                        <th class="px-4 py-2 text-left" style="width: 10%;">作業カテゴリ</th>
+                        <th class="px-4 py-2 text-left" style="width: 10%;">作業種別</th>
                         <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">個人・法人</th>
                         <th class="px-4 py-2 text-left" style="width: 20%;">予約する作業</th>
                     </tr>
@@ -148,7 +148,7 @@
 
                             <!-- 予約する作業 -->
                             <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                {{ $appointment->reservation_task_id }}
+                                {{ $appointment->reservation_task_name }}
                             </td>
                         </tr>
                     @endforeach

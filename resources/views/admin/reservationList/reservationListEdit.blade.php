@@ -112,7 +112,7 @@
                                 <x-input-label for="reservationtask" :value="__('予約する作業')" />
                             </div>
                             <div>
-                                <x-text.custom-input-label text="{{ $appointment->reservation_task_id }}" />
+                                <x-text.custom-input-label text="{{ $appointment->reservation_task_name }}" />
                             </div>
                         </div>
 
@@ -191,15 +191,15 @@
                             </div>
                         </div>
 
-                        <div class="mb-4 flex justify-end">
+                        <div class="mb-4 flex justify-center">
                             <!-- 前の画面に戻るボタン -->
-                            <button onclick="window.history.back()"
-                                class="ms-3 bg-gray-500 inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-800 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
-                                前の画面に戻る
+                            <button type="button" onclick="window.location.href='{{ route('admin.reservationList.index') }}'"
+                            class="ms-3 bg-gray-500 inline-flex items-center px-4 py-2 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-800 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                            戻る
                             </button>
 
                             <!-- 更新ボタン -->
-                            <x-primary-button class="ms-3 !bg-blue-500 !hover:bg-blue-600 !focus:bg-blue-700">
+                            <x-primary-button class="ms-40 !bg-blue-500 !hover:bg-blue-600 !focus:bg-blue-700">
                                 登録する
                             </x-primary-button>
                         </div>

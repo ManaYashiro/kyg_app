@@ -67,8 +67,8 @@
                 <!-- 予約する作業 -->
                 <div class="mb-4">
                     <x-input-label for="reservation_task_id" :value="__('予約する作業')" />
-                    <x-data-display :value="$appointment->reservation_task_id ?? ''" />
-                    <input type="hidden" name="reservation_task_id" value="{{ $appointment->reservation_task_id ?? '' }}">
+                    <x-data-display :value="$appointment->reservation_task_name ?? ''" />
+                    <input type="hidden" name="reservation_task_id" value="{{ $appointment->reservation_task_name ?? '' }}">
                 </div>
 
                 <!-- 車両 -->

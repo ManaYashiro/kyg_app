@@ -23,8 +23,8 @@
                     <!-- 予約日 -->
                     <div class="mt-4">
                         <x-text.custom-input-label text="予約日" class="mb-2 left-border-text" />
-                        <label>{{ \Carbon\Carbon::parse($finalcheck['reservation']['appointmentDateTime'])->format('Y-m-d') }}</label>
-                        <input type="hidden" name="appointmentDateTime" value="{{ \Carbon\Carbon::parse($finalcheck['reservation']['appointmentDateTime'])->format('Y-m-d H:i') }}">
+                        <label>{{ \Carbon\Carbon::parse($finalcheck['reservation']['appointmentDateTime'])->format('Y/m/d') }}</label>
+                        <input type="hidden" name="appointmentDateTime" value="{{ \Carbon\Carbon::parse($finalcheck['reservation']['appointmentDateTime'])->format('Y/m/d H:i') }}">
                     </div>
                     <!-- 時間 -->
                     <div class="mt-4">
@@ -46,8 +46,8 @@
                     <!-- 作業種別 -->
                     <div class="mt-4">
                         <x-text.custom-input-label text="作業種別" class="mb-2 left-border-text"/>
-                        {{-- <label>{{ $finalcheck['reservation']['work_type'] }}</label>
-                        <input type="hidden" name="work_type" value="{{ $finalcheck['reservation']['work_type'] }}"> --}}
+                        <label>{{ $finalcheck['reservation']['taskCategory'] }}</label>
+                        <input type="hidden" name="work_type" value="{{ $finalcheck['reservation']['taskCategory'] }}">
                     </div>
                     <!-- 個人・法人 -->
                     <div class="mt-4">
@@ -68,10 +68,10 @@
                     <div class="mt-4">
                         <x-text.custom-input-label text="【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。" class="mb-2 left-border-text" />
                         <label>
-                            @if(in_array($finalcheck['user_vehicle_id'], [1, 2, 3]))
-                                {{ $finalcheck['user_vehicle_id'] }}台目
+                            @if($finalcheck['user_vehicle_id'] == 4)
+                                未登録の車
                             @else
-                                {{ $finalcheck['user_vehicle_id'] == 4}}未登録の車
+                                {{ $finalcheck['user_vehicle_id'] }}台目
                             @endif
                         </label>
                         <input type="hidden" name="user_vehicle_id" value="{{ $finalcheck['user_vehicle_id'] }}">
