@@ -159,7 +159,8 @@
                             </div>
                             <div class="flex-1">
                                 <x-textarea id="remarks" class="w-full h-24" type="text"
-                                    name="remarks" :value="old('remarks', $appointment->remarks ?? '')" />
+                                    name="remarks" :value="old('remarks', $appointment->remarks ?? '')" maxlength="500"/>
+                                     {{-- 最大文字数仮500 --}}
                             </div>
                         </div>
 
@@ -170,7 +171,7 @@
                                 <x-input-label for="reservation_status" :value="__('予約状態')" />
                             </div>
                             <div>
-                                <x-select id="reservation_status" class="w-1/1" name="reservation_status">
+                                <x-select id="reservation_status" class="w-1/1" name="reservation_status" required>
                                     <option value="1" {{ $appointment->reservation_status == '1' ? 'selected' : '' }}>仮予約</option>
                                     <option value="2" {{ $appointment->reservation_status == '2' ? 'selected' : '' }}>本予約</option>
                                     <option value="0" {{ $appointment->reservation_status == '0' ? 'selected' : '' }}>予約取り消し/キャンセル</option>
@@ -187,7 +188,7 @@
                             </div>
                             <div class="flex-1">
                                 <x-textarea id="admin_notes" class="w-full h-24" type="text"
-                                    name="admin_notes" :value="old('admin_notes', $appointment->admin_notes ?? '')" />
+                                    name="admin_notes" :value="old('admin_notes', $appointment->admin_notes ?? '')" maxlength="128"/>
                             </div>
                         </div>
 
