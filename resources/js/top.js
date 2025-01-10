@@ -332,7 +332,7 @@ $(document).ready(function () {
                 愛知県稲沢市にある車検・整備・カー用品の専門店です。<br>
                 車検・整備・鈑金塗装・ボディーコーティング・タイヤ・ナビオーディオ等の取付ピットは60基以上！
                 自動車販売や保険も含めたトータルカーサービスで地域の皆様のカーライフをサポートいたします。<br>
-                <a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">詳細はこちら</a>
+                [詳細URL]<a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">http://carlife-service.com/store.html</a>
             `,
         },
         2: {
@@ -345,7 +345,7 @@ $(document).ready(function () {
                 名古屋市北区・西区での車検ならオートプラザラビット名古屋北店にお任せください。<br>
                 車検・整備・ポリマー加工・自動車保険・板金塗装にいたるまで、一級整備士を含む国家資格整備士が多数在籍していますので、安心してお車をお任せいただけます。
                 ハイブリットカーの整備もお任せください。<br>
-                <a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">詳細はこちら</a>
+                [詳細URL]<a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">http://carlife-service.com/store.html</a>
             `,
         },
         3: {
@@ -355,7 +355,7 @@ $(document).ready(function () {
                 【定休日】水曜日<br>
                 【所在地】〒448-0006　愛知県刈谷市西境町治右田140<br>
                 【TEL】0120-41-4507<br>
-                <a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">詳細はこちら</a>
+                [詳細URL]<a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">http://carlife-service.com/store.html</a>
             `,
         },
         4: {
@@ -365,7 +365,7 @@ $(document).ready(function () {
                 【定休日】日曜・祝日<br>
                 【所在地】〒460-0003　愛知県名古屋市錦3-8-32<br>
                 【TEL】0120-74-0045<br>
-                <a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">詳細はこちら</a>
+                [詳細URL]<a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">http://carlife-service.com/store.html</a>
             `,
         },
         5: {
@@ -375,7 +375,7 @@ $(document).ready(function () {
                 【定休日】水曜日<br>
                 【所在地】〒470-1213 愛知県豊田市桝塚西町南小畔52-1<br>
                 【TEL】0120-74-0045<br>
-                <a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">詳細はこちら</a>
+                [詳細URL]<a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">http://carlife-service.com/store.html</a>
             `,
         },
         6: {
@@ -385,7 +385,7 @@ $(document).ready(function () {
                 【定休日】水曜日<br>
                 【所在地】〒470-1213 愛知県刈犬山市字舟田10<br>
                 【TEL】0120-83-2244<br>
-                <a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">詳細はこちら</a>
+                [詳細URL]<a href="http://carlife-service.com/store.html" target="_blank" class="text-blue-500 underline">http://carlife-service.com/store.html</a>
             `,
         },
     };
