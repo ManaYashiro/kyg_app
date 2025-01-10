@@ -38,23 +38,37 @@
 
                 <!-- 希望店舗 -->
                 <div class="mb-4">
-                    <x-input-label for="store" :value="__('希望店舗')" />
+                    <x-input-label for="store" :value="__('希望の店舗')" />
                     <x-data-display :value="$appointment->store ?? ''" />
                     <input type="hidden" name="store" value="{{ $appointment->store ?? '' }}">
                 </div>
 
                 <!-- 作業カテゴリー -->
                 <div class="mb-4">
-                    <x-input-label for="taskcategory" :value="__('作業カテゴリー')" />
-                    <x-data-display :value="$appointment->taskcategory ?? ''" />
-                    <input type="hidden" name="taskcategory" value="{{ $appointment->taskcategory ?? '' }}">
+                    <x-input-label for="inspection_type" :value="__('作業カテゴリ')" />
+                    <x-data-display :value="$appointment->inspection_type ?? ''" />
+                    <input type="hidden" name="inspection_type" value="{{ $appointment->inspection_type ?? '' }}">
+                </div>
+
+                <!-- 作業種別　-->
+                <div class="mb-4">
+                    <x-input-label for="work_type" :value="__('作業種別')" />
+                    <x-data-display :value="$appointment->work_type ?? ''" />
+                    <input type="hidden" name="work_type" value="{{ $appointment->work_type ?? '' }}">
+                </div>
+
+                <!-- 個人・法人　-->
+                <div class="mb-4">
+                    <x-input-label for="customer_type" :value="__('個人・法人')" />
+                    <x-data-display :value="$appointment->customer_type ?? ''" />
+                    <input type="hidden" name="customer_type" value="{{ $appointment->customer_type ?? '' }}">
                 </div>
 
                 <!-- 予約する作業 -->
                 <div class="mb-4">
-                    <x-input-label for="reservationtask" :value="__('予約する作業')" />
-                    <x-data-display :value="$appointment->reservationtask ?? ''" />
-                    <input type="hidden" name="reservationtask" value="{{ $appointment->reservationtask ?? '' }}">
+                    <x-input-label for="reservation_task_id" :value="__('予約する作業')" />
+                    <x-data-display :value="$appointment->reservation_task_id ?? ''" />
+                    <input type="hidden" name="reservation_task_id" value="{{ $appointment->reservation_task_id ?? '' }}">
                 </div>
 
                 <!-- 車両 -->
@@ -63,7 +77,7 @@
                         option="必須" />
                     <x-select id="user_vehicle_id" class="block mt-1 w-full" name="user_vehicle_id" required>
                         <!-- Loop through vehicle options -->
-                        @foreach ([1 => '1台目', 2 => '2台目', 3 => '3台目'] as $key => $vehicleLabel)
+                        @foreach ([1 => '1台目', 2 => '2台目', 3 => '3台目', 4 => '未登録車'] as $key => $vehicleLabel)
                             <option value="{{ $key }}" @selected(old('user_vehicle_id', $appointment->user_vehicle_id) == $key)>
                                 {{ $vehicleLabel }}
                             </option>
