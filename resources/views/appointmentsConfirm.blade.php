@@ -212,8 +212,8 @@
                     <div class="mt-4">
                         <x-text.custom-input-label text="[アンケート]弊社の車検を何でお知りになりましたか？(複数回答3つまで)"
                             class="mb-2 left-border-text" />
-                        @foreach ($finalcheck['user']['questionnaire'] as $questionnaires)
-                        <label>{{$questionnaires}}</label><br>
+                        @foreach ($finalcheck['user']['questionnaire'] ?? [] as $questionnaires)
+                            <label>{{$questionnaires}}</label><br>
                         @endforeach
                     </div>
                     <!-- 担当者 -->
@@ -232,7 +232,8 @@
                     @endif
                     <!-- 予約についてのご要望などメッセージ -->
                     <div class="box-type1 ns">
-                        <x-text.custom-text text="予約についてのご要望などメッセージがございましたらご記入ください" class="mt-6 mb-2 bg-gray-text" />
+                        <x-text.custom-text text="予約についてのご要望などメッセージがございましたらご記入ください" class="mt-6 mb-2 bg-gray-text" maxlength="500"/>
+                        {{-- 文字数仮最大500 --}}
                     </div>
                     <textarea id='remarks' name="remarks" cols rows="7" class="w100"
                         style="width: 809px; height: 158px;"></textarea>

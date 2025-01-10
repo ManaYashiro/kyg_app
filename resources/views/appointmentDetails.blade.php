@@ -128,7 +128,7 @@
                         <x-text.custom-input-label text="車検満期日をご入力ください。" class="mb-2" option="必須" />
                     </h5>
                     <x-text-input id="inspection_due_date" type="text" name="inspection_due_date" :value="old('inspection_due_date', $appointment->inspection_due_date ?? '')"
-                        class="datepicker block mt-1 w-full rounded-none" />
+                        class="datepicker block mt-1 w-full rounded-none" maxlength="10" required/>
                     <x-text.custom-input-label text="（記入例：2022/10/30）" spanClass="font-normal text-xs text-gray-500 mt-1" />
                     <x-input-error :messages="$errors->get('inspection_due_date')" class="attention" />
                 </div>
@@ -140,13 +140,13 @@
                     </h5>
                     <div class="mt-4">
                         <x-radio name="past_service_history" value="A)この店舗・作業どちらも、初めて利用" label="A)この店舗・作業どちらも、初めて利用"
-                            :checked="old('past_service_history', $appointment->past_service_history) === 'A)この店舗・作業どちらも、初めて利用'" :disabled="false" class="mt-2" />
+                            :checked="old('past_service_history', $appointment->past_service_history) === 'A)この店舗・作業どちらも、初めて利用'" :disabled="false" class="mt-2" required/>
                         <x-radio name="past_service_history" value="B)この作業は初めて利用 (店舗は過去利用した)"
-                            label="B)この作業は初めて利用 (店舗は過去利用した)" :checked="old('past_service_history', $appointment->past_service_history) === 'B)この作業は初めて利用 (店舗は過去利用した)'" :disabled="false" class="mt-2" />
+                            label="B)この作業は初めて利用 (店舗は過去利用した)" :checked="old('past_service_history', $appointment->past_service_history) === 'B)この作業は初めて利用 (店舗は過去利用した)'" :disabled="false" class="mt-2" required/>
                         <x-radio name="past_service_history" value="C)この店舗・作業とも、以前に利用している" label="C)この店舗・作業とも、以前に利用している"
-                            :checked="old('past_service_history', $appointment->past_service_history) === 'C)この店舗・作業とも、以前に利用している'" :disabled="false" class="mt-2" />
+                            :checked="old('past_service_history', $appointment->past_service_history) === 'C)この店舗・作業とも、以前に利用している'" :disabled="false" class="mt-2" required/>
                         <x-radio name="past_service_history" value="D)この作業は、弊社の別の店舗で利用した" label="D)この作業は、弊社の別の店舗で利用した"
-                            :checked="old('past_service_history', $appointment->past_service_history) === 'D)この作業は、弊社の別の店舗で利用した'" :disabled="false" class="mt-2" />
+                            :checked="old('past_service_history', $appointment->past_service_history) === 'D)この作業は、弊社の別の店舗で利用した'" :disabled="false" class="mt-2" required/>
                         <x-text.custom-input-label text="※今回ご予約いただく「店舗」ならびに、ご予約いただく「作業」（車検・点検やオイル・タイヤ交換など）に対してお聞かせ下さい。"
                             spanClass="font-normal text-xs text-gray-500 mt-1" />
                         <x-input-error :messages="$errors->get('past_service_history')" class="attention" />

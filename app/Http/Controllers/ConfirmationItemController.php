@@ -39,7 +39,7 @@ class  ConfirmationItemController extends Controller
     {
         $processData = Session::get('current_process_data');
         // userからIDを受け取る
-        $user = Auth::user();
+        $user = Auth::user() ?? null;
         //バリデーション
         $rules = [
             'user_vehicle_id' => 'required|string',
@@ -96,18 +96,19 @@ class  ConfirmationItemController extends Controller
         $userVehicle = UserVehicle::where('user_id', $user->id)->get();
         //車両情報を格納するための配列
         $vehicles = [];
-        foreach ($userVehicle as $vehicle) {
-            // 車両データが空でない場合のみ追加
-            if (!empty($vehicle->car_name) || !empty($vehicle->car_katashiki) || !empty($vehicle->car_number) || !empty($vehicle->car_class)) {
-                $vehicles[] = [
-                    'car_name' => $vehicle->car_name,
-                    'car_katashiki' => $vehicle->car_katashiki,
-                    'car_number' => $vehicle->car_number,
-                    'car_class' => getCarClass($vehicle->car_class),
-                ];
+        if ($userVehicle) {
+            foreach ($userVehicle as $vehicle) {
+                // 車両データが空でない場合のみ追加
+                if (!empty($vehicle->car_name) || !empty($vehicle->car_katashiki) || !empty($vehicle->car_number) || !empty($vehicle->car_class)) {
+                    $vehicles[] = [
+                        'car_name' => $vehicle->car_name,
+                        'car_katashiki' => $vehicle->car_katashiki,
+                        'car_number' => $vehicle->car_number,
+                        'car_class' => getCarClass($vehicle->car_class),
+                    ];
+                }
             }
         }
-
         //最終内容確認へ渡すために代入
         $finalcheck = [
             'user_vehicle_id' => $validatedData['user_vehicle_id'],
