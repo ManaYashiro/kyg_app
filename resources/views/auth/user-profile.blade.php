@@ -14,7 +14,9 @@
 <x-text.custom-text text="ログイン情報" class="mt-6 mb-2 bg-gray-text" />
 <!-- Login ID -->
 <div id="container-loginid" class="mt-4">
-    @if (\App\Enums\FormTypeEnum::USER_REGISTER->value === $formType)
+    @if (
+        \App\Enums\FormTypeEnum::USER_REGISTER->value === $formType ||
+            \App\Enums\FormTypeEnum::ADMIN_UPDATE->value === $formType)
         <x-text.custom-input-label text="ログインID" class="mb-2" option="必須" />
         <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid') ?? ($user ? $user->loginid : null)" required
             autofocus />
