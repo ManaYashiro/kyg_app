@@ -52,6 +52,7 @@ class RegisteredUserRequest extends FormRequest
                 $id = $this->route('userList');
                 $passwordRules = [
                     // loginid not needed when admin updates user data
+                    'loginid' => 'required|string|min:4|max:15|unique:users,loginid,' . $id,
                     'password' => 'nullable|string|min:4|max:20|confirmed',
                     'password_confirmation' => 'nullable|string|min:4|max:20',
                 ];
