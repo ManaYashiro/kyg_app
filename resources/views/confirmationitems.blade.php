@@ -57,7 +57,7 @@
                         <h5>
                             <x-text.custom-input-label text="車検満期日をご入力ください。" class="mb-2" option="必須"/>
                         </h5>
-                        <x-text-input id="inspection_due_date" type="text" name="inspection_due_date"
+                        <x-text-data-input id="inspection_due_date" type="text" name="inspection_due_date"
                             :value="old('inspection_due_date')"
                             class="datepicker block mt-1 w-full rounded-none" required maxlength="10" />
                         <x-text.custom-input-label text="（記入例：2022/10/30）"
@@ -97,6 +97,5 @@
     </div>
     @section('styles')
         @vite(['resources/css/confirmationitems.css'])
-        @vite(['resources/js/modules/appointments/button.js'])
     @endsection
 </x-app-layout>

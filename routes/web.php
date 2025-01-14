@@ -69,7 +69,7 @@ Route::middleware('auth', 'verified')->group(function () {
         })->name('account.termination');
     });
 
-    Route::post('/reservation/confirmation', [ConfirmationItemController::class, 'confirm'])->name('appointments.confirm'); //最終内容確認
+    Route::post('/reservation/confirmation', [ConfirmationItemController::class, 'confirm'])->name('appointments.confirm'); //最終内容確認(ログイン修正保留)
     Route::post('/reservation/entry', [ConfirmationItemController::class, 'store'])->name('confirmationItems.store'); //登録
 
     Route::get('/change-account-information', [ProfileController::class, 'edit'])->name('profile.edit');
