@@ -41,7 +41,7 @@
     @push('modals')
     @endpush
     @push('scripts')
-        @vite(['resources/js/modules/ajaxConfirm.js'])
+        @vite(['resources/js/modules/registerConfirm.js'])
         @vite(['resources/js/modules/page-navi-buttons.js'])
         @vite(['resources/js/modules/auth/register.js'])
     @endpush

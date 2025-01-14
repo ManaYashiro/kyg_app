@@ -17,7 +17,7 @@ export default defineConfig({
                 // custom
                 "resources/css/modules/calendar.css",
 
-                "resources/js/modules/ajaxConfirm.js",
+                "resources/js/modules/registerConfirm.js",
                 "resources/js/modules/base.js",
                 "resources/js/modules/datepicker.js",
                 "resources/js/modules/page-navi-buttons.js",
