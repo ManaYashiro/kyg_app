@@ -42,17 +42,22 @@ class RegisteredUserPasswordResetNotification extends Notification
         $passwordResetURL = $this->passwordResetURL();
 
         return (new MailMessage)
-            ->subject('パスワード再設定のお知らせ')
-            ->greeting($this->user->name . '様')
-            ->line('以下のボタンをクリックすると、パスワード再設定画面にリダイレクトされます。')
-            ->markdown('emails.auth.reset-password', [
-                'url' => $passwordResetURL,
-                'user' => $this->user,
-                'salutation' => '宜しくお願い致します。',
-                'actionText' => 'パスワード再設定',
-                'displayableActionUrl' => $passwordResetURL,
-                'actionUrl' => $passwordResetURL,
-            ]);
+            ->subject('パスワード再設定URLのお知らせ')
+            ->line('------------------------------')
+            ->line('このメールは配信専用のため返信できません')
+            ->line('------------------------------')
+            ->line('キムラユニティーグループ にて会員登録された方へのパスワード再設定URLのご案内です。')
+            ->line('以下のURLに2時間以内にアクセスしてパスワードの再設定を行ってください。')
+            ->action('パスワード再設定', $passwordResetURL)  // ここでURLをボタンとして表示
+            ->line(' ')
+            ->line('■■□―――！！明治14年創業！！――――□■■')
+            ->line('━－━－━－━－━－━－━－━－━－━－━－━')
+            ->line('キムラユニティー株式会社')
+            ->line('カーライフサービス　https://carlife-service.com/')
+            ->line('各店舗のお問合せ先　https://carlife-service.com/store.html')
+            ->line('----------------------------------------------------')
+            ->line('企業ホームページ　https://www.kimura-unity.co.jp/')
+            ->salutation('');  // 丁寧な挨拶の代わりにカスタムサルーテーションを使用しない
     }
 
     /**
