@@ -41,6 +41,6 @@ class ConfirmablePasswordController extends Controller
         if (Auth::user()->role == User::ADMIN) {
             return redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD);
         }
-        return redirect()->intended(AuthenticatedSessionController::USER_MYPAGE);
+        return redirect()->intended(AuthenticatedSessionController::TOP_PAGE);
     }
 }

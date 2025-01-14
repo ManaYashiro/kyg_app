@@ -17,13 +17,13 @@ class VerifyEmailController extends Controller
     {
 
         if ($request->user()->hasVerifiedEmail()) {
-            return (User::ADMIN ? redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD) : redirect()->intended(AuthenticatedSessionController::USER_MYPAGE));
+            return (User::ADMIN ? redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD) : redirect()->intended(AuthenticatedSessionController::TOP_PAGE));
         }
 
         if ($request->user()->markEmailAsVerified()) {
             event(new Verified($request->user()));
         }
 
-        return (User::ADMIN ? redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD) : redirect()->intended(AuthenticatedSessionController::USER_MYPAGE));
+        return (User::ADMIN ? redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD) : redirect()->intended(AuthenticatedSessionController::TOP_PAGE));
     }
 }

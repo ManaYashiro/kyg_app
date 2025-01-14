@@ -15,7 +15,7 @@ class AuthenticatedSessionController extends Controller
 {
 
     public const ADMIN_DASHBOARD = '/admin/dashboard';
-    public const USER_MYPAGE = '/';
+    public const TOP_PAGE = '/';
 
     /**
      * Display the login view.
@@ -46,11 +46,11 @@ class AuthenticatedSessionController extends Controller
             return redirect()->to(self::ADMIN_DASHBOARD);
         }
 
-        $intendedUrl = session()->get('url.intended', self::USER_MYPAGE);
+        $intendedUrl = session()->get('url.intended', self::TOP_PAGE);
         if ($intendedUrl === config('app.url') . self::ADMIN_DASHBOARD) {
             return redirect()->route('top');
         }
-        return redirect()->intended(self::USER_MYPAGE);
+        return redirect()->intended(self::TOP_PAGE);
     }
 
     /**
