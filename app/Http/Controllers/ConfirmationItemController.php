@@ -138,9 +138,10 @@ class  ConfirmationItemController extends Controller
             //予約
             'reservation' => [
                 'store' => $processData['store'] ?? null,
-                'taskCategory' => $processData['taskCategory'] ?? null,
-                'customerType' => $processData['customerType'] ?? null,
-                'reservationTask' => $processData['reservationTask'] ?? null,
+                'inspection_type' => $processData['inspection_type'] ?? null,
+                'customer_type' => $processData['customer_type'] ?? null,
+                'work_type' => $processData['work_type'] ?? null,
+                'reservation_task_id' => $processData['reservation_task_id'] ?? null,
                 'appointmentDateTime' => $processData['appointmentDateTime'] ?? null,
             ]
         ];
@@ -202,10 +203,10 @@ class  ConfirmationItemController extends Controller
         $appointment->reservation_datetime = $request->input('appointmentDateTime'); //予約日時
         $appointment->customer_name = $request->input('user'); //顧客名
         $appointment->store = $request->input('store'); //ご希望の店舗
-        $appointment->inspection_type = $request->input('taskCategory'); //作業カテゴリ
+        $appointment->inspection_type = $request->input('inspection_type'); //作業カテゴリ
         $appointment->work_type = $request->input('work_type'); //作業種別
-        $appointment->reservation_task_id = $reservationTaskId; //作業詳細
-        $appointment->customer_type = $request->input('customerType'); //個人/法人区分
+        $appointment->reservation_task_id = $request->input('reservation_task_id'); //作業詳細
+        $appointment->customer_type = $request->input('customer_type'); //個人/法人区分
         $appointment->user_vehicle_id = $request->input('user_vehicle_id'); //車両台数
         $appointment->additional_services = $request->input('additional_services'); //追加整備
         $appointment->inspection_due_date = $request->input('inspection_due_date'); //	車検満了日
