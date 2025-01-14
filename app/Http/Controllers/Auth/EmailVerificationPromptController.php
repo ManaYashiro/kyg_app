@@ -16,7 +16,7 @@ class EmailVerificationPromptController extends Controller
     public function __invoke(Request $request): RedirectResponse|View
     {
         return $request->user()->hasVerifiedEmail()
-            ? (User::ADMIN ? redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD) : redirect()->intended(AuthenticatedSessionController::USER_MYPAGE))
+            ? (User::ADMIN ? redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD) : redirect()->intended(AuthenticatedSessionController::TOP_PAGE))
             : view('auth.verify-email');
     }
 }
