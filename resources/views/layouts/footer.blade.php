@@ -8,8 +8,8 @@
             <span>キムラユニティーグループ</span>
         </div>
         <div class="flex font-bold space-x-4">
-            <a href="#">ご利用ガイド</a>
-            <a href="#">よくある質問</a>
+            <a href="/support/guide">ご利用ガイド</a>
+            <a href="/support/faq">よくある質問</a>
             <span>Kimura-Unity Co., Ltd.</span>
         </div>
     </div>
