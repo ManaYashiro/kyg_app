@@ -87,7 +87,7 @@
                     </div>
                     <!-- 検索 -->
                     <div class="flex justify-center items-center mt-4">
-                        <label id="reset" class="text-sm w-auto mr-10 whitespace-nowrap">検索条件をリセット</label>
+                        <label id="reset" class="text-sm w-auto mr-10 whitespace-nowrap" style="cursor: pointer;">検索条件をリセット</label>
                         <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
                             検索する
                         </button>
@@ -134,8 +134,8 @@
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_number }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_datetime }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->customer_name }}</td>
-                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->taskcategory }}</td>
-                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservationtask }}</td>
+                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->inspection_type }}</td>
+                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_task_id }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->remarks }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->status_text }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->admin_notes }}</td>
