@@ -7,6 +7,14 @@ window.hideLoading = function () {
 window.findObjectByKeyValue = function (obj, key, value) {
     return obj.find((item) => item[key].toString() === value.toString());
 };
+window.scrollToTopPage = function () {
+    $("html, body").animate(
+        {
+            scrollTop: 0,
+        },
+        500
+    );
+};
 $(document).ready(function () {
     // Scroll top function start
     $(window).scroll(function () {
@@ -14,12 +22,7 @@ $(document).ready(function () {
     });
 
     $("#pagetop").on("click", function (e) {
-        $("html, body").animate(
-            {
-                scrollTop: 0,
-            },
-            500
-        );
+        window.scrollToTopPage();
     });
 
     function doScroll() {

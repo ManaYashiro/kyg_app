@@ -6,6 +6,7 @@ window.gotoPrev = function () {
         window.currentPage--; // Go to previous page
         window.isConfirmed[window.currentPage] = false;
         updatePages();
+        window.scrollToTopPage();
     }
 };
 window.gotoNext = function () {
@@ -13,6 +14,7 @@ window.gotoNext = function () {
         if (window.currentPage < $pages.length - 1) {
             window.currentPage++; // Go to next page
             updatePages();
+            window.scrollToTopPage();
         }
     }
 };
