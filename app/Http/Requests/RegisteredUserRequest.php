@@ -72,7 +72,7 @@ class RegisteredUserRequest extends FormRequest
                     'name' => 'required|string',
                     'name_furigana' => 'required|string',
                     'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),
-                    'birthday' => 'required|date',
+                    'birthday' => 'nullable|date',
                     'email' => 'required|email|unique:users,email,' . $id,
                     'phone_number' => 'required|string|min:10',
                     'address1' => 'required|string',

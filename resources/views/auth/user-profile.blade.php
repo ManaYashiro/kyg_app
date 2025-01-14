@@ -96,9 +96,9 @@
 
 <!-- Birthday -->
 <div id="container-birthday" class="mt-4">
-    <x-text.custom-input-label text="生年月日" class="mb-2" option="必須" />
+    <x-text.custom-input-label text="生年月日" class="mb-2" option="任意" />
     <x-text-input id="birthday" type="text" name="birthday" :value="old('birthday') ?? ($user ? $user->birthday : null)"
-        class="datepicker block mt-1 w-full md:w-1/4" required />
+        class="datepicker block mt-1 w-full md:w-1/4" />
     <x-ajax-input-error id="error-birthday" class="mt-2" />
     <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
 </div>
