@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('inspection_type', 25)->comment('点検種別');
             $table->string('work_type', 10)->comment('作業種別');
             $table->string('customer_type', 10)->comment('個人/法人区分');
-            $table->integer('reservation_task_id')->comment('作業詳細');
+            $table->integer('reservation_task_id')->nullable()->comment('作業詳細');
             $table->integer('user_vehicle_id')->autoIncrement(false)->comment('車両ID');
             $table->string('additional_services', 255)->nullable()->comment('追加整備');
             $table->date('inspection_due_date')->comment('車検満了日');
