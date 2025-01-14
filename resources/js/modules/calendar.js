@@ -228,15 +228,20 @@ fontAwesomeLoaded().then(() => {
             const selectedStore =
                 document.querySelector('input[name="store"]:checked')?.value ||
                 "";
-            const selectedTaskCategory =
-                document.querySelector('input[name="taskcategory"]:checked')
+            const selectedinspection_type =
+                document.querySelector('input[name="inspection_type"]:checked')
                     ?.value || "";
-            const selectedCustomer =
-                document.querySelector('input[name="customer"]:checked')
+            const selectedcustomer_type =
+                document.querySelector('input[name="customer_type"]:checked')
                     ?.value || "";
-            const selectedReservationTask =
-                document.querySelector('input[name="reservationtask"]:checked')
+            const selectedwork_type =
+                document.querySelector('input[name="work_type"]:checked')
                     ?.value || "";
+            const selectedreservation_task_id =
+                document.querySelector(
+                    'input[name="reservation_task_id"]:checked'
+                )?.value || "";
+
             const selectedDateTime = info.event.start;
             const japanTime = moment(selectedDateTime).format(
                 "YYYY-MM-DDTHH:mm:ss.SSS[Z]"
@@ -244,9 +249,10 @@ fontAwesomeLoaded().then(() => {
 
             const formData = new FormData();
             formData.append("store", selectedStore);
-            formData.append("taskCategory", selectedTaskCategory);
-            formData.append("customerType", selectedCustomer);
-            formData.append("reservationTask", selectedReservationTask);
+            formData.append("inspection_type", selectedinspection_type);
+            formData.append("customer_type", selectedcustomer_type);
+            formData.append("work_type", selectedwork_type);
+            formData.append("reservation_task_id", selectedreservation_task_id);
             formData.append("appointmentDateTime", japanTime);
 
             $.ajax({

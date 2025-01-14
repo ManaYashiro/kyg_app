@@ -34,26 +34,26 @@
                     <!-- 作業カテゴリ -->
                     <div class="mt-4">
                         <x-text.custom-input-label text="作業カテゴリ" class="mb-2 left-border-text"/>
-                        <label>{{ $finalcheck['reservation']['taskCategory'] }}</label>
-                        <input type="hidden" name="taskCategory" value="{{ $finalcheck['reservation']['taskCategory'] }}">
+                        <label>{{ $finalcheck['reservation']['inspection_type'] }}</label>
+                        <input type="hidden" name="inspection_type" value="{{ $finalcheck['reservation']['inspection_type'] }}">
                     </div>
                     <!-- 作業種別 -->
                     <div class="mt-4">
                         <x-text.custom-input-label text="作業種別" class="mb-2 left-border-text"/>
-                        <label>{{ $finalcheck['reservation']['taskCategory'] }}</label>
-                        <input type="hidden" name="work_type" value="{{ $finalcheck['reservation']['taskCategory'] }}">
+                        <label>{{ $finalcheck['reservation']['work_type'] }}</label>
+                        <input type="hidden" name="work_type" value="{{ $finalcheck['reservation']['work_type'] }}">
                     </div>
                     <!-- 個人・法人 -->
                     <div class="mt-4">
                         <x-text.custom-input-label text="個人・法人" class="mb-2 left-border-text"/>
-                        <label>{{ $finalcheck['reservation']['customerType'] }}</label>
-                        <input type="hidden" name="customerType" value="{{ $finalcheck['reservation']['customerType'] }}">
+                        <label>{{ $finalcheck['reservation']['customer_type'] }}</label>
+                        <input type="hidden" name="customer_type" value="{{ $finalcheck['reservation']['customer_type'] }}">
                     </div>
                     <!-- 予約する作業 -->
                     <div class="mt-4">
                         <x-text.custom-input-label text="予約する作業" class="mb-2 left-border-text"/>
-                        <label>{{ $finalcheck['reservation']['reservationTask'] }}</label>
-                        <input type="hidden" name="reservationTask" value="{{ $finalcheck['reservation']['reservationTask'] }}">
+                        <label>{{ $finalcheck['reservation']['reservation_task_id'] }}</label>
+                        <input type="hidden" name="reservation_task_id" value="{{ $finalcheck['reservation']['reservation_task_id'] }}">
                     </div>
                     <div class="mt-4">
                         <x-text.custom-text text="確認事項" class="mt-6 mb-2 bg-gray-text"/>
