@@ -65,6 +65,12 @@ export default {
                     left: "85%",
                     transform: "translate(-50%, -50%)",
                 },
+                ".spmenucontents": {
+                    width: "100vw",
+                    right: "-1rem",
+                    height: "90vh",
+                    backgroundColor: "#c4221c",
+                },
             });
         },
         {},

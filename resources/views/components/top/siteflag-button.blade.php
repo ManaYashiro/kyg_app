@@ -1,14 +1,19 @@
 @props([
     'name' => '', // 店舗名
     'store_id' => 0, // 店舗ID
+    'site_flag_name' => '', // EN店舗名
     'address' => '', // 店舗住所
 ])
 
 <div class="flex gap-4 items-center justify-between {{ $store_id == 1 ? 'mt-4' : '' }}">
-    <label class="custom-radio-button">
-        <input type="radio" name="store" value="{{ $name }}" class="hidden-radio rounded-md">
-        <span class="step01-button">
-            <span class="check-icon">✓</span><span>{{ $name }}</span>
+    <label for="store-input-{{ $store_id }}" class="custom-radio-button">
+        <input type="radio" name="store" value="{{ $name }}" id="store-input-{{ $store_id }}"
+            class="hidden-radio step-radio rounded-md" data-site-name="{{ $site_flag_name }}">
+        <span class="step-button siteflag-button">
+            <span class="check-icon">
+                <img src="{{ Vite::asset('resources/img/top/button_check.png') }}" alt="チェック" class="">
+            </span>
+            <span>{{ $name }}</span>
         </span>
     </label>
     {{-- mobi --}}

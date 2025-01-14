@@ -15,7 +15,7 @@ body {
 
     position: relative;
     width: 100%;
-    background-color: #c4221c; /* 赤い背景色 */
+    background-color: var(--unnamed-color-c4221c); /* 赤い背景色 */
     color: #fff;
     overflow: hidden;
 }
@@ -28,7 +28,13 @@ body {
 
 /* チェックマークアイコンのスタイル */
 .check-icon {
-    display: none; /* 初期状態では非表示 */
+    display: block; /* 初期状態では非表示 */
+    visibility: hidden;
+    color: #e74c3c; /* チェックマークの色 (赤) */
+}
+
+/* チェックマークアイコンのスタイル */
+.check-icon:not(.input-type-check) {
     margin-right: 8px; /* テキストとの間にスペースを追加 */
     color: #e74c3c; /* チェックマークの色 (赤) */
     position: absolute; /* アイコンを絶対位置で配置 */
@@ -36,60 +42,64 @@ body {
     font-size: 18px; /* チェックマークのサイズ */
 }
 
-.step01-button {
+/* ユニークなボタンサイズ */
+.siteflag-button {
     width: 130px; /* 幅を固定 */
     height: 40px; /* 高さを変更 */
 }
 
-.step02-button {
-    width: 220px; /* 幅を固定 */
+.inspection-type-button {
+    width: 240px; /* 幅を固定 */
     height: 120px; /* 高さを変更 */
 }
 
-.step03-button {
-    width: 200px; /* 幅を固定 */
+.customer-type-button {
+    font-size: 0.95rem;
+    width: 175px; /* 幅を固定 */
     height: 45px; /* 高さを変更 */
 }
 
+.tire-storage-button {
+    width: 95px; /* 幅を固定 */
+}
+
 /* カスタムボタンのスタイル */
-.step01-button,
-.step02-button,
-.step03-button {
+.step-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     padding: 10px 20px;
     border-radius: 8px;
-    background-color: #dc2626; /* 初期背景色 (赤) */
+    background-color: #c4221c; /* 初期背景色 (赤) */
     color: white; /* 初期文字色 (白) */
     text-align: center;
     cursor: pointer;
     transition: all 0.3s ease; /* 色変更をなめらかに */
-    border: 2px solid #dc2626; /* 初期ボーダー色 (赤) */
+    border: 2px solid #c4221c; /* 初期ボーダー色 (赤) */
     position: relative; /* 相対位置に設定 */
 }
 
+.hidden-radio:disabled + .step-button {
+    @apply bg-gray-300 border border-gray-500 text-[#353535];
+}
+
 /* ホバー時のスタイル */
-.step01-button:hover,
-.step02-button:hover,
-.step03-button:hover,
+.step-button:hover,
 /* ラジオボタンが選択されたときのスタイル */
-.hidden-radio:checked + .step01-button,
-.hidden-radio:checked + .step02-button,
-.hidden-radio:checked + .step03-button {
+.hidden-radio:checked + .step-button {
     background-color: #f8e0e0; /* 選択時の背景色 (淡い赤) */
     color: #e74c3c; /* 選択時の文字色 (赤) */
     border: 2px solid #e74c3c; /* ボーダー色を赤に維持 */
 }
 
 /* 選択時にチェックマークを表示 */
-.hidden-radio:checked + .step01-button .check-icon,
-.hidden-radio:checked + .step02-button .check-icon,
-.hidden-radio:checked + .step03-button .check-icon {
-    display: inline-block; /* 選択時に表示 */
+.hidden-radio:checked + .step-border .check-icon,
+.hidden-radio:checked + .step-button .check-icon {
+    width: 1rem;
+    visibility: visible;
 }
 
-.hidden-radio:checked + .step02-button .check-icon {
+.hidden-radio:checked + .inspection-type-button .check-icon {
     position: absolute;
     top: 5%; /* 上に移動 */
     left: 8%;
@@ -97,67 +107,21 @@ body {
 }
 
 /* 選択時にアイコン画像を変更する */
-.hidden-radio + .step02-button img.inactive-icon {
+.hidden-radio + .inspection-type-button img.inactive-icon {
     display: block;
 }
-.hidden-radio + .step02-button img.active-icon {
+.hidden-radio + .inspection-type-button img.active-icon {
     display: none;
 }
-.hidden-radio:hover + .step02-button img.inactive-icon,
-.hidden-radio:checked + .step02-button img.inactive-icon {
+.hidden-radio:hover + .inspection-type-button img.inactive-icon,
+.hidden-radio:checked + .inspection-type-button img.inactive-icon {
     display: none;
 }
-.hidden-radio:hover + .step02-button img.active-icon,
-.hidden-radio:checked + .step02-button img.active-icon {
+.hidden-radio:hover + .inspection-type-button img.active-icon,
+.hidden-radio:checked + .inspection-type-button img.active-icon {
     display: block;
-}
-
-.checkbox {
-    accent-color: #f00;
 }
 
 .hidden-task {
     display: none;
-}
-
-/* デフォルトのチェックボックスを非表示にする */
-.custom-checkbox input[type="checkbox"] {
-    display: none;
-}
-
-/* カスタムチェックボックスの外観 */
-.custom-checkbox input[type="checkbox"] + span {
-    position: relative;
-    padding-left: 30px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-/* チェックボックスの枠 */
-.custom-checkbox input[type="checkbox"] + span::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 20px;
-    height: 20px;
-    border: 2px solid #ff0000;
-    background-color: #ffffff;
-}
-
-/* チェックされている場合のチェックボックスの枠 */
-.custom-checkbox input[type="checkbox"]:checked + span::before {
-    background-color: #ffffff; /* チェックされた時の背景色（青） */
-    border-color: #ff0000; /* チェックされた時のボーダー色 */
-}
-
-/* チェックされている場合に表示されるチェックマークの色 */
-.custom-checkbox input[type="checkbox"]:checked + span::after {
-    content: "\2713"; /* チェックマークの Unicode */
-    position: absolute;
-    left: 2px;
-    top: 0%;
-
-    font-size: 18px;
-    color: red; /* チェックマークの色（赤） */
 }

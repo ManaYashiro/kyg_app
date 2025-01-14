@@ -1,7 +1,7 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 w-full">
     <!-- Primary Navigation Menu -->
     <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
+        <div class="flex items-center justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
@@ -12,7 +12,7 @@
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="flex sm:items-center sm:ms-6">
 
                 {{-- navibuttons buttons --}}
                 <x-navi.navi-buttons />
@@ -35,68 +35,24 @@
                         </button>
                     </x-slot>
 
-                    {{-- PC BURGER MENU --}}
-                    <x-slot name="content">
+                    {{-- BURGER MENU CONTENT --}}
+                    <x-slot name="menucontent">
+                        <x-navi.navi-buttons :class="'flex sm:hidden p-4'" buttonColor="border bg-[#c4221c] text-white " />
                         <x-dropdown-link :href="route('categories')">
                             {{ __('作業カテゴリ一覧') }}
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('stores')">
                             {{ __('店舗介') }}
                         </x-dropdown-link>
-                        <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
                         <x-dropdown-link :href="route('guide')">
-                            <i class="fa-solid fa-info"></i> {{ __('ご利用ガイド') }}
+                            {{ __('ご利用ガイド') }}
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('faq')">
-                            <i class="fa-solid fa-question"></i> {{ __('よくある質問') }}
+                            {{ __('よくある質問') }}
                         </x-dropdown-link>
-
-                        <!-- Authentication -->
-                        {{--
-                        <form method="POST" action="{{ route('logout') }}">
-                            @csrf
-
-                            <x-dropdown-link :href="route('logout')"
-                                onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                {{ __('Log Out') }}
-                            </x-dropdown-link>
-                        </form>
-                        --}}
                     </x-slot>
                 </x-dropdown>
             </div>
-
-            <!-- Hamburger -->
-            <div class="-me-2 flex items-center sm:hidden">
-                <button @click="open = ! open"
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-customgray-200 focus:outline-none focus:bg-customgray-200 focus:text-gray-500 transition duration-150 ease-in-out">
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{ 'hidden': open, 'inline-flex': !open }" class="inline-flex"
-                            stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{ 'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round"
-                            stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
         </div>
-    </div>
-
-    {{-- SP BURGER MENU --}}
-    <div :class="{ 'block': open, 'hidden': !open }" class="hidden sm:hidden">
-        <x-dropdown-link :href="route('categories')">
-            {{ __('作業カテゴリ一覧') }}
-        </x-dropdown-link>
-        <x-dropdown-link :href="route('stores')">
-            {{ __('店舗介') }}
-        </x-dropdown-link>
-        <hr class="h-px my-4 bg-gray-200 border-0 dark:bg-gray-700" />
-        <x-dropdown-link :href="route('guide')">
-            <i class="fa-solid fa-info"></i> {{ __('ご利用ガイド') }}
-        </x-dropdown-link>
-        <x-dropdown-link :href="route('faq')">
-            <i class="fa-solid fa-question"></i> {{ __('よくある質問') }}
-        </x-dropdown-link>
     </div>
 </nav>

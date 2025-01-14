@@ -18,15 +18,19 @@
                 Ｑ1.ログインID・パスワードを忘れてしまいました。
             </span>
         </div>
-        <span class="">
+        <div class="">
             Ａ．【個人の方】<br>
             ログインページの「※パスワードの再設定はこちら」から、ご登録のメールアドレスをご入力いただきますと、ログインＩＤのご確認ならびにパスワードを再設定するメールをお送り致します。<br>
             <br>
             【リースメンテ契約の法人様】<br>
             メールにて下記情報を記載してお送りください。ご本人様の確認ができましたら、ログインIDを返信致します。<br>
             ①ご登録者のお名前　②メールアドレス　③ご登録の電話番号　④ご住所　⑤法人名<br>
-            （送信先アドレス）kuc_app@kimura-unity.com
-        </span>
+            <br>
+            <div class="break-words flex flex-col sm:flex-row">
+                <span>（送信先アドレス）</span>
+                <a href="mailto:kuc_app@kimura-unity.com" class="text-blue-700">kuc_app@kimura-unity.com</a>
+            </div>
+        </div>
 
         <div class="border border-dotted my-4"></div>
 
@@ -47,7 +51,7 @@
                 Ｑ3.受付完了などのメールが届きません。
             </span>
         </div>
-        <span class="">
+        <div class="">
             Ａ.メールが受信できない主な原因について下記の項目が挙げられます。<br>
             【受信制限の設定】<br>
             スマートフォンや携帯電話のメール設定でドメイン指定受信をされている場合は、以下のメールアドレスのドメイン受信許容の設定してください。<br>
@@ -65,7 +69,7 @@
             <br>
             【法人IDを共有している場合】<br>
             法人様でＩＤを共有されている場合、ＩＤに登録されているメールアドレスにのみ送信されます。必ずしも、ご予約者ご本人にメールが行きませんのでご了承下さい。ご予約の確認は、マイページの予約の確認から行えます。<br>
-        </span>
+        </div>
 
         <div class="border border-dotted my-4"></div>
 
@@ -77,7 +81,7 @@
         <span class="">
             Ａ.予約日の7日前なら予約サイトから手続きできます。<br>
             その場合、マイページで予約をキャンセルしていただき、再度変更したい日時でご予約下さい。<br>
-            また予約日の6日前を過ぎている場合は、お電話にて直接店舗へ変更希望日時をお伝えください。 </span>
+            また予約日の6日前を過ぎている場合は、お電話にて直接店舗へ変更希望日時をお伝えください。
         </span>
 
         <div class="border border-dotted my-4"></div>
@@ -87,11 +91,14 @@
                 Ｑ5.来店作業でなくてもWEBで予約ができますか？
             </span>
         </div>
-        <span class="">
+        <div class="">
             A.できません。<br>
             ＷＥＢ予約は個人様・法人様問わず、お車持ち込みによる作業限定でご利用いただけます。リースメンテ契約車両で引取納車をご希望の際は、恐れ入りますがお電話かメールにてご予約ください。<br>
-            （法人予約センター）<a href="kuc_app@kimura-unity.com">kuc_app@kimura-unity.com</a>
-        </span>
+            <div class="break-words flex flex-col sm:flex-row">
+                <span>（法人予約センター）</span>
+                <a href="mailto:kuc_app@kimura-unity.com" class="text-blue-700">kuc_app@kimura-unity.com</a>
+            </div>
+        </div>
 
         <div class="border border-dotted my-4"></div>
 

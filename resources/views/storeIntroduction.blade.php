@@ -42,12 +42,14 @@
             <span class="">WEBサイト</span>
         </div>
         <div class="flex flex-col">
-            <span>
-                カーライフサービス&nbsp;&nbsp;<a href="http://carlife-service.com/">http://carlife-service.com/</a>
-            </span>
-            <span>
-                コーポレートサイト&nbsp;&nbsp;<a href="http://www.kimura-unity.co.jp/">http://www.kimura-unity.co.jp/</a>
-            </span>
+            <div class="flex flex-col gap-1 sm:flex-row sm:gap-3">
+                <span>カーライフサービス</span>
+                <a href="https://www.carlife-service.com" class="text-blue-700">https://www.carlife-service.com</a>
+            </div>
+            <div class="flex flex-col gap-1 sm:flex-row sm:gap-3">
+                <span>コーポレートサイト</span>
+                <a href="https://www.kimura-unity.co.jp" class="text-blue-700">https://www.kimura-unity.co.jp</a>
+            </div>
         </div>
     </div>
 </x-app-layout>

@@ -4,8 +4,8 @@
 ])
 
 @php
-    $open = $sequence_no . '台目：開く';
-    $close = $sequence_no . '台目：閉る';
+    $open = $sequence_no . '台目： ';
+    $close = $sequence_no . '台目： ';
 @endphp
 
 {{-- car_show_{{ $sequence_no }} --}}
@@ -14,7 +14,9 @@
 <button type="button"
     x-bind:class="{
         'bg-red-400': car_show_{{ $sequence_no }},
-        'bg-red-200': !car_show_{{ $sequence_no }}
+        'bg-red-200': !car_show_{{ $sequence_no }},
+        'car_close': car_show_{{ $sequence_no }},
+        'car_open': !car_show_{{ $sequence_no }},
     }"
     class="max-w-[100px] hover:bg-red-500 text-white text-sm font-sequence_normal p-2 rounded"
     @click="

@@ -14,9 +14,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             StoreSeeder::class,
-            Task_categorySeeder::class,
-            Task_reservationSeeder::class,
             AppointmentsSeeder::class,
+            ReservationTaskSeeder::class,
         ]);
     }
 }
