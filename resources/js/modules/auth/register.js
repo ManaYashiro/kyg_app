@@ -22,7 +22,7 @@ $(document).ready(function () {
         // Trigger form validation
         if ($formUserRegister[0].checkValidity()) {
             // If the form is valid, submit via AJAX
-            ajaxConfirm(
+            registerConfirm(
                 formActionUrl,
                 formMethod,
                 formData,

@@ -40,7 +40,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $formType = FormTypeEnum::ADMIN_UPDATE->value;
+        $formType = FormTypeEnum::ADMIN_REGISTER->value;
         $submitType = SubmitTypeEnum::SUBMIT->value;
         $route = route('admin.userList.store');
         $method = "POST";

@@ -1,4 +1,4 @@
-window.ajaxConfirm = function (
+window.registerConfirm = function (
     formActionUrl,
     formMethod,
     formData,
@@ -102,6 +102,7 @@ window.confirmFormData = function (formData) {
                 .removeClass("hidden")
                 .addClass("block");
         } else if (
+            key === "person_type" ||
             key === "gender" ||
             key === "call_time" ||
             key === "is_receive_newsletter" ||

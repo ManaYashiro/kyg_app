@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string('loginid', 15)->nullable(false)->comment("ログインID");
             $table->string('customer_no', 15)->unique()->nullable(false)->comment("会員番号");
             $table->integer('person_type', 1)->nullable()->autoIncrement(false)->comment("法人／個人区分 ; １：個人ｌ２：法人");
-            $table->string('name', 100)->comment("顧客名");
-            $table->string('name_furigana', 100)->comment("フリガナ");
-            $table->string('email')->unique()->comment("メールアドレス");
+            $table->string('name', 40)->comment("顧客名");
+            $table->string('name_furigana', 40)->comment("フリガナ");
+            $table->string('email', 128)->unique()->comment("メールアドレス");
             $table->string('password')->comment("パスワード");
             $table->dateTime('email_verified_at')->useCurrent()->nullable()->comment("");
             $table->integer('zipcode', 7)->autoIncrement(false)->comment("郵便番号");
