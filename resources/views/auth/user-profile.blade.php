@@ -30,8 +30,8 @@
 <div id="container-loginid" class="mt-4">
     @if ($isRegister)
         <x-text.custom-input-label text="ログインID" class="mb-2" option="必須" />
-        <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid') ?? ($user ? $user->loginid : null)" required
-            autofocus />
+        <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid') ?? ($user ? $user->loginid : null)"
+            minlength="4" maxlength="15" required autofocus />
     @else
         <x-text.custom-input-label text="ログインID" class="mb-2" />
         <x-text.custom-input-label text="{{ $user ? $user->loginid : null }}" class="mt-1" />
@@ -46,7 +46,8 @@
 <!-- Password -->
 <div id="container-password" class="mt-4">
     <x-text.custom-input-label text="パスワード" class="mb-2" :option="$isRegister ? '必須' : '任意'" />
-    <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" :required="$isRegister" />
+    <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" minlength="4"
+        maxlength="128" :required="$isRegister" />
     @if ($isRegister)
         <x-text.custom-input-label text="※半角英数字 4～20文字で入力してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
     @endif
@@ -57,7 +58,7 @@
 <!-- Confirm Password -->
 <div id="container-password_confirmation" class="mt-4">
     <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation"
-        :required="$isRegister" />
+        minlength="4" maxlength="128" :required="$isRegister" />
     @if ($isRegister)
         <x-text.custom-input-label text="※確認のためにもう一度パスワードを入力してください。"
             spanClass="font-normal text-xs text-gray-500 mt-1" />
@@ -89,7 +90,8 @@
 <!-- Name -->
 <div id="container-name" class="mt-4">
     <x-text.custom-input-label text="顧客名" class="mb-2" option="必須" />
-    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name') ?? ($user ? $user->name : null)" required />
+    <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name') ?? ($user ? $user->name : null)"
+        maxlength="40" required />
     <x-ajax-input-error id="error-name" class="mt-2" />
     <x-input-error :messages="$errors->get('name')" class="mt-2" />
 </div>
@@ -97,8 +99,8 @@
 <!-- Name Furigana -->
 <div id="container-name_furigana" class="mt-4">
     <x-text.custom-input-label text="フリガナ" class="mb-2" option="必須" />
-    <x-text-input id="name_furigana" class="block mt-1 w-full" type="text" name="name_furigana" :value="old('name_furigana') ?? ($user ? $user->name_furigana : null)"
-        required />
+    <x-text-input id="name_furigana" class="block mt-1 w-full" type="text" name="name_furigana"
+        :value="old('name_furigana') ?? ($user ? $user->name_furigana : null)" maxlength="40" required />
     <x-ajax-input-error id="error-name_furigana" class="mt-2" />
     <x-input-error :messages="$errors->get('name_furigana')" class="mt-2" />
 </div>
@@ -134,7 +136,7 @@
 <div id="container-email" class="mt-4">
     <x-text.custom-input-label text="メールアドレス" class="mb-2" option="必須" />
     <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email') ?? ($user ? $user->email : null)"
-        required />
+        maxlength="128" required />
     @if ($isRegister)
         <x-text.custom-input-label text="PCまたは携帯のアドレスをご入力ください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
         <x-text.custom-input-label text="※1つのメールアドレスで3台のお車まで登録いただけます。4台目のお車の追加をご希望の方は、新しいメールアドレスでご登録ください。"
@@ -148,7 +150,7 @@
 <div id="container-phone_number" class="mt-4">
     <x-text.custom-input-label text="電話番号" class="mb-2" option="必須" />
     <x-text-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number') ?? ($user ? $user->phone_number : null)"
-        required />
+        minlength="10" maxlength="11" required />
     @if ($isRegister)
         <x-text.custom-input-label text="※- （ハイフン）なしで記入　11桁以内" spanClass="font-normal text-xs text-gray-500 mt-1" />
         <x-text.custom-input-label text="※自宅または携帯の番号をご入力下さい。" spanClass="font-normal text-xs text-gray-500 mt-1" />
@@ -223,7 +225,7 @@
 <div id="container-address1" class="mt-4">
     <x-text.custom-input-label text="市区町村・番地" class="mb-2" option="必須" />
     <x-text-input id="address1" class="block mt-1 w-full" type="text" name="address1" :value="old('address1') ?? ($user ? $user->address1 : null)"
-        required />
+        maxlength="128" required />
     <x-ajax-input-error id="error-address1" class="mt-2" />
     <x-input-error :messages="$errors->get('address1')" class="mt-2" />
 </div>
@@ -231,7 +233,8 @@
 <!-- Address 2 -->
 <div id="container-address2" class="mt-4">
     <x-text.custom-input-label text="建物名など" class="mb-2" option="任意" />
-    <x-text-input id="address2" class="block mt-1 w-full" type="text" name="address2" :value="old('address2') ?? ($user ? $user->address2 : null)" />
+    <x-text-input id="address2" class="block mt-1 w-full" type="text" name="address2" :value="old('address2') ?? ($user ? $user->address2 : null)"
+        maxlength="128" />
     <x-ajax-input-error id="error-address2" class="mt-2" />
     <x-input-error :messages="$errors->get('address2')" class="mt-2" />
 </div>

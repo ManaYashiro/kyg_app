@@ -8,6 +8,7 @@ use App\Enums\GenderEnum;
 use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
 use App\Enums\PersonTypeEnum;
+use App\Enums\PrefectureEnum;
 use App\Enums\SubmitTypeEnum;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -44,7 +45,7 @@ class RegisteredUserRequest extends FormRequest
                 $id = Auth::user()->id;
                 $passwordRules = [
                     'password' => 'nullable|string|min:4|max:20|confirmed',
-                    'password_confirmation' => 'nullable|string|min:4|max:20',
+                    'password_confirmation' => 'nullable|string|min:4|max:128',
                 ];
                 break;
             case FormTypeEnum::ADMIN_REGISTER->value:
@@ -52,14 +53,14 @@ class RegisteredUserRequest extends FormRequest
                 $passwordRules = [
                     'loginid' => 'required|string|min:4|max:15|unique:users,loginid,' . $id,
                     'password' => 'required|string|min:4|max:20|confirmed',
-                    'password_confirmation' => 'required|string|min:4|max:20',
+                    'password_confirmation' => 'required|string|min:4|max:128',
                 ];
                 break;
             case FormTypeEnum::ADMIN_UPDATE->value:
                 $id = $this->route('userList');
                 $passwordRules = [
                     'password' => 'nullable|string|min:4|max:20|confirmed',
-                    'password_confirmation' => 'nullable|string|min:4|max:20',
+                    'password_confirmation' => 'nullable|string|min:4|max:128',
                 ];
                 break;
 
@@ -74,17 +75,17 @@ class RegisteredUserRequest extends FormRequest
                 $passwordRules,
                 [
                     'person_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, PersonTypeEnum::cases())),
-                    'name' => 'required|string',
-                    'name_furigana' => 'required|string',
+                    'name' => 'required|string|max:40',
+                    'name_furigana' => 'required|string|max:40',
                     'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),
                     'birthday' => 'nullable|date',
-                    'email' => 'required|email|unique:users,email,' . $id,
-                    'phone_number' => 'required|string|min:10',
-                    'address1' => 'required|string',
-                    'address2' => 'nullable|string',
+                    'email' => 'required|email|max:128|unique:users,email,' . $id,
+                    'phone_number' => 'required|string|min:10|max:11',
+                    'address1' => 'required|string|max:128',
+                    'address2' => 'nullable|string|max:128',
                     'call_time' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, CallTimeEnum::cases())),
                     'zipcode' => 'required|numeric|digits:7',
-                    'prefecture' => 'required|string',
+                    'prefecture' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, PrefectureEnum::cases())),
                 ],
                 $userVehicleRules,
                 [

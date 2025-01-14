@@ -244,9 +244,9 @@
             </div>
             <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
             <div id="calendar-container">
-                <div id='calendar'></div>
-                <label>〇受付中</label>
-                <label>✖受付終了</label>
+                <div id='calendar' class="mb-2"></div>
+                <label><span class="text-[#2266dd] me-2">〇</span>受付中</label>
+                <label><span class="text-[#999999] me-2">✖</span>受付終了</label>
             </div>
         </div>
     </main>
