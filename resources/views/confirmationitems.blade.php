@@ -45,7 +45,7 @@
                         <x-input-error :messages="$errors->get('user_vehicle_id')" class="attention" />
                     </div>
 
-                    <!-- 追加装備 -->
+                    <!-- 追加整備 -->
                     <div class="mt-4">
                         <h5>
                             <x-text.custom-input-label text="【追加整備】本作業とあわせて追加作業を依頼したい場合にお選びください。" class="mb-2"
@@ -102,5 +102,6 @@
     </div>
     @section('styles')
         @vite(['resources/css/confirmationitems.css'])
+        @vite(['resources/js/modules/datepicker.js'])
     @endsection
 </x-app-layout>
