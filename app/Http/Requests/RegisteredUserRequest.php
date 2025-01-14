@@ -43,16 +43,21 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::USER_UPDATE->value:
                 $id = Auth::user()->id;
                 $passwordRules = [
-                    // loginid not needed for user update
                     'password' => 'nullable|string|min:4|max:20|confirmed',
                     'password_confirmation' => 'nullable|string|min:4|max:20',
+                ];
+                break;
+            case FormTypeEnum::ADMIN_REGISTER->value:
+                $id = $this->route('userList');
+                $passwordRules = [
+                    'loginid' => 'required|string|min:4|max:15|unique:users,loginid,' . $id,
+                    'password' => 'required|string|min:4|max:20|confirmed',
+                    'password_confirmation' => 'required|string|min:4|max:20',
                 ];
                 break;
             case FormTypeEnum::ADMIN_UPDATE->value:
                 $id = $this->route('userList');
                 $passwordRules = [
-                    // loginid not needed when admin updates user data
-                    'loginid' => 'required|string|min:4|max:15|unique:users,loginid,' . $id,
                     'password' => 'nullable|string|min:4|max:20|confirmed',
                     'password_confirmation' => 'nullable|string|min:4|max:20',
                 ];
