@@ -1,0 +1,10 @@
+.car_open::after,
+.car_close::after {
+    font-family: FontAwesome, "Font Awesome", "Font Awesome 6 Free", sans-serif !important;
+}
+.car_open::after {
+    content: "\f063";
+}
+.car_close::after {
+    content: "\f062";
+}

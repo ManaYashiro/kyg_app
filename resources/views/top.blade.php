@@ -86,126 +86,159 @@
                     </li>
                 </ul>
             </div>
+            {{-- STEP01: 店舗選択 --}}
             <div class="flex flex-col justify-start items-start gap-1 mt-7 md:flex-row md:items-center md:gap-3">
                 <x-text.custom-text text="STEP 01" id="step01"
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
                 <x-text.custom-text text="ご希望の店舗をお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
             </div>
             <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
-            @include('components.top.step01-button', [
+            @include('components.top.siteflag-button', [
                 'name' => '稲沢本店',
                 'store_id' => 1,
+                'site_flag_name' => 'inazawa',
                 'address' => '〒492-8224 愛知県稲沢市奥田大沢町3-1　9:00-19:00 水曜定休',
             ])
-            @include('components.top.step01-button', [
+            @include('components.top.siteflag-button', [
                 'name' => '名古屋北店',
                 'store_id' => 2,
+                'site_flag_name' => 'nagoyakita',
                 'address' => '〒462-0034 愛知県名古屋市北区天道町5丁目21　9:00-18:00 日・祝日定休',
             ])
-            @include('components.top.step01-button', [
+            @include('components.top.siteflag-button', [
                 'name' => '刈谷店',
                 'store_id' => 3,
+                'site_flag_name' => 'kariya',
                 'address' => '〒448-0006 愛知県刈谷市西境町治右田140　9:00-19:00 日祝日 9:00-17:00 水曜定休',
             ])
-            @include('components.top.step01-button', [
+            @include('components.top.siteflag-button', [
                 'name' => '錦店',
                 'store_id' => 4,
+                'site_flag_name' => 'nishiki',
                 'address' => '〒460-0003 愛知県名古屋市錦3-8-32　9:00-18:00 日・祝日定休',
             ])
-            @include('components.top.step01-button', [
+            @include('components.top.siteflag-button', [
                 'name' => '豊田上郷店',
                 'store_id' => 5,
+                'site_flag_name' => 'toyota_kamigo',
                 'address' => '〒470-1213 愛知県稲沢市奥田大沢町3-1　9:00-18:00 日祝日 9:00-17:00 水曜定休',
             ])
-            @include('components.top.step01-button', [
+            @include('components.top.siteflag-button', [
                 'name' => '犬山店',
                 'store_id' => 6,
+                'site_flag_name' => 'inuyama',
                 'address' => '〒484-0912 愛知県刈犬山市字舟田10　9:00-18:00 水曜定休',
             ])
 
+            {{-- STEP02: 個人・法人区分 --}}
             <div class="flex flex-col justify-start items-start gap-1 mt-7 md:flex-row md:items-center md:gap-3">
                 <x-text.custom-text text="STEP 02" id="step02"
-                    class="font-bold text-3xl text-red-600"></x-text.custom-text>
-                <x-text.custom-text text="作業カテゴリをお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
-            </div>
-            <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
-            <div id="taskCategories" class="flex flex-wrap gap-4 items-center mt-8">
-                <!-- 初期表示 -->
-                <label id="task-category-label-1" class="custom-radio-button">
-                    <input type="radio" name="taskcategory" value="" id="task-category-input-1"
-                        class="hidden-radio rounded-md">
-                    <span class="step02-button flex flex-col">
-                        <div class="flex gap-2 w-[45%] items-center justify-center btn-img-container">
-                            <img src="{{ Vite::asset('resources/img/top/inactive_maintenance.png') }}" alt="車検"
-                                class="w-[50%] inactive-icon">
-                            <img src="{{ Vite::asset('resources/img/top/active_maintenance.png') }}" alt="車検"
-                                class="w-[50%] active-icon">
-                        </div>
-                        <span class="check-icon">✓</span><span id="task-category-span-1">車検（00分開始）</span>
-                    </span>
-                </label>
-                <label id="task-category-label-2" class="custom-radio-button">
-                    <input type="radio" name="taskcategory" value="" id="task-category-input-2"
-                        class="hidden-radio rounded-md">
-                    <span class="step02-button flex flex-col">
-                        <div class="flex gap-2 w-[45%] items-center justify-center btn-img-container">
-                            <img src="{{ Vite::asset('resources/img/top/inactive_maintenance.png') }}" alt="車検"
-                                class="w-[50%] inactive-icon">
-                            <img src="{{ Vite::asset('resources/img/top/active_maintenance.png') }}" alt="車検"
-                                class="w-[50%] active-icon">
-                        </div>
-                        <span class="check-icon">✓</span><span id="task-category-span-2">車検（30分開始）</span>
-                    </span>
-                </label>
-                <label id="task-category-label-3" class="custom-radio-button">
-                    <input type="radio" name="taskcategory" value="" id="task-category-input-3"
-                        class="hidden-radio rounded-md">
-                    <span class="step02-button flex flex-col">
-                        <div class="flex gap-2 w-[45%] items-center justify-center btn-img-container">
-                            <img src="{{ Vite::asset('resources/img/top/inactive_estimate.png') }}" alt="車検"
-                                class="w-[50%] inactive-icon">
-                            <img src="{{ Vite::asset('resources/img/top/inactive_tool.png') }}" alt="車検"
-                                class="w-[50%] inactive-icon">
-                            <img src="{{ Vite::asset('resources/img/top/active_estimate.png') }}" alt="車検"
-                                class="w-[50%] active-icon">
-                            <img src="{{ Vite::asset('resources/img/top/active_tool.png') }}" alt="車検"
-                                class="w-[50%] active-icon">
-                        </div>
-                        <span class="check-icon">✓</span><span id="task-category-span-3">点検整備・見積もり</span>
-                    </span>
-                </label>
-            </div>
-            <div class="flex flex-col justify-start items-start gap-1 mt-7 md:flex-row md:items-center md:gap-3">
-                <x-text.custom-text text="STEP 03" id="step03"
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
                 <x-text.custom-text text="個人・法人をお選びください。" class="font-bold text-xl"></x-text.custom-text>
             </div>
             <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
-            <div id="customers" class="flex flex-wrap gap-4 items-center">
-                <label class="custom-radio-button">
-                    <input type="radio" name="customer" value="個人" class="hidden-radio rounded-md">
-                    <span class="step03-button">
-                        <span class="check-icon">✓</span> 個人のお客様
-                    </span>
-                </label>
-                <label class="custom-radio-button">
-                    <input type="radio" name="customer" value="法人" class="hidden-radio rounded-md">
-                    <span class="step03-button">
-                        <span class="check-icon">✓</span> 法人のお客様
-                    </span>
-                </label>
+            <div id="customerTypes" class="flex flex-wrap gap-4 items-center justify-center md:justify-start">
+                @foreach (\App\Enums\CustomerTypeEnum::cases() as $customerType)
+                    @include('components.top.customer-type-button', [
+                        'sequence_no' => $loop->index,
+                        'value' => $customerType->value,
+                    ])
+                @endforeach
             </div>
+
+            {{-- STEP03: 作業カテゴリ --}}
+            <div class="flex flex-col justify-start items-start gap-1 mt-7 md:flex-row md:items-center md:gap-3">
+                <x-text.custom-text text="STEP 03" id="step03"
+                    class="font-bold text-3xl text-red-600"></x-text.custom-text>
+                <x-text.custom-text text="作業カテゴリをお選び下さい。" class="font-bold text-xl"></x-text.custom-text>
+            </div>
+            <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
+            <div id="inspectionTypes" class="flex flex-wrap gap-4 items-center">
+                @include('components.top.inspection-type-button', [
+                    'sequence_no' => 0,
+                    'value' => '車検',
+                ])
+                @include('components.top.inspection-type-button', [
+                    'sequence_no' => 1,
+                    'value' => '点検整備・見積り・その他',
+                ])
+            </div>
+
+            {{-- STEP04: 作業種別 --}}
             <div class="flex flex-col justify-start items-start gap-1 mt-7 md:flex-row md:items-center md:gap-3">
                 <x-text.custom-text text="STEP 04" id="step04"
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
-                <x-text.custom-text text="予約する作業をお選びください。" class="font-bold text-xl"></x-text.custom-text>
+                <x-text.custom-text text="作業種別をお選びください。" class="font-bold text-xl"></x-text.custom-text>
+            </div>
+            <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
+            <div id="workTypes">
+                @foreach (\App\Enums\WorkTypeEnum::cases() as $workType)
+                    @php
+                        if (in_array($workType->value, \App\Enums\WorkTypeEnum::shakenList())) {
+                            $type = '車検';
+                        }
+                        if (in_array($workType->value, \App\Enums\WorkTypeEnum::teitenList())) {
+                            $type = '定点';
+                        }
+                    @endphp
+                    @include('components.top.work-type-radio', [
+                        'sequence_no' => $loop->index,
+                        'value' => $workType->value,
+                        'type' => $type,
+                    ])
+                @endforeach
+            </div>
+
+            {{-- STEP05: 予約する作業選択 --}}
+            <div class="flex flex-col justify-start items-start gap-1 mt-7 md:flex-row md:items-center md:gap-3">
+                <x-text.custom-text text="STEP 05" id="step05"
+                    class="font-bold text-3xl text-red-600"></x-text.custom-text>
+                <x-text.custom-text text="予約する作業選択をお選びください。" class="font-bold text-xl"></x-text.custom-text>
             </div>
             <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
             <div id="reservationTasks">
+                @foreach ($reservationTasks as $reservationTask)
+                    @include('components.top.reservation-task-radio', [
+                        'id' => $reservationTask->id,
+                        'reservation_name' => $reservationTask->reservation_name,
+                        'user_select_data' => (object) [
+                            'inspection_type' => $reservationTask->inspection_type,
+                            'work_type' => $reservationTask->work_type,
+                            'customer_type' => $reservationTask->customer_type,
+                            'has_tire_storage' => $reservationTask->has_tire_storage,
+                            'site_flag_inazawa' => $reservationTask->site_flag_inazawa,
+                            'site_flag_nagoyakita' => $reservationTask->site_flag_nagoyakita,
+                            'site_flag_kariya' => $reservationTask->site_flag_kariya,
+                            'site_flag_nishiki' => $reservationTask->site_flag_nishiki,
+                            'site_flag_toyota_kamigo' => $reservationTask->site_flag_toyota_kamigo,
+                            'site_flag_inuyama' => $reservationTask->site_flag_inuyama,
+                        ],
+                    ])
+                @endforeach
             </div>
-            @include('components.top.step04-image')
+
+            {{-- STEP06: タイヤ預かりオプション --}}
             <div class="flex flex-col justify-start items-start gap-1 mt-7 md:flex-row md:items-center md:gap-3">
-                <x-text.custom-text text="STEP 05" id="step05"
+                <x-text.custom-text text="STEP 06" id="step06"
+                    class="font-bold text-3xl text-red-600"></x-text.custom-text>
+                <x-text.custom-text text="タイヤ預かりオプションをお選びください。" class="font-bold text-xl"></x-text.custom-text>
+            </div>
+            <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
+            <div id="tireStorages" class="flex flex-wrap gap-4 items-center justify-center md:justify-start">
+                @foreach (\App\Enums\TireStorageEnum::cases() as $tireStorage)
+                    @if ($tireStorage->value != '')
+                        @include('components.top.tire-storage-button', [
+                            'sequence_no' => $loop->index,
+                            'label' => $tireStorage->getLabel(),
+                            'value' => $tireStorage->value,
+                        ])
+                    @endif
+                @endforeach
+            </div>
+
+            {{-- STEP07: 予約日時 --}}
+            <div class="flex flex-col justify-start items-start gap-1 mt-7 md:flex-row md:items-center md:gap-3">
+                <x-text.custom-text text="STEP 07" id="step07"
                     class="font-bold text-3xl text-red-600"></x-text.custom-text>
                 <x-text.custom-text text="予約する日時をお選びください。" class="font-bold text-xl"></x-text.custom-text>
             </div>

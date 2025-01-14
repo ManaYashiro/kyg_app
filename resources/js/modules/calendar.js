@@ -19,6 +19,31 @@ function fontAwesomeLoaded() {
     });
 }
 
+// STEP06: 予約日時のクリック時
+$(document).ready(function () {
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+    });
+
+    // ラジオボタンが選択された時
+    $('input[name="store"]').on("change", function () {
+        var selectedStoreValue = $(this).val();
+        $("#selectedStore").val(selectedStoreValue); // 隠しフィールドに選択された値を設定
+    });
+    // ラジオボタンが選択された時
+    $('input[name="taskcategory"]').on("change", function () {
+        var selectedcategoryValue = $(this).val();
+        $("#selectedtaskcategory").val(selectedcategoryValue); // 隠しフィールドに選択された値を設定
+    });
+    // チェックボックスが選択された時
+    $(document).on("click", 'input[name="reservation_task"]', function () {
+        var selectedreservationtaskValue = $(this).val();
+        $("#selectedreservationtask").val(selectedreservationtaskValue); // 隠しフィールドに選択された値を設定
+    });
+});
+
 fontAwesomeLoaded().then(() => {
     // カレンダーを一度だけレンダリングする
     if (window.initialLoadedIcons) {
@@ -234,9 +259,7 @@ fontAwesomeLoaded().then(() => {
                 beforeSend: function () {
                     window.showLoading();
                 },
-                complete: function () {
-                    window.hideLoading();
-                },
+                complete: function () {},
                 success: function (response) {
                     // リダイレクト
                     window.location.href =
@@ -244,7 +267,9 @@ fontAwesomeLoaded().then(() => {
                         "/reservation/entry/" +
                         response.process_id; // 遷移先URL
                 },
-                error: function (xhr, status, error) {},
+                error: function (xhr, status, error) {
+                    window.hideLoading();
+                },
             });
         },
 

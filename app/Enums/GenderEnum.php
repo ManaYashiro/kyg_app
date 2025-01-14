@@ -7,7 +7,6 @@ enum GenderEnum: int
     case Male = 1;
     case Female = 2;
 
-    // return 性別 label
     public function getLabel(): string
     {
         return match ($this) {

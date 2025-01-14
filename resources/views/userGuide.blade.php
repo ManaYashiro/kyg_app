@@ -17,7 +17,7 @@
         <div id="" class="left-border-text">
             <span class="text-red-1000">ＷＥＢ予約を初めてご利用の方へ</span>
         </div>
-        <span class="">
+        <div class="break-words">
             【個人で利用のお客様】<br>
             初めにWEB予約会員へのご登録をお願いします。<br>
             [パソコン]画面右上の「会員登録」よりお進みください。<br>
@@ -25,8 +25,9 @@
             <br>
             【リースメンテ契約の法人様】<br>
             ログインIDを弊社より発行いたしますので、下記ページよりID発行をお申込みください。<br>
-            <a href="https://www.carmanagementservice.com/syaken/">https://www.carmanagementservice.com/syaken/</a>
-        </span>
+            <a href="https://www.carmanagementservice.com/syaken/"
+                class="text-blue-700">https://www.carmanagementservice.com/syaken/</a>
+        </div>
 
         <div class="border border-dotted my-4"></div>
 
@@ -112,10 +113,11 @@
             マイページの「予約の確認」からキャンセル手続きを行ってください。<br>
             それ以降のキャンセルについては、お手数ですが店舗まで直接お電話ください。<br><br>
         </span>
-        <span>
-            （店舗連絡先）&nbsp;&nbsp;<a
-                href="https://www.carlife-service.com/store.html">https://www.carlife-service.com/store.html</a>
-        </span>
+        <div class="break-words flex flex-col sm:flex-row">
+            <span>（店舗連絡先）</span>
+            <a href="https://www.carlife-service.com/store.html"
+                class="text-blue-700">https://www.carlife-service.com/store.html</a>
+        </div>
 
         <div class="border border-dotted my-4"></div>
 

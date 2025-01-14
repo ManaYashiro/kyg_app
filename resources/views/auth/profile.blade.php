@@ -21,6 +21,7 @@
     </form>
 
     @section('styles')
+        @vite(['resources/css/modules/profile.css'])
     @endsection
     @push('modals')
     @endpush

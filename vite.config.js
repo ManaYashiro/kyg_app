@@ -33,6 +33,9 @@ export default defineConfig({
                 // - js
                 "resources/js/modules/auth/register.js",
 
+                // profile
+                "resources/css/modules/profile.css",
+
                 // appointments
                 "resources/js/modules/appointments/index.js",
                 "resources/js/modules/appointments/button.js",
@@ -48,12 +51,13 @@ export default defineConfig({
                 "resources/img/top/warning.png",
                 "resources/img/top/learn_more.png",
                 "resources/img/top/check.png",
+                "resources/img/top/button_check.png",
+                "resources/img/top/active_inspection.png",
+                "resources/img/top/inactive_inspection.png",
                 "resources/img/top/active_maintenance.png",
                 "resources/img/top/inactive_maintenance.png",
                 "resources/img/top/active_estimate.png",
                 "resources/img/top/inactive_estimate.png",
-                "resources/img/top/active_tool.png",
-                "resources/img/top/inactive_tool.png",
                 "resources/img/top/top.png",
                 "resources/img/top/top2.png", // TODO delete
                 "resources/img/top/scroll.png",

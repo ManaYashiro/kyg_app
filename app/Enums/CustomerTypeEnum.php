@@ -2,10 +2,10 @@
 
 namespace App\Enums;
 
-enum PersonTypeEnum: int
+enum CustomerTypeEnum: string
 {
-    case Private = 1;
-    case Corporate = 2;
+    case Private = "個人";
+    case Corporate = "法人";
 
     public function getLabel(): string
     {
@@ -16,7 +16,7 @@ enum PersonTypeEnum: int
     }
 
     // Get enum case by its value and return the label
-    public static function getLabelByValue(int $value): string
+    public static function getLabelByValue(string $value): string
     {
         return match ($value) {
             self::Private->value => self::Private->getLabel(),

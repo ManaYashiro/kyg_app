@@ -1,323 +1,11 @@
-$(document).ready(function () {
-    $.ajax({
-        url: "/gettaskdata",
-        method: "GET",
-        success: function (response) {
-            const taskCategoryData = response.task_category;
-            const taskReservationData = response.task_reservation;
-            //店舗
-            const storeCategories = {
-                稲沢本店: [1, 2, 3],
-                名古屋北店: [1, 4, 3],
-                刈谷店: [5, 3],
-                錦店: [5, 3],
-                豊田上郷店: [5, 3],
-                犬山店: [5, 3],
-            };
+let site_flag = null;
+let inspection_type = null;
+let work_type = null;
+let customer_type = null;
+let has_tire_storage = null;
+let reservation_task_id = null;
 
-            //作業カテゴリ
-            const taskReservation = {
-                "車検（00分開始）": [1, 2],
-                "車検（30分開始）": [4, 3],
-                "車検（30分開始）土曜のみ": [4, 3],
-                車検: [5, 6],
-            };
-
-            // 店舗ごとの作業カテゴリ点検整備・車検見積りの配列を定義
-            const storeSpecificTasks = {
-                稲沢本店: [7, 8, 10, 11, 12, 13, 15, 18, 19, 20, 21, 22, 23],
-                名古屋北店: [
-                    7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23,
-                ],
-                default: [
-                    7, 8, 10, 11, 12, 13, 14, 15, 16, 18, 19, 20, 21, 22, 23,
-                ],
-            };
-
-            const taskinfo = {
-                "★個人★車検ラビット４５（00分開始）（60分）": {
-                    name: "予約する作業情報",
-                    details: `
-                        【★個人★車検ラビット４５（00分開始）（60分）<br>
-                        お仕事や家事で忙しいアナタに！追加作業がなければ、たった45分で車検が完了します。車検は満期日の３０日前から受けられます。
-                    `,
-                },
-                "☆法人☆ご来店型クイック車検（00分開始）（60分）": {
-                    name: "予約する作業情報",
-                    details: `
-                        ☆法人☆ご来店型クイック車検（00分開始）（60分）<br>
-                        お仕事や家事で忙しいアナタに！追加作業がなければ、たった45分で車検が完了します。車検は満期日の３０日前から受けられます。
-                    `,
-                },
-                "★個人★車検ラビット４５（30分開始）（60分）": {
-                    name: "予約する作業情報",
-                    details: `
-                        【★個人★車検ラビット４５（30分開始）（60分）<br>
-                        お仕事や家事で忙しいアナタに！追加作業がなければ、たった45分で車検が完了します。車検は満期日の３０日前から受けられます。
-                    `,
-                },
-                "☆法人☆ご来店型クイック車検（30分開始）（60分）": {
-                    name: "予約する作業情報",
-                    details: `
-                        ☆法人☆ご来店型クイック車検（30分開始）（60分）<br>
-                        お仕事や家事で忙しいアナタに！追加作業がなければ、たった45分で車検が完了します。車検は満期日の３０日前から受けられます。
-                    `,
-                },
-                "★個人★車検見積り（30分）": {
-                    name: "予約する作業情報",
-                    details: `
-                        ★個人★車検見積り（30分）<br>
-                        車検の事前見積りです。車検時に必要な整備や部品交換の料金をご提示します。
-                    `,
-                },
-                "☆法人☆スケジュール点検（30分）": {
-                    name: "予約する作業情報",
-                    details: `
-                        ☆法人☆スケジュール点検（30分）<br>
-                        メンテナンス契約で定めたサイクルで行う点検です。所要時間は約30分程度です。
-                    `,
-                },
-                "★☆法人☆スケジュール点検＋タイヤ付替え（60分）": {
-                    name: "予約する作業情報",
-                    details: `
-                        ☆法人☆スケジュール点検＋タイヤ付替え（60分）<br>
-                        メンテナンス契約で定めたサイクルで行う点検と一緒にタイヤ交換を行います。所要時間は約60分程度です。
-                    `,
-                },
-                "★個人★12ヶ月点検（60分）": {
-                    name: "予約する作業情報",
-                    details: `
-                        ★個人★12ヶ月点検（60分）<br>
-                        運転者の義務として法律で定められた点検です。前回の点検（車検・1年点検）から12ヶ月後が点検の目安です。所要時間は約60分程度です。
-                    `,
-                },
-                "☆法人☆スケジュール点検＋タイヤ付替え（60分）": {
-                    name: "予約する作業情報",
-                    details: `
-                        ☆法人☆スケジュール点検＋タイヤ付替え（60分）<br>
-                        メンテナンス契約で定めたサイクルで行う点検と一緒にタイヤ交換を行います。所要時間は約60分程度です。
-                    `,
-                },
-                "☆法人☆12ヶ月点検（60分）": {
-                    name: "予約する作業情報",
-                    details: `
-                        ☆法人☆12ヶ月点検（60分）<br>
-                        運転者の義務として法律で定められた点検です。前回の点検（車検・1年点検）から12ヶ月後が点検の目安です。所要時間は約60分程度です。
-                    `,
-                },
-                "☆法人☆6ヶ月点検（60分）": {
-                    name: "予約する作業情報",
-                    details: `
-                        ☆法人☆6ヶ月点検（60分）
-                        運転者の義務として法律で定められた点検です。前回の点検（車検・1年点検）から6ヶ月後が点検の目安です。所要時間は約60分程度です。
-                    `,
-                },
-                "★個人★タイヤ付替え[ホイール付](30分)": {
-                    name: "予約する作業情報",
-                    details: `
-                        ★個人★タイヤ付替え[ホイール付](30分)<br>
-                        タイヤとホイールがセットされている状態の場合は、こちらをお選びください。
-                    `,
-                },
-                "☆法人☆タイヤ付替え[ホイール付](30分)": {
-                    name: "予約する作業情報",
-                    details: `
-                        ☆法人☆タイヤ付替え[ホイール付](30分)<br>
-                        タイヤとホイールがセットされている状態の場合は、こちらをお選びください。
-                    `,
-                },
-                "★個人★エンジンオイル交換（30分）": {
-                    name: "予約する作業情報",
-                    details: `
-                        ☆法人☆エンジンオイル交換（30分）<br>
-                        定期的なオイル交換はエンジンの調子を保ち、燃費の悪化を防ぐために重要です。3,000~5,000kmまたは半年ごとの交換をお勧めします。
-                    `,
-                },
-                "☆法人☆エンジンオイル交換（30分）": {
-                    name: "予約する作業情報",
-                    details: `
-                        ☆法人☆エンジンオイル交換（30分）<br>
-                        定期的なオイル交換はエンジンの調子を保ち、燃費の悪化を防ぐために重要です。5,000kmまたは半年ごとの交換をお勧めします。
-                    `,
-                },
-            };
-
-            // タスク予約を更新する関数
-            function updateReservationTasks(taskCategory, selectedStore) {
-                $("#reservationTasks").empty();
-
-                let taskIds;
-                if (taskCategory === "点検整備・車検見積り") {
-                    // 店舗別の配列を使用（存在しない場合はデフォルトを使用）
-                    taskIds =
-                        storeSpecificTasks[selectedStore] ||
-                        storeSpecificTasks.default;
-                } else {
-                    // その他のカテゴリは通常通り処理
-                    taskIds = taskReservation[taskCategory] || [];
-                }
-
-                taskReservationData
-                    .filter((task) => taskIds.includes(task.id))
-                    .forEach((task) => {
-                        // clone learn-more image
-                        const learn_more = $("#learn-more").clone();
-
-                        // add task-id and remove !hidden class to display element
-                        learn_more
-                            .attr("data-task-id", task.reservation_name)
-                            .removeClass("!hidden");
-                        const taskHTML = `
-                            <div class="reservation-task grid grid-cols-4 grid-rows-1 gap-4 mt-4 items-center text-xs font-bold">
-                                <!-- 初期表示 -->
-                                <label class="custom-checkbox col-span-3 flex items-center justify-start">
-                                    <input type="checkbox" name="reservationtask" value="${task.reservation_name}">
-                                    <span class="text-clip">${task.reservation_name}</span>
-                                </label>
-                                <div class="col-start-4 text-red-600 font-bold px-2 text-right inline-block">
-                                    <span class="step04-details hidden sm:inline-block border-b border-red-600 cursor-pointer"
-                                        data-task-id="${task.reservation_name}">さらに詳しく</span>
-                                </div>
-                            </div>
-                            <hr class="my-3 border-1 border-red-600">
-                        `;
-                        $("#reservationTasks").append(taskHTML);
-
-                        // insert learn_more after span (さらに詳しく)
-                        $(
-                            "#reservationTasks .reservation-task:last span.step04-details"
-                        ).after(learn_more);
-                    });
-            }
-
-            // 作業カテゴリを更新する関数
-            function updateTaskCategories(store) {
-                if (storeCategories.hasOwnProperty(store)) {
-                    const taskIds = storeCategories[store];
-                    const filteredCategories = taskCategoryData
-                        .filter((category) => taskIds.includes(category.id))
-                        .sort(
-                            (a, b) =>
-                                taskIds.indexOf(a.id) - taskIds.indexOf(b.id)
-                        );
-
-                    let categoryIndex = 0;
-                    filteredCategories.forEach((category, index) => {
-                        $("#taskCategories")
-                            .find("#task-category-label-" + (index + 1))
-                            .removeClass("hidden");
-
-                        $("#taskCategories")
-                            .find("#task-category-span-" + (index + 1))
-                            .text(`${category.category_name}`);
-
-                        $("#taskCategories")
-                            .find("#task-category-input-" + (index + 1))
-                            .val(`${category.category_name}`);
-                        categoryIndex = index + 1;
-                    });
-
-                    for (let i = categoryIndex + 1; i <= 3; i++) {
-                        $("#taskCategories")
-                            .find("#task-category-label-" + i)
-                            .addClass("hidden");
-                    }
-                }
-            }
-
-            // 初期表示
-            let currentStore = "稲沢本店";
-            updateTaskCategories(currentStore);
-
-            // 店舗選択が変更された時のイベントハンドラ
-            $('input[name="store"]').on("change", function () {
-                currentStore = $(this).val();
-                updateTaskCategories(currentStore);
-
-                // 現在選択されている作業カテゴリがあれば、それも更新
-                const selectedTaskCategory = $(
-                    'input[name="taskcategory"]:checked'
-                ).val();
-                if (selectedTaskCategory) {
-                    updateReservationTasks(selectedTaskCategory, currentStore);
-                }
-            });
-
-            // 作業カテゴリが変更された時のイベントハンドラ
-            $(document).on("change", 'input[name="taskcategory"]', function () {
-                const selectedTaskCategory = $(this).val();
-                updateReservationTasks(selectedTaskCategory, currentStore);
-            });
-
-            // 個人・法人選択の処理
-            $('input[name="customer"]').on("change", function () {
-                const selectedCustomerType = $(this).val();
-                $(
-                    '#reservationTasks .custom-checkbox input[name="reservationtask"]'
-                ).each(function () {
-                    const checkboxValue = $(this).val();
-                    const taskText = $(this)
-                        .closest("label")
-                        .find("span")
-                        .text();
-
-                    if (checkboxValue.includes(selectedCustomerType)) {
-                        $(this).closest(".flex").show();
-                        $(this).closest(".flex").next("hr").show();
-                    } else {
-                        $(this).closest(".flex").hide();
-                        $(this).closest(".flex").next("hr").hide();
-                    }
-
-                    if (taskText.includes("メンテパック")) {
-                        $(this).closest(".flex").show();
-                        $(this).closest(".flex").next("hr").show();
-                    }
-                });
-            });
-            $(document).on("click", ".step04-details", function () {
-                const taskId = $(this).data("task-id"); // 修正した data-task-id 属性を取得
-                const task = taskinfo[taskId]; // taskId で taskinfo オブジェクトを参照
-                if (task) {
-                    $("#modalTitle2").empty().text(`${task.name} `);
-                    $("#modalContent2").html(task.details);
-                    $("#reservationModal").removeClass("hidden");
-                    hideCalendar();
-                }
-            });
-
-            // モーダルを閉じる
-            $(document).on("click", "#closeModal", function () {
-                $("#reservationModal").addClass("hidden");
-                showCalendar();
-            });
-        },
-        error: function (error) {
-            console.log("データの取得に失敗しました", error);
-        },
-    });
-});
-
-$(document).ready(function () {
-    // 動的に追加されたチェックボックスにも対応するようにイベントをバインド
-    $(document).on("change", 'input[name="reservationtask"]', function () {
-        // 他のチェックボックスをすべて外す
-        $('input[name="reservationtask"]').not(this).prop("checked", false);
-    });
-});
-
-$(document).ready(function () {
-    // スクロールアイコン（#scrollbar）がクリックされたとき
-    $("#scrollbar").on("click", function () {
-        // #step01の位置にスムーズにスクロールする
-        $("html, body").animate(
-            {
-                scrollTop: $("#step01").offset().top,
-            },
-            800
-        ); // 800はスクロールの所要時間（ミリ秒）
-    });
-});
+let user_select_data = {};
 
 $(document).ready(function () {
     // 店舗情報データ
@@ -409,7 +97,216 @@ $(document).ready(function () {
         const modalId = $(this).closest("[id^=storeModal]").attr("id");
         $(`#${modalId}`).addClass("hidden");
     });
+
+    // スクロールアイコン（#scrollbar）がクリックされたとき
+    $("#scrollbar").on("click", function () {
+        // #step01の位置にスムーズにスクロールする
+        $("html, body").animate(
+            {
+                scrollTop: $("#step01").offset().top,
+            },
+            800
+        ); // 800はスクロールの所要時間（ミリ秒）
+    });
+
+    $(".step-radio").on("click", function () {
+        disableTireStorageOption(this);
+
+        let stepKey = $(this).attr("name");
+
+        switch (stepKey) {
+            case "store":
+                site_flag = "site_flag_" + $(this).data("site-name");
+                break;
+            case "inspection_type":
+                inspection_type = $(this).val();
+                break;
+            case "work_type":
+                work_type = $(this).val();
+                break;
+            case "customer_type":
+                customer_type = $(this).val();
+                break;
+            case "reservation_task_id":
+                reservation_task_id = $(this).val();
+                break;
+
+            default:
+                break;
+        }
+
+        user_select_data = {
+            site_flag,
+            inspection_type,
+            work_type,
+            customer_type,
+            reservation_task_id,
+        };
+        enableTireStorageOption();
+        showWorkType(user_select_data);
+        showReservationTasks(user_select_data);
+    });
 });
+
+function showWorkType(user_select_data) {
+    let workTypeItems = $("div.work-type-item");
+
+    workTypeItems
+        .filter(function () {
+            return filterWorkTypes(this, user_select_data);
+        })
+        .removeClass("hidden")
+        .end()
+        .filter(function () {
+            return !filterWorkTypes(this, user_select_data);
+        })
+        .addClass("hidden");
+}
+
+function showReservationTasks(user_select_data) {
+    let reservationTaskItems = $("div.reservation-task-item");
+
+    reservationTaskItems
+        .filter(function () {
+            return filterReservationTasks(this, user_select_data);
+        })
+        .removeClass("hidden")
+        .end()
+        .filter(function () {
+            return !filterReservationTasks(this, user_select_data);
+        })
+        .addClass("hidden");
+}
+
+function filterWorkTypes(elementData, user_select_data) {
+    if (
+        user_select_data.site_flag === null ||
+        user_select_data.inspection_type === null ||
+        user_select_data.customer_type === null
+    ) {
+        return false;
+    }
+    var $this = $(elementData);
+    var $type = $this.data("type");
+    if (user_select_data.inspection_type === "車検") {
+        // 車検
+        return $type === "車検";
+    } else {
+        // 点検整備・見積り・その他
+        return $type !== "車検";
+    }
+}
+
+function filterReservationTasks(elementData, user_select_data) {
+    var $this = $(elementData);
+    var $elementData = $this.data("user_select_data");
+    var site_flag = user_select_data.site_flag;
+
+    return (
+        // compare all objects
+        compareData($elementData, user_select_data) &&
+        // filter by site_flag
+        $elementData[site_flag] == "1"
+    );
+    // return isDeepEqual($elementData, user_select_data);
+}
+
+function disableTireStorageOption(element) {
+    var $this = $(element);
+    $("input[name='has_tire_storage']").each(function () {
+        $(this).prop("disabled", true);
+    });
+    if ($this.attr("name") != "reservation_task_id") {
+        $("input[name='reservation_task_id']:checked").each(function () {
+            $(this).prop("checked", false);
+        });
+    }
+}
+
+function enableTireStorageOption() {
+    var $this = $("input[name='reservation_task_id']:checked");
+    if ($this.length > 0) {
+        var reservationTaskContainer = $this.closest(".reservation-task-item");
+        var has_tire_storage =
+            reservationTaskContainer.data("user_select_data").has_tire_storage;
+        if (has_tire_storage != "") {
+            $("input[name='has_tire_storage']").each(function () {
+                $(this).prop("disabled", false);
+            });
+        }
+    }
+}
+
+function compareData(elementData, user_select_data) {
+    if (user_select_data.inspection_type === "車検") {
+        // 車検
+        return (
+            elementData.inspection_type === "車検" &&
+            elementData.work_type === user_select_data.work_type &&
+            elementData.customer_type === user_select_data.customer_type
+        );
+    } else {
+        // 点検整備・見積り・その他
+        return (
+            elementData.inspection_type !== "車検" &&
+            elementData.work_type === user_select_data.work_type &&
+            elementData.customer_type === user_select_data.customer_type
+        );
+    }
+}
+
+// only compare keys that exist on both objects and its corresponding value
+function partialEqual(elementData, user_select_data) {
+    // Get the keys of both objects
+    const keys1 = Object.keys(elementData);
+    const keys2 = Object.keys(user_select_data);
+
+    // Get the common keys between both objects
+    const commonKeys =
+        Object.keys(keys1).length >= Object.keys(keys2).length
+            ? keys1.filter((key) => keys2.includes(key))
+            : keys2.filter((key) => keys1.includes(key));
+
+    // Check if values for the common keys are the same
+    return commonKeys.every(
+        (key) => elementData[key] === user_select_data[key]
+    );
+}
+
+// two objects are deeply identical
+function isDeepEqual(elementData, user_select_data) {
+    if (elementData === user_select_data) {
+        return true; // Same reference or both are primitive values
+    }
+
+    if (
+        typeof elementData !== "object" ||
+        typeof user_select_data !== "object" ||
+        elementData === null ||
+        user_select_data === null
+    ) {
+        return false; // If one is null or not an object, they are not equal
+    }
+
+    const keys1 = Object.keys(elementData);
+    const keys2 = Object.keys(user_select_data);
+
+    if (keys1.length !== keys2.length) {
+        return false; // Different number of keys
+    }
+
+    // Check if all keys and values are equal
+    for (let key of keys1) {
+        if (
+            !keys2.includes(key) ||
+            !isDeepEqual(elementData[key], user_select_data[key])
+        ) {
+            return false; // If key is missing or values are different
+        }
+    }
+
+    return true; // All checks passed, objects are equal
+}
 
 function hideCalendar() {
     $("#calendar-container").find(".fc-view-harness").css("z-index", "0");
@@ -418,26 +315,3 @@ function hideCalendar() {
 function showCalendar() {
     $("#calendar-container").find(".fc-view-harness").css("z-index", "unset");
 }
-$(document).ready(function () {
-    $.ajaxSetup({
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-    });
-
-    // ラジオボタンが選択された時
-    $('input[name="store"]').on("change", function () {
-        var selectedStoreValue = $(this).val();
-        $("#selectedStore").val(selectedStoreValue); // 隠しフィールドに選択された値を設定
-    });
-    // ラジオボタンが選択された時
-    $('input[name="taskcategory"]').on("change", function () {
-        var selectedcategoryValue = $(this).val();
-        $("#selectedtaskcategory").val(selectedcategoryValue); // 隠しフィールドに選択された値を設定
-    });
-    // チェックボックスが選択された時
-    $(document).on("click", 'input[name="reservationtask"]', function () {
-        var selectedreservationtaskValue = $(this).val();
-        $("#selectedreservationtask").val(selectedreservationtaskValue); // 隠しフィールドに選択された値を設定
-    });
-});

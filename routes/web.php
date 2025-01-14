@@ -14,7 +14,6 @@ use App\Http\Controllers\ReservationListController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [TopController::class, 'index'])->name('top');
-Route::get('/gettaskdata', [TopController::class, 'getTaskData'])->name('gettaskdata');
 
 Route::get('/support/categories', function () {
     return view('workCategories');
