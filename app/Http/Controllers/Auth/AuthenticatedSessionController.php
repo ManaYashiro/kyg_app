@@ -15,7 +15,7 @@ class AuthenticatedSessionController extends Controller
 {
 
     public const ADMIN_DASHBOARD = '/admin/dashboard';
-    public const USER_MYPAGE = '/mypage';
+    public const USER_MYPAGE = '/';
 
     /**
      * Display the login view.

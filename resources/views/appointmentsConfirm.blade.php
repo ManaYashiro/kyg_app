@@ -1,10 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
     <div class="pt-[1.5rem] pb-[3rem]">
         <div class="bg-white overflow-hidden">
                 <div class="attention-not-done-wrapper">
@@ -232,15 +226,15 @@
                     @endif
                     <!-- 予約についてのご要望などメッセージ -->
                     <div class="box-type1 ns">
-                        <x-text.custom-text text="予約についてのご要望などメッセージがございましたらご記入ください" class="mt-6 mb-2 bg-gray-text" maxlength="500"/>
-                        {{-- 文字数仮最大500 --}}
+                        <x-text.custom-text text="予約についてのご要望などメッセージがございましたらご記入ください" class="mt-6 mb-2 bg-gray-text"/>
                     </div>
                     <textarea id='remarks' name="remarks" cols rows="7" class="w100"
-                        style="width: 809px; height: 158px;"></textarea>
+                        style="width: 809px; height: 158px;" maxlength="500"></textarea>{{-- 文字数仮最大500 --}}
                     <!-- 確定ボタン -->
                     <div class="btn-area1">
-                        <input type="button" class="ml-4 btn-type1" value="前の画面に戻る"
+                        <input type="button" id="btn" class="ml-4 btn-type1" value="前の画面に戻る"
                             onclick="window.history.back()">
+                            {{-- onclick="location.href='{{ url()->previous() }}'"> --}}
                         <input class="ml-4 btn-type2" type="submit" value="完了する">
                     </div>
                 </form>

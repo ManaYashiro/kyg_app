@@ -1,10 +1,4 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Dashboard') }}
-        </h2>
-    </x-slot>
-
     <div class="pt-[1.5rem] pb-[3rem]">
         <div class="bg-white overflow-hidden">
             <div class="pt-0 pr-6 pb-6 pl-6 text-gray-900">
@@ -45,7 +39,7 @@
                         <x-input-error :messages="$errors->get('user_vehicle_id')" class="attention" />
                     </div>
 
-                    <!-- 追加装備 -->
+                    <!-- 追加整備 -->
                     <div class="mt-4">
                         <h5>
                             <x-text.custom-input-label text="【追加整備】本作業とあわせて追加作業を依頼したい場合にお選びください。" class="mb-2"
@@ -63,8 +57,9 @@
                         <h5>
                             <x-text.custom-input-label text="車検満期日をご入力ください。" class="mb-2" option="必須"/>
                         </h5>
-                        <x-text-input id="inspection_due_date" type="text" name='inspection_due_date'
-                            :value="old('inspection_due_date')" class="datepicker block mt-1 w-full rounded-none" required maxlength="10"/>
+                        <x-text-data-input id="inspection_due_date" type="text" name="inspection_due_date"
+                            :value="old('inspection_due_date')"
+                            class="datepicker block mt-1 w-full rounded-none" required maxlength="10" />
                         <x-text.custom-input-label text="（記入例：2022/10/30）"
                             spanClass="font-normal text-xs text-gray-500 mt-1" />
                         <x-input-error :messages="$errors->get('inspection_due_date')" class="attention" />
