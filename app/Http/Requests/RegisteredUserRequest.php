@@ -10,6 +10,7 @@ use App\Enums\IsNotificationEnum;
 use App\Enums\PersonTypeEnum;
 use App\Enums\PrefectureEnum;
 use App\Enums\SubmitTypeEnum;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
@@ -78,7 +79,7 @@ class RegisteredUserRequest extends FormRequest
                     'name' => 'required|string|max:40',
                     'name_furigana' => 'required|string|max:40',
                     'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),
-                    'birthday' => 'nullable|date',
+                    'birthday' => 'nullable|date|before:' . Carbon::now()->subYears(18)->toDateString() . '|after:1924-12-31',
                     'email' => 'required|email|max:128|unique:users,email,' . $id,
                     'phone_number' => 'required|string|min:10|max:11',
                     'address1' => 'required|string|max:128',
@@ -132,6 +133,8 @@ class RegisteredUserRequest extends FormRequest
             'address2.string' => '建物名は文字列でなければなりません',
             'questionnaire.required' => '少なくとも1つの:attributeを選択',
             'questionnaire.min' => '少なくとも1:attributeを選択',
+            'birthday.before' => '生年月日は、18年以上である必要があります',
+            'birthday.after' => '生年月日は、1925年以上である必須があります',
         ];
     }
 
@@ -149,7 +152,7 @@ class RegisteredUserRequest extends FormRequest
             'gender' => '性別',
             'email' => 'メールアドレス',
             'person_type' => '法人／個人',
-            'call_time' => '電話希望時間',
+            'call_time' => '電話連絡の希望時間帯',
             'zipcode' => '郵便番号',
             'prefecture' => '都道府県',
             'address1' => '市区町村・番地',

@@ -28,7 +28,8 @@
             <br>
             <div class="break-words flex flex-col sm:flex-row">
                 <span>（送信先アドレス）</span>
-                <a href="mailto:kuc_app@kimura-unity.com" class="text-blue-700">kuc_app@kimura-unity.com</a>
+                <a href="mailto:kuc_app@kimura-unity.com" class="text-blue-700"
+                    target="_blank">kuc_app@kimura-unity.com</a>
             </div>
         </div>
 
@@ -96,7 +97,8 @@
             ＷＥＢ予約は個人様・法人様問わず、お車持ち込みによる作業限定でご利用いただけます。リースメンテ契約車両で引取納車をご希望の際は、恐れ入りますがお電話かメールにてご予約ください。<br>
             <div class="break-words flex flex-col sm:flex-row">
                 <span>（法人予約センター）</span>
-                <a href="mailto:kuc_app@kimura-unity.com" class="text-blue-700">kuc_app@kimura-unity.com</a>
+                <a href="mailto:kuc_app@kimura-unity.com" class="text-blue-700"
+                    target="_blank">kuc_app@kimura-unity.com</a>
             </div>
         </div>
 

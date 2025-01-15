@@ -1,6 +1,8 @@
 <input id="form-type" type="hidden" name="form_type" value="{{ $formType }}">
 <input id="submit-type" type="hidden" name="submit_type" value="{{ $submitType }}">
 @php
+    $isUserRegister = $formType === \App\Enums\FormTypeEnum::USER_REGISTER->value;
+
     $isRegister =
         $formType === \App\Enums\FormTypeEnum::USER_REGISTER->value ||
         $formType === \App\Enums\FormTypeEnum::ADMIN_REGISTER->value;
@@ -8,6 +10,17 @@
     $isUpdate =
         $formType === \App\Enums\FormTypeEnum::USER_UPDATE->value ||
         $formType === \App\Enums\FormTypeEnum::ADMIN_UPDATE->value;
+
+    $isUser =
+        $formType === \App\Enums\FormTypeEnum::USER_REGISTER->value ||
+        $formType === \App\Enums\FormTypeEnum::USER_UPDATE->value;
+
+    $isAdmin =
+        $formType === \App\Enums\FormTypeEnum::ADMIN_REGISTER->value ||
+        $formType === \App\Enums\FormTypeEnum::ADMIN_UPDATE->value;
+@endphp
+
+@php
 @endphp
 
 @if ($isRegister)
@@ -16,7 +29,7 @@
     <x-text.custom-text text="会員登録情報の変更" class="mb-3 bottom-border-text font-bold" />
 @endif
 <div class="mt-3 flex flex-col gap-1">
-    @if ($formType === \App\Enums\FormTypeEnum::USER_REGISTER->value)
+    @if ($isUserRegister)
         <x-text.custom-text text="各項目をご入力の上、[次へ進む] ボタンをクリックしてください。" class="text-xs" />
         <x-text.custom-text text="会員登録後、ご入力いただいたメールアドレス宛に会員登録完了の" class="text-xs" />
         <x-text.custom-text text="メールが自動配信されます。" class="text-xs" />
@@ -67,6 +80,7 @@
     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
 </div>
 
+<x-text.custom-text text="基本情報" class="mt-6 mb-2 bg-gray-text" />
 <!-- Person Type -->
 {{-- $user->person_type->value since User Model `casts` person_type is using ENUM --}}
 <div id="container-person_type" class="mt-4">
@@ -77,7 +91,7 @@
                 <x-text-input id="person_type-{{ $person_type->value }}" type="radio" name="person_type"
                     :value="$person_type->value" :checked="(old('person_type') ??
                         ($user && isset($user->person_type) ? $user->person_type->value : null)) ==
-                        $person_type->value" />
+                        $person_type->value" required />
                 <x-input-label for="person_type-{{ $person_type->value }}" :value="__($person_type->getLabel())" />
             </div>
         @endforeach
@@ -86,7 +100,6 @@
     <x-input-error :messages="$errors->get('person_type')" class="mt-2" />
 </div>
 
-<x-text.custom-text text="基本情報" class="mt-6 mb-2 bg-gray-text" />
 <!-- Name -->
 <div id="container-name" class="mt-4">
     <x-text.custom-input-label text="顧客名" class="mb-2" option="必須" />
@@ -150,7 +163,7 @@
 <div id="container-phone_number" class="mt-4">
     <x-text.custom-input-label text="電話番号" class="mb-2" option="必須" />
     <x-text-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number') ?? ($user ? $user->phone_number : null)"
-        minlength="10" maxlength="11" required />
+        minlength="11" maxlength="11" required />
     @if ($isRegister)
         <x-text.custom-input-label text="※- （ハイフン）なしで記入　11桁以内" spanClass="font-normal text-xs text-gray-500 mt-1" />
         <x-text.custom-input-label text="※自宅または携帯の番号をご入力下さい。" spanClass="font-normal text-xs text-gray-500 mt-1" />
@@ -161,12 +174,12 @@
 
 <!-- Preferred Time -->
 <div id="container-call_time" class="mt-4">
-    <x-text.custom-input-label text="電話希望時間" class="mb-2" option="必須" />
+    <x-text.custom-input-label text="電話連絡の希望時間帯" class="mb-2" option="必須" />
     @foreach (\App\Enums\CallTimeEnum::cases() as $callTime)
         <div class="mt-4 flex items-center gap-3 mb-3">
             <x-text-input id="contact-time-{{ $callTime->value }}" type="radio" name="call_time" :value="$callTime->value"
                 :checked="(old('call_time') ?? ($user && isset($user->call_time) ? $user->call_time->value : null)) ===
-                    $callTime->value" />
+                    $callTime->value" required />
             <x-input-label for="contact-time-{{ $callTime->value }}" :value="__($callTime->getLabel())" />
         </div>
     @endforeach
@@ -205,7 +218,7 @@
 @endphp
 <div id="container-prefecture" class="mt-4">
     <x-text.custom-input-label text="都道府県" class="mb-2" option="必須" />
-    <select name="prefecture" id="prefecture" name="prefecture" class="block mt-1 w-full md:w-1/4">
+    <select name="prefecture" id="prefecture" name="prefecture" class="block mt-1 w-full md:w-1/4" required>
         <option value="">都道府県を選択</option>
         @foreach (\App\Enums\PrefectureEnum::getRegions() as $region => $prefectures)
             <optgroup label="{{ $region }}">
@@ -259,6 +272,8 @@
         }" x-init="$nextTick(() => setTimeout(() =>
             height = $refs.containerCarShow_{{ $sequence_no }}.scrollHeight, 100))">
             @include('auth.car-profile', [
+                'isRegister' => $isRegister,
+                'isUpdate' => $isUpdate,
                 'sequence_no' => $sequence_no,
                 'userVehicle' => $userVehicles[$i] ?? null,
             ])
@@ -287,7 +302,7 @@
 
 <!-- How did you hear -->
 <div id="container-questionnaire" class="mt-4">
-    <x-text.custom-input-label text="【アンケート】弊社の車検を何でお知りになりましたか（複数回答3つまで）" class="mb-2" option="必須" />
+    <x-text.custom-input-label text="[アンケート]弊社の車検を何でお知りになりましたか？(複数回答3つまで)" class="mb-2" option="必須" />
     @foreach (\App\Enums\QuestionnaireEnum::cases() as $question)
         <div class="mt-4 flex items-center gap-3 mb-3">
             {{-- 例： question-1 --}}
@@ -319,6 +334,10 @@
 <div id="container-department" class="mt-4">
     <x-text.custom-input-label text="部署名／支店名" class="mb-2" option="任意" />
     <x-text-input id="department" class="block mt-1 w-full" type="text" name="department" :value="old('department') ?? ($user ? $user->department : null)" />
+    @if ($isRegister)
+        <x-text.custom-input-label text="リースメンテナンス契約のある法人様のみご入力ください。"
+            spanClass="font-normal text-xs text-gray-500 mt-1" />
+    @endif
     <x-ajax-input-error id="error-department" class="mt-2" />
     <x-input-error :messages="$errors->get('department')" class="mt-2" />
 </div>
@@ -333,7 +352,7 @@
                 <x-text-input id="is_receive_notification-{{ $notificationOption->value }}" type="radio"
                     name="is_receive_notification" :value="$notificationOption->value" :checked="(old('is_receive_notification') ?? $user && isset($user->is_receive_notification)
                         ? $user->is_receive_notification->value
-                        : null) === $notificationOption->value" />
+                        : null) === $notificationOption->value" required />
                 <x-input-label for="is_receive_notification-{{ $notificationOption->value }}" :value="__($notificationOption->getLabel())" />
             </div>
         @endforeach
@@ -342,7 +361,7 @@
     <x-input-error :messages="$errors->get('is_receive_notification')" class="mt-2" />
 </div>
 
-@if ($formType === \App\Enums\FormTypeEnum::ADMIN_UPDATE->value)
+@if ($isAdmin)
     <!-- Admin Remarks -->
     <div id="container-remarks" class="mt-4">
         <x-text.custom-input-label text="管理用備考" class="mb-2" />

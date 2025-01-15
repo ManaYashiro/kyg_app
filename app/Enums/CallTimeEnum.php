@@ -11,7 +11,7 @@ enum CallTimeEnum: string
     case E_17_19 = '17-19';
     case F_NASHI = 'no_preference';
 
-    // return 電話希望時間 label
+    // return 電話連絡の希望時間帯 label
     public function getLabel(): string
     {
         return match ($this) {

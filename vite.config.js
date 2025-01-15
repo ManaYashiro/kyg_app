@@ -38,7 +38,7 @@ export default defineConfig({
 
                 // appointments
                 "resources/js/modules/appointments/index.js",
-                "resources/js/modules/appointments/button.js",
+                "resources/js/modules/appointments/admin-form.js",
 
                 // images
                 // - main
@@ -69,6 +69,7 @@ export default defineConfig({
                 "resources/img/top/imuyama.jpg",
                 // - top calendar
                 "resources/img/modules/calendar/calendar-none.gif",
+                "resources/css/confirmationitems.css",
             ],
             refresh: true,
         }),
