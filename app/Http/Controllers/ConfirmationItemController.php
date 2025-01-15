@@ -8,6 +8,7 @@ use App\Models\UserVehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
+use App\Models\ReservationTask;
 use Illuminate\Support\Str;
 
 class  ConfirmationItemController extends Controller
@@ -38,8 +39,10 @@ class  ConfirmationItemController extends Controller
     public function confirm(Request $request)
     {
         $processData = Session::get('current_process_data');
+
         // userからIDを受け取る
         $user = Auth::user() ?? null;
+
         //バリデーション
         $rules = [
             'user_vehicle_id' => 'required|string',
@@ -109,6 +112,11 @@ class  ConfirmationItemController extends Controller
                 }
             }
         }
+
+        //reservation_task_idから主キーを取得
+        $reservationtask = ReservationTask::find($processData['reservation_task_id']);
+        $reservation_name = $reservationtask ? $reservationtask->reservation_name : null;
+
         //最終内容確認へ渡すために代入
         $finalcheck = [
             'user_vehicle_id' => $validatedData['user_vehicle_id'],
@@ -142,6 +150,7 @@ class  ConfirmationItemController extends Controller
                 'customer_type' => $processData['customer_type'] ?? null,
                 'work_type' => $processData['work_type'] ?? null,
                 'reservation_task_id' => $processData['reservation_task_id'] ?? null,
+                'reservation_name' => $reservation_name,
                 'appointmentDateTime' => $processData['appointmentDateTime'] ?? null,
             ]
         ];
@@ -158,43 +167,8 @@ class  ConfirmationItemController extends Controller
 
     public function store(Request $request)
     {
-        //仮消す予定
-        function getReservationTaskId($taskName)
-        {
-            $taskMapping = [
-                '★個人★車検ラビット４５（00分開始）（60分）' => 1,
-                '☆法人☆ご来店型クイック車検（00分開始）（60分）' => 2,
-                '★個人★車検ラビット４５（30分開始）（60分）' => 3,
-                '☆法人☆ご来店型クイック車検（30分開始）（60分）' => 4,
-                '★個人★車検ラビット４５（60分）' => 5,
-                '☆法人☆ご来店型クイック車検（60分）' => 6,
-                '★個人★車検見積り（30分）' => 7,
-                '☆法人☆スケジュール点検（30分）' => 8,
-                '☆法人☆ユニカー点検（30分）' => 9,
-                '☆法人☆スケジュール点検＋タイヤ付替え（60分）' => 10,
-                '★個人★12ヶ月点検（60分）' => 11,
-                '☆法人☆12ヶ月点検（60分）' => 12,
-                '☆法人☆6ヶ月点検（60分）' => 13,
-                '★個人★タイヤ付替え[ホイール付](30分)' => 14,
-                '★法人★タイヤ付替え[ホイール付](30分)' => 15,
-                '★個人★タイヤ付替え[タイヤのみ](60分)' => 16,
-                '★個人★エンジンオイル交換（30分）' => 17,
-                '☆法人☆エンジンオイル交換（30分）' => 18,
-                'メンテパック6ヶ月点検（30分）' => 19,
-                'メンテパック12ヶ月点検（60分）' => 20,
-                'メンテパック18ヶ月点検（30分）' => 21,
-                'メンテパック24ヶ月点検（60分）' => 22,
-                'メンテパック30ヶ月点検（30分）' => 23,
-            ];
-
-            return $taskMapping[$taskName] ?? null;
-        }
-
         // 新しい予約番号を受け取る
         $appointmentNumber = $request->input('appointmentNumber');
-
-        // 作業詳細の文字列をIDに変換
-        $reservationTaskId = getReservationTaskId($request->input('reservationTask'));
 
         // 新しい予約を保存
         $appointment = new Appointments();
