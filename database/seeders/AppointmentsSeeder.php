@@ -81,7 +81,7 @@ class AppointmentsSeeder extends Seeder
                         'タイヤ交換',
                     ];
                     $randomwork_type = $work_type[array_rand($work_type)];
-                    $customer_type = ['車検', '定点'];
+                    $customer_type = ['個人', '法人'];
                     $randomcustomer_type = $customer_type[array_rand($customer_type)];
                     $reservation_task_id = range(1, 25);
                     $randomreservation_task_id = $reservation_task_id[array_rand($reservation_task_id)];

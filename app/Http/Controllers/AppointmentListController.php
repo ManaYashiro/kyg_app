@@ -99,7 +99,7 @@ class  AppointmentListController extends Controller
         ];
         // バリデーションエラーメッセージ
         $errorMessages = [
-            'inspection_due_date' => '車検満期日をご入力ください。',
+            'inspection_due_date' => '車検満了日は、正しい日付ではありません。',
         ];
 
         // バリデーションの実行

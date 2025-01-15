@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Appointments;
+use App\Models\ReservationTask;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Response;
 
@@ -14,9 +15,8 @@ class ReservationListController extends Controller
         $query = Appointments::query()
             //対応するIDを結合して、名前を取得
             ->join('users', 'appointments.user_id', '=', 'users.id')
-            ->select(
-                'appointments.*',
-            );
+            ->join('reservation_tasks', 'appointments.reservation_task_id', '=', 'reservation_tasks.id')
+            ->select('appointments.*', 'reservation_tasks.reservation_name as reservation_name');
 
         //キーワード
         if ($request->has('name') && $request->name != '') {
@@ -48,7 +48,7 @@ class ReservationListController extends Controller
         }
 
         // 絞り込んだユーザーを10件ずつページネートして取得
-        $reservationlists = $query->paginate(10); // ページごとに10件表示
+        $reservationlists = $query->paginate(100); // ページごとに100件表示
 
         //ビューに車検予約情報を渡す
         return view('admin.reservationList.reservationList', compact('reservationlists'));

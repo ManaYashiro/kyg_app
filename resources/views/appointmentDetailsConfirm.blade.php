@@ -94,7 +94,7 @@
             <div class="mt-4">
                 <h5>
                     <x-text.custom-input-label text="車検満期日をご入力ください。" class="mb-2"/>
-                    <x-data-display :value="$appointment['inspection_due_date']" />
+                    <x-data-display :value="\Carbon\Carbon::parse($appointment['inspection_due_date'])->format('Y/m/d')" />
                     <input type="hidden" name="inspection_due_date" value="{{ $appointment['inspection_due_date'] }}" />
                 </h5>
             </div>
@@ -107,7 +107,7 @@
                     <input type="hidden" name="past_service_history" value="{{ $appointment['past_service_history'] }}" />
                 </h5>
             </div>
-            <div class="flex flex-row items-center justify-center gap-4 mt-8">
+            <div class="flex flex-row items-center justify-center gap-14 mt-8">
                 <div class="w-1/3">
                     <button id="button-prev" class="bg-gray-200 text-black rounded w-full px-4 py-4" type="button" onclick="window.history.back()">
                         前の画面に戻る
