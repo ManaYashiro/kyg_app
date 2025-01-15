@@ -24,8 +24,8 @@
                         <!-- グループ内に現在の日時以降の予約があれば表示 -->
                         <thead class="sticky top-0 z-10">
                             <tr>
-                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">予約番号</th>
-                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 15%;">予約日時</th>
+                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 8%;">予約番号</th>
+                                <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">予約日時</th>
                                 <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">希望店舗</th>
                                 <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">作業カテゴリ</th>
                                 <th class="px-4 py-2 text-left bg-gray-200" style="width: 10%;">作業種別</th>
@@ -44,7 +44,7 @@
 
                                 {{-- 予約日時: 予約日時を表示 --}}
                                 <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                    {{ $appointment->reservation_datetime }}
+                                    {{ \Carbon\Carbon::parse($appointment->reservation_datetime)->format('Y/m/d H:i:s') }}
                                 </td>
 
                                 {{-- 希望店舗 --}}
@@ -69,7 +69,7 @@
 
                                 {{-- 予約する作業 --}}
                                 <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                    {{ $appointment->reservation_task_name }}
+                                    {{ $appointment->reservation_name }}
                                 </td>
                             </tr>
                         @endforeach
@@ -102,8 +102,8 @@
                 <!-- ヘッダー部分 -->
                 <thead class="bg-gray-200 sticky top-0 z-10">
                     <tr>
-                        <th class="px-4 py-2 text-left" style="width: 10%;">予約番号</th>
-                        <th class="px-4 py-2 text-left" style="width: 15%;">予約日時</th>
+                        <th class="px-4 py-2 text-left" style="width: 8%;">予約番号</th>
+                        <th class="px-4 py-2 text-left" style="width: 10%;">予約日時</th>
                         <th class="px-4 py-2 text-left" style="width: 10%;">希望店舗</th>
                         <th class="px-4 py-2 text-left" style="width: 10%;">作業カテゴリ</th>
                         <th class="px-4 py-2 text-left" style="width: 10%;">作業種別</th>
@@ -123,7 +123,7 @@
 
                             <!-- 予約日時 -->
                             <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                {{ \Carbon\Carbon::parse($appointment->reservation_datetime)->format('Y-m-d H:i') }}
+                                {{ \Carbon\Carbon::parse($appointment->reservation_datetime)->format('Y/m/d H:i:s') }}
                             </td>
 
                             <!-- 希望店舗 -->
@@ -148,7 +148,7 @@
 
                             <!-- 予約する作業 -->
                             <td class="border px-4 py-2" style="font-size: 0.75rem;">
-                                {{ $appointment->reservation_task_name }}
+                                {{ $appointment->reservation_name }}
                             </td>
                         </tr>
                     @endforeach
