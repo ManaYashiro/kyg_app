@@ -1,6 +1,6 @@
 <?php
 
-use App\Models\User;
+use App\Enums\UserRoleEnum;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -14,7 +14,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id()->comment("一意の識別子（主キー）");
-            $table->string('role', 10)->default(User::USER)->comment("権限");
+            $table->string('role', 10)->default(UserRoleEnum::User->value)->comment("権限");
             $table->string('loginid', 15)->nullable(false)->comment("ログインID");
             $table->string('customer_no', 15)->unique()->nullable(false)->comment("会員番号");
             $table->integer('person_type', 1)->nullable()->autoIncrement(false)->comment("法人／個人区分 ; １：個人ｌ２：法人");

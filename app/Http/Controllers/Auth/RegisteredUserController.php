@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Enums\FormTypeEnum;
 use App\Enums\SubmitTypeEnum;
+use App\Enums\UserRoleEnum;
 use App\Helpers\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisteredUserRequest;
@@ -68,7 +69,7 @@ class RegisteredUserController extends Controller
 
         // 管理者がユーザーを登録
         if (Auth::check()) {
-            if (Auth::user()->role === User::ADMIN) {
+            if (Auth::user()->role === UserRoleEnum::Admin->value) {
                 return redirect()->route('admin.userList.index')->with('success', 'ユーザーを作成しました');
             }
         }

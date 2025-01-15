@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\UserRoleEnum;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -38,7 +39,7 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
-        if (Auth::user()->role == User::ADMIN) {
+        if (Auth::user()->role == UserRoleEnum::Admin->value) {
             return redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD);
         }
         return redirect()->intended(AuthenticatedSessionController::TOP_PAGE);

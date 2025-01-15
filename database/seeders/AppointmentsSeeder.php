@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\UserRoleEnum;
 use App\Models\Appointments;
 use App\Models\User;
 use Carbon\Carbon;
@@ -86,7 +87,7 @@ class AppointmentsSeeder extends Seeder
                     $reservation_task_id = range(1, 25);
                     $randomreservation_task_id = $reservation_task_id[array_rand($reservation_task_id)];
 
-                    $user = User::where('role', '!=', User::ADMIN)->inRandomOrder()->first();
+                    $user = User::where('role', '!=', UserRoleEnum::Admin->value)->inRandomOrder()->first();
 
                     Appointments::factory()->create([
                         'user_id' => $user->id,

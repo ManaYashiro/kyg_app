@@ -10,6 +10,7 @@ use App\Enums\IsNotificationEnum;
 use App\Enums\PersonTypeEnum;
 use App\Enums\PrefectureEnum;
 use App\Enums\SubmitTypeEnum;
+use App\Enums\UserRoleEnum;
 use App\Models\User;
 use App\Rules\HalfWidthString;
 use Carbon\Carbon;
@@ -54,7 +55,7 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::ADMIN_REGISTER->value:
                 $id = $this->route('userList');
                 $passwordRules = [
-                    'role' => 'required|in:' . implode(',', [User::ADMIN, User::USER]),
+                    'role' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, UserRoleEnum::cases())),
                     'loginid' => ['required', 'string', 'min:4', 'max:15', 'unique:users,loginid,' . $id, new HalfWidthString],
                     'password' => ['required', 'string', 'min:4', 'max:128', 'confirmed', new HalfWidthString],
                     'password_confirmation' => ['required', 'string', 'min:4', 'max:128', new HalfWidthString],
@@ -63,14 +64,10 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::ADMIN_UPDATE->value:
                 $id = $this->route('userList');
                 $passwordRules = [
-                    'role' => 'required|in:' . implode(',', [User::ADMIN, User::USER]),
+                    'role' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, UserRoleEnum::cases())),
                     'password' => ['nullable', 'string', 'min:4', 'max:128', 'confirmed', new HalfWidthString],
                     'password_confirmation' => ['nullable', 'string', 'min:4', 'max:128', new HalfWidthString],
                 ];
-                break;
-
-            default:
-                # code...
                 break;
         }
         $userVehicleRequest = new UserVehicleRequest();

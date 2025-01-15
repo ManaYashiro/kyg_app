@@ -184,7 +184,7 @@
                             <td class="border px-4 py-2 text-xs">
                                 <input type="checkbox" class="user-checkbox" data-id="{{ $user->id }}">
                             </td>
-                            <td class="border px-4 py-2 text-xs">{{ $user->role }}</td>
+                            <td class="border px-4 py-2 text-xs">{{ $user->role->value }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $user->customer_no }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $user->loginid }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $user->name }}</td>

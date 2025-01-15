@@ -2,7 +2,7 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\User;
+use App\Enums\UserRoleEnum;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,7 +17,7 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role == User::USER) {
+        if (Auth::check() && Auth::user()->role == UserRoleEnum::User->value) {
             return $next($request);
         }
         return redirect()->route('admin.dashboard');
