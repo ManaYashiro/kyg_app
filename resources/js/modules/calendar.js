@@ -21,25 +21,26 @@ function fontAwesomeLoaded() {
 
 // STEP06: 予約日時のクリック時
 $(document).ready(function () {
-    // 郵便番号がエラー発生ので、コメントします。
-    // $.ajaxSetup({
-    //     headers: {},
-    // });
-
     // ラジオボタンが選択された時
     $('input[name="store"]').on("change", function () {
         var selectedStoreValue = $(this).val();
         $("#selectedStore").val(selectedStoreValue); // 隠しフィールドに選択された値を設定
     });
     // ラジオボタンが選択された時
-    $('input[name="taskcategory"]').on("change", function () {
+    $('input[name="inspection_type"]').on("change", function () {
         var selectedcategoryValue = $(this).val();
-        $("#selectedtaskcategory").val(selectedcategoryValue); // 隠しフィールドに選択された値を設定
+        $("#selectedinspection_type").val(selectedcategoryValue); // 隠しフィールドに選択された値を設定
     });
     // チェックボックスが選択された時
-    $(document).on("click", 'input[name="reservation_task"]', function () {
+    $(document).on("click", 'input[name="reservation_task_id"]', function () {
         var selectedreservationtaskValue = $(this).val();
-        $("#selectedreservationtask").val(selectedreservationtaskValue); // 隠しフィールドに選択された値を設定
+        $("#selectedreservation_task_id").val(selectedreservationtaskValue); // 隠しフィールドに選択された値を設定
+    });
+
+    // ラジオボタンが選択された時
+    $('input[name="work_type"]').on("change", function () {
+        var selectedwork_typeValue = $(this).val();
+        $("#selectedwork_type").val(selectedwork_typeValue); // 隠しフィールドに選択された値を設定
     });
 });
 
@@ -261,6 +262,11 @@ fontAwesomeLoaded().then(() => {
                 data: formData,
                 processData: false,
                 contentType: false,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
                 beforeSend: function () {
                     window.showLoading();
                 },

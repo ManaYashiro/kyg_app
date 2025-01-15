@@ -52,7 +52,7 @@
                     <!-- 予約する作業 -->
                     <div class="mt-4">
                         <x-text.custom-input-label text="予約する作業" class="mb-2 left-border-text"/>
-                        <label>{{ $finalcheck['reservation']['reservation_task_id'] }}</label>
+                        <label>{{ $finalcheck['reservation']['reservation_name'] }}</label>
                         <input type="hidden" name="reservation_task_id" value="{{ $finalcheck['reservation']['reservation_task_id'] }}">
                     </div>
                     <div class="mt-4">
