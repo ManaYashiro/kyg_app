@@ -49,6 +49,7 @@ $(function () {
         isRTL: false,
         showMonthAfterYear: true,
         yearSuffix: "年",
+        minDate: new Date("1925/01/01"),
     };
     $.datepicker.setDefaults($.datepicker.regional["ja"]);
     $(".datepicker").datepicker($.datepicker.regional["ja"]);

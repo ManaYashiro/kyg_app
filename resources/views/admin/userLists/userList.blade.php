@@ -130,7 +130,9 @@
                     </div>
 
                     <!-- Submit Button -->
-                    <div class="flex justify-center mt-4">
+                    <div class="flex items-center justify-center mt-4">
+                        <label id="reset"
+                            class="text-sm w-auto mr-10 whitespace-nowrap cursor-pointer">検索条件をリセット</label>
                         <button type="submit"
                             class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">検索する</button>
                     </div>
@@ -194,4 +196,9 @@
             </table>
         </div>
     </div>
+    @section('styles')
+    @endsection
+    @push('scripts')
+        @vite(['resources/js/modules/appointments/admin-form.js'])
+    @endpush
 </x-admin-app-layout>

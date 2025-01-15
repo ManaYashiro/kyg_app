@@ -18,14 +18,6 @@ $(document).ready(function () {
     });
 
     $("#reset").on("click", function () {
-        // フォームのすべての入力をリセット
-        $("input[type='text'], input[type='date'], select").val("");
-
-        // チェックボックスやラジオボタンの状態をリセット
-        $("input[type='checkbox']").prop("checked", false);
-        $("input[type='radio']").prop("checked", false);
-
-        // URLパラメータをリセットするためにページをリダイレクト
         window.location.href = window.location.pathname;
     });
 });

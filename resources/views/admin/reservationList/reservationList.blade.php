@@ -24,8 +24,7 @@
                                 <label for="name" class="text-sm w-24">キーワード</label>
                                 <input type="text" name="name" id="name"
                                     placeholder="作業カテゴリ、予約する作業、予約番号、お名前(カナ)、管理メモを入力"
-                                    class="flex-1 border border-gray-300 p-1 text-sm"
-                                    value="{{ request('name') }}">
+                                    class="flex-1 border border-gray-300 p-1 text-sm" value="{{ request('name') }}">
                             </div>
                         </div>
 
@@ -73,12 +72,12 @@
                                 <div class="flex items-center gap-4">
                                     <div class="flex items-center gap-1">
                                         <input type="radio" id="date_new" name="date_order" value="new"
-                                                    {{ request()->get('date_order') === 'new' ? 'checked' : '' }}>
+                                            {{ request()->get('date_order') === 'new' ? 'checked' : '' }}>
                                         <label for="date_new" class="text-sm">新しい順</label>
                                     </div>
                                     <div class="flex items-center gap-1">
                                         <input type="radio" id="date_old" name="date_order" value="old"
-                                                     {{ request()->get('date_order') === 'old' ? 'checked' : '' }}>
+                                            {{ request()->get('date_order') === 'old' ? 'checked' : '' }}>
                                         <label for="date_old" class="text-sm">古い順</label>
                                     </div>
                                 </div>
@@ -86,11 +85,11 @@
                         </div>
                     </div>
                     <!-- 検索 -->
-                    <div class="flex justify-center items-center mt-4">
-                        <label id="reset" class="text-sm w-auto mr-10 whitespace-nowrap" style="cursor: pointer;">検索条件をリセット</label>
-                        <button type="submit" class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">
-                            検索する
-                        </button>
+                    <div class="flex items-center justify-center mt-4">
+                        <label id="reset"
+                            class="text-sm w-auto mr-10 whitespace-nowrap cursor-pointer">検索条件をリセット</label>
+                        <button type="submit"
+                            class="px-6 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">検索する</button>
                     </div>
                 </form>
             </div>
@@ -98,12 +97,13 @@
                 class="my-3 pb-2 border border-t-0 border-l-0 border-r-0 border-b-gray-400 flex justify-between items-center">
                 <span class="font-bold">予約一覧</span>
                 <div class="flex gap-2 justify-center items-center w-[250px]">
-                    <x-buttons.actionbutton id="download-csv-btn" name="CSVでダウンロード" type="button" class="text-sm p-2" divClass="grow-[2]"
+                    <x-buttons.actionbutton id="download-csv-btn" name="CSVでダウンロード" type="button" class="text-sm p-2"
+                        divClass="grow-[2]"
                         url="{{ route('admin.reservationList.downloadReservationsAsCSV', request()->query()) }}" />
                 </div>
             </div>
             <div class="flex justify-end items-center mb-4">
-            <!-- ページネーション -->
+                <!-- ページネーション -->
                 <div class="mt-4">
                     {{ $reservationlists->appends(request()->query())->links('vendor.pagination.admin') }}
                 </div>
@@ -129,7 +129,8 @@
                     @foreach ($reservationlists as $reservationlist)
                         <tr id="click" class="clickable-row-reservation" style="cursor: pointer;">
                             <td class="border px-4 py-2 text-xs">
-                                <input type="checkbox" id="checkbox-id" class="id-checkbox" data-id="{{ $reservationlist->id }}">
+                                <input type="checkbox" id="checkbox-id" class="id-checkbox"
+                                    data-id="{{ $reservationlist->id }}">
                             </td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_number }}</td>
                             <td class="border px-4 py-2 text-xs">{{ \Carbon\Carbon::parse($reservationlist->reservation_datetime)->format('Y/m/d H:i:s') }}</td>
@@ -148,6 +149,6 @@
     @section('styles')
     @endsection
     @push('scripts')
-        @vite(['resources/js/modules/appointments/button.js'])
+        @vite(['resources/js/modules/appointments/admin-form.js'])
     @endpush
 </x-admin-app-layout>

@@ -29,7 +29,7 @@ return new class extends Migration
             $table->string('address2')->nullable()->comment("建物名など");
             $table->string('phone_number', 15)->comment("電話番号");
             $table->integer('gender', 1)->nullable()->autoIncrement(false)->comment("性別");
-            $table->date('birthday')->comment("生年月日");
+            $table->date('birthday')->nullable()->comment("生年月日");
             $table->string('reg_device', 20)->nullable()->comment("デバイス");
             $table->string('reg_ipaddr', 15)->nullable()->comment("アクセスIP");
             $table->string('call_time', 15)->nullable()->comment("電話連絡の希望時間帯");

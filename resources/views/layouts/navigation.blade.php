@@ -45,10 +45,10 @@
                             {{ __('店舗介') }}
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('guide')">
-                            {{ __('ご利用ガイド') }}
+                            <i class="fa-solid fa-info"></i> {{ __('ご利用ガイド') }}
                         </x-dropdown-link>
                         <x-dropdown-link :href="route('faq')">
-                            {{ __('よくある質問') }}
+                            <i class="fa-solid fa-question"></i> {{ __('よくある質問') }}
                         </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>

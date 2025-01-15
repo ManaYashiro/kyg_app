@@ -53,6 +53,9 @@
         <x-text.custom-input-label text="車名({{ $sequence_no }}台目)" class="mb-2" :option="$sequence_no !== 1 ? '任意' : '必須'" />
         <x-text-input id="{{ $key }}" class="block mt-1 w-full" type="text" name="{{ $name }}"
             :value="old($key) ?? ($userVehicle ? $userVehicle->car_name : null)" :required="$sequence_no === 1 ? true : false" />
+        @if ($isRegister)
+            <x-text.custom-input-label text="※例：ラパン" spanClass="font-normal text-xs text-gray-500 mt-1" />
+        @endif
         <x-ajax-input-error id="error-{{ $errorKey }}" class="mt-2" />
         <x-input-error :messages="$errors->get($key)" class="mt-2" />
     </div>
@@ -68,6 +71,9 @@
         <x-text.custom-input-label text="型式({{ $sequence_no }}台目)" class="mb-2" :option="$sequence_no !== 1 ? '任意' : '任意'" />
         <x-text-input id="{{ $key }}" class="block mt-1 w-full" type="text" name="{{ $name }}"
             :value="old($key) ?? ($userVehicle ? $userVehicle->car_katashiki : null)" />
+        @if ($isRegister)
+            <x-text.custom-input-label text="※例：GF-123456" spanClass="font-normal text-xs text-gray-500 mt-1" />
+        @endif
         <x-ajax-input-error id="error-{{ $errorKey }}" class="mt-2" />
         <x-input-error :messages="$errors->get($key)" class="mt-2" />
     </div>
@@ -84,6 +90,11 @@
         <x-text-input id="{{ $key }}" class="block mt-1 w-full" type="text" name="{{ $name }}"
             :value="old($key) ?? ($userVehicle ? $userVehicle->car_number : null)" :required="$sequence_no === 1 ? true : false" />
         <x-ajax-input-error id="error-{{ $errorKey }}" class="mt-2" />
+        @if ($isRegister)
+            <x-text.custom-input-label text="※ナンバープレートの番号を入力して下さい。"
+                spanClass="font-normal text-xs text-gray-500 mt-1" />
+            <x-text.custom-input-label text="※例：名古屋 300 あ 1234" spanClass="font-normal text-xs text-gray-500 mt-1" />
+        @endif
         <x-input-error :messages="$errors->get($key)" class="mt-2" />
     </div>
 

@@ -44,11 +44,13 @@
         <div class="flex flex-col">
             <div class="flex flex-col gap-1 sm:flex-row sm:gap-3">
                 <span>カーライフサービス</span>
-                <a href="https://www.carlife-service.com" class="text-blue-700">https://www.carlife-service.com</a>
+                <a href="https://www.carlife-service.com" class="text-blue-700"
+                    target="_blank">https://www.carlife-service.com</a>
             </div>
             <div class="flex flex-col gap-1 sm:flex-row sm:gap-3">
                 <span>コーポレートサイト</span>
-                <a href="https://www.kimura-unity.co.jp" class="text-blue-700">https://www.kimura-unity.co.jp</a>
+                <a href="https://www.kimura-unity.co.jp" class="text-blue-700"
+                    target="_blank">https://www.kimura-unity.co.jp</a>
             </div>
         </div>
     </div>
