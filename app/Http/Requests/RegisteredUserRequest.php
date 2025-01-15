@@ -10,6 +10,8 @@ use App\Enums\IsNotificationEnum;
 use App\Enums\PersonTypeEnum;
 use App\Enums\PrefectureEnum;
 use App\Enums\SubmitTypeEnum;
+use App\Models\User;
+use App\Rules\HalfWidthString;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
@@ -37,31 +39,31 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::USER_REGISTER->value:
                 $id = null;
                 $passwordRules = [
-                    'loginid' => 'required|string|min:4|max:15|unique:users,loginid,' . $id,
-                    'password' => 'required|string|min:4|max:20|confirmed',
-                    'password_confirmation' => 'required|string|min:4|max:20',
+                    'loginid' => ['required', 'string', 'min:4', 'max:15', 'unique:users,loginid,' . $id, new HalfWidthString],
+                    'password' => ['required', 'string', 'min:4', 'max:128', 'confirmed', new HalfWidthString],
+                    'password_confirmation' => ['required', 'string', 'min:4', 'max:128', new HalfWidthString],
                 ];
                 break;
             case FormTypeEnum::USER_UPDATE->value:
                 $id = Auth::user()->id;
                 $passwordRules = [
-                    'password' => 'nullable|string|min:4|max:20|confirmed',
-                    'password_confirmation' => 'nullable|string|min:4|max:128',
+                    'password' => ['nullable', 'string', 'min:4', 'max:128', 'confirmed', new HalfWidthString],
+                    'password_confirmation' => ['nullable', 'string', 'min:4', 'max:128', new HalfWidthString],
                 ];
                 break;
             case FormTypeEnum::ADMIN_REGISTER->value:
                 $id = $this->route('userList');
                 $passwordRules = [
-                    'loginid' => 'required|string|min:4|max:15|unique:users,loginid,' . $id,
-                    'password' => 'required|string|min:4|max:20|confirmed',
-                    'password_confirmation' => 'required|string|min:4|max:128',
+                    'loginid' => ['required', 'string', 'min:4', 'max:15', 'unique:users,loginid,' . $id, new HalfWidthString],
+                    'password' => ['required', 'string', 'min:4', 'max:128', 'confirmed', new HalfWidthString],
+                    'password_confirmation' => ['required', 'string', 'min:4', 'max:128', new HalfWidthString],
                 ];
                 break;
             case FormTypeEnum::ADMIN_UPDATE->value:
                 $id = $this->route('userList');
                 $passwordRules = [
-                    'password' => 'nullable|string|min:4|max:20|confirmed',
-                    'password_confirmation' => 'nullable|string|min:4|max:128',
+                    'password' => ['nullable', 'string', 'min:4', 'max:128', 'confirmed', new HalfWidthString],
+                    'password_confirmation' => ['nullable', 'string', 'min:4', 'max:128', new HalfWidthString],
                 ];
                 break;
 
@@ -105,14 +107,12 @@ class RegisteredUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'min' => ':attributeは最低:min文字以上でなければなりません',
-            'max' => ':attributeは最低:max文字以下でなければなりません',
+            'min' => 'このテキストは:min文字以上で指定して下さい',
+            'max' => '入力制限をかけているため文字数以上打てない',
             'in' => ':attributeの選択物を選択してください',
-            'digits' => ':attributeは最低:digits文字ちょどでなければなりません',
+            'digits' => '入力制限をかけているため文字数以上打てない',
             'unique' => 'この:attributeはすでに登録されています',
-            'name.string' => '名前は文字列でなければなりません',
-
-            'name_furigana.string' => 'フリガナは文字列でなければなりません',
+            'string' => ':attributeは文字列でなければなりません',
 
             'email.email' => 'メールアドレスの形式が正しくありません',
 
@@ -127,10 +127,6 @@ class RegisteredUserRequest extends FormRequest
             'phone_number.min' => '電話番号は10桁以上でなければなりません',
 
             'zipcode.integer' => '郵便番号は整数でなければなりません',
-
-            'address1.string' => '住所は文字列でなければなりません',
-
-            'address2.string' => '建物名は文字列でなければなりません',
             'questionnaire.required' => '少なくとも1つの:attributeを選択',
             'questionnaire.min' => '少なくとも1:attributeを選択',
             'birthday.before' => '生年月日は、18年以上である必要があります',
