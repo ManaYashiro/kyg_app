@@ -216,11 +216,8 @@ function disableTireStorageOption(element) {
     $("input[name='has_tire_storage']").each(function () {
         $(this).prop("disabled", true);
     });
-    if (
-        $this.attr("name") != "reservation_task_id" &&
-        $this.attr("name") != "has_tire_storage"
-    ) {
-        $("input[name='reservation_task_id']:checked").each(function () {
+    if ($this.attr("name") != "has_tire_storage") {
+        $("input[name='has_tire_storage']:checked").each(function () {
             $(this).prop("checked", false);
         });
     }
