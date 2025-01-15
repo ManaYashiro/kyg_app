@@ -81,6 +81,7 @@ body {
 
 .hidden-radio:disabled + .step-button {
     @apply bg-gray-300 border border-gray-500 text-[#353535];
+    cursor: default;
 }
 
 /* ホバー時のスタイル */
