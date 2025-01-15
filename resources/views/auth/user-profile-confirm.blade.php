@@ -1,4 +1,4 @@
-<x-text.custom-text text="会員登録" class="mb-3 bottom-border-text font-bold" />
+<x-text.custom-text text="会員登録確認" class="mb-3 bottom-border-text font-bold" />
 <div class="mt-3 flex flex-col gap-1">
     <x-text.custom-text text="以下の内容を確認してください。" class="text-xs" />
 </div>
@@ -16,6 +16,8 @@
     <x-text.custom-text :text="''" id="confirm-password" class="mb-6" />
 </div>
 
+<x-text.custom-text text="基本情報" class="mt-6 mb-2 bg-gray-text" />
+
 <!-- Person Type -->
 <div class="isConfirm mt-4 hidden">
     <x-text.custom-input-label text="法人／個人" class="mb-2 left-border-text" />
@@ -24,8 +26,6 @@
             class="mb-6 hidden isOption" />
     @endforeach
 </div>
-
-<x-text.custom-text text="基本情報" class="mt-6 mb-2 bg-gray-text" />
 
 <!-- Name -->
 <div class="isConfirm mt-4 hidden">
@@ -67,7 +67,7 @@
 
 <!-- Preferred Time -->
 <div class="isConfirm mt-4 hidden">
-    <x-text.custom-input-label text="電話希望時間" class="mb-2 left-border-text" />
+    <x-text.custom-input-label text="電話連絡の希望時間帯" class="mb-2 left-border-text" />
     @foreach (\App\Enums\CallTimeEnum::cases() as $callTime)
         <x-text.custom-text :text="$callTime->getLabel()" id="confirm-call_time-{{ $callTime->value }}"
             class="mb-6 hidden isOption" />

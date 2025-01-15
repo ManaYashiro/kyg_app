@@ -25,8 +25,8 @@
             <br>
             【リースメンテ契約の法人様】<br>
             ログインIDを弊社より発行いたしますので、下記ページよりID発行をお申込みください。<br>
-            <a href="https://www.carmanagementservice.com/syaken/"
-                class="text-blue-700">https://www.carmanagementservice.com/syaken/</a>
+            <a href="https://www.carmanagementservice.com/syaken/" class="text-blue-700"
+                target="_blank">https://www.carmanagementservice.com/syaken/</a>
         </div>
 
         <div class="border border-dotted my-4"></div>
@@ -115,8 +115,8 @@
         </span>
         <div class="break-words flex flex-col sm:flex-row">
             <span>（店舗連絡先）</span>
-            <a href="https://www.carlife-service.com/store.html"
-                class="text-blue-700">https://www.carlife-service.com/store.html</a>
+            <a href="https://www.carlife-service.com/store.html" class="text-blue-700"
+                target="_blank">https://www.carlife-service.com/store.html</a>
         </div>
 
         <div class="border border-dotted my-4"></div>

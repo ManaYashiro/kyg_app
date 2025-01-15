@@ -29,7 +29,7 @@ class UserController extends Controller
         $query = $this->filterUsers($request);
 
         // 絞り込んだユーザーを5件ずつページネートして取得
-        $users = $query->paginate(10); // ページごとに5件表示
+        $users = $query->paginate(100); // ページごとに5件表示
 
         // ビューにユーザー情報を渡す
         return view('admin.userLists.userList', compact('users'));
@@ -285,7 +285,7 @@ class UserController extends Controller
             'email' => 'メールアドレス',
             'gender' => '性別',
             'birthday' => '誕生日',
-            'call_time' => '電話希望時間',
+            'call_time' => '電話連絡の希望時間帯',
             'zipcode' => '郵便番号',
             'prefecture' => '都道府県',
             'address1' => '市区町村・番地',

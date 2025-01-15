@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
         );
         $this->generateFakeUserVehicle($user->id);
 
-        $users = User::factory(1)->randomUser()->create();
+        $users = User::factory(100)->randomUser()->create();
         foreach ($users as $key => $user) {
             $this->generateFakeUserVehicle($user->id);
         }
