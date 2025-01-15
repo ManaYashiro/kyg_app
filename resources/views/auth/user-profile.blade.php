@@ -39,6 +39,26 @@
 </div>
 
 <x-text.custom-text text="ログイン情報" class="mt-6 mb-2 bg-gray-text" />
+
+<!-- Role -->
+@if ($isAdmin)
+    <div id="container-role" class="mt-4">
+        <x-text.custom-input-label text="ロール" class="mb-2" option="必須" />
+        <div class="flex flex-col gap-2 justify-center items-start">
+            <div class="my-1 flex items-center gap-3">
+                <x-text-input id="role-admin" type="radio" name="role" :value="\App\Models\User::USER" :checked="(old('role') ?? ($user ? $user->role : null)) == \App\Models\User::ADMIN" />
+                <x-input-label for="role-admin" :value="'管理者'" />
+            </div>
+            <div class="my-1 flex items-center gap-3">
+                <x-text-input id="role-user" type="radio" name="role" :value="\App\Models\User::USER" :checked="(old('role') ?? ($user ? $user->role : null)) == \App\Models\User::USER" />
+                <x-input-label for="role-user" :value="'一般'" />
+            </div>
+        </div>
+        <x-ajax-input-error id="error-role" class="mt-2" />
+        <x-input-error :messages="$errors->get('role')" class="mt-2" />
+    </div>
+@endif
+
 <!-- Login ID -->
 <div id="container-loginid" class="mt-4">
     @if ($isRegister)

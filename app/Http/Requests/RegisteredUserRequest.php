@@ -54,6 +54,7 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::ADMIN_REGISTER->value:
                 $id = $this->route('userList');
                 $passwordRules = [
+                    'role' => 'required|in:' . implode(',', [User::ADMIN, User::USER]),
                     'loginid' => ['required', 'string', 'min:4', 'max:15', 'unique:users,loginid,' . $id, new HalfWidthString],
                     'password' => ['required', 'string', 'min:4', 'max:128', 'confirmed', new HalfWidthString],
                     'password_confirmation' => ['required', 'string', 'min:4', 'max:128', new HalfWidthString],
@@ -62,6 +63,7 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::ADMIN_UPDATE->value:
                 $id = $this->route('userList');
                 $passwordRules = [
+                    'role' => 'required|in:' . implode(',', [User::ADMIN, User::USER]),
                     'password' => ['nullable', 'string', 'min:4', 'max:128', 'confirmed', new HalfWidthString],
                     'password_confirmation' => ['nullable', 'string', 'min:4', 'max:128', new HalfWidthString],
                 ];

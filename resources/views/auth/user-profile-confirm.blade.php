@@ -4,6 +4,13 @@
 </div>
 
 <x-text.custom-text text="ログイン情報" class="mt-6 mb-2 bg-gray-text" />
+
+<!-- Role -->
+<div class="isConfirm mt-4 hidden">
+    <x-text.custom-input-label text="ロール" class="mb-2 left-border-text" />
+    <x-text.custom-text :text="''" id="confirm-role" class="mb-6" />
+</div>
+
 <!-- Login ID -->
 <div class="isConfirm mt-4 hidden">
     <x-text.custom-input-label text="ログインID" class="mb-2 left-border-text" />
