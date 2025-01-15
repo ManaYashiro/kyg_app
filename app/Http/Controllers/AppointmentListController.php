@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Appointments;
+use App\Models\ReservationTask;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
@@ -41,11 +42,13 @@ class  AppointmentListController extends Controller
         $currentDateTime = now(); // 現在の日時を取得
 
         // フィルタとソート
-        $appointments = Appointments::where('user_id', Auth::user()->id);
+        $appointments = Appointments::join('reservation_tasks', 'appointments.reservation_task_id', '=', 'reservation_tasks.id')
+            ->where('appointments.user_id', Auth::user()->id)
+            ->select('appointments.*', 'reservation_tasks.reservation_name as reservation_name');
 
         // 予約番号の並び替え
         if ($request->filled('sort_number')) {
-            $appointments->orderBy('reservation_number', $request->sort_number); // 'desc' または 'asc'
+            $appointments = $appointments->orderBy('reservation_number', $request->sort_number); // 'desc' または 'asc'
         }
 
         $appointments = $appointments->get();
@@ -96,7 +99,7 @@ class  AppointmentListController extends Controller
         ];
         // バリデーションエラーメッセージ
         $errorMessages = [
-            'inspection_due_date' => '車検満期日をご入力ください。を入力してください。',
+            'inspection_due_date' => '車検満了日は、正しい日付ではありません。',
         ];
 
         // バリデーションの実行

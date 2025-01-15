@@ -17,7 +17,6 @@ class  ConfirmationItemController extends Controller
     // process (トップ画面からのデータをentryに渡す)
     public function process(Request $request)
     {
-
         $processData = $request->all();
         $process_id = Str::random(10);
         Session::put($process_id, $processData);
@@ -53,7 +52,7 @@ class  ConfirmationItemController extends Controller
         // バリデーションエラーメッセージ
         $errorMessages = [
             'user_vehicle_id' => '【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。を選択してください。',
-            'inspection_due_date' => '車検満期日をご入力ください。を入力してください。',
+            'inspection_due_date' => '車検満了日は、正しい日付ではありません。',
             'past_service_history' => '今回ご予約いただく店舗・作業は、過去にご利用がございますか？を選択してください。',
         ];
 

@@ -12,8 +12,8 @@
                     {{ session('success') }}
                 </div>
             @endif
-
-            <div class="border border-gray-300 p-4">
+            <span class="font-bold">予約一覧</span>
+            <div class="border border-gray-300 p-4 mt-5">
                 <form method="GET" action="{{ route('admin.reservationList.index') }}" class="w-full">
                     <div class="mb-4">
                         <h2 class="text-lg mb-2">予約一覧検索</h2>
@@ -32,11 +32,9 @@
                         <div class="flex items-center">
                             <label class="text-sm w-24">予約日</label>
                             <div class="flex items-center gap-2">
-                                <input type="date" name="date_from" id="date_from"
-                                    class="border border-gray-300 p-1 text-sm" value="{{ request('date_from') }}">
+                                <input type="text" name="date_from" id="date_from" class="datepicker border border-gray-300 p-1 text-sm" value="{{ request('date_from') }}">
                                 <span>～</span>
-                                <input type="date" name="date_to" id="date_to"
-                                    class="border border-gray-300 p-1 text-sm" value="{{ request('date_to') }}">
+                                <input type="text" name="date_to" id="date_to" class="datepicker border border-gray-300 p-1 text-sm" value="{{ request('date_to') }}">
                                 <div class="ml-4 flex gap-2">
                                     <button type="button" id="today-button"
                                         class="bg-blue-500 text-white px-4 py-1 rounded text-sm hover:bg-blue-600">
@@ -117,14 +115,14 @@
                         <th class="px-4 py-2 text-left" style="width: 5%;">
                             <input type="checkbox" id="select-all" class="select-all-checkbox">
                         </th>
-                        <th class="px-4 py-2 text-left text-xs" style="width: 8%;">予約番号</th>
-                        <th class="px-4 py-2 text-left text-xs" style="width: 15%;">予約日時</th>
-                        <th class="px-4 py-2 text-left text-xs" style="width: 10%;">顧客名</th>
-                        <th class="px-4 py-2 text-left text-xs" style="width: 10%;">作業カテゴリ</th>
-                        <th class="px-4 py-2 text-left text-xs" style="width: 10%;">予約する作業</th>
+                        <th class="px-4 py-2 text-left text-xs" style="width: 6%;">予約番号</th>
+                        <th class="px-4 py-2 text-left text-xs" style="width: 10%;">予約日時</th>
+                        <th class="px-4 py-2 text-left text-xs" style="width: 6%;">顧客名</th>
+                        <th class="px-4 py-2 text-left text-xs" style="width: 8%;">作業カテゴリ</th>
+                        <th class="px-4 py-2 text-left text-xs" style="width: 12%;">予約する作業</th>
                         <th class="px-4 py-2 text-left text-xs" style="width: 10%;">備考欄</th>
-                        <th class="px-4 py-2 text-left text-xs" style="width: 10%;">予約状態</th>
-                        <th class="px-4 py-2 text-left text-xs" style="width: 20%;">管理メモ</th>
+                        <th class="px-4 py-2 text-left text-xs" style="width: 5%;">予約状態</th>
+                        <th class="px-4 py-2 text-left text-xs" style="width: 15%;">管理メモ</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -135,10 +133,10 @@
                                     data-id="{{ $reservationlist->id }}">
                             </td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_number }}</td>
-                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_datetime }}</td>
+                            <td class="border px-4 py-2 text-xs">{{ \Carbon\Carbon::parse($reservationlist->reservation_datetime)->format('Y/m/d H:i:s') }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->customer_name }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->inspection_type }}</td>
-                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_task_id }}</td>
+                            <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_name }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->remarks }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->status_text }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->admin_notes }}</td>

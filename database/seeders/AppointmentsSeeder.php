@@ -63,20 +63,43 @@ class AppointmentsSeeder extends Seeder
                 $currentTime->addMinutes($intervalTime);
 
                 if ($logTimeStart !== $break_time) {
+
+
+                    $stores = ['稲沢本店', '名古屋北店', '刈谷店', '錦店', '豊田上郷店', '犬山店'];
+                    $randomStore = $stores[array_rand($stores)];
+                    $inspection_type = ['車検', '定点', '一般'];
+                    $randominspection_type = $inspection_type[array_rand($inspection_type)];
+                    $work_type = [
+                        'ラビット車検',
+                        'ワンデー/一般車検',
+                        'リース車検',
+                        '12ヶ月点検',
+                        '06ヶ月点検',
+                        '03ヶ月点検',
+                        'スケジュール点検',
+                        'オイル交換',
+                        'タイヤ交換',
+                    ];
+                    $randomwork_type = $work_type[array_rand($work_type)];
+                    $customer_type = ['個人', '法人'];
+                    $randomcustomer_type = $customer_type[array_rand($customer_type)];
+                    $reservation_task_id = range(1, 25);
+                    $randomreservation_task_id = $reservation_task_id[array_rand($reservation_task_id)];
+
                     $user = User::where('role', '!=', User::ADMIN)->inRandomOrder()->first();
 
                     Appointments::factory()->create([
                         'user_id' => $user->id,
                         'user_vehicle_id' => $user->userVehicles[0]->id,
-                        'store' => '稲沢本店',
+                        'store' => $randomStore,
                         'customer_name' => $user->name,
                         'reservation_datetime' => $start,
                         'inspection_due_date' => $currentDate->format('Y-m-d'),
                         'past_service_history' => "false",
-                        'inspection_type' => '車検',
-                        'work_type' => 'ラビット車検',
-                        'customer_type' => '個人',
-                        'reservation_task_id' => 1,
+                        'inspection_type' => $randominspection_type,
+                        'work_type' => $randomwork_type,
+                        'customer_type' => $randomcustomer_type,
+                        'reservation_task_id' => $randomreservation_task_id,
                     ]);
                 }
             }

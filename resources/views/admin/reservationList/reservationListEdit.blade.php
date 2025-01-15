@@ -129,7 +129,7 @@
 
                         <!-- 追加設備 -->
                         <div class="flex">
-                            <div class="w-4 text-red-500">*</div>
+                            <div class="w-4 text-red-500"></div>
                             <div class="w-28">
                                 <x-input-label for="remarks" :value="__('追加設備')" />
                             </div>
@@ -147,7 +147,7 @@
                                 <x-input-label for="remarks" :value="__('車検満期日')" />
                             </div>
                             <div>
-                                <x-text.custom-input-label text="{{ $appointment->inspection_due_date }}" />
+                                <x-text.custom-input-label text="{{ \Carbon\Carbon::parse($appointment->inspection_due_date)->format('Y/m/d') }}" />
                             </div>
                         </div>
 
@@ -159,8 +159,7 @@
                             </div>
                             <div class="flex-1">
                                 <x-textarea id="remarks" class="w-full h-24" type="text"
-                                    name="remarks" :value="old('remarks', $appointment->remarks ?? '')" maxlength="500"/>
-                                     {{-- 最大文字数仮500 --}}
+                                    name="remarks" :value="old('remarks', $appointment->remarks ?? '')"/>
                             </div>
                         </div>
 

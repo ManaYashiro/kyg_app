@@ -59,7 +59,7 @@
                         </h5>
                         <x-text-data-input id="inspection_due_date" type="text" name="inspection_due_date"
                             :value="old('inspection_due_date')"
-                            class="datepicker block mt-1 w-full rounded-none" required maxlength="10" />
+                            class="datepicker block mt-1 w-full rounded-none" required/>
                         <x-text.custom-input-label text="（記入例：2022/10/30）"
                             spanClass="font-normal text-xs text-gray-500 mt-1" />
                         <x-input-error :messages="$errors->get('inspection_due_date')" class="attention" />

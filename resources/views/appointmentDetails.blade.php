@@ -8,7 +8,7 @@
     <div class="h-full overflow-y-auto p-2 md:p-6 text-gray-900">
 
         <div class="mb-3 bottom-border-text font-bold">
-            <span class="">予約一覧</span>
+            <span class="">予約情報</span>
         </div>
 
         <h2 class="text-sm font-semibold">予約詳細</h2>
@@ -75,7 +75,7 @@
                 <div class="mb-4">
                     <x-text.custom-input-label text="【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。" class="mb-2"
                         option="必須" />
-                    <x-select id="user_vehicle_id" class="block mt-1 w-full" name="user_vehicle_id" required>
+                    <x-select id="user_vehicle_id" class="block mt-1 w-[130px] h-[38px] rounded-none" name="user_vehicle_id" required>
                         <!-- Loop through vehicle options -->
                         @foreach ([1 => '1台目', 2 => '2台目', 3 => '3台目', 4 => '未登録車'] as $key => $vehicleLabel)
                             <option value="{{ $key }}" @selected(old('user_vehicle_id', $appointment->user_vehicle_id) == $key)>
@@ -127,8 +127,9 @@
                     <h5>
                         <x-text.custom-input-label text="車検満期日をご入力ください。" class="mb-2" option="必須" />
                     </h5>
-                    <x-text-input id="inspection_due_date" type="text" name="inspection_due_date" :value="old('inspection_due_date', $appointment->inspection_due_date ?? '')"
-                        class="datepicker block mt-1 w-full rounded-none" maxlength="10" required/>
+                    <x-text-input id="inspection_due_date" type="text" name="inspection_due_date" :value="old('inspection_due_date',
+                    $appointment->inspection_due_date ? \Carbon\Carbon::parse($appointment->inspection_due_date)->format('Y/m/d') : '')"
+                        class="datepicker block mt-1 w-full rounded-none" required/>
                     <x-text.custom-input-label text="（記入例：2022/10/30）" spanClass="font-normal text-xs text-gray-500 mt-1" />
                     <x-input-error :messages="$errors->get('inspection_due_date')" class="attention" />
                 </div>

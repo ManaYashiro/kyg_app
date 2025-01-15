@@ -4,22 +4,22 @@ namespace App\Enums;
 
 enum CallTimeEnum: string
 {
-    case A_09_12 = '09-12';
-    case B_12_13 = '12-13';
-    case C_13_15 = '13-15';
-    case D_15_17 = '15-17';
-    case E_17_19 = '17-19';
-    case F_NASHI = 'no_preference';
+    case A_09_12 = '9:00 ～ 12:00';
+    case B_12_13 = '12:00 ～ 13:00';
+    case C_13_15 = '13:00 ～ 15:00';
+    case D_15_17 = '15:00 ～ 17:00';
+    case E_17_19 = '17:00 ～ 19:00';
+    case F_NASHI = '指定なし';
 
     // return 電話連絡の希望時間帯 label
     public function getLabel(): string
     {
         return match ($this) {
-            self::A_09_12 => '9:00 - 12:00',
-            self::B_12_13 => '12:00 - 13:00',
-            self::C_13_15 => '13:00 - 15:00',
-            self::D_15_17 => '15:00 - 17:00',
-            self::E_17_19 => '17:00 - 19:00',
+            self::A_09_12 => '9:00 ～ 12:00',
+            self::B_12_13 => '12:00 ～ 13:00',
+            self::C_13_15 => '13:00 ～ 15:00',
+            self::D_15_17 => '15:00 ～ 17:00',
+            self::E_17_19 => '17:00 ～ 19:00',
             self::F_NASHI => '指定なし',
         };
     }
