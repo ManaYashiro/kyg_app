@@ -12,14 +12,15 @@
                     {{ session('success') }}
                 </div>
             @endif
-            <div class="border border-gray-300 p-4 justify-center">
+            <span class="font-bold">会員一覧</span>
+            <div class="border border-gray-300 p-4 justify-center mt-7">
                 <form method="GET" action="{{ route('admin.userList.index') }}" class="mx-auto w-full max-w-4xl">
                     <div class="flex justify-between gap-6">
                         <div class="w-full">
                             <span class="">会員検索</span>
 
                             <!-- Role -->
-                            <div class="flex items-center gap-4 mb-4">
+                            <div class="flex items-center gap-4 mb-4 mt-3">
                                 <label for="role" class="text-xs font-medium text-gray-700 w-1/3">Role</label>
                                 <select name="role" id="role"
                                     class="block w-2/3 border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 text-xs">
@@ -94,7 +95,7 @@
                             <div class="flex gap-6 mb-4">
                                 <div class="flex items-center w-1/2">
                                     <label for="registration_order"
-                                        class="text-xs font-medium text-gray-700 w-1/3">登録順</label>
+                                        class="text-xs font-medium text-gray-700 w-1/3">登録日</label>
                                     <input type="radio" id="registration_newest" name="registration_order"
                                         value="newest" {{ request('registration_order') == 'newest' ? 'checked' : '' }}
                                         class="mr-4">
@@ -111,7 +112,7 @@
                                 </div>
                                 <div class="flex items-center w-1/2">
                                     <label for="update_order"
-                                        class="text-xs font-medium text-gray-700 w-1/3">更新順</label>
+                                        class="text-xs font-medium text-gray-700 w-1/3">更新日</label>
                                     <input type="radio" id="update_order_newest" name="update_order"
                                         value="newest" {{ request('update_order') == 'newest' ? 'checked' : '' }}
                                         class="mr-4">
@@ -145,7 +146,7 @@
                 <div class="flex gap-2 justify-center items-center w-[250px]">
                     <x-buttons.actionbutton name="CSVでダウンロード" type="button" class="text-sm p-2" divClass="grow-[2]"
                         url="{{ route('admin.userList.downloadUsersAsCSV', request()->query()) }}" />
-                    <x-buttons.actionbutton name="作成" type="button" class="text-sm p-2" divClass="grow-[1]"
+                    <x-buttons.actionbutton name="新規作成" type="button" class="text-sm p-2" divClass="grow-[1]"
                         url="{{ route('admin.userList.create') }}" />
                 </div>
             </div>
