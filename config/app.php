@@ -124,4 +124,9 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+
+    'pagination' => [
+        'admin' => env('APP_ADMIN_PAGINATION', 100),
+    ],
+
 ];
