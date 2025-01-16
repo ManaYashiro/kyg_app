@@ -24,7 +24,7 @@
         <!-- Password -->
         <div class="mt-4">
             <x-text.custom-input-label text="パスワード" class="mb-2" option="必須" />
-            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required autofocus />
+            <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" minlength="4" maxlength="20" required autofocus />
             <x-text.custom-input-label text="※半角英数字 4～20文字で入力してください。"
                 spanClass="font-normal text-xs text-gray-500 mt-1" />
             <x-input-error :messages="$errors->get('password')" class="mt-2" />

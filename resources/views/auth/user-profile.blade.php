@@ -60,7 +60,7 @@
 <div id="container-password" class="mt-4">
     <x-text.custom-input-label text="パスワード" class="mb-2" :option="$isRegister ? '必須' : '任意'" />
     <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" minlength="4" maxlength="20"
-        :required="$isRegister" />
+        :required="$isRegister"/>
     @if ($isRegister)
         <x-text.custom-input-label text="※半角英数字 4～20文字で入力してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
     @endif
@@ -71,7 +71,7 @@
 <!-- Confirm Password -->
 <div id="container-password_confirmation" class="mt-4">
     <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation"
-        minlength="4" maxlength="20" :required="$isRegister" />
+        minlength="4" maxlength="20" :required="$isRegister"/>
     @if ($isRegister)
         <x-text.custom-input-label text="※確認のためにもう一度パスワードを入力してください。"
             spanClass="font-normal text-xs text-gray-500 mt-1" />
@@ -371,7 +371,7 @@
     <!-- Admin Remarks -->
     <div id="container-remarks" class="mt-4">
         <x-text.custom-input-label text="管理用備考" class="mb-2" />
-        <x-textarea id="remarks" class="block mt-1 w-full" type="text" name="remarks" :value="old('remarks') ?? ($user ? $user->remarks : null)" />
+        <x-textarea id="remarks" class="block mt-1 w-full" type="text" name="remarks" :value="old('remarks') ?? ($user ? $user->remarks : null)" maxlength="128"/>
         <x-ajax-input-error id="error-remarks" class="mt-2" />
         <x-input-error :messages="$errors->get('remarks')" class="mt-2" />
     </div>
