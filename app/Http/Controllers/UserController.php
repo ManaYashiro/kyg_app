@@ -29,7 +29,7 @@ class UserController extends Controller
         $query = $this->filterUsers($request);
 
         // 絞り込んだユーザーを5件ずつページネートして取得
-        $users = $query->paginate(100); // ページごとに5件表示
+        $users = $query->paginate(config("app.pagination.admin")); // ページごとに5件表示
 
         // ビューにユーザー情報を渡す
         return view('admin.userLists.userList', compact('users'));
