@@ -48,7 +48,7 @@ class ReservationListController extends Controller
         }
 
         // 絞り込んだユーザーを10件ずつページネートして取得
-        $reservationlists = $query->paginate(100); // ページごとに100件表示
+        $reservationlists = $query->paginate(config("app.pagination.admin")); // ページごとに100件表示
 
         //ビューに車検予約情報を渡す
         return view('admin.reservationList.reservationList', compact('reservationlists'));

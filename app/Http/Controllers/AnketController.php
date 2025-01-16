@@ -17,7 +17,7 @@ class AnketController extends Controller
      */
     public function index(): View
     {
-        $ankets = Anket::paginateById(5);
+        $ankets = Anket::paginateById(config("app.pagination.admin"));
         return view('admin.ankets.index', compact('ankets'))->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
