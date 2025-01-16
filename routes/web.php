@@ -39,6 +39,7 @@ Route::middleware('auth', 'verified')->group(function () {
 
         Route::resource('reservationList', ReservationListController::class)->only(['index', 'edit', 'update']);
         Route::get('reservationList/download-reservations-as-csv', [ReservationListController::class, 'downloadReservationsAsCSV'])->name('reservationList.downloadReservationsAsCSV');
+        Route::post('reservationList/cancel-reservations', [ReservationListController::class, 'cancelReservations']);
 
         Route::resource('userList', UserController::class)->except(['show']);
         // multiple delete users

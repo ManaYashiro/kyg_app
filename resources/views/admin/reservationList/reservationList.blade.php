@@ -56,13 +56,15 @@
                                 <!-- 立て／横並び -->
                                 <div class="flex items-center w-1/2">
                                     <label for="order_new" class="text-xs font-medium text-gray-700 w-1/4">手続き日</label>
-                                    <input type="radio" id="order_new" name="order" value="new" class="mr-4">
+                                    <input type="radio" id="order_new" name="update_order" value="new"
+                                        class="mr-4" {{ request('update_order') === 'new' ? 'checked' : '' }}>
                                     <div class="flex items-center">
                                         <label for="order_new" class="mr-2 text-xs">新しい順</label>
                                     </div>
 
-                                    <input type="radio" id="order_old" name="order" value="old" class="mr-4">
-                                    <label for="order_old" class="mr-2 text-xs">古い順</label>
+                                    <input type="radio" id="order_old" name="update_order" value="old"
+                                        class="mr-4" {{ request('update_order') === 'old' ? 'checked' : '' }}> <label
+                                        for="order_old" class="mr-2 text-xs">古い順</label>
                                 </div>
 
                                 <!-- 予約日順 -->
@@ -109,12 +111,13 @@
                         <select id="selectAnAction" name="example"
                             class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
                             <option value="">操作を選択</option>
-                            <option value="">チェックした予約／仮予約をキャンセル</option>
+                            <option value="cancel_reservations">チェックした予約／仮予約をキャンセル</option>
                         </select>
                     </div>
 
                     <!-- 適応ボタン -->
-                    <button type="button" class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600">
+                    <button type="button" id="apply-btn"
+                        class="bg-blue-500 text-white px-4 py-2 rounded text-sm hover:bg-blue-600">
                         適応
                     </button>
                 </div>
@@ -129,7 +132,8 @@
                 <thead class="bg-gray-200 top-0 z-10">
                     <tr>
                         <th class="px-4 py-2 text-left" style="width: 5%;">
-                            <input type="checkbox" id="select-all" class="select-all-checkbox">
+                            <input type="checkbox" id="select-all-reservation"
+                                class="select-all-reservation-checkbox">
                         </th>
                         <th class="px-4 py-2 text-left text-xs" style="width: 6%;">予約番号</th>
                         <th class="px-4 py-2 text-left text-xs" style="width: 10%;">予約日時</th>
@@ -145,12 +149,12 @@
                     @foreach ($reservationlists as $reservationlist)
                         <tr id="click" class="clickable-row-reservation" style="cursor: pointer;">
                             <td class="border px-4 py-2 text-xs">
-                                <input type="checkbox" id="checkbox-id" class="id-checkbox"
+                                <input type="checkbox" id="checkbox-id" class="reservation-checkbox"
                                     data-id="{{ $reservationlist->id }}">
                             </td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->reservation_number }}</td>
                             <td class="border px-4 py-2 text-xs">
-                                {{ \Carbon\Carbon::parse($reservationlist->reservation_datetime)->format('Y/m/d H:i:s') }}
+                                {{ \Carbon\Carbon::parse($reservationlist->reservation_datetime)->format('Y/m/d H:i') }}
                             </td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->customer_name }}</td>
                             <td class="border px-4 py-2 text-xs">{{ $reservationlist->inspection_type }}</td>

@@ -29,7 +29,7 @@ $(".clickable-row-reservation").on("click", function (e) {
     }
 
     // ユーザーIDを取得
-    var Id = $(this).find(".id-checkbox").data("id");
+    var Id = $(this).find(".reservation-checkbox").data("id");
     // 編集画面に遷移（Bladeテンプレート内のURLを正しく展開するために、JavaScript内でURLを直接生成）
     var url = "/admin/reservationList/" + Id + "/edit/";
     window.location = url;

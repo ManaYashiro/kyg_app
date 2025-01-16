@@ -30,6 +30,21 @@ class ReservationListController extends Controller
             });
         }
 
+        // リクエストから並び順を取得
+        $order = $request->get('update_order', 'new'); // デフォルトは「new」
+
+        // 手続き検索
+        if ($request->has('update_order') && $request->update_order != '') {
+            // 新しい順（降順）
+            if ($request->update_order === 'new') {
+                $query->orderBy('updated_at', 'desc');
+            }
+            // 古い順（昇順）
+            if ($request->update_order === 'old') {
+                $query->orderBy('updated_at', 'asc');
+            }
+        }
+
         // 予約日検索
         if ($request->has('date_from') && $request->date_from != '') {
             $query->whereDate('reservation_datetime', '>=', $request->date_from);
@@ -205,5 +220,25 @@ class ReservationListController extends Controller
             'reservation_status' => '予約状況',
             'admin_notes' => '管理メモ',
         ];
+    }
+
+    /**
+     * キャンセル
+     */
+
+    public function cancelReservations(Request $request)
+    {
+        // リクエストから選択された予約IDを取得
+        $reservationIds = $request->input('reservation_ids');
+
+        // 予約のステータスを0に更新
+        $appointments = Appointments::whereIn('id', $reservationIds);
+
+        // 更新が成功したかどうかを確認
+        if ($appointments->update(['reservation_status' => 0])) {
+            return response()->json(['success' => true]);
+        }
+
+        return response()->json(['success' => false]);
     }
 }
