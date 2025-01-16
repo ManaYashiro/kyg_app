@@ -46,7 +46,7 @@ class  ConfirmationItemController extends Controller
         $rules = [
             'user_vehicle_id' => 'required|string',
             'additional_services' => 'nullable|array',
-            'inspection_due_date' => 'required|date',
+            'inspection_due_date' => 'required|date_format:Y/m/d',
             'past_service_history' => 'required|string',
         ];
         // バリデーションエラーメッセージ

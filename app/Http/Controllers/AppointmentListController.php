@@ -78,8 +78,13 @@ class  AppointmentListController extends Controller
 
     public function edit($id)
     {
-        // Find the appointment by ID
-        $appointment = Appointments::where('user_id', Auth::user()->id)->where('id', $id)->first();
+        // 特定の予約を取得する
+        $appointment = Appointments::join('reservation_tasks', 'appointments.reservation_task_id', '=', 'reservation_tasks.id')
+            ->where('appointments.user_id', Auth::user()->id)
+            ->where('appointments.id', $id)
+            ->select('appointments.*', 'reservation_tasks.reservation_name as reservation_name')
+            ->first();
+
         // reservation_datetimeを秒数を除いてフォーマット変更
         $appointment->reservation_datetime = Carbon::parse($appointment->reservation_datetime)->format('Y/m/d H:i');
 
@@ -95,7 +100,7 @@ class  AppointmentListController extends Controller
     {
         //バリデーション
         $rules = [
-            'inspection_due_date' => 'required|date',
+            'inspection_due_date' => 'required|date_format:Y/m/d',
         ];
         // バリデーションエラーメッセージ
         $errorMessages = [
