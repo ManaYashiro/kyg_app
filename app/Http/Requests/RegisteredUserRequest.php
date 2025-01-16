@@ -40,14 +40,14 @@ class RegisteredUserRequest extends FormRequest
                 $id = null;
                 $passwordRules = [
                     'loginid' => ['required', 'string', 'min:4', 'max:15', 'unique:users,loginid,' . $id, new HalfWidthString],
-                    'password' => ['required', 'string', 'min:4', 'max:128', 'confirmed', new HalfWidthString],
-                    'password_confirmation' => ['required', 'string', 'min:4', 'max:128', new HalfWidthString],
+                    'password' => ['required', 'string', 'min:4', 'max:20', 'confirmed', new HalfWidthString],
+                    'password_confirmation' => ['required', 'string', 'min:4', 'max:20', new HalfWidthString],
                 ];
                 break;
             case FormTypeEnum::USER_UPDATE->value:
                 $id = Auth::user()->id;
                 $passwordRules = [
-                    'password' => ['nullable', 'string', 'min:4', 'max:128', 'confirmed', new HalfWidthString],
+                    'password' => ['nullable', 'string', 'min:4', 'max:20', 'confirmed', new HalfWidthString],
                     'password_confirmation' => ['nullable', 'string', 'min:4', 'max:128', new HalfWidthString],
                 ];
                 break;
@@ -83,18 +83,18 @@ class RegisteredUserRequest extends FormRequest
                     'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),
                     'birthday' => 'nullable|date|before:' . Carbon::now()->subYears(18)->toDateString() . '|after:1924-12-31',
                     'email' => 'required|email|max:128|unique:users,email,' . $id,
-                    'phone_number' => 'required|string|min:10|max:11',
+                    'phone_number' => 'required|string|max:11',
                     'address1' => 'required|string|max:128',
                     'address2' => 'nullable|string|max:128',
                     'call_time' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, CallTimeEnum::cases())),
-                    'zipcode' => 'required|numeric|digits:7',
+                    'zipcode' => ['required', 'numeric', 'digits:7', new HalfWidthString],
                     'prefecture' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, PrefectureEnum::cases())),
                 ],
                 $userVehicleRules,
                 [
                     'is_receive_newsletter' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, IsNewsletterEnum::cases())),
                     'questionnaire' => 'required|array|min:1|max:3',
-                    'manager' => 'nullable|string|max:128',
+                    'manager' => 'nullable|string|max:40',
                     'department' => 'nullable|string|max:128',
                     'is_receive_notification' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, IsNotificationEnum::cases())),
                     'remarks' => 'nullable|string|max:128',
@@ -107,30 +107,32 @@ class RegisteredUserRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'min' => 'このテキストは:min文字以上で指定して下さい',
-            'max' => '入力制限をかけているため文字数以上打てない',
-            'in' => ':attributeの選択物を選択してください',
-            'digits' => '入力制限をかけているため文字数以上打てない',
-            'unique' => 'この:attributeはすでに登録されています',
-            'string' => ':attributeは文字列でなければなりません',
+            'min' => 'このテキストは:min文字以上で指定して下さい。',
+            'max' => '入力制限をかけているため文字数以上打てない。',
+            'in' => ':attributeの選択物を選択してください。',
+            'digits' => '入力制限をかけているため文字数以上打てない。',
+            'unique' => 'この:attributeはすでに登録されています。',
+            'string' => ':attributeは文字列でなければなりません。',
 
-            'email.email' => 'メールアドレスの形式が正しくありません',
+            'email.email' => 'メールアドレスの形式が正しくありません。',
 
-            'password.string' => 'パスワードは文字列でなければなりません',
-            'password.min' => 'パスワードは最低8文字以上でなければなりません',
-            'password.confirmed' => 'パスワードが一致しません',
+            'password.string' => 'パスワードは文字列でなければなりません。',
+            'password.min' => 'パスワードは最低8文字以上でなければなりません。',
+            'password.confirmed' => 'パスワードが一致しません。',
 
-            'password_confirmation.string' => 'パスワード確認は文字列でなければなりません',
-            'password_confirmation.min' => 'パスワード確認は最低8文字以上でなければなりません',
+            'password_confirmation.string' => 'パスワード確認は文字列でなければなりません。',
+            'password_confirmation.min' => 'パスワード確認は最低8文字以上でなければなりません。',
 
-            'phone_number.string' => '電話番号は文字列でなければなりません',
-            'phone_number.min' => '電話番号は10桁以上でなければなりません',
+            'phone_number.string' => '電話番号は文字列でなければなりません。',
+            'phone_number.min' => '電話番号は10桁以上でなければなりません。',
 
-            'zipcode.integer' => '郵便番号は整数でなければなりません',
+            'zipcode.integer' => '郵便番号は整数でなければなりません。',
+
             'questionnaire.required' => '少なくとも1つの:attributeを選択',
             'questionnaire.min' => '少なくとも1:attributeを選択',
-            'birthday.before' => '生年月日は、18年以上である必要があります',
-            'birthday.after' => '生年月日は、1925年以上である必須があります',
+
+            'birthday.before' => '生年月日は、18歳以上である必要があります。',
+            'birthday.after' => '生年月日は、1925年以上である必要があります。',
         ];
     }
 
