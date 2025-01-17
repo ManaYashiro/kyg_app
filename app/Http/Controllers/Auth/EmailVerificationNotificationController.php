@@ -17,7 +17,7 @@ class EmailVerificationNotificationController extends Controller
     {
         if ($request->user()->hasVerifiedEmail()) {
 
-            if ($request->user()->role == UserRoleEnum::Admin->value) {
+            if ($request->user()->role->value == UserRoleEnum::Admin->value) {
                 return redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD);
             }
             return redirect()->intended(AuthenticatedSessionController::TOP_PAGE);

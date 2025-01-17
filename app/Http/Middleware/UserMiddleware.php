@@ -17,7 +17,7 @@ class UserMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role == UserRoleEnum::User->value) {
+        if (Auth::check() && Auth::user()->role->value == UserRoleEnum::User->value) {
             return $next($request);
         }
         return redirect()->route('admin.dashboard');

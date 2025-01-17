@@ -69,7 +69,7 @@ class RegisteredUserController extends Controller
 
         // 管理者がユーザーを登録
         if (Auth::check()) {
-            if (Auth::user()->role === UserRoleEnum::Admin->value) {
+            if (Auth::user()->role->value === UserRoleEnum::Admin->value) {
                 return redirect()->route('admin.userList.index')->with('success', 'ユーザーを作成しました');
             }
         }
