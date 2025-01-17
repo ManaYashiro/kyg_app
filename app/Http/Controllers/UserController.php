@@ -245,19 +245,19 @@ class UserController extends Controller
                 switch ($columnKey) {
                         // ENUMS
                     case 'gender':
-                        $row[] = $user->gender ? $user->gender->getLabel() : '';
+                        $row[] = $user->gender->value ? $user->gender->value->getLabel() : '';
                         break;
                     case 'call_time':
-                        $row[] = $user->call_time ? $user->call_time->getLabel() : '';
+                        $row[] = $user->call_time->value ? $user->call_time->value->getLabel() : '';
                         break;
                     case 'prefecture':
-                        $row[] = $user->prefecture ? $user->prefecture->getLabel() : '';
+                        $row[] = $user->prefecture->value ? $user->prefecture->value->getLabel() : '';
                         break;
                     case 'is_receive_newsletter':
-                        $row[] = $user->is_receive_newsletter ? $user->is_receive_newsletter->getLabel() : '';
+                        $row[] = $user->is_receive_newsletter->value ? $user->is_receive_newsletter->value->getLabel() : '';
                         break;
                     case 'is_receive_notification':
-                        $row[] = $user->is_receive_notification ? $user->is_receive_notification->getLabel() : '';
+                        $row[] = $user->is_receive_notification->value ? $user->is_receive_notification->value->getLabel() : '';
                         break;
 
                         // regular columns

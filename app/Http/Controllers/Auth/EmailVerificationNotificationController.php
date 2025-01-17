@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Enums\UserRoleEnum;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
@@ -16,7 +17,7 @@ class EmailVerificationNotificationController extends Controller
     {
         if ($request->user()->hasVerifiedEmail()) {
 
-            if ($request->user()->role == User::ADMIN) {
+            if ($request->user()->role == UserRoleEnum::Admin->value) {
                 return redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD);
             }
             return redirect()->intended(AuthenticatedSessionController::TOP_PAGE);

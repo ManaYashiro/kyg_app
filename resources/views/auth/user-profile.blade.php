@@ -20,9 +20,6 @@
         $formType === \App\Enums\FormTypeEnum::ADMIN_UPDATE->value;
 @endphp
 
-@php
-@endphp
-
 @if ($isRegister)
     <x-text.custom-text text="会員登録" class="mb-3 bottom-border-text font-bold" />
 @elseif ($isUpdate)
@@ -39,6 +36,26 @@
 </div>
 
 <x-text.custom-text text="ログイン情報" class="mt-6 mb-2 bg-gray-text" />
+
+<!-- Role -->
+@if ($isAdmin)
+    <div id="container-role" class="mt-4">
+        <x-text.custom-input-label text="Role" class="mb-2" option="必須" />
+        <div class="flex flex-col gap-2 justify-center items-start">
+            @foreach (\App\Enums\UserRoleEnum::cases() as $role)
+                <div class="my-1 flex items-center gap-3">
+                    <x-text-input id="role-{{ $role->value }}" type="radio" name="role" :value="$role->value"
+                        :checked="(old('role') ?? ($user && isset($user->role->value) ? $user->role->value : null)) ==
+                            $role->value" required />
+                    <x-input-label for="role-{{ $role->value }}" :value="__($role->getLabel())" />
+                </div>
+            @endforeach
+        </div>
+        <x-ajax-input-error id="error-role" class="mt-2" />
+        <x-input-error :messages="$errors->get('role')" class="mt-2" />
+    </div>
+@endif
+
 <!-- Login ID -->
 <div id="container-loginid" class="mt-4">
     @if ($isRegister)
@@ -60,7 +77,7 @@
 <div id="container-password" class="mt-4">
     <x-text.custom-input-label text="パスワード" class="mb-2" :option="$isRegister ? '必須' : '任意'" />
     <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" minlength="4" maxlength="20"
-        :required="$isRegister"/>
+        :required="$isRegister" />
     @if ($isRegister)
         <x-text.custom-input-label text="※半角英数字 4～20文字で入力してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
     @endif
@@ -71,7 +88,7 @@
 <!-- Confirm Password -->
 <div id="container-password_confirmation" class="mt-4">
     <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation"
-        minlength="4" maxlength="20" :required="$isRegister"/>
+        minlength="4" maxlength="20" :required="$isRegister" />
     @if ($isRegister)
         <x-text.custom-input-label text="※確認のためにもう一度パスワードを入力してください。"
             spanClass="font-normal text-xs text-gray-500 mt-1" />
@@ -84,7 +101,7 @@
 <!-- Person Type -->
 {{-- $user->person_type->value since User Model `casts` person_type is using ENUM --}}
 <div id="container-person_type" class="mt-4">
-    <x-text.custom-input-label text="法人／個人" class="mb-2" option="必須" />
+    <x-text.custom-input-label id="person_type-label" text="法人／個人" class="mb-2" option="必須" />
     <div class="flex flex-col gap-2 justify-center items-start">
         @foreach (\App\Enums\PersonTypeEnum::cases() as $person_type)
             <div class="my-1 flex items-center gap-3">
@@ -128,14 +145,15 @@
 </div>
 
 <!-- Gender -->
-{{-- $user->gender->value since User Model `casts` gender is using ENUM --}}
+{{-- $ since User Model `casts` gender is using ENUM --}}
 <div id="container-gender" class="mt-4">
     <x-text.custom-input-label text="性別" class="mb-2" option="任意" />
     <div class="flex flex-col gap-2 justify-center items-start">
         @foreach (\App\Enums\GenderEnum::cases() as $gender)
             <div class="my-1 flex items-center gap-3">
                 <x-text-input id="gender-{{ $gender->value }}" type="radio" name="gender" :value="$gender->value"
-                    :checked="(old('gender') ?? ($user && isset($user->gender) ? $user->gender->value : null)) ==
+                    :checked="(old('gender') ??
+                        ($user && isset($user->gender->value) ? $user->gender->value : null)) ==
                         $gender->value" />
                 <x-input-label for="gender-{{ $gender->value }}" :value="__($gender->getLabel())" />
             </div>
@@ -174,11 +192,12 @@
 
 <!-- Preferred Time -->
 <div id="container-call_time" class="mt-4">
-    <x-text.custom-input-label text="電話連絡の希望時間帯" class="mb-2" option="必須" />
+    <x-text.custom-input-label id="call_time-label" text="電話連絡の希望時間帯" class="mb-2" option="必須" />
     @foreach (\App\Enums\CallTimeEnum::cases() as $callTime)
         <div class="mt-4 flex items-center gap-3 mb-3">
             <x-text-input id="contact-time-{{ $callTime->value }}" type="radio" name="call_time" :value="$callTime->value"
-                :checked="(old('call_time') ?? ($user && isset($user->call_time) ? $user->call_time->value : null)) ===
+                :checked="(old('call_time') ??
+                    ($user && isset($user->call_time->value) ? $user->call_time->value : null)) ===
                     $callTime->value" required />
             <x-input-label for="contact-time-{{ $callTime->value }}" :value="__($callTime->getLabel())" />
         </div>
@@ -194,7 +213,7 @@
 
 <!-- Postal Code -->
 <div id="container-zipcode" class="mt-4">
-    <x-text.custom-input-label text="郵便番号" class="mb-2" option="必須" />
+    <x-text.custom-input-label id="zipcode-label" text="郵便番号" class="mb-2" option="必須" />
     <div class="flex items-center space-x-2">
         <x-text-input id="zipcode" class="block mt-1 w-full md:w-1/4" type="text" name="zipcode"
             :value="old('zipcode') ?? ($user ? $user->zipcode : null)" required maxlength="7" />
@@ -214,10 +233,10 @@
 
 <!-- Prefecture -->
 @php
-    $selected = old('prefecture') ?? ($user && isset($user->prefecture) ? $user->prefecture->value : null);
+    $selected = old('prefecture') ?? ($user && isset($user->prefecture->value) ? $user->prefecture->value : null);
 @endphp
 <div id="container-prefecture" class="mt-4">
-    <x-text.custom-input-label text="都道府県" class="mb-2" option="必須" />
+    <x-text.custom-input-label id="prefecture-label" text="都道府県" class="mb-2" option="必須" />
     <select name="prefecture" id="prefecture" name="prefecture" class="block mt-1 w-full md:w-1/4" required>
         <option value="">都道府県を選択</option>
         @foreach (\App\Enums\PrefectureEnum::getRegions() as $region => $prefectures)
@@ -236,7 +255,7 @@
 
 <!-- Address 1 -->
 <div id="container-address1" class="mt-4">
-    <x-text.custom-input-label text="市区町村・番地" class="mb-2" option="必須" />
+    <x-text.custom-input-label id="address1-label" text="市区町村・番地" class="mb-2" option="必須" />
     <x-text-input id="address1" class="block mt-1 w-full" type="text" name="address1" :value="old('address1') ?? ($user ? $user->address1 : null)"
         maxlength="128" required />
     <x-ajax-input-error id="error-address1" class="mt-2" />
@@ -304,7 +323,8 @@
 
 <!-- How did you hear -->
 <div id="container-questionnaire" class="mt-4">
-    <x-text.custom-input-label text="[アンケート]弊社の車検を何でお知りになりましたか？(複数回答3つまで)" class="mb-2" option="必須" />
+    <x-text.custom-input-label id="questionnaire-label" text="[アンケート]弊社の車検を何でお知りになりましたか？(複数回答3つまで)" class="mb-2"
+        option="必須" />
     @foreach (\App\Enums\QuestionnaireEnum::cases() as $question)
         <div class="mt-4 flex items-center gap-3 mb-3">
             {{-- 例： question-1 --}}
@@ -349,7 +369,8 @@
 <!-- Notification Subscription -->
 {{-- $user->is_receive_notification->value since User Model `casts` is_receive_notification is using ENUM --}}
 <div id="container-is_receive_notification" class="mt-4">
-    <x-text.custom-input-label text="店からのお知らせメール" class="mb-2" option="必須" />
+    <x-text.custom-input-label id="is_receive_notification-label" text="店からのお知らせメール" class="mb-2"
+        option="必須" />
     <div class="flex flex-col gap-2 justify-center items-start">
         @foreach (array_reverse(\App\Enums\IsNotificationEnum::cases()) as $notificationOption)
             <div class="my-1 flex items-center gap-3">
@@ -370,8 +391,9 @@
 @if ($isAdmin)
     <!-- Admin Remarks -->
     <div id="container-remarks" class="mt-4">
-        <x-text.custom-input-label text="管理用備考" class="mb-2" />
-        <x-textarea id="remarks" class="block mt-1 w-full" type="text" name="remarks" :value="old('remarks') ?? ($user ? $user->remarks : null)" maxlength="128"/>
+        <x-text.custom-input-label text="管理用備考" class="mb-2" option="任意" />
+        <x-textarea id="remarks" class="block mt-1 w-full" type="text" name="remarks" :value="old('remarks') ?? ($user ? $user->remarks : null)"
+            maxlength="128" />
         <x-ajax-input-error id="error-remarks" class="mt-2" />
         <x-input-error :messages="$errors->get('remarks')" class="mt-2" />
     </div>

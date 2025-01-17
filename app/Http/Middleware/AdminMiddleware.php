@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Enums\UserRoleEnum;
 use App\Models\User;
 use Closure;
 use Illuminate\Http\Request;
@@ -17,7 +18,7 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->role == User::ADMIN) {
+        if (Auth::check() && Auth::user()->role->value == UserRoleEnum::Admin->value) {
             return $next($request);
         }
         return redirect()->route('mypage');

@@ -50,9 +50,10 @@
         $name = 'car_name[]';
     @endphp
     <div id="container-{{ $key }}" class="mt-4">
-        <x-text.custom-input-label text="車名({{ $sequence_no }}台目)" class="mb-2" :option="$sequence_no !== 1 ? '任意' : '必須'" />
+        <x-text.custom-input-label id="car_name-label" text="車名({{ $sequence_no }}台目)" class="mb-2"
+            :option="$sequence_no !== 1 ? '任意' : '必須'" />
         <x-text-input id="{{ $key }}" class="block mt-1 w-full" type="text" name="{{ $name }}"
-            :value="old($key) ?? ($userVehicle ? $userVehicle->car_name : null)" :required="$sequence_no === 1 ? true : false" maxlength="20"/>
+            :value="old($key) ?? ($userVehicle ? $userVehicle->car_name : null)" :required="$sequence_no === 1 ? true : false" maxlength="20" />
         @if ($isRegister)
             <x-text.custom-input-label text="※例：ラパン" spanClass="font-normal text-xs text-gray-500 mt-1" />
         @endif
@@ -70,7 +71,7 @@
     <div id="container-{{ $key }}" class="mt-4">
         <x-text.custom-input-label text="型式({{ $sequence_no }}台目)" class="mb-2" :option="$sequence_no !== 1 ? '任意' : '任意'" />
         <x-text-input id="{{ $key }}" class="block mt-1 w-full" type="text" name="{{ $name }}"
-            :value="old($key) ?? ($userVehicle ? $userVehicle->car_katashiki : null)" maxlength="20"/>
+            :value="old($key) ?? ($userVehicle ? $userVehicle->car_katashiki : null)" maxlength="20" />
         @if ($isRegister)
             <x-text.custom-input-label text="※例：GF-123456" spanClass="font-normal text-xs text-gray-500 mt-1" />
         @endif
@@ -86,9 +87,10 @@
         $name = 'car_number[]';
     @endphp
     <div id="container-{{ $key }}" class="mt-4">
-        <x-text.custom-input-label text="ナンバー({{ $sequence_no }}台目)" class="mb-2" :option="$sequence_no !== 1 ? '任意' : '必須'" />
+        <x-text.custom-input-label id="car_number-label" text="ナンバー({{ $sequence_no }}台目)" class="mb-2"
+            :option="$sequence_no !== 1 ? '任意' : '必須'" />
         <x-text-input id="{{ $key }}" class="block mt-1 w-full" type="text" name="{{ $name }}"
-            :value="old($key) ?? ($userVehicle ? $userVehicle->car_number : null)" :required="$sequence_no === 1 ? true : false" maxlength="20"/>
+            :value="old($key) ?? ($userVehicle ? $userVehicle->car_number : null)" :required="$sequence_no === 1 ? true : false" maxlength="20" />
         <x-ajax-input-error id="error-{{ $errorKey }}" class="mt-2" />
         @if ($isRegister)
             <x-text.custom-input-label text="※ナンバープレートの番号を入力して下さい。"

@@ -138,4 +138,135 @@ $(document).ready(function () {
             },
         });
     });
+
+    //会員新規登録
+    // ラジオボタンが変更されたときに実行
+    $('input[name="role"]').change(function () {
+        updateLabel("zipcode");
+        updateLabel("prefecture");
+        updateLabel("address1");
+        updateLabel("car_name");
+        updateLabel("car_number");
+        updateLabel("questionnaire");
+        updateCallTimeLabel();
+        updateRequiredForFields();
+    });
+
+    $('input[name="role"]').first().trigger("change");
+
+    // 電話番号ラベルのoptionを変更する関数
+    function updateLabel(key) {
+        // 「管理者」を選択した場合
+        if ($("#role-admin").is(":checked")) {
+            var $label = $("#" + key + "-label span.isinputlabel"); // optionを「任意」に変更
+            $label.text("任意");
+            $label.addClass("form-any");
+            $label.removeClass("form-required");
+
+            var $input = $("#" + key); // inputを「任意」に変更
+            $input.attr("required", false);
+        } else {
+            var $label = $("#" + key + "-label span.isinputlabel"); // optionを「必須」に変更
+            $label.text("必須");
+            $label.addClass("form-required");
+            $label.removeClass("form-any");
+
+            var $input = $("#" + key); // inputを「必須」に変更
+            $input.attr("required", true);
+        }
+    }
+
+    // 電話連絡時間帯のラベルとrequired属性を変更する関数
+    function updateCallTimeLabel() {
+        // 「管理者」を選択した場合
+        if ($("#role-admin").is(":checked")) {
+            // 「必須」のラベルを「任意」に変更
+            $("#call_time-label span.isinputlabel")
+                .text("任意")
+                .addClass("form-any")
+                .removeClass("form-required");
+
+            // 各ラジオボタンのrequired属性を外す
+            $("input[name='call_time']").each(function () {
+                $(this).removeAttr("required");
+            });
+        } else {
+            // 「任意」のラベルを「必須」に戻す
+            $("#call_time-label span.isinputlabel")
+                .text("必須")
+                .addClass("form-required")
+                .removeClass("form-any");
+
+            // 各ラジオボタンのrequired属性を必須に戻す
+            $("input[name='call_time']").each(function () {
+                $(this).attr("required", true);
+            });
+        }
+    }
+
+    function updateRequiredForFields() {
+        const isAdmin = $("#role-admin").is(":checked");
+
+        // car_name_1 と car_number_1 の required 属性を変更
+        $("input[name='car_name[]'], input[name='car_number[]']").each(
+            function () {
+                if (
+                    $(this).attr("id") === "car_name_1" ||
+                    $(this).attr("id") === "car_number_1"
+                ) {
+                    $(this).attr("required", !isAdmin); // 管理者ならrequiredを外す
+                }
+            }
+        );
+
+        // is_receive_notification-1 と is_receive_notification-2 の required 属性を変更
+        if (isAdmin) {
+            // 管理者の場合は required を外す
+            $("input[name='is_receive_notification']").each(function () {
+                $(this).removeAttr("required"); // 管理者ならrequiredを外す
+            });
+
+            // ラベルのテキストを「任意」に変更
+            $("#is_receive_notification-label span.isinputlabel")
+                .text("任意")
+                .removeClass("form-required")
+                .addClass("form-any");
+        } else {
+            // 管理者以外の場合は required を追加
+            $("input[name='is_receive_notification']").each(function () {
+                $(this).attr("required", true); // 管理者以外ならrequiredを追加
+            });
+
+            // ラベルのテキストを「必須」に変更
+            $("#is_receive_notification-label span.isinputlabel")
+                .text("必須")
+                .removeClass("form-any")
+                .addClass("form-required");
+        }
+
+        // person_type の required 属性を変更とラベルの変更
+        if (isAdmin) {
+            // 管理者の場合は person_type の required を外す
+            $("input[name='person_type']").each(function () {
+                $(this).removeAttr("required"); // 管理者ならrequiredを外す
+            });
+
+            // person_type のラベルテキストを「任意」に変更
+            $("#person_type-label span.isinputlabel")
+                .text("任意")
+                .removeClass("form-required")
+                .addClass("form-any");
+        } else {
+            // 管理者以外の場合は person_type の required を追加
+            $("input[name='person_type']").each(function () {
+                $(this).attr("required", true); // 管理者以外ならrequiredを追加
+            });
+
+            // person_type のラベルテキストを「必須」に変更
+            $("#person_type-label span.isinputlabel")
+                .text("必須")
+                .removeClass("form-any")
+                .addClass("form-required");
+        }
+    }
 });

@@ -4,17 +4,18 @@ namespace App\Http\Controllers\Auth;
 
 use App\Enums\FormTypeEnum;
 use App\Enums\SubmitTypeEnum;
+use App\Enums\UserRoleEnum;
 use App\Helpers\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisteredUserRequest;
 use App\Http\Requests\UserVehicleRequest;
 use App\Models\User;
-use App\Models\UserVehicle;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\View\View;
 
 class RegisteredUserController extends Controller
@@ -68,13 +69,14 @@ class RegisteredUserController extends Controller
 
         // 管理者がユーザーを登録
         if (Auth::check()) {
-            if (Auth::user()->role === User::ADMIN) {
+            if (Auth::user()->role === UserRoleEnum::Admin->value) {
                 return redirect()->route('admin.userList.index')->with('success', 'ユーザーを作成しました');
             }
         }
 
         //未ローグインで確認メール送信して、トップ画面にリダイレクトします。
         $message = 'ご登録いただき、ありがとうございます。<br />お送りした確認用URLをメールからご確認の上、クリックしてください。';
+        Session::remove('created_user_role');
         return redirect(route('top', absolute: false))->with('verify-email', $message);
     }
 

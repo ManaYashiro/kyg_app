@@ -9,6 +9,7 @@ use App\Enums\IsNotificationEnum;
 use App\Enums\PersonTypeEnum;
 use App\Enums\PrefectureEnum;
 use App\Enums\QuestionnaireEnum;
+use App\Enums\UserRoleEnum;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -32,13 +33,13 @@ class UserFactory extends Factory
     public function definition(): array
     {
 
-        $isAdmin = $attributes['role'] = User::ADMIN ? true : false;
+        $isAdmin = $attributes['role'] = UserRoleEnum::Admin->value ? true : false;
 
         return
             array_merge($this->otherData($isAdmin), [
                 'name' => fake()->name(),
                 'name_furigana' => fake()->name(),
-                'role' => User::USER,
+                'role' => UserRoleEnum::User->value,
                 'loginid' => fake()->regexify('[a-z0-9]{10}'),
                 'email' => fake()->unique()->safeEmail(),
                 'password' => 'p@ssword1234',
@@ -77,7 +78,7 @@ class UserFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'role' => User::ADMIN,
+                'role' => UserRoleEnum::Admin->value,
                 'call_time' => null,
                 'is_receive_newsletter' => IsNewsletterEnum::No->value,
                 'is_receive_notification' => IsNotificationEnum::No->value,
@@ -97,7 +98,7 @@ class UserFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'role' => User::USER,
+                'role' => UserRoleEnum::User->value,
                 'call_time' => CallTimeEnum::A_09_12->value,
                 'questionnaire' => $this->fakeQuestionnaire(),
                 'is_receive_newsletter' => IsNewsletterEnum::No->value,
@@ -118,7 +119,7 @@ class UserFactory extends Factory
     {
         return $this->state(function (array $attributes) {
             return [
-                'role' => User::USER,
+                'role' => UserRoleEnum::User->value,
                 'gender' => GenderEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, GenderEnum::cases()))),
                 'birthday' => fake()->dateTimeBetween('1990-01-01', '2000-12-31'),
                 'call_time' => CallTimeEnum::from(fake()->randomElement(array_map(fn($case) => $case->value, CallTimeEnum::cases()))),

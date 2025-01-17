@@ -5,10 +5,10 @@ namespace App\Http\Requests;
 use App\Enums\CarClassEnum;
 use App\Models\UserVehicle;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Session;
 
 class UserVehicleRequest extends FormRequest
 {
-
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -26,25 +26,33 @@ class UserVehicleRequest extends FormRequest
     {
         $required_cars_rules = [];
         $car_class_rules = [];
+        $created_user_role = Session::get("created_user_role");
 
-        // required or optional name and number pair
+        // ルールを設定
         for ($i = 0; $i < UserVehicle::MAX_NO_OF_CARS; $i++) {
-            switch ($i) {
-                case 0:
-                    // 1台目
-                    $required_cars_rules["car_name.$i"] = "required|max:20|required_with:car_number.$i";
-                    $required_cars_rules["car_number.$i"] = "required|max:20|required_with:car_name.$i";
-                    break;
+            // 1台目のバリデーションルール
+            if ($created_user_role == \App\Enums\UserRoleEnum::Admin->value) {
+                // 管理者の場合
+                $required_cars_rules["car_name.$i"] = "nullable|max:20|required_with:car_number.$i";
+                $required_cars_rules["car_number.$i"] = "nullable|max:20|required_with:car_name.$i";
+            } else {
+                // 他のフォームタイプの場合（通常の登録など）
+                switch ($i) {
+                    case 0:
+                        // 1台目
+                        $required_cars_rules["car_name.$i"] = "required|max:20|required_with:car_number.$i";
+                        $required_cars_rules["car_number.$i"] = "required|max:20|required_with:car_name.$i";
+                        break;
 
-                default:
-                    // 2台目から
-                    $required_cars_rules["car_name.$i"] = "max:20|required_with:car_number.$i";
-                    $required_cars_rules["car_number.$i"] = "max:20|required_with:car_name.$i";
-                    break;
+                    default:
+                        // 2台目から
+                        $required_cars_rules["car_name.$i"] = "max:20|required_with:car_number.$i";
+                        $required_cars_rules["car_number.$i"] = "max:20|required_with:car_name.$i";
+                        break;
+                }
             }
 
-            // car_class パラメータは配列ではありません
-            // car_class1、car_class2、car_class3
+            // car_class パラメータ（car_class1, car_class2, car_class3）をルール設定
             $carClassSequence = $i + 1;
             $car_class_rules["car_class$carClassSequence"] = 'max:30|in:' . implode(',', array_map(fn($case) => $case->value, CarClassEnum::cases()));
         }

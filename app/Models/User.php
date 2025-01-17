@@ -8,6 +8,7 @@ use App\Enums\IsNewsletterEnum;
 use App\Enums\IsNotificationEnum;
 use App\Enums\PersonTypeEnum;
 use App\Enums\PrefectureEnum;
+use App\Enums\UserRoleEnum;
 use App\Exceptions\SendEmailFailedException;
 use App\Helpers\Log;
 use App\Notifications\NotifyAdminOfRegisteredUserNotification;
@@ -27,15 +28,13 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public const TITLE = 'ユーザー';
 
-    public const ADMIN = 'admin';
-    public const USER = 'user';
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
+        'role',
         'loginid',
         'person_type',
         'name',
@@ -81,6 +80,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'questionnaire' => 'array',
+            'role' => UserRoleEnum::class,
             'person_type' => PersonTypeEnum::class,
             'gender' => GenderEnum::class,
             'call_time' => CallTimeEnum::class,
@@ -112,7 +112,7 @@ class User extends Authenticatable implements MustVerifyEmail
                 Log::info(self::TITLE . '登録が完了しました', $user->name, true);
                 try {
                     // 管理者にお知らせ
-                    $authUsers = User::where('role', User::ADMIN)->get();
+                    $authUsers = User::where('role', UserRoleEnum::Admin->value)->get();
                     foreach ($authUsers as $key => $authUser) {
                         $authUser->notify(new NotifyAdminOfRegisteredUserNotification($user));
                     }

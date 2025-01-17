@@ -10,11 +10,12 @@ use App\Enums\IsNotificationEnum;
 use App\Enums\PersonTypeEnum;
 use App\Enums\PrefectureEnum;
 use App\Enums\SubmitTypeEnum;
-use App\Models\User;
+use App\Enums\UserRoleEnum;
 use App\Rules\HalfWidthString;
 use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class RegisteredUserRequest extends FormRequest
 {
@@ -54,6 +55,7 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::ADMIN_REGISTER->value:
                 $id = $this->route('userList');
                 $passwordRules = [
+                    'role' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, UserRoleEnum::cases())),
                     'loginid' => ['required', 'string', 'min:4', 'max:15', 'unique:users,loginid,' . $id, new HalfWidthString],
                     'password' => ['required', 'string', 'min:4', 'max:128', 'confirmed', new HalfWidthString],
                     'password_confirmation' => ['required', 'string', 'min:4', 'max:128', new HalfWidthString],
@@ -62,41 +64,56 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::ADMIN_UPDATE->value:
                 $id = $this->route('userList');
                 $passwordRules = [
+                    'role' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, UserRoleEnum::cases())),
                     'password' => ['nullable', 'string', 'min:4', 'max:128', 'confirmed', new HalfWidthString],
                     'password_confirmation' => ['nullable', 'string', 'min:4', 'max:128', new HalfWidthString],
                 ];
                 break;
-
-            default:
-                # code...
-                break;
         }
+        // ユーザー情報の基本的なバリデーションルール
+        $otherData = [
+            'person_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, PersonTypeEnum::cases())),
+            'name' => 'required|string|max:40',
+            'name_furigana' => 'required|string|max:40',
+            'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),
+            'birthday' => 'nullable|bail|date|before:' . Carbon::now()->subYears(18)->toDateString() . '|after:1924-12-31',
+            'email' => ['required', 'email', 'max:128', 'unique:users,email,' . $id, new HalfWidthString],
+            'phone_number' => ['required', 'string', 'max:11', new HalfWidthString],
+            // address1, address2, call_time, zipcode, prefecture のバリデーションルールを変更
+            'call_time' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, CallTimeEnum::cases())), // 管理者の場合は必須ではなくなりnullableに変更
+            'address1' => 'required|string|max:128', // 管理者の場合は必須ではなくなりnullableに変更
+            'address2' => 'nullable|string|max:128', // 管理者の場合は必須ではなくなりnullableに変更
+            'zipcode' => ['required', 'bail', new HalfWidthString, 'digits:7'], // 管理者の場合は必須ではなくなりnullableに変更
+            'prefecture' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, PrefectureEnum::cases())), // 管理者の場合は必須ではなくなりnullableに変更
+            'questionnaire' => 'required|array|min:1|max:3',
+            'is_receive_notification' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, IsNotificationEnum::cases())),
+        ];
+
+        // 車両情報のバリデーションルールを取得
+        Session::put("created_user_role", $this->role);
         $userVehicleRequest = new UserVehicleRequest();
         $userVehicleRules = $userVehicleRequest->rules();
+
+        // 管理者フォームタイプの時に変更するバリデーションルールを適用
+        if (in_array($this->form_type, [FormTypeEnum::ADMIN_REGISTER->value, FormTypeEnum::ADMIN_UPDATE->value])) {
+            $otherData['person_type'] = 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, PersonTypeEnum::cases()));
+            $otherData['address1'] = 'nullable|string|max:128';
+            $otherData['call_time'] = 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, CallTimeEnum::cases()));
+            $otherData['zipcode'] = ['nullable', 'bail', new HalfWidthString, 'digits:7'];
+            $otherData['prefecture'] = 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, PrefectureEnum::cases()));
+            $otherData['questionnaire'] = 'nullable|array|min:1|max:3';
+            $otherData['is_receive_notification'] = 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, IsNotificationEnum::cases()));
+        }
+
         return
             array_merge(
-                $passwordRules,
-                [
-                    'person_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, PersonTypeEnum::cases())),
-                    'name' => 'required|string|max:40',
-                    'name_furigana' => 'required|string|max:40',
-                    'gender' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, GenderEnum::cases())),
-                    'birthday' => 'nullable|bail|date|before:' . Carbon::now()->subYears(18)->toDateString() . '|after:1924-12-31',
-                    'email' => ['required', 'email', 'max:128', 'unique:users,email,' . $id, new HalfWidthString],
-                    'phone_number' => ['required', 'string', 'max:11', new HalfWidthString],
-                    'address1' => 'required|string|max:128',
-                    'address2' => 'nullable|string|max:128',
-                    'call_time' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, CallTimeEnum::cases())),
-                    'zipcode' => ['required', 'bail', new HalfWidthString, 'digits:7'],
-                    'prefecture' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, PrefectureEnum::cases())),
-                ],
+                $passwordRules, // パスワードに関するルール
+                $otherData,
                 $userVehicleRules,
                 [
                     'is_receive_newsletter' => 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, IsNewsletterEnum::cases())),
-                    'questionnaire' => 'required|array|min:1|max:3',
                     'manager' => 'nullable|string|max:40',
                     'department' => 'nullable|string|max:128',
-                    'is_receive_notification' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, IsNotificationEnum::cases())),
                     'remarks' => 'nullable|string|max:128',
                     'form_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, FormTypeEnum::cases())),
                     'submit_type' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, SubmitTypeEnum::cases())),
@@ -108,9 +125,9 @@ class RegisteredUserRequest extends FormRequest
     {
         return [
             'min' => 'このテキストは:min文字以上で指定して下さい。',
-            'max' => '入力制限をかけているため文字数以上打てない。',
+            'max' => ':attribute は :max 以下でなければなりません。',
             'in' => ':attributeの選択物を選択してください。',
-            'digits' => '入力制限をかけているため文字数以上打てない。',
+            'digits' => ':attribute は :digits 桁でなければなりません。',
             'unique' => 'この:attributeはすでに登録されています。',
             'string' => ':attributeは文字列でなければなりません。',
 
@@ -128,8 +145,8 @@ class RegisteredUserRequest extends FormRequest
 
             'zipcode.integer' => '郵便番号は整数でなければなりません。',
 
-            'questionnaire.required' => '少なくとも1つの:attributeを選択',
-            'questionnaire.min' => '少なくとも1:attributeを選択',
+            'questionnaire.required' => '少なくとも1つの:attributeを選択してください。',
+            'questionnaire.min' => '少なくとも1つの:attributeを選択を選択してください。',
 
             'birthday.before' => '生年月日は、18歳以上である必要があります。',
             'birthday.after' => '生年月日は、1925年以上である必要があります。',
