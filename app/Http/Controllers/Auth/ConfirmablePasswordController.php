@@ -39,7 +39,7 @@ class ConfirmablePasswordController extends Controller
 
         $request->session()->put('auth.password_confirmed_at', time());
 
-        if (Auth::user()->role == UserRoleEnum::Admin->value) {
+        if (Auth::user()->role->value == UserRoleEnum::Admin->value) {
             return redirect()->to(AuthenticatedSessionController::ADMIN_DASHBOARD);
         }
         return redirect()->intended(AuthenticatedSessionController::TOP_PAGE);
