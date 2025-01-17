@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('email', 128)->unique()->comment("メールアドレス");
             $table->string('password')->comment("パスワード");
             $table->dateTime('email_verified_at')->useCurrent()->nullable()->comment("");
-            $table->integer('zipcode', 7)->autoIncrement(false)->comment("郵便番号");
-            $table->string('prefecture', 8)->comment("都道府県");
-            $table->string('address1', 150)->comment("市区町村・番地");
+            $table->integer('zipcode', 7)->nullable()->autoIncrement(false)->comment("郵便番号");
+            $table->string('prefecture', 8)->nullable()->comment("都道府県");
+            $table->string('address1', 150)->nullable()->comment("市区町村・番地");
             $table->string('address2')->nullable()->comment("建物名など");
             $table->string('phone_number', 15)->comment("電話番号");
             $table->integer('gender', 1)->nullable()->autoIncrement(false)->comment("性別");
@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string('department', 128)->nullable()->comment("部署名／支店名");
             $table->string('remarks', 128)->nullable()->comment("管理用備考");
             $table->integer('is_receive_newsletter', 1)->nullable()->autoIncrement(false)->comment("メルマガ配信; 0：するｌ１：しない");
-            $table->integer('is_receive_notification', 1)->autoIncrement(false)->comment("お知らせメール; 0：するｌ１：しない");
+            $table->integer('is_receive_notification', 1)->nullable()->autoIncrement(false)->comment("お知らせメール; 0：するｌ１：しない");
             $table->rememberToken()->comment("");
             $table->dateTime('created_at')->useCurrent()->comment("作成日時（自動生成）");
             $table->dateTime('updated_at')->nullable()->useCurrentOnUpdate()->comment("更新日時（自動生成）");

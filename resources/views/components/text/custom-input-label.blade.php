@@ -9,10 +9,10 @@
 @php
     $optionClass = '';
     if ($option == '必須') {
-        $optionClass .= ' form-required';
+        $optionClass .= ' isinputlabel form-required';
     }
     if ($option == '任意') {
-        $optionClass .= ' form-any';
+        $optionClass .= ' isinputlabel form-any';
     }
 @endphp
 <div {{ $attributes->merge(['class' => 'flex items-start justify-start gap-1 form-label ' . $class]) }}>
