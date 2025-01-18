@@ -1,20 +1,20 @@
 $(document).ready(function () {
-    inspectReservation();
+    createReservation();
 });
 
-function inspectReservation() {
+function createReservation() {
+    const url = `/api/inspection/reservations`;
     const formData = new FormData();
-    const reservationNo = "here";
-    formData.append("_method", "DELETE");
-
-    const url = `/api/test`;
-
-    console.log(url);
+    formData.append("workDiv", 1);
+    formData.append("startTime", 202412251300);
+    formData.append("endTime", 202412251400);
+    formData.append("baseCode", 42011);
+    formData.append("number", "尾張小牧300と1672");
+    formData.append("reservationNo", "S32021202412010001");
 
     $.ajax({
-        // url: `/api/reservations/${reservationNo}`,
         url: url,
-        // type: "POST",
+        type: "POST",
         dataType: "json",
         processData: false,
         contentType: false,
@@ -22,7 +22,7 @@ function inspectReservation() {
         beforeSend: function () {},
         complete: function () {},
         success: function (response) {
-            console.log(response);
+            console.log("create reservation", response);
         },
         error: function (xhr, status, error) {},
     });
