@@ -2,6 +2,7 @@ $(document).ready(function () {
     createReservation();
     createReservationIncSupplies();
     cancelReservation();
+    cancelReservationIncSupplies();
 });
 
 function createReservation() {
@@ -75,6 +76,28 @@ function cancelReservation() {
         complete: function () {},
         success: function (response) {
             console.log("cancel reservation", response);
+        },
+        error: function (xhr, status, error) {},
+    });
+}
+
+function cancelReservationIncSupplies() {
+    const reservationNo = "W32021202412010001";
+    const url = `/api/supplies/reservations/${reservationNo}`;
+    const formData = new FormData();
+    formData.append("_method", "DELETE");
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        data: formData,
+        beforeSend: function () {},
+        complete: function () {},
+        success: function (response) {
+            console.log("cancel reservation with supplies", response);
         },
         error: function (xhr, status, error) {},
     });
