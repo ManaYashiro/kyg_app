@@ -1,11 +1,12 @@
 @props([
     'sequence_no' => 0, // 順番
     'value' => '', // 点検種別の値
+    'selected_inspection_type' => '',
 ])
 
 <label for="inspection-type-input-{{ $sequence_no }}" class="custom-radio-button">
     <input type="radio" name="inspection_type" value="{{ $value }}" id="inspection-type-input-{{ $sequence_no }}"
-        class="hidden-radio step-radio rounded-md">
+        class="hidden-radio step-radio rounded-md" {{ $selected_inspection_type == $value ? 'checked' : '' }}>
     <span class="step-button inspection-type-button flex flex-col">
         <div class="flex gap-2 w-[45%] items-center justify-center btn-img-container">
             @switch($value)

@@ -200,22 +200,17 @@ fontAwesomeLoaded().then(() => {
                 alert("過去の時間ので予約できません。");
                 return;
             }
-            const selectedStore =
-                document.querySelector('input[name="store"]:checked')?.value ||
-                "";
+            const selectedStore = $('input[name="store"]:checked').val() || "";
             const selectedinspection_type =
-                document.querySelector('input[name="inspection_type"]:checked')
-                    ?.value || "";
+                $('input[name="inspection_type"]:checked').val() || "";
             const selectedcustomer_type =
-                document.querySelector('input[name="customer_type"]:checked')
-                    ?.value || "";
+                $('input[name="customer_type"]:checked').val() || "";
             const selectedwork_type =
-                document.querySelector('input[name="work_type"]:checked')
-                    ?.value || "";
+                $('input[name="work_type"]:checked').val() || "";
             const selectedreservation_task_id =
-                document.querySelector(
-                    'input[name="reservation_task_id"]:checked'
-                )?.value || "";
+                $('input[name="reservation_task_id"]:checked').val() || "";
+            const selectedhas_tire_storage =
+                $('input[name="has_tire_storage"]:checked').val() || "";
 
             const selectedDateTime = info.event.start;
             const japanTime = moment(selectedDateTime).format(
@@ -228,7 +223,10 @@ fontAwesomeLoaded().then(() => {
             formData.append("customer_type", selectedcustomer_type);
             formData.append("work_type", selectedwork_type);
             formData.append("reservation_task_id", selectedreservation_task_id);
+            formData.append("has_tire_storage", selectedhas_tire_storage);
+
             formData.append("appointmentDateTime", japanTime);
+            formData.append("target", "entry");
 
             $.ajax({
                 url: "/reservation/process",
@@ -248,10 +246,7 @@ fontAwesomeLoaded().then(() => {
                 complete: function () {},
                 success: function (response) {
                     // リダイレクト
-                    window.location.href =
-                        window.location.href.replace(/\/$/, "") +
-                        "/reservation/entry/" +
-                        response.process_id; // 遷移先URL
+                    window.location.href = response.redirectUrl;
                 },
                 error: function (xhr, status, error) {
                     window.hideLoading();
