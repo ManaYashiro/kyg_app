@@ -27,3 +27,29 @@ Route::prefix("inspection")->group(function () {
         ], 500);
     });
 });
+
+Route::prefix("supplies")->group(function () {
+    Route::post("/reservations", function (Request $request) {
+
+        // OK
+        return response()->json([
+            "reservationNo" => "Y32021202412010001",
+            "timestamp" => "20241225130099",
+        ], 200);
+
+        // Bad Request
+        return response()->json([
+            "message" => "エラー理由（入力パラメータ不正など）"
+        ], 400);
+
+        // Conflict
+        return response()->json([
+            "message" => "エラー理由(予約重複など）"
+        ], 409);
+
+        // Internal Server Error
+        return response()->json([
+            "message" => "エラー理由（内部エラーなど）"
+        ], 500);
+    });
+});
