@@ -17,12 +17,13 @@ export default defineConfig({
                 // custom
                 "resources/css/modules/calendar.css",
 
-                "resources/js/modules/registerConfirm.js",
                 "resources/js/modules/base.js",
-                "resources/js/modules/datepicker.js",
-                "resources/js/modules/page-navi-buttons.js",
                 "resources/js/modules/calendar.js",
                 "resources/js/modules/dashboard.js",
+                "resources/js/modules/datepicker.js",
+                "resources/js/modules/keyboard.js",
+                "resources/js/modules/page-navi-buttons.js",
+                "resources/js/modules/registerConfirm.js",
 
                 // admin
                 "resources/js/modules/admin/navi.js",

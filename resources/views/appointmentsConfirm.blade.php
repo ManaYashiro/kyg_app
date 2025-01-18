@@ -238,10 +238,8 @@
                 <textarea id='remarks' name="remarks" cols rows="7" class="w100" style="width: 809px; height: 158px;"></textarea>
                 <!-- 確定ボタン -->
                 <div class="btn-area1">
-                    <a href="{{ route('confirmationItems.entry', ['process_id' => $process_id]) }}"
-                        class="button ml-4 btn-type1">
-                        <span>前の画面に戻る</span>
-                    </a>
+                    <input type="button" id="btn" class="ml-4 btn-type1" value="前の画面に戻る"
+                        onclick="window.history.back()">
                     {{-- onclick="location.href='{{ url()->previous() }}'"> --}}
                     <input class="ml-4 btn-type2" type="submit" value="完了する">
                 </div>
@@ -249,7 +247,7 @@
         </div>
     </div>
     @section('styles')
-        @vite(['resources/css/modules/reservation/confirmationitems.css'])
+        @vite(['resources/css/confirmationitems.css'])
     @endsection
     @push('scripts')
         @vite(['resources/js/modules/reservation/confirmationitems.js'])

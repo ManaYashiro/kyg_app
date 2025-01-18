@@ -20,15 +20,16 @@
             <!-- Login ID -->
             <div class="mt-4">
                 <x-text.custom-text text="ログインID" class="left-border-text" />
-                <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid')"
-                    required autofocus autocomplete="username" />
+                <x-text-input id="loginid" :addClass="'validateAlphanumeric'" class="block mt-1 w-full" type="text" name="loginid"
+                    :value="old('loginid')" required autofocus autocomplete="username" />
                 <x-input-error :messages="$errors->get('loginid')" class="mt-2" />
             </div>
 
             <!-- Password -->
             <div class="mt-4">
                 <x-text.custom-text text="パスワード" class="left-border-text" />
-                <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required />
+                <x-text-input id="password" :addClass="'validateAlphanumeric'" class="block mt-1 w-full" type="password" name="password"
+                    required />
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 
@@ -41,7 +42,7 @@
                     <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
                 </label>
             </div>
-             --}}
+            --}}
 
             <div class="flex flex-col items-end justify-center gap-10 mt-4">
                 @if (Route::has('password.request'))

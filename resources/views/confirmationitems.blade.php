@@ -74,8 +74,13 @@
                         @php
                             $inspection_due_date = $processData['inspection_due_date'] ?? null;
                         @endphp
-                        <x-text-data-input id="inspection_due_date" type="text" name="inspection_due_date"
-                            :value="old('inspection_due_date') ?? $inspection_due_date" class="datepicker block mt-1 w-full rounded-none" required />
+                        <x-text-data-input id="inspection_due_date" type="text" name="inspection_due_date" <<<<<<<
+                            HEAD :value="old('inspection_due_date')" :addClass="'validateNumeric'"
+                            class="datepicker block mt-1 w-full rounded-none" required />
+                        =======
+                        :value="old('inspection_due_date') ?? $inspection_due_date"
+                        class="datepicker block mt-1 w-full rounded-none" required />
+                        >>>>>>> ca015af914762eedf64f83112f0b93e6b329fafc
                         <x-text.custom-input-label text="（記入例：2022/10/30）"
                             spanClass="font-normal text-xs text-gray-500 mt-1" />
                         <x-ajax-input-error id="error-inspection_due_date" class="mt-2" />
@@ -88,6 +93,19 @@
                                 option="必須" />
                         </h5>
                         <div class="mt-4">
+                            <<<<<<< HEAD <x-radio name="past_service_history" value="A)この店舗・作業どちらも、初めて利用"
+                                label="A)この店舗・作業どちらも、初めて利用" :checked="old('past_service_history') === 'A)この店舗・作業どちらも、初めて利用'" :disabled="false" class="mt-2"
+                                required />
+                            <x-radio name="past_service_history" value="B)この作業は初めて利用 (店舗は過去利用した)"
+                                label="B)この作業は初めて利用 (店舗は過去利用した)" :checked="old('past_service_history') === 'B)この作業は初めて利用 (店舗は過去利用した)'" :disabled="false" class="mt-2"
+                                required />
+                            <x-radio name="past_service_history" value="C)この店舗・作業とも、以前に利用している"
+                                label="C)この店舗・作業とも、以前に利用している" :checked="old('past_service_history') === 'C)この店舗・作業とも、以前に利用している'" :disabled="false" class="mt-2"
+                                required />
+                            <x-radio name="past_service_history" value="D)この作業は、弊社の別の店舗で利用した"
+                                label="D)この作業は、弊社の別の店舗で利用した" :checked="old('past_service_history') === 'D)この作業は、弊社の別の店舗で利用した'" :disabled="false" class="mt-2"
+                                required />
+                            =======
                             @php
                                 $past_service_history = $processData['past_service_history'] ?? [];
                             @endphp
@@ -100,6 +118,7 @@
                                 label="C)この店舗・作業とも、以前に利用している" :checked="(old('past_service_history', $past_service_history)) === 'C)この店舗・作業とも、以前に利用している'" :disabled="false" required />
                             <x-radio id="reservation-radio-4" name="past_service_history" value="D)この作業は、弊社の別の店舗で利用した"
                                 label="D)この作業は、弊社の別の店舗で利用した" :checked="(old('past_service_history', $past_service_history)) === 'D)この作業は、弊社の別の店舗で利用した'" :disabled="false" required />
+                            >>>>>>> ca015af914762eedf64f83112f0b93e6b329fafc
                             <x-text.custom-input-label
                                 text="※今回ご予約いただく「店舗」ならびに、ご予約いただく「作業」（車検・点検やオイル・タイヤ交換など）に対してお聞かせ下さい。"
                                 spanClass="font-normal text-xs text-gray-500 mt-1" />
