@@ -2,6 +2,7 @@
     'sequence_no' => 0, // 順番
     'value' => '', // 作業種別の値
     'type' => '', // 作業種別の値
+    'selected_work_type' => '',
 ])
 
 @php
@@ -13,7 +14,7 @@
         <label for="work-type-input-{{ $sequence_no }}"
             class="col-span-3 flex gap-3 items-center justify-start cursor-pointer">
             <input type="radio" name="work_type" value="{{ $value }}" class="hidden-radio step-radio"
-                id="work-type-input-{{ $sequence_no }}">
+                id="work-type-input-{{ $sequence_no }}" {{ $selected_work_type == $value ? 'checked' : '' }}>
             <div class="step-border border border-red-700 px-1 py-2">
                 <span class="check-icon input-type-check">
                     <img src="{{ Vite::asset('resources/img/top/button_check.png') }}" alt="チェック" class="w-4">

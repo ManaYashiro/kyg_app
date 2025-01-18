@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\Log;
+use App\Helpers\ReservationSession;
 use App\Models\Appointments;
 use App\Models\UserVehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Session;
 use App\Models\ReservationTask;
-use Illuminate\Support\Str;
 
 class  ConfirmationItemController extends Controller
 {
@@ -18,46 +16,62 @@ class  ConfirmationItemController extends Controller
     public function process(Request $request)
     {
         $processData = $request->all();
-        $process_id = Str::random(10);
-        Session::put($process_id, $processData);
+        $process_id = ReservationSession::getProcessId() ?? ReservationSession::generateProcessId();
+        ReservationSession::store($process_id, $processData);
+        ReservationSession::storeProcessId($process_id);
+        $redirectUrl = "";
 
+        switch ($processData['target']) {
+            case 'entry':
+                $redirectUrl = route('confirmationItems.entry', ['process_id' => $process_id]);
+                break;
+
+            case 'confirm':
+
+                //バリデーション
+                $rules = [
+                    'process_id' => 'required|string',
+                    'user_vehicle_id' => 'required|string',
+                    'additional_services' => 'nullable|array',
+                    'inspection_due_date' => 'required|date_format:Y/m/d',
+                    'past_service_history' => 'required|string',
+                ];
+                // バリデーションエラーメッセージ
+                $errorMessages = [
+                    'user_vehicle_id' => '【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。を選択してください。',
+                    'inspection_due_date' => '車検満了日は、正しい日付ではありません。',
+                    'past_service_history' => '今回ご予約いただく店舗・作業は、過去にご利用がございますか？を選択してください。',
+                ];
+
+                $request->validate($rules, $errorMessages);
+
+                $redirectUrl = route('appointments.confirm');
+                break;
+
+            default:
+                # code...
+                break;
+        }
         return response()->json([
             'process_id' => $process_id,
+            'redirectUrl' => $redirectUrl
         ]);
     }
 
-    // entry
-    public function index(Request $request, $process_id)
+    // 予約エントリー画面
+    public function entry(Request $request, $process_id)
     {
-        $processData = Session::get($process_id);
-        Session::put('current_process_data', $processData);
         $appointment = Appointments::all();
-        return view('confirmationItems', compact('appointment'));
+        $processData = ReservationSession::get($process_id);
+        return view('confirmationItems', compact('appointment', 'processData'));
     }
 
     public function confirm(Request $request)
     {
-        $processData = Session::get('current_process_data');
-
         // userからIDを受け取る
         $user = Auth::user() ?? null;
-
-        //バリデーション
-        $rules = [
-            'user_vehicle_id' => 'required|string',
-            'additional_services' => 'nullable|array',
-            'inspection_due_date' => 'required|date_format:Y/m/d',
-            'past_service_history' => 'required|string',
-        ];
-        // バリデーションエラーメッセージ
-        $errorMessages = [
-            'user_vehicle_id' => '【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。を選択してください。',
-            'inspection_due_date' => '車検満了日は、正しい日付ではありません。',
-            'past_service_history' => '今回ご予約いただく店舗・作業は、過去にご利用がございますか？を選択してください。',
-        ];
-
-        // バリデーションの実行
-        $validatedData = $request->validate($rules, $errorMessages);
+        $process_id = ReservationSession::getProcessId();
+        $processData = ReservationSession::get($process_id);
 
         // 性別値を取得
         $genderValue = $user->gender->value;
@@ -118,10 +132,10 @@ class  ConfirmationItemController extends Controller
 
         //最終内容確認へ渡すために代入
         $finalcheck = [
-            'user_vehicle_id' => $validatedData['user_vehicle_id'],
-            'additional_services' => $validatedData['additional_services'] ?? [],  // 空の場合は空の配列
-            'inspection_due_date' => $validatedData['inspection_due_date'],
-            'past_service_history' => $validatedData['past_service_history'],
+            'user_vehicle_id' => $processData['user_vehicle_id'],
+            'additional_services' => $processData['additional_services'] ?? [],  // 空の場合は空の配列
+            'inspection_due_date' => $processData['inspection_due_date'],
+            'past_service_history' => $processData['past_service_history'],
             //顧客
             'user' => [
                 'name' => $user->name,
@@ -161,7 +175,7 @@ class  ConfirmationItemController extends Controller
         ]);
 
         // 確認画面に必要なデータを渡す
-        return view('appointmentsConfirm', compact('finalcheck'));
+        return view('appointmentsConfirm', compact('finalcheck', 'process_id'));
     }
 
     public function store(Request $request)
@@ -186,6 +200,8 @@ class  ConfirmationItemController extends Controller
         $appointment->past_service_history = $request->input('past_service_history'); //過去の利用履歴
         $appointment->remarks = $request->input('remarks'); //備考欄
         $appointment->save();
+
+        ReservationSession::destroy();
 
         return redirect()->route('top');
     }

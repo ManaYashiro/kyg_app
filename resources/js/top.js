@@ -146,6 +146,8 @@ $(document).ready(function () {
         showWorkType(user_select_data);
         showReservationTasks(user_select_data);
     });
+
+    $(".step-radio:checked").trigger("click");
 });
 
 function showWorkType(user_select_data) {
@@ -315,33 +317,3 @@ function hideCalendar() {
 function showCalendar() {
     $("#calendar-container").find(".fc-view-harness").css("z-index", "unset");
 }
-
-// $(document).ready(function () {
-//     $.ajaxSetup({
-//         headers: {
-//             "X-CSRF-TOKEN": window.csrf_token,
-//         },
-//     });
-
-//     // ラジオボタンが選択された時
-//     $('input[name="store"]').on("change", function () {
-//         var selectedStoreValue = $(this).val();
-//         $("#selectedStore").val(selectedStoreValue); // 隠しフィールドに選択された値を設定
-//     });
-//     // ラジオボタンが選択された時
-//     $('input[name="inspection_type"]').on("change", function () {
-//         var selectedcategoryValue = $(this).val();
-//         $("#selectedinspection_type").val(selectedcategoryValue); // 隠しフィールドに選択された値を設定
-//     });
-//     // チェックボックスが選択された時
-//     $(document).on("click", 'input[name="reservation_task_id"]', function () {
-//         var selectedreservationtaskValue = $(this).val();
-//         $("#selectedreservation_task_id").val(selectedreservationtaskValue); // 隠しフィールドに選択された値を設定
-//     });
-
-//     // ラジオボタンが選択された時
-//     $('input[name="work_type"]').on("change", function () {
-//         var selectedwork_typeValue = $(this).val();
-//         $("#selectedwork_type").val(selectedwork_typeValue); // 隠しフィールドに選択された値を設定
-//     });
-// });
