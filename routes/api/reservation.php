@@ -133,6 +133,25 @@ Route::prefix("supplies")->group(function () {
     });
 });
 
+Route::prefix("reservations")->group(function () {
+    // 8. 予約ステータス変更
+    Route::post("/accept", function (Request $request) {
+
+        // OK
+        return response()->json([], 201);
+
+        // Bad Request
+        return response()->json([
+            "message" => "エラー理由（入力パラメータ不正など）"
+        ], 400);
+
+        // Internal Server Error
+        return response()->json([
+            "message" => "エラー理由（内部エラーなど）"
+        ], 500);
+    });
+});
+
 
 function testCalendarData(): array
 {

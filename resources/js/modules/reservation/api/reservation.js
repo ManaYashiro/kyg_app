@@ -16,6 +16,9 @@ $(document).ready(function () {
 
     // 6. カレンダー取得（用品_Web）
     calendarReservationIncSupplies();
+
+    // 8. 予約ステータス変更
+    acceptReservation();
 });
 
 function appendUrl(url, param) {
@@ -181,6 +184,27 @@ function calendarReservationIncSupplies() {
         complete: function () {},
         success: function (response) {
             console.log("fetch calendar reservation with supplies", response);
+        },
+        error: function (xhr, status, error) {},
+    });
+}
+
+function acceptReservation() {
+    const url = `/api/reservations/accept`;
+    const formData = new FormData();
+    formData.append("reservationNo", "S32021202412010001");
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        data: formData,
+        beforeSend: function () {},
+        complete: function () {},
+        success: function (response) {
+            console.log("accept reservation", response);
         },
         error: function (xhr, status, error) {},
     });
