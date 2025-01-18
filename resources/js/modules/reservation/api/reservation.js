@@ -20,6 +20,9 @@ $(document).ready(function () {
     // 8. 予約ステータス変更
     acceptReservation();
 
+    // 9. 予約キャンセル
+    deleteReservation();
+
     // 10. 予約情報変更
     updateReservation();
 });
@@ -208,6 +211,28 @@ function acceptReservation() {
         complete: function () {},
         success: function (response) {
             console.log("accept reservation", response);
+        },
+        error: function (xhr, status, error) {},
+    });
+}
+
+function deleteReservation() {
+    const reservationNo = "W32021202412010001";
+    const url = `/api/reservations/${reservationNo}`;
+    const formData = new FormData();
+    formData.append("_method", "DELETE");
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        data: formData,
+        beforeSend: function () {},
+        complete: function () {},
+        success: function (response) {
+            console.log("delete reservation", response);
         },
         error: function (xhr, status, error) {},
     });
