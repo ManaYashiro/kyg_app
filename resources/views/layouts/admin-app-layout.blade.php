@@ -45,7 +45,7 @@
     @yield('styles')
 
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js', 'resources/js/modules/dashboard.js'])
+    @vite(['resources/css/app.css', 'resources/css/beta.css', 'resources/js/app.js', 'resources/js/modules/datepicker.js', 'resources/js/modules/dashboard.js', 'resources/js/modules/keyboard.js'])
     <script src="{{ Vite::asset('resources/js/modules/base.js') }}"></script>
 
 </head>

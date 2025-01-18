@@ -22,15 +22,16 @@
                 <!-- Login ID -->
                 <div class="mt-4">
                     <x-text.custom-text text="ログインID" class="text-xs text-gray-600" />
-                    <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid"
-                        :value="old('loginid')" minlength="4" required autofocus autocomplete="username" />
+                    <x-text-input id="loginid" :addClass="'validateAlphanumeric'" class="block mt-1 w-full" type="text"
+                        name="loginid" :value="old('loginid')" minlength="4" required autofocus autocomplete="username" />
                     <x-input-error :messages="$errors->get('loginid')" class="mt-2" />
                 </div>
 
                 <!-- Password -->
                 <div class="mt-4">
                     <x-text.custom-text text="パスワード" class="text-xs text-gray-600" />
-                    <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" minlength="4" maxlength="20" required />
+                    <x-text-input id="password" :addClass="'validateAlphanumeric'" class="block mt-1 w-full" type="password"
+                        name="password" minlength="4" maxlength="20" required />
                     <x-input-error :messages="$errors->get('password')" class="mt-2" />
                 </div>
 

@@ -60,8 +60,8 @@
 <div id="container-loginid" class="mt-4">
     @if ($isRegister)
         <x-text.custom-input-label text="ログインID" class="mb-2" option="必須" />
-        <x-text-input id="loginid" class="block mt-1 w-full" type="text" name="loginid" :value="old('loginid') ?? ($user ? $user->loginid : null)"
-            minlength="4" maxlength="15" required autofocus />
+        <x-text-input id="loginid" class="block mt-1 w-full" :addClass="'validateAlphanumeric'" type="text" name="loginid"
+            :value="old('loginid') ?? ($user ? $user->loginid : null)" minlength="4" maxlength="15" required autofocus />
     @else
         <x-text.custom-input-label text="ログインID" class="mb-2" />
         <x-text.custom-input-label text="{{ $user ? $user->loginid : null }}" class="mt-1" />
@@ -76,8 +76,8 @@
 <!-- Password -->
 <div id="container-password" class="mt-4">
     <x-text.custom-input-label text="パスワード" class="mb-2" :option="$isRegister ? '必須' : '任意'" />
-    <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" minlength="4" maxlength="20"
-        :required="$isRegister" />
+    <x-text-input id="password" class="block mt-1 w-full" :addClass="'validateAlphanumeric'" type="password" name="password"
+        minlength="4" maxlength="20" :required="$isRegister" />
     @if ($isRegister)
         <x-text.custom-input-label text="※半角英数字 4～20文字で入力してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
     @endif
@@ -87,8 +87,8 @@
 
 <!-- Confirm Password -->
 <div id="container-password_confirmation" class="mt-4">
-    <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation"
-        minlength="4" maxlength="20" :required="$isRegister" />
+    <x-text-input id="password_confirmation" :addClass="'validateAlphanumeric'" class="block mt-1 w-full" type="password"
+        name="password_confirmation" minlength="4" maxlength="20" :required="$isRegister" />
     @if ($isRegister)
         <x-text.custom-input-label text="※確認のためにもう一度パスワードを入力してください。"
             spanClass="font-normal text-xs text-gray-500 mt-1" />
@@ -139,7 +139,7 @@
 <div id="container-birthday" class="mt-4">
     <x-text.custom-input-label text="生年月日" class="mb-2" option="任意" />
     <x-text-input id="birthday" type="text" name="birthday" :value="old('birthday') ?? ($user ? $user->birthday : null)"
-        class="datepicker block mt-1 w-full md:w-1/4" />
+        class="datepicker block mt-1 w-full md:w-1/4" :addClass="'validateNumeric'" />
     <x-ajax-input-error id="error-birthday" class="mt-2" />
     <x-input-error :messages="$errors->get('birthday')" class="mt-2" />
 </div>
@@ -166,8 +166,8 @@
 <!-- Email Address -->
 <div id="container-email" class="mt-4">
     <x-text.custom-input-label text="メールアドレス" class="mb-2" option="必須" />
-    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email') ?? ($user ? $user->email : null)"
-        maxlength="128" required />
+    <x-text-input id="email" class="block mt-1 w-full" :addClass="'validateAlphanumeric'" type="email" name="email"
+        :value="old('email') ?? ($user ? $user->email : null)" maxlength="128" required />
     @if ($isRegister)
         <x-text.custom-input-label text="PCまたは携帯のアドレスをご入力ください。" spanClass="font-normal text-xs text-gray-500 mt-1" />
         <x-text.custom-input-label text="※1つのメールアドレスで3台のお車まで登録いただけます。4台目のお車の追加をご希望の方は、新しいメールアドレスでご登録ください。"
@@ -180,8 +180,8 @@
 <!-- Phone Number -->
 <div id="container-phone_number" class="mt-4">
     <x-text.custom-input-label text="電話番号" class="mb-2" option="必須" />
-    <x-text-input id="phone_number" class="block mt-1 w-full" type="text" name="phone_number" :value="old('phone_number') ?? ($user ? $user->phone_number : null)"
-        maxlength="11" required />
+    <x-text-input id="phone_number" class="block mt-1 w-full" :addClass="'validateNumeric'" type="text" name="phone_number"
+        :value="old('phone_number') ?? ($user ? $user->phone_number : null)" maxlength="11" required />
     @if ($isRegister)
         <x-text.custom-input-label text="※- （ハイフン）なしで記入　11桁以内" spanClass="font-normal text-xs text-gray-500 mt-1" />
         <x-text.custom-input-label text="※自宅または携帯の番号をご入力下さい。" spanClass="font-normal text-xs text-gray-500 mt-1" />
@@ -215,8 +215,8 @@
 <div id="container-zipcode" class="mt-4">
     <x-text.custom-input-label id="zipcode-label" text="郵便番号" class="mb-2" option="必須" />
     <div class="flex items-center space-x-2">
-        <x-text-input id="zipcode" class="block mt-1 w-full md:w-1/4" type="text" name="zipcode"
-            :value="old('zipcode') ?? ($user ? $user->zipcode : null)" required maxlength="7" />
+        <x-text-input id="zipcode" :addClass="'validateNumeric'" class="block mt-1 w-full md:w-1/4" type="text"
+            name="zipcode" :value="old('zipcode') ?? ($user ? $user->zipcode : null)" required maxlength="7" />
 
         <!-- 検索ボタン -->
         <button type="button" id="search-postcode"
