@@ -27,6 +27,8 @@ $(document).ready(function () {
     updateReservation();
 });
 
+const mainUrl = import.meta.env.VITE_RESERVATION_API;
+
 function appendUrl(url, param) {
     // Get the first key in the object
     const key = Object.keys(param)[0];
@@ -46,7 +48,7 @@ function appendUrl(url, param) {
 }
 
 function createReservation() {
-    const url = `/api/inspection/reservations`;
+    const url = `${mainUrl}/api/inspection/reservations`;
     const formData = new FormData();
     formData.append("workDiv", 1);
     formData.append("startTime", 202412251300);
@@ -73,7 +75,7 @@ function createReservation() {
 
 function cancelReservation() {
     const reservationNo = "W32021202412010001";
-    const url = `/api/inspection/reservations/${reservationNo}`;
+    const url = `${mainUrl}/api/inspection/reservations/${reservationNo}`;
     const formData = new FormData();
     formData.append("_method", "DELETE");
 
@@ -107,7 +109,7 @@ function calendarReservation() {
     baseUrl += appendUrl(baseUrl, baseCode);
     baseUrl += appendUrl(baseUrl, isKeepTire);
 
-    const url = baseUrl;
+    const url = `${mainUrl}${baseUrl}`;
 
     $.ajax({
         url: url,
@@ -121,7 +123,7 @@ function calendarReservation() {
 }
 
 function createReservationIncSupplies() {
-    const url = `/api/supplies/reservations`;
+    const url = `${mainUrl}/api/supplies/reservations`;
     const formData = new FormData();
     formData.append("workDiv", 1);
     formData.append("workSubDiv", 1);
@@ -150,7 +152,7 @@ function createReservationIncSupplies() {
 
 function cancelReservationIncSupplies() {
     const reservationNo = "W32021202412010001";
-    const url = `/api/supplies/reservations/${reservationNo}`;
+    const url = `${mainUrl}/api/supplies/reservations/${reservationNo}`;
     const formData = new FormData();
     formData.append("_method", "DELETE");
 
@@ -182,7 +184,7 @@ function calendarReservationIncSupplies() {
     baseUrl += appendUrl(baseUrl, startDate);
     baseUrl += appendUrl(baseUrl, baseCode);
 
-    const url = baseUrl;
+    const url = `${mainUrl}${baseUrl}`;
 
     $.ajax({
         url: url,
@@ -196,7 +198,7 @@ function calendarReservationIncSupplies() {
 }
 
 function acceptReservation() {
-    const url = `/api/reservations/accept`;
+    const url = `${mainUrl}/api/reservations/accept`;
     const formData = new FormData();
     formData.append("reservationNo", "S32021202412010001");
 
@@ -218,7 +220,7 @@ function acceptReservation() {
 
 function deleteReservation() {
     const reservationNo = "W32021202412010001";
-    const url = `/api/reservations/${reservationNo}`;
+    const url = `${mainUrl}/api/reservations/${reservationNo}`;
     const formData = new FormData();
     formData.append("_method", "DELETE");
 
@@ -239,7 +241,7 @@ function deleteReservation() {
 }
 
 function updateReservation() {
-    const url = `/api/reservations/update`;
+    const url = `${mainUrl}/api/reservations/update`;
     const formData = new FormData();
     formData.append("reservationNo", "S32021202412010001");
     formData.append("workDay", 20241225);
