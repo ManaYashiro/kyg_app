@@ -107,6 +107,24 @@ Route::prefix("supplies")->group(function () {
             "message" => "エラー理由（内部エラーなど）予約データが見つからないなど含む"
         ], 500);
     });
+
+    Route::get("/calendar", function (Request $request) {
+
+        // OK
+        return response()->json([
+            'availability' => testCalendarData(),
+        ], 200);
+
+        // Bad Request
+        return response()->json([
+            "message" => "エラー理由（入力パラメータ不正など）"
+        ], 400);
+
+        // Internal Server Error
+        return response()->json([
+            "message" => "エラー理由（内部エラーなど）"
+        ], 500);
+    });
 });
 
 

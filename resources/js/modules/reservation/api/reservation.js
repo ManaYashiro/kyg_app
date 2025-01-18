@@ -4,6 +4,7 @@ $(document).ready(function () {
     cancelReservation();
     cancelReservationIncSupplies();
     fetchCalendarReservation();
+    fetchCalendarReservationIncSupplies();
 });
 
 function appendUrl(url, param) {
@@ -144,6 +145,31 @@ function fetchCalendarReservation() {
         complete: function () {},
         success: function (response) {
             console.log("fetch calendar reservation", response);
+        },
+        error: function (xhr, status, error) {},
+    });
+}
+
+function fetchCalendarReservationIncSupplies() {
+    const workDiv = { workDiv: 1 };
+    const workSubDiv = { workSubDiv: 1 };
+    const startDate = { startDate: 20250110 };
+    const baseCode = { baseCode: 42011 };
+
+    let baseUrl = `/api/supplies/calendar`;
+    baseUrl += appendUrl(baseUrl, workDiv);
+    baseUrl += appendUrl(baseUrl, workSubDiv);
+    baseUrl += appendUrl(baseUrl, startDate);
+    baseUrl += appendUrl(baseUrl, baseCode);
+
+    const url = baseUrl;
+
+    $.ajax({
+        url: url,
+        beforeSend: function () {},
+        complete: function () {},
+        success: function (response) {
+            console.log("fetch calendar reservation with supplies", response);
         },
         error: function (xhr, status, error) {},
     });
