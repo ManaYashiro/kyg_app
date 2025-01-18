@@ -3,7 +3,26 @@ $(document).ready(function () {
     createReservationIncSupplies();
     cancelReservation();
     cancelReservationIncSupplies();
+    fetchCalendarReservation();
 });
+
+function appendUrl(url, param) {
+    // Get the first key in the object
+    const key = Object.keys(param)[0];
+
+    // Access the value using the key
+    const value = param[key];
+
+    const encodedParam = `${key}=${encodeURIComponent(value)}`;
+
+    if (!url.includes("?")) {
+        // first URL param
+        return `?${encodedParam}`;
+    } else {
+        // succeeding URL param
+        return `&${encodedParam}`;
+    }
+}
 
 function createReservation() {
     const url = `/api/inspection/reservations`;
@@ -98,6 +117,33 @@ function cancelReservationIncSupplies() {
         complete: function () {},
         success: function (response) {
             console.log("cancel reservation with supplies", response);
+        },
+        error: function (xhr, status, error) {},
+    });
+}
+
+function fetchCalendarReservation() {
+    const workDiv = { workDiv: 5 };
+    const workTime = { workTime: 30 };
+    const startDate = { startDate: 20250110 };
+    const baseCode = { baseCode: 42011 };
+    const isKeepTire = { isKeepTire: 1 };
+
+    let baseUrl = `/api/inspection/calendar`;
+    baseUrl += appendUrl(baseUrl, workDiv);
+    baseUrl += appendUrl(baseUrl, workTime);
+    baseUrl += appendUrl(baseUrl, startDate);
+    baseUrl += appendUrl(baseUrl, baseCode);
+    baseUrl += appendUrl(baseUrl, isKeepTire);
+
+    const url = baseUrl;
+
+    $.ajax({
+        url: url,
+        beforeSend: function () {},
+        complete: function () {},
+        success: function (response) {
+            console.log("fetch calendar reservation", response);
         },
         error: function (xhr, status, error) {},
     });
