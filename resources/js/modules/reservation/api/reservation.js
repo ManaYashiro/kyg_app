@@ -19,6 +19,9 @@ $(document).ready(function () {
 
     // 8. 予約ステータス変更
     acceptReservation();
+
+    // 10. 予約情報変更
+    updateReservation();
 });
 
 function appendUrl(url, param) {
@@ -205,6 +208,30 @@ function acceptReservation() {
         complete: function () {},
         success: function (response) {
             console.log("accept reservation", response);
+        },
+        error: function (xhr, status, error) {},
+    });
+}
+
+function updateReservation() {
+    const url = `/api/reservations/update`;
+    const formData = new FormData();
+    formData.append("reservationNo", "S32021202412010001");
+    formData.append("workDay", 20241225);
+    formData.append("startTime", 1300);
+    formData.append("endTime", 1400);
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        data: formData,
+        beforeSend: function () {},
+        complete: function () {},
+        success: function (response) {
+            console.log("update reservation", response);
         },
         error: function (xhr, status, error) {},
     });
