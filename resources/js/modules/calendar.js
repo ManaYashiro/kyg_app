@@ -229,7 +229,7 @@ fontAwesomeLoaded().then(() => {
             formData.append("target", "entry");
 
             $.ajax({
-                url: "/reservation/process",
+                url: "/api/reservation/process",
                 type: "POST",
                 dataType: "json",
                 data: formData,

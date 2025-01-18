@@ -79,8 +79,12 @@ Route::middleware('auth', 'verified')->group(function () {
     Route::delete('/change-account-information', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// 予約データをセッションに保存する
-Route::post('/reservation/process', [ConfirmationItemController::class, 'process'])->name('confirmationItems.process');
+// セッションを維持するには、web.php内でルートAPIを使用します。
+Route::prefix('api')->group(function () {
+    // 予約データをセッションに保存する
+    Route::post('/reservation/process', [ConfirmationItemController::class, 'process'])->name('confirmationItems.process');
+});
+
 // 予約申込フォーム
 Route::get('/reservation/entry/{process_id}', [ConfirmationItemController::class, 'entry'])->name('confirmationItems.entry');
 
