@@ -1,10 +1,21 @@
 $(document).ready(function () {
+    // 1. 予約作成（車検・点検）
     createReservation();
-    createReservationIncSupplies();
+
+    // 3. 予約キャンセル（車検・点検）
     cancelReservation();
+
+    // 5. カレンダー取得（車検・点検）
+    calendarReservation();
+
+    // 2. 予約作成（用品_Web）
+    createReservationIncSupplies();
+
+    // 4. 予約キャンセル（用品_Web）
     cancelReservationIncSupplies();
-    fetchCalendarReservation();
-    fetchCalendarReservationIncSupplies();
+
+    // 6. カレンダー取得（用品_Web）
+    calendarReservationIncSupplies();
 });
 
 function appendUrl(url, param) {
@@ -51,6 +62,55 @@ function createReservation() {
     });
 }
 
+function cancelReservation() {
+    const reservationNo = "W32021202412010001";
+    const url = `/api/inspection/reservations/${reservationNo}`;
+    const formData = new FormData();
+    formData.append("_method", "DELETE");
+
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "json",
+        processData: false,
+        contentType: false,
+        data: formData,
+        beforeSend: function () {},
+        complete: function () {},
+        success: function (response) {
+            console.log("cancel reservation", response);
+        },
+        error: function (xhr, status, error) {},
+    });
+}
+
+function calendarReservation() {
+    const workDiv = { workDiv: 5 };
+    const workTime = { workTime: 30 };
+    const startDate = { startDate: 20250110 };
+    const baseCode = { baseCode: 42011 };
+    const isKeepTire = { isKeepTire: 1 };
+
+    let baseUrl = `/api/inspection/calendar`;
+    baseUrl += appendUrl(baseUrl, workDiv);
+    baseUrl += appendUrl(baseUrl, workTime);
+    baseUrl += appendUrl(baseUrl, startDate);
+    baseUrl += appendUrl(baseUrl, baseCode);
+    baseUrl += appendUrl(baseUrl, isKeepTire);
+
+    const url = baseUrl;
+
+    $.ajax({
+        url: url,
+        beforeSend: function () {},
+        complete: function () {},
+        success: function (response) {
+            console.log("fetch calendar reservation", response);
+        },
+        error: function (xhr, status, error) {},
+    });
+}
+
 function createReservationIncSupplies() {
     const url = `/api/supplies/reservations`;
     const formData = new FormData();
@@ -79,28 +139,6 @@ function createReservationIncSupplies() {
     });
 }
 
-function cancelReservation() {
-    const reservationNo = "W32021202412010001";
-    const url = `/api/inspection/reservations/${reservationNo}`;
-    const formData = new FormData();
-    formData.append("_method", "DELETE");
-
-    $.ajax({
-        url: url,
-        type: "POST",
-        dataType: "json",
-        processData: false,
-        contentType: false,
-        data: formData,
-        beforeSend: function () {},
-        complete: function () {},
-        success: function (response) {
-            console.log("cancel reservation", response);
-        },
-        error: function (xhr, status, error) {},
-    });
-}
-
 function cancelReservationIncSupplies() {
     const reservationNo = "W32021202412010001";
     const url = `/api/supplies/reservations/${reservationNo}`;
@@ -123,34 +161,7 @@ function cancelReservationIncSupplies() {
     });
 }
 
-function fetchCalendarReservation() {
-    const workDiv = { workDiv: 5 };
-    const workTime = { workTime: 30 };
-    const startDate = { startDate: 20250110 };
-    const baseCode = { baseCode: 42011 };
-    const isKeepTire = { isKeepTire: 1 };
-
-    let baseUrl = `/api/inspection/calendar`;
-    baseUrl += appendUrl(baseUrl, workDiv);
-    baseUrl += appendUrl(baseUrl, workTime);
-    baseUrl += appendUrl(baseUrl, startDate);
-    baseUrl += appendUrl(baseUrl, baseCode);
-    baseUrl += appendUrl(baseUrl, isKeepTire);
-
-    const url = baseUrl;
-
-    $.ajax({
-        url: url,
-        beforeSend: function () {},
-        complete: function () {},
-        success: function (response) {
-            console.log("fetch calendar reservation", response);
-        },
-        error: function (xhr, status, error) {},
-    });
-}
-
-function fetchCalendarReservationIncSupplies() {
+function calendarReservationIncSupplies() {
     const workDiv = { workDiv: 1 };
     const workSubDiv = { workSubDiv: 1 };
     const startDate = { startDate: 20250110 };

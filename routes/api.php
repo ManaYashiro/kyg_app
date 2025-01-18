@@ -7,4 +7,4 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-require __DIR__ . '/api/reservations.php';
+require __DIR__ . '/api/reservation.php';

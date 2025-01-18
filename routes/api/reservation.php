@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix("inspection")->group(function () {
+    // 1. 予約作成（車検・点検）
     Route::post("/reservations", function (Request $request) {
 
         // OK
@@ -28,6 +29,7 @@ Route::prefix("inspection")->group(function () {
         ], 500);
     });
 
+    // 3. 予約キャンセル（車検・点検）
     Route::delete("/reservations/{reservationNo}", function (Request $request, $reservationNo) {
 
         // OK
@@ -46,6 +48,7 @@ Route::prefix("inspection")->group(function () {
         ], 500);
     });
 
+    // 5. カレンダー取得（車検・点検）
     Route::get("/calendar", function (Request $request) {
 
         // OK
@@ -66,6 +69,7 @@ Route::prefix("inspection")->group(function () {
 });
 
 Route::prefix("supplies")->group(function () {
+    // 2. 予約作成（用品_Web）
     Route::post("/reservations", function (Request $request) {
 
         // OK
@@ -90,6 +94,7 @@ Route::prefix("supplies")->group(function () {
         ], 500);
     });
 
+    // 4. 予約キャンセル（用品_Web）
     Route::delete("/reservations/{reservationNo}", function (Request $request, $reservationNo) {
 
         // OK
@@ -108,6 +113,7 @@ Route::prefix("supplies")->group(function () {
         ], 500);
     });
 
+    // 6. カレンダー取得（用品_Web）
     Route::get("/calendar", function (Request $request) {
 
         // OK
