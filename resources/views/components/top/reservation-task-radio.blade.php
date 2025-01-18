@@ -2,6 +2,7 @@
     'id' => 0, // ID
     'reservation_name' => '', // 作業詳細
     'user_select_data' => (object) [],
+    'selected_reservation_task_id' => 0,
 ])
 
 <div class="hidden reservation-task-item" data-user_select_data="{{ json_encode($user_select_data, true) }}">
@@ -9,7 +10,8 @@
         <label for="reservation-tasks-input-{{ $id }}"
             class="col-span-3 flex gap-3 items-center justify-start cursor-pointer">
             <input type="radio" class="hidden-radio step-radio reservation-task-radio" name="reservation_task_id"
-                value="{{ $id }}" id="reservation-tasks-input-{{ $id }}">
+                value="{{ $id }}" id="reservation-tasks-input-{{ $id }}"
+                {{ $selected_reservation_task_id == $id ? 'checked' : '' }}>
             <div class="step-border border border-red-700 px-1 py-2">
                 <span class="check-icon input-type-check">
                     <img src="{{ Vite::asset('resources/img/top/button_check.png') }}" alt="チェック" class="w-4">

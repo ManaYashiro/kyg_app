@@ -14,7 +14,7 @@ class AnketRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::user()->role === UserRoleEnum::Admin->value; // 修正: 「==」から「===」に変更
+        return Auth::user()->role->value === UserRoleEnum::Admin->value; // 修正: 「==」から「===」に変更
     }
 
     /**

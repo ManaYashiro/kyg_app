@@ -32,18 +32,18 @@
     flex-direction: row;
     flex-wrap: wrap-reverse;
     padding: 32px 0;
-}
-
-.btn-area1 {
     clear: both;
     overflow: hidden;
     text-align: center;
+    align-items: center;
+    justify-content: center;
 }
 
-.btn-area1 input {
+.btn-area1 * {
     margin: 0 auto;
     max-width: 300px;
     width: 50%;
+    line-height: 1.5rem !important;
 }
 
 input[type="submit"],

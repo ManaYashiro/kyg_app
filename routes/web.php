@@ -69,15 +69,21 @@ Route::middleware('auth', 'verified')->group(function () {
         })->name('account.termination');
     });
 
-    Route::post('/reservation/confirmation', [ConfirmationItemController::class, 'confirm'])->name('appointments.confirm'); //最終内容確認(ログイン修正保留)
-    Route::post('/reservation/entry', [ConfirmationItemController::class, 'store'])->name('confirmationItems.store'); //登録
+    // 予約確認
+    Route::get('/reservation/confirmation', [ConfirmationItemController::class, 'confirm'])->name('appointments.confirm'); //最終内容確認(ログイン修正保留)
+    // 予約登録
+    Route::post('/reservation/store', [ConfirmationItemController::class, 'store'])->name('confirmationItems.store');
 
     Route::get('/change-account-information', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/change-account-information', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/change-account-information', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::post('/reservation/process', [ConfirmationItemController::class, 'process'])->name('confirmationItems.process'); //セッションID
-Route::get('/reservation/entry/{process_id}', [ConfirmationItemController::class, 'index'])->name('confirmationItems.index'); //確認事項　未ログインユーザーでも遷移できるので移動しました
+
+// 予約データをセッションに保存する
+Route::post('/reservation/process', [ConfirmationItemController::class, 'process'])->name('confirmationItems.process');
+// 予約申込フォーム
+Route::get('/reservation/entry/{process_id}', [ConfirmationItemController::class, 'entry'])->name('confirmationItems.entry');
+
 Route::get('appointmentList/events', [AppointmentListController::class, 'events'])->withoutMiddleware('auth')->name('appointmentList.events');
 Route::get('appointmentList/go-to/unreserved', [AppointmentListController::class, 'gotoNearestUnreserved'])->withoutMiddleware('auth')->name('appointmentList.goto.NearestUnreserved');
 

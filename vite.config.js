@@ -70,7 +70,10 @@ export default defineConfig({
                 "resources/img/top/imuyama.jpg",
                 // - top calendar
                 "resources/img/modules/calendar/calendar-none.gif",
-                "resources/css/confirmationitems.css",
+
+                // 予約確認
+                "resources/css/modules/reservation/confirmationitems.css",
+                "resources/js/modules/reservation/confirmationitems.js",
             ],
             refresh: true,
         }),

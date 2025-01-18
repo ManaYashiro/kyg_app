@@ -94,40 +94,52 @@
             </div>
             <hr class="my-3 border-2 border-red-600 -mx-4 md:-mx-14">
             @include('components.top.siteflag-button', [
+                'value' => '稲沢本店',
                 'name' => '稲沢本店',
                 'store_id' => 1,
                 'site_flag_name' => 'inazawa',
                 'address' => '〒492-8224 愛知県稲沢市奥田大沢町3-1　9:00-19:00 水曜定休',
+                'selected_store' => $processData['store'] ?? '',
             ])
             @include('components.top.siteflag-button', [
+                'value' => '名古屋北店',
                 'name' => '名古屋北店',
                 'store_id' => 2,
                 'site_flag_name' => 'nagoyakita',
                 'address' => '〒462-0034 愛知県名古屋市北区天道町5丁目21　9:00-18:00 日・祝日定休',
+                'selected_store' => $processData['store'] ?? '',
             ])
             @include('components.top.siteflag-button', [
+                'value' => '刈谷店',
                 'name' => '刈谷店',
                 'store_id' => 3,
                 'site_flag_name' => 'kariya',
                 'address' => '〒448-0006 愛知県刈谷市西境町治右田140　9:00-19:00 日祝日 9:00-17:00 水曜定休',
+                'selected_store' => $processData['store'] ?? '',
             ])
             @include('components.top.siteflag-button', [
+                'value' => '錦店',
                 'name' => '錦店',
                 'store_id' => 4,
                 'site_flag_name' => 'nishiki',
                 'address' => '〒460-0003 愛知県名古屋市錦3-8-32　9:00-18:00 日・祝日定休',
+                'selected_store' => $processData['store'] ?? '',
             ])
             @include('components.top.siteflag-button', [
+                'value' => '豊田上郷店',
                 'name' => '豊田上郷店',
                 'store_id' => 5,
                 'site_flag_name' => 'toyota_kamigo',
                 'address' => '〒470-1213 愛知県稲沢市奥田大沢町3-1　9:00-18:00 日祝日 9:00-17:00 水曜定休',
+                'selected_store' => $processData['store'] ?? '',
             ])
             @include('components.top.siteflag-button', [
+                'value' => '犬山店',
                 'name' => '犬山店',
                 'store_id' => 6,
                 'site_flag_name' => 'inuyama',
                 'address' => '〒484-0912 愛知県刈犬山市字舟田10　9:00-18:00 水曜定休',
+                'selected_store' => $processData['store'] ?? '',
             ])
 
             {{-- STEP02: 個人・法人区分 --}}
@@ -142,6 +154,7 @@
                     @include('components.top.customer-type-button', [
                         'sequence_no' => $loop->index,
                         'value' => $customerType->value,
+                        'selected_customer_type' => $processData['customer_type'] ?? '',
                     ])
                 @endforeach
             </div>
@@ -157,10 +170,12 @@
                 @include('components.top.inspection-type-button', [
                     'sequence_no' => 0,
                     'value' => '車検',
+                    'selected_inspection_type' => $processData['inspection_type'] ?? '',
                 ])
                 @include('components.top.inspection-type-button', [
                     'sequence_no' => 1,
                     'value' => '点検整備・見積り・その他',
+                    'selected_inspection_type' => $processData['inspection_type'] ?? '',
                 ])
             </div>
 
@@ -185,6 +200,7 @@
                         'sequence_no' => $loop->index,
                         'value' => $workType->value,
                         'type' => $type,
+                        'selected_work_type' => $processData['work_type'] ?? '',
                     ])
                 @endforeach
             </div>
@@ -201,6 +217,7 @@
                     @include('components.top.reservation-task-radio', [
                         'id' => $reservationTask->id,
                         'reservation_name' => $reservationTask->reservation_name,
+                        'selected_reservation_task_id' => $processData['reservation_task_id'] ?? '',
                         'user_select_data' => (object) [
                             'inspection_type' => $reservationTask->inspection_type,
                             'work_type' => $reservationTask->work_type,
@@ -231,6 +248,7 @@
                             'sequence_no' => $loop->index,
                             'label' => $tireStorage->getLabel(),
                             'value' => $tireStorage->value,
+                            'selected_has_tire_storage' => $processData['has_tire_storage'] ?? '',
                         ])
                     @endif
                 @endforeach

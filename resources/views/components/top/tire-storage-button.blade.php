@@ -2,6 +2,7 @@
     'sequence_no' => 0, // 順番
     'label' => '',
     'value' => '',
+    'selected_has_tire_storage' => '',
 ])
 
 @php
@@ -10,7 +11,7 @@
 
 <label for="tire-storage-input-{{ $sequence_no }}" class="custom-radio-button">
     <input type="radio" name="has_tire_storage" value="{{ $value }}" class="hidden-radio step-radio rounded-md"
-        id="tire-storage-input-{{ $sequence_no }}" disabled>
+        id="tire-storage-input-{{ $sequence_no }}" disabled {{ $selected_has_tire_storage == $value ? 'checked' : '' }}>
     <span class="step-button tire-storage-button">
         <span class="check-icon">
             <img src="{{ Vite::asset('resources/img/top/button_check.png') }}" alt="チェック" class="">

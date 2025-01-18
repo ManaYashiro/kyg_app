@@ -14,7 +14,7 @@ class StoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return Auth::user()->role = UserRoleEnum::Admin->value;
+        return Auth::user()->role->value == UserRoleEnum::Admin->value;
     }
 
     /**

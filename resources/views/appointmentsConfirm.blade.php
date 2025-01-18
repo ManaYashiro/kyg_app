@@ -249,5 +249,7 @@
     @section('styles')
         @vite(['resources/css/confirmationitems.css'])
     @endsection
-
+    @push('scripts')
+        @vite(['resources/js/modules/reservation/confirmationitems.js'])
+    @endpush
 </x-app-layout>
