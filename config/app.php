@@ -124,9 +124,9 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-
     'pagination' => [
         'admin' => env('APP_ADMIN_PAGINATION', 100),
     ],
 
+    'reservation_api' => env('RESERVATION_API', ''),
 ];

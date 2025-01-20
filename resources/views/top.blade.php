@@ -278,5 +278,6 @@
     @endpush
     @push('scripts')
         @vite(['resources/js/modules/calendar.js'])
+        @vite(['resources/js/modules/reservation/api/reservation.js'])
     @endpush
 </x-app-layout>

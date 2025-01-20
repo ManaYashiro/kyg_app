@@ -15,7 +15,7 @@ $(document).ready(function () {
         formData.append("target", "confirm");
 
         $.ajax({
-            url: "/reservation/process",
+            url: "/api/reservation/process",
             type: "POST",
             dataType: "json",
             data: formData,

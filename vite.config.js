@@ -74,6 +74,7 @@ export default defineConfig({
                 // 予約確認
                 "resources/css/modules/reservation/confirmationitems.css",
                 "resources/js/modules/reservation/confirmationitems.js",
+                "resources/js/modules/reservation/api/reservation.js",
             ],
             refresh: true,
         }),
