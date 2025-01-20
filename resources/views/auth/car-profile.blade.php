@@ -81,17 +81,45 @@
 
     <!-- Car Number {{ $sequence_no }} -->
     @php
-        // 例：car_number_1
-        $key = 'car_number_' . $sequence_no;
-        $errorKey = 'car_number_' . ($sequence_no - 1);
-        $name = 'car_number[]';
+        $tb_key = 'transport_branch_' . $sequence_no;
+        $tb_errorKey = 'transport_branch_' . ($sequence_no - 1);
+        $tb_name = 'transport_branch[]';
+        $cn_key = 'classification_no_' . $sequence_no;
+        $cn_errorKey = 'classification_no_' . ($sequence_no - 1);
+        $cn_name = 'classification_no[]';
+        $kn_key = 'kana_' . $sequence_no;
+        $kn_errorKey = 'kana_' . ($sequence_no - 1);
+        $kn_name = 'kana[]';
+        $sn_key = 'serial_no_' . $sequence_no;
+        $sn_errorKey = 'serial_no_' . ($sequence_no - 1);
+        $sn_name = 'serial_no[]';
     @endphp
-    <div id="container-{{ $key }}" class="mt-4">
-        <x-text.custom-input-label id="car_number-label" text="ナンバー({{ $sequence_no }}台目)" class="mb-2"
+    <div id="container-{{ $tb_key }}" class="mt-4">
+        <x-text.custom-input-label id="transport_branch-label" text="ナンバー({{ $sequence_no }}台目)" class="mb-2"
             :option="$sequence_no !== 1 ? '任意' : '必須'" />
-        <x-text-input id="{{ $key }}" class="block mt-1 w-full" type="text" name="{{ $name }}"
-            :value="old($key) ?? ($userVehicle ? $userVehicle->car_number : null)" :required="$sequence_no === 1 ? true : false" maxlength="20" />
-        <x-ajax-input-error id="error-{{ $errorKey }}" class="mt-2" />
+        <div class="flex space-x-4">
+            <select id="{{ $tb_key }}" name="{{ $tb_name }}" class="form-select"
+                @if ($sequence_no === 1) required @endif>
+                <option value="">
+                    選択してください
+                </option>
+                @foreach ($branches as $branch)
+                    <option value="{{ $branch->id }}">
+                        {{ $branch->branch_name }} ({{ $branch->branch_name_kana }})
+                    </option>
+                @endforeach
+            </select>
+            <x-text-input id="{{ $cn_key }}" class="block w-full md:w-1/4" type="text"
+                name="{{ $cn_name }}" :value="old($cn_key) ?? ($userVehicle ? $userVehicle->classification_no : null)" :required="$sequence_no === 1 ? true : false" maxlength="3" />
+            <x-text-input id="{{ $kn_key }}" class="block w-full md:w-1/4" type="text"
+                name="{{ $kn_name }}" :value="old($kn_key) ?? ($userVehicle ? $userVehicle->kana : null)" :required="$sequence_no === 1 ? true : false" maxlength="2" />
+            <x-text-input id="{{ $sn_key }}" class="block w-full md:w-1/4" type="text"
+                name="{{ $sn_name }}" :value="old($sn_key) ?? ($userVehicle ? $userVehicle->serial_no : null)" :required="$sequence_no === 1 ? true : false" maxlength="4" :addClass="'validateNumeric'" />
+        </div>
+        <x-ajax-input-error id="error-{{ $tb_errorKey }}" class="mt-2" />
+        <x-ajax-input-error id="error-{{ $cn_errorKey }}" class="mt-2" />
+        <x-ajax-input-error id="error-{{ $kn_errorKey }}" class="mt-2" />
+        <x-ajax-input-error id="error-{{ $sn_errorKey }}" class="mt-2" />
         @if ($isRegister)
             <x-text.custom-input-label text="※ナンバープレートの番号を入力して下さい。"
                 spanClass="font-normal text-xs text-gray-500 mt-1" />

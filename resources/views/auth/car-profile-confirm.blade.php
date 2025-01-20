@@ -14,8 +14,8 @@
 
     <!-- Car Number {{ $sequence_no }} -->
     <x-text.custom-input-label text="ナンバー({{ $sequence_no }}台目)" class="mb-2 left-border-text" />
-    {{-- 例：confirm-car_number_1 --}}
-    <x-text.custom-text :text="''" id="confirm-car_number_{{ $sequence_no }}" class="mb-6" />
+    {{-- 例：confirm-transport_branch_1 --}}
+    <x-text.custom-text :text="''" id="confirm-transport_branch_{{ $sequence_no }}" class="mb-6" />
 
     <!-- Car Class {{ $sequence_no }} -->
     <x-text.custom-input-label text="車種区分({{ $sequence_no }}台目)" class="mb-2 left-border-text" />

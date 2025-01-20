@@ -9,6 +9,7 @@ use App\Helpers\Log;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisteredUserRequest;
 use App\Http\Requests\UserVehicleRequest;
+use App\Models\TransportBranch;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\JsonResponse;
@@ -27,7 +28,8 @@ class RegisteredUserController extends Controller
     {
         $formType = FormTypeEnum::USER_REGISTER->value;
         $submitType = SubmitTypeEnum::CONFIRM->value;
-        return view('auth.profile', compact('formType', 'submitType'));
+        $branches = TransportBranch::orderBy('display_order')->get();
+        return view('auth.profile', compact('formType', 'submitType', 'branches'));
     }
 
     /**

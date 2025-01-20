@@ -10,6 +10,7 @@
             @include('auth.user-profile', [
                 'formType' => $formType,
                 'submitType' => $submitType,
+                'branches' => $branches,
                 'user' => $user ?? [],
             ])
         </div>

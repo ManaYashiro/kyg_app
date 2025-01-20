@@ -33,21 +33,21 @@ class UserVehicleRequest extends FormRequest
             // 1台目のバリデーションルール
             if ($created_user_role == \App\Enums\UserRoleEnum::Admin->value) {
                 // 管理者の場合
-                $required_cars_rules["car_name.$i"] = "nullable|max:20|required_with:car_number.$i";
-                $required_cars_rules["car_number.$i"] = "nullable|max:20|required_with:car_name.$i";
+                $required_cars_rules["car_name.$i"] = "nullable|max:20|required_with:transport_branch.$i";
+                $required_cars_rules["transport_branch.$i"] = "nullable|max:20|required_with:car_name.$i";
             } else {
                 // 他のフォームタイプの場合（通常の登録など）
                 switch ($i) {
                     case 0:
                         // 1台目
-                        $required_cars_rules["car_name.$i"] = "required|max:20|required_with:car_number.$i";
-                        $required_cars_rules["car_number.$i"] = "required|max:20|required_with:car_name.$i";
+                        $required_cars_rules["car_name.$i"] = "required|max:20|required_with:transport_branch.$i";
+                        $required_cars_rules["transport_branch.$i"] = "required|max:20|required_with:car_name.$i";
                         break;
 
                     default:
                         // 2台目から
-                        $required_cars_rules["car_name.$i"] = "max:20|required_with:car_number.$i";
-                        $required_cars_rules["car_number.$i"] = "max:20|required_with:car_name.$i";
+                        $required_cars_rules["car_name.$i"] = "max:20|required_with:transport_branch.$i";
+                        $required_cars_rules["transport_branch.$i"] = "max:20|required_with:car_name.$i";
                         break;
                 }
             }
@@ -64,7 +64,10 @@ class UserVehicleRequest extends FormRequest
             'sequence_no' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
             'car_name' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
             'car_katashiki' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
-            'car_number' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
+            'transport_branch' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
+            'classification_no' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
+            'kana' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
+            'serial_no' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
 
             // array element should be string
             'car_katashiki.*' => 'max:20',
@@ -79,7 +82,10 @@ class UserVehicleRequest extends FormRequest
             $carClassSequence = $i + 1;
             $car_attributes["car_name.$i"] = "車名(" . ($i + 1) . "台目)";
             $car_attributes["car_katashiki.$i"] = "型式(" . ($i + 1) . "台目)";
-            $car_attributes["car_number.$i"] = "ナンバー(" . ($i + 1) . "台目)";
+            $car_attributes["transport_branch.$i"] = "運輸支局(" . ($i + 1) . "台目)";
+            $car_attributes["classification_no.$i"] = "分類番号(" . ($i + 1) . "台目)";
+            $car_attributes["kana.$i"] = "かな(" . ($i + 1) . "台目)";
+            $car_attributes["serial_no.$i"] = "一連指定番号(" . ($i + 1) . "台目)";
             $car_attributes["car_class$carClassSequence"] = "車種区分(" . ($i + 1) . "台目)";
         }
         return array_merge([

@@ -115,11 +115,14 @@ class  ConfirmationItemController extends Controller
         if ($userVehicle) {
             foreach ($userVehicle as $vehicle) {
                 // 車両データが空でない場合のみ追加
-                if (!empty($vehicle->car_name) || !empty($vehicle->car_katashiki) || !empty($vehicle->car_number) || !empty($vehicle->car_class)) {
+                if (!empty($vehicle->car_name) || !empty($vehicle->car_katashiki) || !empty($vehicle->transport_branch) || !empty($vehicle->classification_no)  || !empty($vehicle->kana)   || !empty($vehicle->serial_no) || !empty($vehicle->car_class)) {
                     $vehicles[] = [
                         'car_name' => $vehicle->car_name,
                         'car_katashiki' => $vehicle->car_katashiki,
-                        'car_number' => $vehicle->car_number,
+                        'transport_branch' => $vehicle->transport_branch,
+                        'classification_no' => $vehicle->classification_no,
+                        'kana' => $vehicle->kana,
+                        'serial_no' => $vehicle->serial_no,
                         'car_class' => getCarClass($vehicle->car_class),
                     ];
                 }

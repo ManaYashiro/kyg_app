@@ -44,8 +44,10 @@ class UserVehicleFactory extends Factory
         );
 
         $car = array_merge(fake()->randomElement([$car1, $car2, $car3]), [
-            'car_number' => $this->randomCarNumber(),
-            'car_class' => CarClassEnum::Keijidousha->value,
+            'transport_branch' => fake()->randomElement([1, 2, 3]),
+            'classification_no' => "AA",
+            'kana' => "AA",
+            'serial_no' => 1,
         ]);
         return $car;
     }
@@ -66,7 +68,10 @@ class UserVehicleFactory extends Factory
         );
 
         $car = array_merge(fake()->randomElement([$car1, $car2, $car3]), [
-            'car_number' => $this->randomCarNumber(),
+            'transport_branch' => fake()->randomElement([1, 2, 3]),
+            'classification_no' => "AA",
+            'kana' => "AA",
+            'serial_no' => 1,
             'car_class' => CarClassEnum::KogataJouyousha->value,
         ]);
         return $car;
@@ -89,7 +94,10 @@ class UserVehicleFactory extends Factory
         );
 
         $car = array_merge(fake()->randomElement([$car1, $car2, $car3]), [
-            'car_number' => $this->randomCarNumber(),
+            'transport_branch' => fake()->randomElement([1, 2, 3]),
+            'classification_no' => "AA",
+            'kana' => "AA",
+            'serial_no' => 1,
             'car_class' => CarClassEnum::OogataJouyousha2_5T->value,
         ]);
         return $car;
