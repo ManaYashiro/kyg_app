@@ -32,16 +32,12 @@ window.registerConfirm = function (
         error: function (xhr, status, error) {
             if (xhr.status === 422) {
                 const errors = xhr.responseJSON.errors;
-                console.log(errors);
                 Object.keys(errors).forEach((key, index) => {
-                    console.log(key, index);
                     // fix keys for array, change `.` to `_`
                     const errKey = key.replace(/\./g, "_");
                     const $err = $("#error-" + errKey);
                     $err.removeClass("hidden");
                     if (index === 0) {
-                        console.log("#container-" + key);
-                        console.log($("#container-" + key));
                         $("html, body").animate(
                             {
                                 scrollTop:
