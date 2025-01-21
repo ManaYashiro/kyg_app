@@ -8,6 +8,7 @@ use App\Helpers\Log;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Requests\RegisteredUserRequest;
 use App\Http\Requests\UserVehicleRequest;
+use App\Models\TransportBranch;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -28,7 +29,8 @@ class ProfileController extends Controller
         $submitType = SubmitTypeEnum::CONFIRM->value;
         $route = route('profile.update');
         $user = User::where('id', Auth::user()->id)->with('userVehicles')->first();
-        return view('auth.profile', compact('user', 'route', 'formType', 'submitType'));
+        $branches = TransportBranch::orderBy('display_order')->get();
+        return view('auth.profile', compact('user', 'route', 'formType', 'submitType', 'branches'));
     }
 
     /**

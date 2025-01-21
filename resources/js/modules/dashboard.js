@@ -146,7 +146,7 @@ $(document).ready(function () {
         updateLabel("prefecture");
         updateLabel("address1");
         updateLabel("car_name");
-        updateLabel("car_number");
+        updateLabel("transport_branch");
         updateLabel("questionnaire");
         updateCallTimeLabel();
         updateRequiredForFields();
@@ -207,17 +207,24 @@ $(document).ready(function () {
     function updateRequiredForFields() {
         const isAdmin = $("#role-admin").is(":checked");
 
-        // car_name_1 と car_number_1 の required 属性を変更
-        $("input[name='car_name[]'], input[name='car_number[]']").each(
-            function () {
-                if (
-                    $(this).attr("id") === "car_name_1" ||
-                    $(this).attr("id") === "car_number_1"
-                ) {
-                    $(this).attr("required", !isAdmin); // 管理者ならrequiredを外す
-                }
+        // car_name_1, transport_branch_1, classification_no_1, kana_1, serial_no_1 の required 属性を変更
+        $(
+            "input[name='car_name[]'], select[name='transport_branch[]'], input[name='classification_no[]'], input[name='kana[]'], input[name='serial_no[]']"
+        ).each(function () {
+            // idを基に条件を指定
+            const id = $(this).attr("id");
+
+            // 各フィールドに対して必要に応じて required 属性を設定
+            if (
+                id === "car_name_1" ||
+                id === "transport_branch_1" ||
+                id === "classification_no_1" ||
+                id === "kana_1" ||
+                id === "serial_no_1"
+            ) {
+                $(this).attr("required", !isAdmin); // 管理者ならrequiredを外す
             }
-        );
+        });
 
         // is_receive_notification-1 と is_receive_notification-2 の required 属性を変更
         if (isAdmin) {

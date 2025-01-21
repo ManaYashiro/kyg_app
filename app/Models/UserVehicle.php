@@ -23,7 +23,10 @@ class UserVehicle extends Model
         'sequence_no',
         'car_name',
         'car_katashiki',
-        'car_number',
+        'transport_branch',
+        'classification_no',
+        'kana',
+        'serial_no',
         'car_class',
     ];
 

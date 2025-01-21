@@ -7,6 +7,7 @@ use App\Enums\SubmitTypeEnum;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Requests\RegisteredUserRequest;
 use App\Http\Requests\UserVehicleRequest;
+use App\Models\TransportBranch;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -44,7 +45,8 @@ class UserController extends Controller
         $submitType = SubmitTypeEnum::SUBMIT->value;
         $route = route('admin.userList.store');
         $method = "POST";
-        return view('admin.userLists.userCreate', compact('route', 'method', 'formType', 'submitType')); // 編集ページにユーザー情報を渡す
+        $branches = TransportBranch::orderBy('display_order')->get();
+        return view('admin.userLists.userCreate', compact('route', 'method', 'formType', 'submitType', 'branches')); // 編集ページにユーザー情報を渡す
     }
 
     /**
@@ -66,7 +68,8 @@ class UserController extends Controller
         $route = route('admin.userList.update', ['userList' => $id]);
         $user = User::where('id', $id)->with('userVehicles')->first();
         $method = "PATCH";
-        return view('admin.userLists.userEdit', compact('user', 'route', 'method', 'formType', 'submitType')); // 編集ページにユーザー情報を渡す
+        $branches = TransportBranch::orderBy('display_order')->get();
+        return view('admin.userLists.userEdit', compact('user', 'route', 'method', 'formType', 'submitType', 'branches')); // 編集ページにユーザー情報を渡す
     }
 
     /**

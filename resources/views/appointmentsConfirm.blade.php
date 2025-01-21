@@ -184,11 +184,11 @@
                     @endif
 
                     <!-- ナンバー -->
-                    @if (!empty($vehicle['car_number']))
+                    @if (!empty($vehicle['transport_branch']))
                         <div class="mt-4">
                             <x-text.custom-input-label text="ナンバー({{ $index + 1 }}台目)"
                                 class="mb-2 left-border-text" />
-                            <label>{{ $vehicle['car_number'] }}</label>
+                            <label>{{ $vehicle['transport_branch'] }}{{ $vehicle['classification_no'] }}{{ $vehicle['kana'] }}{{ $vehicle['serial_no'] }}</label>
                         </div>
                     @endif
 

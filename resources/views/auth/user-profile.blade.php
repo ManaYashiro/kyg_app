@@ -295,6 +295,7 @@
                 'isUpdate' => $isUpdate,
                 'sequence_no' => $sequence_no,
                 'userVehicle' => $userVehicles[$i] ?? null,
+                'branches' => $branches,
             ])
         </div>
     @endfor

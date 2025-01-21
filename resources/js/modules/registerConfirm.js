@@ -45,6 +45,8 @@ window.registerConfirm = function (
                             },
                             300
                         );
+                        // } else {
+                        //     console.error("Element not found for key:", key);
                     }
                     errors[key].forEach((err) => {
                         $err.append("<li>" + err + "</i>");

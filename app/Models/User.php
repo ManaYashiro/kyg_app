@@ -153,7 +153,7 @@ class User extends Authenticatable implements MustVerifyEmail
         for ($i = 0; $i < UserVehicle::MAX_NO_OF_CARS; $i++) {
             // 車名とナンバーはすでに検証されています
             // 空の場合は、DB 挿入エラーを防ぐためにシーケンスをスキップするだけです
-            if (empty($userVehicles['car_name'][$i]) || empty($userVehicles['car_number'][$i])) {
+            if (empty($userVehicles['car_name'][$i]) || empty($userVehicles['transport_branch'][$i])) {
                 continue;
             }
             $car_attributes["car_name.$i"] = "車名(" . ($i + 1) . "台目)";
@@ -164,8 +164,14 @@ class User extends Authenticatable implements MustVerifyEmail
                 'car_name' => $userVehicles['car_name'][$i] ?? null,
                 // car_katashiki[]
                 'car_katashiki' => $userVehicles['car_katashiki'][$i] ?? null,
-                // car_number[]
-                'car_number' => $userVehicles['car_number'][$i] ?? null,
+                // transport_branch[]
+                'transport_branch' => $userVehicles['transport_branch'][$i] ?? null,
+                // classification_no[]
+                'classification_no' => $userVehicles['classification_no'][$i] ?? null,
+                // kana[]
+                'kana' => $userVehicles['kana'][$i] ?? null,
+                // serial_no[]
+                'serial_no' => $userVehicles['serial_no'][$i] ?? null,
 
                 // car_class パラメータは配列ではありません
                 // car_class1、car_class2、car_class3
