@@ -112,7 +112,7 @@
             <x-text-input id="{{ $cn_key }}" class="block w-full md:w-1/4" type="text"
                 name="{{ $cn_name }}" :value="old($cn_key) ?? ($userVehicle ? $userVehicle->classification_no : null)" :required="$sequence_no === 1 ? true : false" maxlength="3" />
             <x-text-input id="{{ $kn_key }}" class="block w-full md:w-1/4" type="text"
-                name="{{ $kn_name }}" :value="old($kn_key) ?? ($userVehicle ? $userVehicle->kana : null)" :required="$sequence_no === 1 ? true : false" maxlength="2" />
+                name="{{ $kn_name }}" :value="old($kn_key) ?? ($userVehicle ? $userVehicle->kana : null)" :required="$sequence_no === 1 ? true : false" maxlength="1" />
             <x-text-input id="{{ $sn_key }}" class="block w-full md:w-1/4" type="text"
                 name="{{ $sn_name }}" :value="old($sn_key) ?? ($userVehicle ? $userVehicle->serial_no : null)" :required="$sequence_no === 1 ? true : false" maxlength="4" :addClass="'validateNumeric'" />
         </div>
