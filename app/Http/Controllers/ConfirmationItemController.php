@@ -39,7 +39,7 @@ class  ConfirmationItemController extends Controller
                 // バリデーションエラーメッセージ
                 $errorMessages = [
                     'user_vehicle_id' => '【車両選択】複数お車をご登録されている方は、何台目に登録されているお車か選択してください。を選択してください。',
-                    'inspection_due_date' => '車検満了日は、正しい日付ではありません。',
+                    'inspection_due_date' => '車検満期日は、正しい日付ではありません。',
                     'past_service_history' => '今回ご予約いただく店舗・作業は、過去にご利用がございますか？を選択してください。',
                 ];
 
@@ -199,7 +199,7 @@ class  ConfirmationItemController extends Controller
         $appointment->customer_type = $request->input('customer_type'); //個人/法人区分
         $appointment->user_vehicle_id = $request->input('user_vehicle_id'); //車両台数
         $appointment->additional_services = $request->input('additional_services'); //追加整備
-        $appointment->inspection_due_date = $request->input('inspection_due_date'); //	車検満了日
+        $appointment->inspection_due_date = $request->input('inspection_due_date'); //	車検満期日
         $appointment->past_service_history = $request->input('past_service_history'); //過去の利用履歴
         $appointment->remarks = $request->input('remarks'); //備考欄
         $appointment->save();
