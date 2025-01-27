@@ -11,4 +11,16 @@ $(document).ready(function () {
         var value = $(this).val();
         $(this).val(value.replace(/[^0-9/]/g, ""));
     });
+
+    //半角かなのみ入力できるように制限
+    $(".validateKana").on("input", function () {
+        var value = $(this).val();
+        $(this).val(value.replace(/[^\u30A0-\u30FF\uFF61-\uFF9F]/g, ""));
+    });
+
+    //かなのみ入力できるように制限
+    $(".validateHKana").on("input", function () {
+        var value = $(this).val();
+        $(this).val(value.replace(/[^ぁ-ん]/g, ""));
+    });
 });

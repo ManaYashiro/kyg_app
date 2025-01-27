@@ -110,21 +110,21 @@
                 @endforeach
             </select>
             <x-text-input id="{{ $cn_key }}" class="block w-full md:w-1/4" type="text"
-                name="{{ $cn_name }}" :value="old($cn_key) ?? ($userVehicle ? $userVehicle->classification_no : null)" :required="$sequence_no === 1 ? true : false" maxlength="3" />
+                name="{{ $cn_name }}" :value="old($cn_key) ?? ($userVehicle ? $userVehicle->classification_no : null)" :required="$sequence_no === 1 ? true : false" maxlength="3" :addClass="'validateNumeric'"/>
             <x-text-input id="{{ $kn_key }}" class="block w-full md:w-1/4" type="text"
-                name="{{ $kn_name }}" :value="old($kn_key) ?? ($userVehicle ? $userVehicle->kana : null)" :required="$sequence_no === 1 ? true : false" maxlength="1" />
+                name="{{ $kn_name }}" :value="old($kn_key) ?? ($userVehicle ? $userVehicle->kana : null)" :required="$sequence_no === 1 ? true : false" maxlength="2" :addClass="'validateHKana'"/>
             <x-text-input id="{{ $sn_key }}" class="block w-full md:w-1/4" type="text"
                 name="{{ $sn_name }}" :value="old($sn_key) ?? ($userVehicle ? $userVehicle->serial_no : null)" :required="$sequence_no === 1 ? true : false" maxlength="4" :addClass="'validateNumeric'" />
         </div>
-        <x-ajax-input-error id="error-{{ $tb_errorKey }}" class="mt-2" />
-        <x-ajax-input-error id="error-{{ $cn_errorKey }}" class="mt-2" />
-        <x-ajax-input-error id="error-{{ $kn_errorKey }}" class="mt-2" />
-        <x-ajax-input-error id="error-{{ $sn_errorKey }}" class="mt-2" />
         @if ($isRegister)
             <x-text.custom-input-label text="※ナンバープレートの番号を入力して下さい。"
                 spanClass="font-normal text-xs text-gray-500 mt-1" />
             <x-text.custom-input-label text="※例：名古屋 300 あ 1234" spanClass="font-normal text-xs text-gray-500 mt-1" />
         @endif
+        <x-ajax-input-error id="error-{{ $tb_errorKey }}" class="mt-2" />
+        <x-ajax-input-error id="error-{{ $cn_errorKey }}" class="mt-2" />
+        <x-ajax-input-error id="error-{{ $kn_errorKey }}" class="mt-2" />
+        <x-ajax-input-error id="error-{{ $sn_errorKey }}" class="mt-2" />
         <x-input-error :messages="$errors->get($key)" class="mt-2" />
     </div>
 
