@@ -6,6 +6,7 @@ use App\Enums\CarClassEnum;
 use App\Models\UserVehicle;
 use App\Rules\HalfWidthString;
 use App\Rules\NumberString;
+use App\Rules\HKanaString;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Session;
 
@@ -73,8 +74,9 @@ class UserVehicleRequest extends FormRequest
 
             // array element should be string
             'car_katashiki.*' => ['max:20', new HalfWidthString],
+
             'classification_no.*' => ['max:3', new NumberString],
-            'kana.*' => ['max:2', 'regex:/^[ぁ-んー]+$/u'],
+            'kana.*' => ['max:2', new HKanaString],
             'serial_no.*' => ['max:4', new NumberString],
 
         ], $required_cars_rules, $car_class_rules);

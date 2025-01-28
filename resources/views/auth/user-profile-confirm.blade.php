@@ -7,7 +7,7 @@
 
 <!-- Role -->
 <div class="isConfirm mt-4 hidden">
-    <x-text.custom-input-label text="ロール" class="mb-2 left-border-text" />
+    <x-text.custom-input-label text="Role" class="mb-2 left-border-text" />
     <x-text.custom-text :text="''" id="confirm-role" class="mb-6" />
 </div>
 

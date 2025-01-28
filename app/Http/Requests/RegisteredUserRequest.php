@@ -42,7 +42,7 @@ class RegisteredUserRequest extends FormRequest
             case FormTypeEnum::USER_REGISTER->value:
                 $id = null;
                 $passwordRules = [
-                    'loginid' => ['required', 'string', 'min:4', 'max:15', 'unique:users,loginid,' . $id, new HalfWidthString],
+                    'loginid' => ['required', 'string', 'min:4', 'max:120', 'unique:users,loginid,' . $id, new HalfWidthString],
                     'password' => ['required', 'string', 'min:4', 'max:20', 'confirmed', new HalfWidthString],
                     'password_confirmation' => ['required', 'string', 'min:4', 'max:20', new HalfWidthString],
                 ];
@@ -51,16 +51,16 @@ class RegisteredUserRequest extends FormRequest
                 $id = Auth::user()->id;
                 $passwordRules = [
                     'password' => ['nullable', 'string', 'min:4', 'max:20', 'confirmed', new HalfWidthString],
-                    'password_confirmation' => ['nullable', 'string', 'min:4', 'max:128', new HalfWidthString],
+                    'password_confirmation' => ['nullable', 'string', 'min:4', 'max:20', new HalfWidthString],
                 ];
                 break;
             case FormTypeEnum::ADMIN_REGISTER->value:
                 $id = $this->route('userList');
                 $passwordRules = [
                     'role' => 'required|in:' . implode(',', array_map(fn($case) => $case->value, UserRoleEnum::cases())),
-                    'loginid' => ['required', 'string', 'min:4', 'max:15', 'unique:users,loginid,' . $id, new HalfWidthString],
-                    'password' => ['required', 'string', 'min:4', 'max:128', 'confirmed', new HalfWidthString],
-                    'password_confirmation' => ['required', 'string', 'min:4', 'max:128', new HalfWidthString],
+                    'loginid' => ['required', 'string', 'min:4', 'max:120', 'unique:users,loginid,' . $id, new HalfWidthString],
+                    'password' => ['required', 'string', 'min:4', 'max:20', 'confirmed', new HalfWidthString],
+                    'password_confirmation' => ['required', 'string', 'min:4', 'max:20', new HalfWidthString],
                 ];
                 break;
             case FormTypeEnum::ADMIN_UPDATE->value:
@@ -155,9 +155,6 @@ class RegisteredUserRequest extends FormRequest
             'questionnaire.min' => '少なくとも1つの:attributeを選択を選択してください。',
 
             'birthday.before_or_equal' => '［生年月日］は正しい日付を入力してください。',
-
-            'kana.*.regex' => 'かなで入力してください。',
-
         ];
     }
 

@@ -61,7 +61,7 @@
     @if ($isRegister)
         <x-text.custom-input-label text="ログインID" class="mb-2" option="必須" />
         <x-text-input id="loginid" class="block mt-1 w-full" :addClass="'validateAlphanumeric'" type="text" name="loginid"
-            :value="old('loginid') ?? ($user ? $user->loginid : null)" minlength="4" maxlength="15" required autofocus />
+            :value="old('loginid') ?? ($user ? $user->loginid : null)" minlength="4" maxlength="120" required autofocus />
     @else
         <x-text.custom-input-label text="ログインID" class="mb-2" />
         <x-text.custom-input-label text="{{ $user ? $user->loginid : null }}" class="mt-1" />
