@@ -73,11 +73,10 @@ class UserVehicleRequest extends FormRequest
             'serial_no' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
 
             // array element should be string
-            'car_katashiki.*' => ['max:20', new HalfWidthString],
-
-            'classification_no.*' => ['max:3', new NumberString],
-            'kana.*' => ['max:2', new HKanaString],
-            'serial_no.*' => ['max:4', new NumberString],
+            'car_katashiki.*' => ['max:20', new HalfWidthString], //バリデーションのエラーメッセージ
+            'classification_no.*' => ['max:3', new NumberString], //バリデーションのエラーメッセージ
+            'kana.*' => ['max:2', new HKanaString], //バリデーションのエラーメッセージ
+            'serial_no.*' => ['max:4', new NumberString], //バリデーションのエラーメッセージ
 
         ], $required_cars_rules, $car_class_rules);
     }

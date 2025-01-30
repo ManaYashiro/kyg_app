@@ -103,7 +103,11 @@ class RegisteredUserRequest extends FormRequest
             $otherData['call_time'] = 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, CallTimeEnum::cases()));
             $otherData['zipcode'] = ['nullable', 'bail', new NumberString, 'digits:7'];
             $otherData['prefecture'] = 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, PrefectureEnum::cases()));
-            $otherData['questionnaire'] = 'nullable|array|min:1|max:3';
+            if ($this->role === UserRoleEnum::Admin->value) {
+                $otherData['questionnaire'] = 'nullable|array|max:3';  // 管理者は任意
+            } else {
+                $otherData['questionnaire'] = 'required|array|min:1|max:3';  // 一般は必須
+            }
             $otherData['is_receive_notification'] = 'nullable|in:' . implode(',', array_map(fn($case) => $case->value, IsNotificationEnum::cases()));
         }
 
