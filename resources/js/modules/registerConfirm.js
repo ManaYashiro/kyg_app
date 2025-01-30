@@ -29,29 +29,57 @@ window.registerConfirm = function (
             window.isConfirmed[window.currentPage] = true;
             window.gotoNext();
         },
+
         error: function (xhr, status, error) {
             if (xhr.status === 422) {
                 const errors = xhr.responseJSON.errors;
+                let firstErrorContainer = null;
+
                 Object.keys(errors).forEach((key, index) => {
-                    // fix keys for array, change `.` to `_`
                     const errKey = key.replace(/\./g, "_");
-                    const $err = $("#error-" + errKey);
-                    $err.removeClass("hidden");
-                    if (index === 0) {
-                        $("html, body").animate(
-                            {
-                                scrollTop:
-                                    $("#container-" + key).offset().top - 10,
-                            },
-                            300
-                        );
-                        // } else {
-                        //     console.error("Element not found for key:", key);
+
+                    // 元のコンテナキーの処理
+                    let containerKey = key.replace(/\.(\d+)$/, (match, num) => {
+                        return "_" + (parseInt(num) + 1);
+                    });
+
+                    // transport_branch に関連するフィールドの場合の特別処理
+                    if (
+                        key.match(/^(classification_no|kana|serial_no)\.\d+$/)
+                    ) {
+                        containerKey =
+                            "transport_branch_" +
+                            (parseInt(key.split(".")[1]) + 1);
                     }
+
+                    const $err = $("#error-" + errKey);
+                    const $container = $("#container-" + containerKey);
+
+                    $err.removeClass("hidden");
+
+                    // 最初のエラーコンテナを保存
+                    if (
+                        index === 0 &&
+                        $container.length > 0 &&
+                        !firstErrorContainer
+                    ) {
+                        firstErrorContainer = $container;
+                    }
+
                     errors[key].forEach((err) => {
-                        $err.append("<li>" + err + "</i>");
+                        $err.append("<li>" + err + "</li>");
                     });
                 });
+
+                // 保存されたコンテナにスクロール
+                if (firstErrorContainer) {
+                    $("html, body").animate(
+                        {
+                            scrollTop: firstErrorContainer.offset().top - 10,
+                        },
+                        300
+                    );
+                }
             } else {
                 console.log("Error:", status);
                 console.log("Error:", error);

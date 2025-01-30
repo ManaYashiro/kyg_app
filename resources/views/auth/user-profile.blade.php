@@ -61,7 +61,7 @@
     @if ($isRegister)
         <x-text.custom-input-label text="ログインID" class="mb-2" option="必須" />
         <x-text-input id="loginid" class="block mt-1 w-full" :addClass="'validateAlphanumeric'" type="text" name="loginid"
-            :value="old('loginid') ?? ($user ? $user->loginid : null)" minlength="4" maxlength="15" required autofocus />
+            :value="old('loginid') ?? ($user ? $user->loginid : null)" minlength="4" maxlength="120" required autofocus />
     @else
         <x-text.custom-input-label text="ログインID" class="mb-2" />
         <x-text.custom-input-label text="{{ $user ? $user->loginid : null }}" class="mt-1" />
@@ -129,7 +129,7 @@
 <!-- Name Furigana -->
 <div id="container-name_furigana" class="mt-4">
     <x-text.custom-input-label text="フリガナ" class="mb-2" option="必須" />
-    <x-text-input id="name_furigana" class="block mt-1 w-full" type="text" name="name_furigana"
+    <x-text-input id="name_furigana" class="block mt-1 w-full" :addClass="'validateKana'" type="text" name="name_furigana"
         :value="old('name_furigana') ?? ($user ? $user->name_furigana : null)" maxlength="40" required />
     <x-ajax-input-error id="error-name_furigana" class="mt-2" />
     <x-input-error :messages="$errors->get('name_furigana')" class="mt-2" />
@@ -331,7 +331,7 @@
             {{-- 例： question-1 --}}
             <x-text-input id="question-{{ $loop->index + 1 }}" type="checkbox" name="questionnaire[]"
                 :value="$question->value" :checked="in_array(
-                    $question->value,
+                    $question->value ,
                     old('questionnaire') ?? ($user && $user->questionnaire ? $user->questionnaire : []),
                 )" />
             <x-input-label for="question-{{ $loop->index + 1 }}" :value="$question->getLabel()" />

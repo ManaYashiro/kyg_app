@@ -15,13 +15,13 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id()->comment("一意の識別子（主キー）");
             $table->string('role', 10)->default(UserRoleEnum::User->value)->comment("権限");
-            $table->string('loginid', 15)->nullable(false)->comment("ログインID");
+            $table->string('loginid', 120)->nullable(false)->comment("ログインID");
             $table->string('customer_no', 15)->unique()->nullable(false)->comment("会員番号");
             $table->integer('person_type', 1)->nullable()->autoIncrement(false)->comment("法人／個人区分 ; １：個人ｌ２：法人");
             $table->string('name', 40)->comment("顧客名");
             $table->string('name_furigana', 40)->comment("フリガナ");
             $table->string('email', 128)->unique()->comment("メールアドレス");
-            $table->string('password')->comment("パスワード");
+            $table->string('password', 60)->comment("パスワード");
             $table->dateTime('email_verified_at')->useCurrent()->nullable()->comment("");
             $table->integer('zipcode', 7)->nullable()->autoIncrement(false)->comment("郵便番号");
             $table->string('prefecture', 8)->nullable()->comment("都道府県");

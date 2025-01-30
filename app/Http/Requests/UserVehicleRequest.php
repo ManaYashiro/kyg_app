@@ -4,6 +4,9 @@ namespace App\Http\Requests;
 
 use App\Enums\CarClassEnum;
 use App\Models\UserVehicle;
+use App\Rules\HalfWidthString;
+use App\Rules\NumberString;
+use App\Rules\HKanaString;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Session;
 
@@ -70,7 +73,10 @@ class UserVehicleRequest extends FormRequest
             'serial_no' => 'required|array|max:' . UserVehicle::MAX_NO_OF_CARS,
 
             // array element should be string
-            'car_katashiki.*' => 'max:20',
+            'car_katashiki.*' => ['max:20', new HalfWidthString], //バリデーションのエラーメッセージ
+            'classification_no.*' => ['max:3', new NumberString], //バリデーションのエラーメッセージ
+            'kana.*' => ['max:2', new HKanaString], //バリデーションのエラーメッセージ
+            'serial_no.*' => ['max:4', new NumberString], //バリデーションのエラーメッセージ
 
         ], $required_cars_rules, $car_class_rules);
     }
