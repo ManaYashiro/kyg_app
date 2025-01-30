@@ -30,7 +30,7 @@
                         <x-text.custom-text text="スーパージャンボ【中川店専用予約ページ】を開設しました。" class="text-sm font-bold" />
                         中川店へのご予約はこちら>>
                         <a href="https://sj-yoyaku.resv.jp"
-                            class="text-blue-500 underline">https://sj-yoyaku.resv.jp</a>
+                            class="text-blue-500 underline" target="_blank">https://sj-yoyaku.resv.jp</a>
                     </div>
                 </div>
             </div>
