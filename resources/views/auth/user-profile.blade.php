@@ -65,6 +65,7 @@
     @else
         <x-text.custom-input-label text="ログインID" class="mb-2" />
         <x-text.custom-input-label text="{{ $user ? $user->loginid : null }}" class="mt-1" />
+        <input type="hidden" name="loginid" value="{{ $user ? $user->loginid : null }}">
     @endif
     @if ($isRegister)
         <x-text.custom-input-label text="※半角英数字 4文字以上で入力してください。" spanClass="font-normal text-xs text-gray-500 mt-1" />

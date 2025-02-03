@@ -188,7 +188,7 @@
                         <div class="mt-4">
                             <x-text.custom-input-label text="ナンバー({{ $index + 1 }}台目)"
                                 class="mb-2 left-border-text" />
-                            <label>{{ $vehicle['transport_branch'] }}{{ $vehicle['classification_no'] }}{{ $vehicle['kana'] }}{{ $vehicle['serial_no'] }}</label>
+                            <label>{{ $vehicle['transport_branch'] }} {{ $vehicle['classification_no'] }} {{ $vehicle['kana'] }} {{ $vehicle['serial_no'] }}</label>
                         </div>
                     @endif
 
@@ -247,7 +247,7 @@
         </div>
     </div>
     @section('styles')
-        @vite(['resources/css/confirmationitems.css'])
+        @vite(['resources/css/modules/reservation/confirmationitems.css'])
     @endsection
     @push('scripts')
         @vite(['resources/js/modules/reservation/confirmationitems.js'])

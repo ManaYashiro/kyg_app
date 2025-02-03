@@ -15,7 +15,7 @@ class HalfWidthString implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if (!preg_match('/^[\x20-\x7E]*$/u', $value)) {
-            $fail('半角英数字で入力して下さい。');
+            $fail('半角英数字で入力してください。');
         }
     }
 }

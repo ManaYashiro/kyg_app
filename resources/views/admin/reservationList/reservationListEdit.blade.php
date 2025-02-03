@@ -87,7 +87,7 @@
                         <div id="container-remarks" class="mt-4">
                             <x-text.custom-input-label for="remarks" text="備考欄" class="mb-2" option="任意" />
                             <x-textarea id="remarks" class="w-full h-24" type="text" name="remarks"
-                                :value="old('remarks', $appointment->remarks ?? '')" />
+                                :value="old('remarks', $appointment->remarks ?? '')" maxlength="1024"/>
                         </div>
 
                         <!-- 予約状態 -->

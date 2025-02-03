@@ -15,7 +15,7 @@ class NumberString implements ValidationRule
     public function validate(string $attribute, mixed $value, Closure $fail): void
     {
         if (!preg_match('/^\d*$/', $value)) {
-            $fail('数字で入力してください。');
+            $fail('半角数字で入力してください。');
         }
     }
 }
