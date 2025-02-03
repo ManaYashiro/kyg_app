@@ -8,6 +8,7 @@ use App\Models\UserVehicle;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ReservationTask;
+use App\Models\TransportBranch;
 
 class  ConfirmationItemController extends Controller
 {
@@ -119,7 +120,7 @@ class  ConfirmationItemController extends Controller
                     $vehicles[] = [
                         'car_name' => $vehicle->car_name,
                         'car_katashiki' => $vehicle->car_katashiki,
-                        'transport_branch' => $vehicle->transport_branch,
+                        'transport_branch' => TransportBranch::find($vehicle->transport_branch)?->branch_name ?? $vehicle->transport_branch,
                         'classification_no' => $vehicle->classification_no,
                         'kana' => $vehicle->kana,
                         'serial_no' => $vehicle->serial_no,

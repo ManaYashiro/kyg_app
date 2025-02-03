@@ -168,7 +168,20 @@ window.confirmFormData = function (formData) {
                     val
                 ).name;
             }
-        } else if (key.startsWith("car")) {
+        } else if (key === "transport_branch") {
+            // セレクトボックスのvalue（ID）を使って対応する支局名を取得
+            const branchName = $(
+                `#transport_branch_${carSequence} option[value='${val}']`
+            )
+                .text()
+                .replace(/\s*\([^)]*\)/, "");
+            $("#confirm-" + key + "_" + carSequence + " span").text(branchName);
+        } else if (
+            key.startsWith("car") ||
+            key === "classification_no" ||
+            key === "kana" ||
+            key === "serial_no"
+        ) {
             if (val !== "") {
                 if (key.startsWith("car_class")) {
                     const car_class_key = "#confirm-car_class_" + carSequence;

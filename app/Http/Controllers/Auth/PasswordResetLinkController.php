@@ -28,10 +28,19 @@ class PasswordResetLinkController extends Controller
     {
         // パスワード再設定時に、ログインIDを使用している場合は、ログインIDとsendResetLinkパラメータの検証を変更します。
         // 'loginid' => 'required|string|min:4|max:10',
-        $request->validate([
-            'email' => ['required', 'email'],
-        ]);
 
+        //バリデーション
+        $rules = [
+            'email' => ['required', 'email:rfc', 'regex:/^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/']
+        ];
+        //バリデーションメッセージ
+        $errorMessages = [
+            'email.required' => 'メールアドレスを入力してください。',
+            'email.email' => '正しいメールアドレスの形式で入力してください。',
+            'email.regex' => '正しいメールアドレスの形式で入力してください。',
+        ];
+
+        $request->validate($rules, $errorMessages);
         // We will send the password reset link to this user. Once we have attempted
         // to send the link, we will examine the response then see the message we
         // need to show to the user. Finally, we'll send out a proper response.

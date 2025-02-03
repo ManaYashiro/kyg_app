@@ -83,6 +83,7 @@
 
     <!-- Car Number {{ $sequence_no }} -->
     @php
+        $selected = old("transport_branch.$sequence_no") ?? ($userVehicle ? $userVehicle->transport_branch : null);
         $tb_key = 'transport_branch_' . $sequence_no;
         $tb_errorKey = 'transport_branch_' . ($sequence_no - 1);
         $tb_name = 'transport_branch[]';
@@ -109,7 +110,7 @@
                     選択してください
                 </option>
                 @foreach ($branches as $branch)
-                    <option value="{{ $branch->id }}">
+                    <option {{ $selected == $branch->id ? 'selected="selected"' : '' }} value="{{ $branch->id }}">
                         {{ $branch->branch_name }} ({{ $branch->branch_name_kana }})
                     </option>
                 @endforeach

@@ -147,17 +147,14 @@ class RegisteredUserRequest extends FormRequest
             'password_confirmation.min' => 'パスワード確認は最低8文字以上でなければなりません。',
 
             'phone_number.string' => '電話番号は文字列でなければなりません。',
-            'phone_number.min' => '電話番号は10桁以上でなければなりません。',
-            'phone_number.digits_between' => '[電話番号]は不正です。',
+            'phone_number.digits_between' => '[電話番号]は10文字または11文字で入力してください',
 
-            'zipcode.integer' => '郵便番号は整数でなければなりません。',
             'zipcode.digits' => '郵便番号は7桁で入力してください。',
-            'zipcode.regex' => '数字を入力してください。',
 
             'questionnaire.required' => '少なくとも1つの:attributeを選択してください。',
             'questionnaire.max' => ':attribute は :maxつまで選択してください。',
             'questionnaire.min' => '少なくとも1つの:attributeを選択を選択してください。',
-
+            'birthday.date' => '［生年月日］は正しい日付を入力してください。',
             'birthday.before_or_equal' => '［生年月日］は正しい日付を入力してください。',
         ];
     }
